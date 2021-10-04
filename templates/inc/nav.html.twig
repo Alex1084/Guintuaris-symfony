@@ -1,0 +1,16 @@
+<nav>
+    <ul class="nav-list">
+        <li class="nav-item"><a href="{{ path('main_home') }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Home</a></li>
+        {% if app.user %}
+            <li class="nav-item"><a href="{# {{ path('')}} #}#"><img src="{{asset("img/list.png")}}" alt="" height="10">Moi</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">deconexion</a></li>
+            <li class="nav-item"><a href="{{ path("personnage_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Personage</a></li>
+            <li class="nav-item"><a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">new personnage</a></li>
+        {% else %}
+            <li class="nav-item"><a href="{{ path('app_login')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">connexion</a></li>
+            <li class="nav-item"><a href="{{ path('app_register')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">s'inscrire</a></li>
+
+        {% endif %}
+        
+    </ul>
+</nav>

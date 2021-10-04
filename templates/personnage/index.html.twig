@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PersonnageController!{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{asset('css/personnage.css')}}">
+<link rel="stylesheet" href="{{asset('css/dropdown.css')}}">
+
+{% endblock %}
+{% block body %}
+<div class="info container grid-container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="img"></div>
+            </div>
+            <div class="col-md-3">                
+                <h1 id="nom">{{ personnage.nom }}</h1>
+                {# <h3>{{ personnage.race }}</h3>
+                <h3>{{ personnage.classe }}</h3>
+                <h3>{{ personnage.niveau }}</h3> #}
+            </div>
+            <div class="col-md-6">
+
+                <div class="dropdown" id="lore">
+                    <button class="dropbtn">Lore  <img src="../assets/img/list.png" alt="" class="drop-logo" height="10"></button>
+                    <div class="dropdown-content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus facilis veniam quos porro necessitatibus accusamus id suscipit sunt doloremque, ipsum laborum est delectus consequuntur corrupti eius corporis blanditiis dolorem nobis!</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+{% endblock %}
