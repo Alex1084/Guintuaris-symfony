@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Personnage;
+use App\Form\PersonnageType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
     /**
@@ -11,35 +14,49 @@ use Symfony\Component\Routing\Annotation\Route;
      */
 class PersonnageController extends AbstractController
 {
-    /**
-     * @Route("/{id}", name="view")
-     */
-    public function index($id): Response
-    {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
-
-        dd($personnage);
-        return $this->render('personnage/index.html.twig',[
-            'personnage' => $personnage
-        ]);
-    }
 
     /**
      * @Route("/list", name="list")
      */
     public function list(): Response
     {
-        return $this->render('personnage/list.html.twig');
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $personnages = $repo->findBy(array('joueur' => $user->getId()), array('nom' => 'ASC'));
+        return $this->render('personnage/list.html.twig', [
+            "personnages" => $personnages
+        ]);
     }
 
     /**
      * @Route("/creation", name="create")
      */
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('personnage/creation.html.twig');
-    }
+        $personnage = new Personnage();
+        $personnageForm = $this->createForm(PersonnageType::class, $personnage);
 
+        /* $personnageForm->handleRequest($request);
+        if($personnageForm->isSubmitted()){
+            $entityManager->persist($personnage);
+            $entityManager->flush();
+            $this->addFlash('success', 'ton perso a été créer');
+            return $this->redirect('personnage_view');
+        } */
+        return $this->render('personnage/creation.html.twig', [
+            "personnageForm" => $personnageForm->createView()
+        ]);
+    }
+ /**
+     * @Route("/{id}", name="view")
+     */
+    public function index($id): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnage = $repo->find($id);
+        return $this->render('personnage/index.html.twig',[
+            'personnage' => $personnage
+        ]);
+    }
     
 }

@@ -3,5 +3,11 @@
 {% block title %}Hello PersonnageController!{% endblock %}
 
 {% block body %}
-afficher la liste des perso posedes
+    <ul>
+    {% for personnage in personnages %}
+        <li>
+            <a href="{{ path("personnage_view", {"id" : personnage.id}) }}">{{ personnage.nom }}</a>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
