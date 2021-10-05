@@ -40,3 +40,32 @@ body{
     color:rgb(255, 255, 255);
 }
 
+.nav-button {
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
+
+.nav-button:hover{
+    color:rgb(255, 255, 255);
+}
+
+/* The container <div> - needed to position the dropdown content */
+.drop-nav {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .drop-nav-content {
+    display: none;
+    position: absolute;
+    background: rgba(238, 212, 177, 0.62);
+    box-shadow: 10px 5px 5px #b89c7794;
+    z-index: 1;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .drop-nav:hover .drop-nav-content {
+    display: block;
+  }
