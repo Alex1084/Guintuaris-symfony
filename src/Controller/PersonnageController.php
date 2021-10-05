@@ -36,8 +36,10 @@ class PersonnageController extends AbstractController
         $personnage = new Personnage();
         $personnageForm = $this->createForm(PersonnageType::class, $personnage);
 
-        /* $personnageForm->handleRequest($request);
-        if($personnageForm->isSubmitted()){
+        /* dd($personnageForm); */
+         $personnageForm->handleRequest($request);
+            dump($personnage);
+         /*if($personnageForm->isSubmitted()){
             $entityManager->persist($personnage);
             $entityManager->flush();
             $this->addFlash('success', 'ton perso a été créer');

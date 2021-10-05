@@ -29,10 +29,10 @@ class PersonnageType extends AbstractType
             ->add('lore')
             ->add('inventaire')
             ->add('po')
-            ->add('joueur')
+            /*->add('joueur')
             ->add('classe')
-            ->add('race')
-            ->add('equipe')
+            ->add('race') */
+            /* ->add('equipe') */
         ;
     }
 
