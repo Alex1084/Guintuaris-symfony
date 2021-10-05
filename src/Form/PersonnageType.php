@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Classe;
 use App\Entity\Personnage;
+use App\Entity\Race;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,10 +33,17 @@ class PersonnageType extends AbstractType
             ->add('lore')
             ->add('inventaire')
             ->add('po')
-            /*->add('joueur')
-            ->add('classe')
-            ->add('race') */
-            /* ->add('equipe') */
+            ->add('classe', EntityType::class,[
+                'class' => Classe::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('race', EntityType::class,[
+                'class' => Race::class,
+                'choice_label' => 'nom'
+            ])
+            ->add('joueur')
+            /*
+            ->add('equipe') */
         ;
     }
 
