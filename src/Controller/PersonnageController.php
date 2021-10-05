@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Personnage;
+use App\Entity\Equipe;
 use App\Form\PersonnageType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +34,14 @@ class PersonnageController extends AbstractController
      * @Route("/creation", name="create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    {  
+
+        // requete pour recuperer l'equipe n°5  nom -> aucune
+        $id = 5;
+        $repo = $this->getDoctrine()->getRepository(Equipe::class);
+        $equipe = $repo->find($id);
+        //
+
         $personnage = new Personnage();
         $personnageForm = $this->createForm(PersonnageType::class, $personnage);
 
@@ -40,18 +49,27 @@ class PersonnageController extends AbstractController
         $personnageForm->remove('lore');
         $personnageForm->remove('inventaire');
         $personnageForm->remove('po');
+        $personnageForm->remove('joueur');
+        $personnageForm->remove('pv');
+        $personnageForm->remove('pc');
+        $personnageForm->remove('pm');
+        
         //
-
-
-        /* dd($personnageForm); */
          $personnageForm->handleRequest($request);
-            dump($personnage);
-         /*if($personnageForm->isSubmitted()){
+         if($personnageForm->isSubmitted()){
+             $personnage->setLore("");
+             $personnage->setInventaire("");
+             $personnage->setPo(0);
+             $personnage->setJoueur($this->getUser());
+             $personnage->setPv($personnage->getPvMax());
+             $personnage->setPm($personnage->getPmMax());
+             $personnage->setPc($personnage->getPcMax());
+             $personnage->setEquipe($equipe);
             $entityManager->persist($personnage);
             $entityManager->flush();
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirect('personnage_view');
-        } */
+            return $this->redirect('personnage_list');
+        }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()
         ]);
