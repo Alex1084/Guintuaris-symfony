@@ -36,6 +36,13 @@ class PersonnageController extends AbstractController
         $personnage = new Personnage();
         $personnageForm = $this->createForm(PersonnageType::class, $personnage);
 
+        //modif Jessy
+        $personnageForm->remove('lore');
+        $personnageForm->remove('inventaire');
+        $personnageForm->remove('po');
+        //
+
+
         /* dd($personnageForm); */
          $personnageForm->handleRequest($request);
             dump($personnage);
