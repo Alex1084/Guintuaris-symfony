@@ -3,6 +3,7 @@
 {% block style %}
 <link rel="stylesheet" href="{{asset('style/personnage.css')}}">
 <link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
+<link rel="stylesheet" href="{{asset('style/range.css')}}">
 
 {% endblock %}
 
@@ -55,7 +56,7 @@
             </div>
             <div class="col-md-6">
                 <div>
-                    <label for="pv" class="comp">PV</label>
+                    <label for="pv" class="comp">PV </label>
                     <input type="integer" name="" id="pv" value="{{personnage.pv}}" oninput="document.getElementById('pv-range').value = this.value">
                     / {{personnage.pvMax}}
                     <input type="range" name="" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" oninput="document.getElementById('pv').value = this.value">
@@ -67,7 +68,7 @@
                     <input type="range" name="" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}" oninput="document.getElementById('pm').value = this.value">
                 </div>
                 <div>
-                    <label for="pc" class="comp">PC</label>
+                    <label for="pc" class="comp">PC </label>
                     <input type="integer" name="" id="pc" value="{{personnage.pc}}" oninput="document.getElementById('pc-range').value = this.value">
                     / {{personnage.pmMax}}
                     <input type="range" name="" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}" oninput="document.getElementById('pc').value = this.value">

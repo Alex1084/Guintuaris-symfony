@@ -30,7 +30,7 @@ table, th, td {
     text-align: center;
 }
 
-input{
+input[type="integer"]{
     background: none;
     border-radius: 172px;
     border: 2px black solid;
