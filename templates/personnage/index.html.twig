@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello PersonnageController!{% endblock %}
 {% block style %}
 <link rel="stylesheet" href="{{asset('style/personnage.css')}}">
 <link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
 
 {% endblock %}
+
+
+
 {% block body %}
+{% if app.user.id == personnage.joueur.id %}
 <div class="info container grid-container">
         <div class="row">
             <div class="col-md-3">
@@ -23,8 +26,8 @@
                 <div class="dropdown" id="lore">
                     <button class="dropbtn">Lore  <img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
                     <div class="dropdown-content">
-                        <p>{{ personnage.lore }}</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus facilis veniam quos porro necessitatibus accusamus id suscipit sunt doloremque, ipsum laborum est delectus consequuntur corrupti eius corporis blanditiis dolorem nobis!</p>
+                        <p class="content">{{ personnage.lore }}</p>
+                        <a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">modifier le lore</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +44,7 @@
             <div class="col-md-2">
                 <p class="comp">Force :</p>
                 <div class="circle">
-                    <p>{{ personnage.force }}</p>
+                    <p>{{ personnage.laForce }}</p>
                 </div>
             </div>
             <div class="col-md-2">
@@ -50,7 +53,26 @@
                     <p>{{ personnage.dexterite }}</p>
                 </div>
             </div>
-            
+            <div class="col-md-6">
+                <div>
+                    <label for="pv" class="comp">PV</label>
+                    <input type="integer" name="" id="pv" value="{{personnage.pv}}" oninput="document.getElementById('pv-range').value = this.value">
+                    / {{personnage.pvMax}}
+                    <input type="range" name="" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" oninput="document.getElementById('pv').value = this.value">
+                </div>
+                <div>
+                    <label for="pm" class="comp">PM</label>
+                    <input type="integer" name="" id="pm" value="{{personnage.pm}}" oninput="document.getElementById('pm-range').value = this.value">
+                    / {{personnage.pmMax}}
+                    <input type="range" name="" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}" oninput="document.getElementById('pm').value = this.value">
+                </div>
+                <div>
+                    <label for="pc" class="comp">PC</label>
+                    <input type="integer" name="" id="pc" value="{{personnage.pc}}" oninput="document.getElementById('pc-range').value = this.value">
+                    / {{personnage.pmMax}}
+                    <input type="range" name="" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}" oninput="document.getElementById('pc').value = this.value">
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -71,9 +93,14 @@
                     <p>{{ personnage.foi }}</p>
                 </div>
             </div>
-           
+           <div class="col-md-6">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+            </div>
         </div>
     </div>
+{% else %}
+    <p>desoler accée interdit</p>
+{% endif %}
 {% endblock %}
 
 {% block script %}

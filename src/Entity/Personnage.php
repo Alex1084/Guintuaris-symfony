@@ -65,7 +65,7 @@ class Personnage
     /**
      * @ORM\Column(type="integer")
      */
-    private $force;
+    private $laForce;
 
     /**
      * @ORM\Column(type="integer")
@@ -235,14 +235,14 @@ class Personnage
         return $this;
     }
 
-    public function getforce(): ?int
+    public function getlaForce(): ?int
     {
-        return $this->force;
+        return $this->laForce;
     }
 
-    public function setforce(int $force): self
+    public function setlaForce(int $laForce): self
     {
-        $this->force = $force;
+        $this->laForce = $laForce;
 
         return $this;
     }

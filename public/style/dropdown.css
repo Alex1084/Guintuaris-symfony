@@ -12,8 +12,8 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  max-width: 546px;
   margin-top: 50px;
-
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -21,6 +21,15 @@
   display: none;
   position: relative;
   z-index: 1;
+  max-width: 546px;
+  padding-right: 10px;
+}
+
+.dropdown-content p {
+  display: inline-block;
+  position: relative;
+  max-inline-size: 546px;
+  writing-mode: horizontal-tb; 
 }
 
 .drop-logo{
@@ -29,4 +38,8 @@
 
 #lore{
   margin-top: 0;
+}
+#lore-link{
+  position: absolute;
+  right: 10px;
 }

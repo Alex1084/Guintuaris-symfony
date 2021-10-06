@@ -25,7 +25,7 @@ class PersonnageType extends AbstractType
             ->add('pmMax')
             ->add('niveau')
             ->add('constitution')
-            ->add('force')
+            ->add('laForce')
             ->add('dexterite')
             ->add('intelligence')
             ->add('charisme')

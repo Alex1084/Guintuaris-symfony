@@ -29,3 +29,11 @@ table, th, td {
     border: 1px solid black;
     text-align: center;
 }
+
+input{
+    background: none;
+    border-radius: 172px;
+    border: 2px black solid;
+    height: 48px;
+    width: 158px;
+}

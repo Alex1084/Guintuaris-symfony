@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(loreForm)}}
+      {{form_widget(loreForm)}}
+      <button>valider</button>
+    {{ form_end(loreForm)}}
+{% endblock %}

@@ -8,6 +8,7 @@ use App\Form\PersonnageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +58,8 @@ class PersonnageController extends AbstractController
         //
          $personnageForm->handleRequest($request);
          if($personnageForm->isSubmitted()){
-             $personnage->setLore("");
+            // hydratation des champs 
+            $personnage->setLore("");
              $personnage->setInventaire("");
              $personnage->setPo(0);
              $personnage->setJoueur($this->getUser());
@@ -65,16 +67,21 @@ class PersonnageController extends AbstractController
              $personnage->setPm($personnage->getPmMax());
              $personnage->setPc($personnage->getPcMax());
              $personnage->setEquipe($equipe);
+            //
+
+            // execution de la requete
             $entityManager->persist($personnage);
             $entityManager->flush();
+            //
+
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirect('personnage_list');
+            return $this->redirectToRoute('personnage_list');
         }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()
         ]);
     }
- /**
+    /**
      * @Route("/{id}", name="view")
      */
     public function index($id): Response
@@ -82,8 +89,31 @@ class PersonnageController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
         return $this->render('personnage/index.html.twig',[
-            'personnage' => $personnage
+            'personnage' => $personnage,
         ]);
     }
-    
+    /**
+     * @Route("/{id}/lore", name="modif_lore")
+     */
+    public function lore($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnage = $repo->find($id);
+        $loreForm = $this->createFormBuilder($personnage)
+                    ->add('lore', TextareaType::class)
+                    ->getForm();
+        $loreForm->handleRequest($request);
+        if($loreForm->isSubmitted()){
+        dump($personnage);
+
+        // execution de la requete
+        $entityManager->persist($personnage);
+        $entityManager->flush();
+        //
+        return $this->redirectToRoute('personnage_view', ["id" => $id]);
+        }
+        return $this->render('personnage/lore.html.twig', [
+            "loreForm" => $loreForm->createView()
+        ]);
+    }
 }
