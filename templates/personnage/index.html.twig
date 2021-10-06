@@ -117,6 +117,31 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <select name="" id="stat">
+            <option value="{{personnage.constitution}}">constitution</option>
+            <option value="{{personnage.laForce}}">force</option>
+            <option value="{{personnage.dexterite}}">dexteriter</option>
+            <option value="{{personnage.intelligence}}">intelligence</option>
+            <option value="{{personnage.charisme}}">charisme</option>
+            <option value="{{personnage.foi}}">Foi</option>
+        </select>
+
+        <select name="" id="ca">
+            <option value="0">0</option>
+            <option value="5">3 (-5)</option>
+            <option value="10">5 (-10)</option>
+            <option value="15">7 (-15)</option>
+            <option value="20">10 (-20)</option>
+            <option value="25">12 (-25)</option>
+            <option value="30">15 (-30)</option>
+            <option value="35">17 (-35)</option>
+            <option value="50">17+ (-50)</option>
+        </select>
+        <button id="de">test !</button>
+    </div>
+
+    <div id="result" ></div>
 {% else %}
     <p>desoler accée interdit</p>
 {% endif %}
@@ -125,4 +150,5 @@
 {% block script %}
     <script src="{{asset('script/dropdown.js')}}"></script>
     <script src="{{asset('script/bar.js')}}"></script>
+    <script src="{{asset('script/de.js')}}"></script>
 {% endblock %}

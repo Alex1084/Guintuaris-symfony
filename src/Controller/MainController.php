@@ -16,11 +16,11 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig');
     }
     /**
-     * @Route("/test", name="main_test")
+     * @Route("/easter", name="main_egg")
      */
-    public function test()
+    public function easterEgg()
     {
-        return $this->render('main/test.html.twig');
+        return $this->render('main/easter.html.twig');
     }
 
  
