@@ -55,23 +55,41 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div>
+                <div class="stat">
+
+                    <!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
                     <label for="pv" class="comp">PV </label>
-                    <input type="integer" name="" id="pv" value="{{personnage.pv}}" oninput="document.getElementById('pv-range').value = this.value">
-                    / {{personnage.pvMax}}
-                    <input type="range" name="" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" oninput="document.getElementById('pv').value = this.value">
+                    <input type="integer" class="numerique" id="pv" value="{{personnage.pv}}" readonly> / {{personnage.pvMax}}
+                    
+                    <!-- ~~~~~~ bar de vie ~~~~~~ -->
+                    <input type="range" class="bar" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
+                    
+                    <input type="integer" id="degat" class="ajout">
+                    <input type="integer" id="soin" class="soustrait">
                 </div>
-                <div>
+                <div class="stat">
+
+                    <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
                     <label for="pm" class="comp">PM</label>
-                    <input type="integer" name="" id="pm" value="{{personnage.pm}}" oninput="document.getElementById('pm-range').value = this.value">
-                    / {{personnage.pmMax}}
-                    <input type="range" name="" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}" oninput="document.getElementById('pm').value = this.value">
+                    <input type="integer" class="numerique" id="pm" value="{{personnage.pm}}"> / {{personnage.pmMax}}
+
+                    <!-- ~~~~~~ bar de mana ~~~~~~ -->
+                    <input type="range" class="bar" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}">
+
+                    <input type="integer" class="ajout">
+                    <input type="integer" class="soustrait">
                 </div>
-                <div>
+                <div class="stat">
+
+                    <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
                     <label for="pc" class="comp">PC </label>
-                    <input type="integer" name="" id="pc" value="{{personnage.pc}}" oninput="document.getElementById('pc-range').value = this.value">
-                    / {{personnage.pmMax}}
-                    <input type="range" name="" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}" oninput="document.getElementById('pc').value = this.value">
+                    <input type="integer" class="numerique" id="pc" value="{{personnage.pc}}"> / {{personnage.pmMax}}
+
+                    <!-- ~~~~~~ bar de mana ~~~~~~ -->
+                    <input type="range" class="bar" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}">
+
+                    <input type="integer" class="ajout">
+                    <input type="integer" class="soustrait">
                 </div>
             </div>
         </div>
@@ -106,4 +124,5 @@
 
 {% block script %}
     <script src="{{asset('script/dropdown.js')}}"></script>
+    <script src="{{asset('script/bar.js')}}"></script>
 {% endblock %}

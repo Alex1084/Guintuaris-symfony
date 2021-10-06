@@ -35,5 +35,6 @@ input[type="integer"]{
     border-radius: 172px;
     border: 2px black solid;
     height: 48px;
-    width: 158px;
+    width: 48px;
+    text-align: center;
 }
