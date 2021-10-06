@@ -11,24 +11,24 @@
         <link rel="icon" href="{{ asset('img/icon.png')}}">
     </head>
     <body>
-    <header>
-    </header>
-    <div class="row">
-        <div class="col-md-2">        
-            <img src="{{asset('img/logo2.png')}}" alt="">
-        </div>
-        <div class="col-md-10">
-            {% include("inc/nav.html.twig") %}
-        </div>
-    </div>
+        <header>
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="{{asset('img/logo2.png')}}" alt="">
+                </div>
+                <div class="col-md-12">
+                    {% include("inc/nav.html.twig") %}
+                </div>
+            </div>
+        </header>
 
-    <main>
-        {% block body %}{% endblock %}    
-    </main>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
 
         {% block script %}{% endblock %}
-    <footer>
-        
-    </footer>
+        <footer>
+            <p>© <span id="titre">Guintuaris</span>  - {{ "now"|date("Y")}} </p>
+        </footer>
     </body>
 </html>

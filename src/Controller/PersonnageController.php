@@ -40,12 +40,12 @@ class PersonnageController extends AbstractController
         $id = 5;
         $repo = $this->getDoctrine()->getRepository(Equipe::class);
         $equipe = $repo->find($id);
-        //
+
 
         $personnage = new Personnage();
         $personnageForm = $this->createForm(PersonnageType::class, $personnage);
 
-        //modif Jessy
+        //annulation affichage champs hors formulaire
         $personnageForm->remove('lore');
         $personnageForm->remove('inventaire');
         $personnageForm->remove('po');

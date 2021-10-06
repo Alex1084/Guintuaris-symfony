@@ -3,6 +3,7 @@
 {% block title %}Hello PersonnageController!{% endblock %}
 
 {% block body %}
+    <h2>Fiches personnage</h2>
     <ul>
     {% for personnage in personnages %}
         <li>
@@ -10,4 +11,7 @@
         </li>
     {% endfor %}
     </ul>
+        <hr/>
+        <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">nouveau personnage</a>
+
 {% endblock %}
