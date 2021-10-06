@@ -1,13 +1,10 @@
 <nav>
     <ul class="nav-list">
-        <li class="nav-item"><a href="{{ path('main_home') }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Home</a></li>
+        <li class="nav-item"><a href="{{ path('main_home') }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Accueil</a></li>
         {% if app.user %}
-            <li class="nav-item"><a href="{# {{ path('')}} #}#"><img src="{{asset("img/list.png")}}" alt="" height="10">Moi</a></li>
-            <li class="nav-item"><a href="{{ path('app_logout')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">deconexion</a></li>
-            <li class="nav-item"><a href="{{ path("personnage_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Personage</a></li>
-            <li class="nav-item"><a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">new personnage</a></li>
+            <li class="nav-item"></li>
             <div class="drop-nav">
-                <li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Race</button></li>
+                <li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Races</button></li>
                 <div class="drop-nav-content">
                     <li class="nav-item"><a href="{{ path('race', {'id' : 1 } )}}">Norsalme</a></li>
                     <li class="nav-item"><a href="{{ path('race', {'id' : 2 } )}}">Sylfrage</a></li>
@@ -18,9 +15,9 @@
                     <li class="nav-item"><a href="{{ path('race', {'id' : 7 } )}}">Firmalne</a></li>
                     <li class="nav-item"><a href="{{ path('race', {'id' : 8 } )}}">Phalmagare</a></li>
                 </div>
-            </div> 
+            </div>
             <div class="drop-nav">
-                <li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Classe</button></li>
+                <li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Classes</button></li>
                 <div class="drop-nav-content">
                     <li class="nav-item"><a href="{{ path('race', {'id' : 1 } )}}">Guerrier</a></li>
                     <li class="nav-item"><a href="{{ path('race', {'id' : 2 } )}}">Clerc</a></li>
@@ -32,9 +29,11 @@
                     <li class="nav-item"><a href="{{ path('race', {'id' : 8 } )}}">Ingenieur</a></li>
                 </div>
             </div>
+            <li class="nav-item"><a href="{{ path('profil', {'id':app.user.id}) }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mon compte ({{ app.user.nom }})</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Déconexion</a></li>
         {% else %}
-            <li class="nav-item"><a href="{{ path('app_login')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">connexion</a></li>
-            <li class="nav-item"><a href="{{ path('app_register')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">s'inscrire</a></li>
+            <li class="nav-item"><a href="{{ path('app_login')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Connexion</a></li>
+            <li class="nav-item"><a href="{{ path('app_register')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">S'inscrire</a></li>
 
         {% endif %}
         
