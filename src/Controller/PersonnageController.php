@@ -116,4 +116,46 @@ class PersonnageController extends AbstractController
             "loreForm" => $loreForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/{id}/level_up", name="level_up")
+     */
+    public function levulUp($id, Request $request, EntityManagerInterface $entityManager){
+
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnage = $repo->find($id);
+        $personnageForm = $this->createForm(PersonnageType::class, $personnage);
+        dump($personnage);
+
+        //annulation affichage champs hors formulaire
+        $personnageForm->remove('nom');
+        $personnageForm->remove('lore');
+        $personnageForm->remove('inventaire');
+        $personnageForm->remove('po');
+        $personnageForm->remove('joueur');
+        $personnageForm->remove('pv');
+        $personnageForm->remove('pc');
+        $personnageForm->remove('pm');
+        $personnageForm->remove('classe');
+        $personnageForm->remove('race');
+
+        $personnageForm->handleRequest($request);
+        if($personnageForm->isSubmitted()){
+            // hydratation des champs 
+             $personnage->setPv($personnage->getPvMax());
+             $personnage->setPm($personnage->getPmMax());
+             $personnage->setPc($personnage->getPcMax());
+            //
+            // execution de la requete
+            $entityManager->persist($personnage);
+            $entityManager->flush();
+            //
+
+            $this->addFlash('success', 'ton perso a été créer');
+            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+        }
+        return $this->render('personnage/levelup.html.twig', [
+            "personnageForm" => $personnageForm->createView()
+        ]);
+    }
 }

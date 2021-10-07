@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PersonnageController!{% endblock %}
+
+{% block body %}
+{{ form_start(personnageForm) }}
+{{ form_widget(personnageForm) }}
+<button>level up !</button>
+
+{{ form_end(personnageForm) }}
+
+{% endblock %}
