@@ -55,42 +55,50 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="stat">
+            <div id="bar-container">
+                <span class="label" id="label-plus">+</span> <span class="label" id="label-moins">-</span>
+            
+            </div>
+                {{ form_start(statForm) }}
+                    <div class="stat">
 
-                    <!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
-                    <label for="pv" class="comp">PV </label>
-                    <input type="integer" class="numerique" id="pv" value="{{personnage.pv}}" readonly> / {{personnage.pvMax}}
-                    
-                    <!-- ~~~~~~ bar de vie ~~~~~~ -->
-                    <input type="range" class="bar" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
-                    
-                    <input type="integer" id="degat" class="ajout">
-                    <input type="integer" id="soin" class="soustrait">
-                </div>
-                <div class="stat">
+                        <!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
+                        <label for="pv" class="comp">PV </label>
+                        <input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{personnage.pv}}" readonly> <span>/ {{personnage.pvMax}}</span>
+                        
+                        <!-- ~~~~~~ bar de vie ~~~~~~ -->
+                        <input type="range" class="bar" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
+                        
+                        <input type="integer" id="degat" class="ajout">
+                        <input type="integer" id="soin" class="soustrait">
+                    </div>
 
-                    <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-                    <label for="pm" class="comp">PM</label>
-                    <input type="integer" class="numerique" id="pm" value="{{personnage.pm}}"> / {{personnage.pmMax}}
+                    <div class="stat">
 
-                    <!-- ~~~~~~ bar de mana ~~~~~~ -->
-                    <input type="range" class="bar" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}">
+                        <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+                        <label for="pm" class="comp">PM</label>
+                        <input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}"> / {{personnage.pmMax}}
 
-                    <input type="integer" class="ajout">
-                    <input type="integer" class="soustrait">
-                </div>
-                <div class="stat">
+                        <!-- ~~~~~~ bar de mana ~~~~~~ -->
+                        <input type="range" class="bar" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}">
 
-                    <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-                    <label for="pc" class="comp">PC </label>
-                    <input type="integer" class="numerique" id="pc" value="{{personnage.pc}}"> / {{personnage.pmMax}}
+                        <input type="integer" class="ajout">
+                        <input type="integer" class="soustrait">
+                    </div>
+                    <div class="stat">
 
-                    <!-- ~~~~~~ bar de mana ~~~~~~ -->
-                    <input type="range" class="bar" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}">
+                        <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+                        <label for="pc" class="comp">PC </label>
+                        <input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}"> / {{personnage.pcMax}}
 
-                    <input type="integer" class="ajout">
-                    <input type="integer" class="soustrait">
-                </div>
+                        <!-- ~~~~~~ bar de mana ~~~~~~ -->
+                        <input type="range" class="bar" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}">
+
+                        <input type="integer" class="ajout">
+                        <input type="integer" class="soustrait">
+                    </div>
+                    <button>Sauvegarder !</button>
+                {{ form_end(statForm) }}
                 <a href="{{path("personnage_level_up", {"id" :personnage.id})}}">level up !</a>
             </div>
         </div>
@@ -114,7 +122,11 @@
                 </div>
             </div>
            <div class="col-md-6">
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                {{ form_start(inventaireForm) }}
+                {{ form_widget(inventaireForm) }}
+                    <button>Sauvegarder</button>
+
+                {{ form_end(inventaireForm) }}
             </div>
         </div>
     </div>

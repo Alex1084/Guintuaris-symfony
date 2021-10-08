@@ -37,4 +37,21 @@ input[type="integer"]{
     height: 48px;
     width: 48px;
     text-align: center;
+    margin-left: 15px;
+}
+#bar-container{
+    position: relative;
+}
+.label{
+    position: absolute;
+    font-weight: bold;
+    font-size: 2rem;
+    top : -45px;
+}
+
+#label-moins{
+    left: 73.7%;
+}
+#label-plus{
+    left: 60.5%;
 }

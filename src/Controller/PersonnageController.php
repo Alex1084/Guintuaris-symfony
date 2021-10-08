@@ -8,6 +8,8 @@ use App\Form\PersonnageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,12 +86,44 @@ class PersonnageController extends AbstractController
     /**
      * @Route("/{id}", name="view")
      */
-    public function index($id): Response
+    public function index($id,Request $request, EntityManagerInterface $entityManager): Response
     {
+        //dd($request);
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
+        //~~~~~~~~~~~~~~~~~~~~~~~formulaire pour les trois bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+        $statForm = $this->get('form.factory')->createNamedBuilder('stat',FormType::class, $personnage)
+                    ->add('pv', IntegerType::class)
+                    ->add('pm', IntegerType::class)
+                    ->add('pc', IntegerType::class)
+                    ->getForm();
+        //~~~~~~~~~~~~~~~~~~~~~~formulaire pour l'inventaire et les PO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        $inventaireForm = $this->get('form.factory')->createNamedBuilder('inventaire',FormType::class, $personnage)
+                        ->add('inventaire', TextareaType::class)
+                        ->add('po', IntegerType::class)
+                        ->getForm();
+        if($request->getMethod() === 'POST'){
+            $statForm->handleRequest($request);
+            $inventaireForm->handleRequest($request);
+            if($request->request->has('stat')){
+                //dd($request);
+                $entityManager->persist($personnage);
+                $entityManager->flush();
+                //
+            }
+            if($request->request->has('inventaire')){
+                $entityManager->persist($personnage);
+                $entityManager->flush();
+                //
+            }
+            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+        } 
+         
+        //dd($inventaireForm);
         return $this->render('personnage/index.html.twig',[
             'personnage' => $personnage,
+            'statForm' => $statForm->createView(),
+            'inventaireForm' => $inventaireForm->createView(),
         ]);
     }
     /**
@@ -104,7 +138,6 @@ class PersonnageController extends AbstractController
                     ->getForm();
         $loreForm->handleRequest($request);
         if($loreForm->isSubmitted()){
-        dump($personnage);
 
         // execution de la requete
         $entityManager->persist($personnage);
@@ -125,7 +158,6 @@ class PersonnageController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
         $personnageForm = $this->createForm(PersonnageType::class, $personnage);
-        dump($personnage);
 
         //annulation affichage champs hors formulaire
         $personnageForm->remove('nom');

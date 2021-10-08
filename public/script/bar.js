@@ -25,6 +25,7 @@ divStats.forEach((div) =>{
     
     degat.addEventListener('keypress', (e) => {
         if (e.key === 'Enter'){
+            e.preventDefault();
             valNumerique.value = eval(valNumerique.value - degat.value);
             valeBar.value = valNumerique.value;
             degat.value = "";
@@ -33,6 +34,7 @@ divStats.forEach((div) =>{
     
     soin.addEventListener('keypress', (e) => {
         if (e.key === 'Enter'){
+            e.preventDefault();
             valNumerique.value = eval(valNumerique.value + "+" + soin.value)
             valeBar.value = valNumerique.value;
             soin.value = "";
@@ -40,3 +42,10 @@ divStats.forEach((div) =>{
         
     })
 })
+
+$("form").keypress(function(e) {
+    //Enter key
+    if (e.which == 13) {
+      return false;
+    }
+  });
