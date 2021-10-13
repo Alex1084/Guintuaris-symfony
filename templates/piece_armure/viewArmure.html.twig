@@ -4,10 +4,6 @@
 
 {% block body %}
 
- {{form_start(pieceForm)}}
- {{form_widget(pieceForm)}}
- <button>créer</button>
- {{form_end(pieceForm)}}
 <table>
     <tr>
         <th>id</th>
@@ -15,7 +11,7 @@
         <th>type</th>
         <th>valeur</th>
     </tr>
-    {% for piece in piecesTab %}
+    {% for piece in vide %}
     <tr>
         <th>{{piece.id}}</th>
         <th>{{piece.localisation.nom}}</th>

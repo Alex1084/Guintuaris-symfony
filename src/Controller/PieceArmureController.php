@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PieceArmure;
 use App\Form\PieceArmureType;
+use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,17 @@ class PieceArmureController extends AbstractController
         return $this->render('piece_armure/addPiece.html.twig', [
             "pieceForm" => $pieceForm->createView(),
             "piecesTab" => $piecesTab
+        ]);
+    }
+
+    /**
+     * @Route("/viewarmure", name="view_armure")
+     */
+    public function viewArmure(PieceArmureRepository $armurerepo){
+        $vide = $armurerepo->getArmurebyType('12');
+
+        return $this->render('piece_armure/viewArmure.html.twig', [
+            "vide" => $vide
         ]);
     }
 }

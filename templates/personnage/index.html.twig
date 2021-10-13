@@ -80,7 +80,7 @@
                         <input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}"> / {{personnage.pmMax}}
 
                         <!-- ~~~~~~ bar de mana ~~~~~~ -->
-                        <input type="range" class="bar" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}">
+                        <input type="range" class="bar" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}" disabled>
 
                         <input type="integer" class="ajout">
                         <input type="integer" class="soustrait">
@@ -92,7 +92,7 @@
                         <input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}"> / {{personnage.pcMax}}
 
                         <!-- ~~~~~~ bar de mana ~~~~~~ -->
-                        <input type="range" class="bar" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}">
+                        <input type="range" class="bar" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}" disabled>
 
                         <input type="integer" class="ajout">
                         <input type="integer" class="soustrait">

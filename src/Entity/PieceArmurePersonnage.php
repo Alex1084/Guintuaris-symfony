@@ -10,26 +10,23 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PieceArmurePersonnage
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
-     *
+     * @ORM\Id 
      * @ORM\ManyToOne(targetEntity=Personnage::class)
+     * @ORM\JoinColumn(name="personnage_id", referencedColumnName="id")
      */
     private $personnage;
 
     /**
+     * @ORM\Id 
      * @ORM\ManyToOne(targetEntity=PieceArmure::class)
+     * @ORM\JoinColumn(name="piece_id", referencedColumnName="id")
      */
     private $piece;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $effet;
 

@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Personnage;
 use App\Entity\Equipe;
+use App\Entity\PieceArmurePersonnage;
 use App\Form\PersonnageType;
+use App\Repository\PieceArmurePersonnageRepository;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,9 +39,8 @@ class PersonnageController extends AbstractController
     /**
      * @Route("/creation", name="create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, PieceArmurePersonnageRepository $repoEquipement): Response
     {  
-
         // requete pour recuperer l'equipe n°5  nom -> aucune
         $id = 5;
         $repo = $this->getDoctrine()->getRepository(Equipe::class);
@@ -74,10 +76,13 @@ class PersonnageController extends AbstractController
             // execution de la requete
             $entityManager->persist($personnage);
             $entityManager->flush();
+
+            //$fullEquipement = $repoEquipement->isertNewEquipement($personnage->getId());
+            $repoEquipement->isertNewEquipement($personnage->getId());
             //
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('personnage_list');
+            //return $this->redirectToRoute('personnage_list');
         }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()
