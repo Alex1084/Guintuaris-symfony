@@ -4,8 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Personnage;
 use App\Entity\Equipe;
+use App\Entity\PieceArmurePersonnage;
+//use App\Entity\Competence;
 use App\Form\PersonnageType;
+use App\Repository\CompetenceRepository;
+use App\Repository\PieceArmurePersonnageRepository;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -37,7 +43,6 @@ class PersonnageController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {  
-
         // requete pour recuperer l'equipe n°5  nom -> aucune
         $id = 5;
         $repo = $this->getDoctrine()->getRepository(Equipe::class);
@@ -73,10 +78,9 @@ class PersonnageController extends AbstractController
             // execution de la requete
             $entityManager->persist($personnage);
             $entityManager->flush();
-            //
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('personnage_list');
+            //return $this->redirectToRoute('personnage_list');
         }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()
@@ -85,11 +89,12 @@ class PersonnageController extends AbstractController
     /**
      * @Route("/{id}", name="view")
      */
-    public function index($id,Request $request, EntityManagerInterface $entityManager): Response
+    public function fichePerso($id,Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
     {
         //dd($request);
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
+        $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
         //~~~~~~~~~~~~~~~~~~~~~~~formulaire pour les trois bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
         $statForm = $this->get('form.factory')->createNamedBuilder('stat',FormType::class, $personnage)
                     ->add('pv', IntegerType::class)
@@ -123,6 +128,7 @@ class PersonnageController extends AbstractController
             'personnage' => $personnage,
             'statForm' => $statForm->createView(),
             'inventaireForm' => $inventaireForm->createView(),
+            'competences' => $competences,
         ]);
     }
     /**

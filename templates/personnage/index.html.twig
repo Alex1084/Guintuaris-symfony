@@ -158,6 +158,19 @@
 {% else %}
     <p>desoler accée interdit</p>
 {% endif %}
+
+ <h2>Competences</h2>
+    {% for competence in competences %}
+        <div class="col-md-6">
+
+                <div class="dropdown">
+                    <button class="dropbtn"> {{competence.nom}} , {{competence.cout}}  <img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+                    <div class="dropdown-content">
+                        <p class="content">{{ competence.description }}</p>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
 {% endblock %}
 
 {% block script %}
