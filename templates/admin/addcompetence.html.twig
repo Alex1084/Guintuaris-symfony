@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+
+{{ form_start(competenceForm) }}
+{{ form_widget(competenceForm)}}
+<button>Ajouter !</button>
+{{form_end(competenceForm)}}
+{% endblock %}

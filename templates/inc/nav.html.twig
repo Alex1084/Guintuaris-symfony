@@ -19,18 +19,19 @@
             <div class="drop-nav">
                 <li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Classes</button></li>
                 <div class="drop-nav-content">
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 1 } )}}">Guerrier</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 2 } )}}">Clerc</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 3 } )}}">Assassin</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 4 } )}}">Herboriste</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 5 } )}}">Mage</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 6 } )}}">Rodeur</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 7 } )}}">Pretre</a></li>
-                    <li class="nav-item"><a href="{{ path('race', {'id' : 8 } )}}">Ingenieur</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 1 } )}}">Guerrier</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 2 } )}}">Clerc</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 3 } )}}">Assassin</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 4 } )}}">Herboriste</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 5 } )}}">Mage</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 6 } )}}">Rodeur</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 7 } )}}">Pretre</a></li>
+                    <li class="nav-item"><a href="{{ path('classe', {'id' : 8 } )}}">Ingenieur</a></li>
                 </div>
             </div>
             <li class="nav-item"><a href="{{ path('profil', {'id':app.user.id}) }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mon compte ({{ app.user.nom }})</a></li>
             <li class="nav-item"><a href="{{ path('app_logout')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Déconexion</a></li>
+            <li class="nav-item"><a href="{{path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Admin</a></li>
         {% else %}
             <li class="nav-item"><a href="{{ path('app_login')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Connexion</a></li>
             <li class="nav-item"><a href="{{ path('app_register')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">S'inscrire</a></li>

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RaceController!{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
+{% endblock %}
+
+{% block body %}
+    <h1>
+        {{classe.nom}}
+    </h1>
+
+    <h2>Description</h2>
+    <p>{{ classe.description}}</p>
+
+    <h2>dé de niveau</h2>
+    <p>{{ classe.dePv}}</p>
+    <p>{{ classe.dePc}}</p>
+    <p>{{ classe.dePm}}</p>
+
+    <h2>Competences</h2>
+    {% for competence in competences %}
+        <div class="col-md-6">
+
+                <div class="dropdown">
+                    <button class="dropbtn"> {{competence.nom}} , {{competence.cout}}  <img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+                    <div class="dropdown-content">
+                        <p class="content">{{ competence.description }}</p>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+    <script src="{{asset('script/dropdown.js')}}"></script>
+{% endblock %}
