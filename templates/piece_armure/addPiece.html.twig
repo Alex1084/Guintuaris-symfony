@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PieceArmureController!{% endblock %}
+
+{% block body %}
+
+ {{form_start(pieceForm)}}
+ {{form_widget(pieceForm)}}
+ <button>créer</button>
+ {{form_end(pieceForm)}}
+<table>
+    <tr>
+        <th>id</th>
+        <th>emplacement</th>
+        <th>type</th>
+        <th>valeur</th>
+    </tr>
+    {% for piece in piecesTab %}
+    <tr>
+        <th>{{piece.id}}</th>
+        <th>{{piece.localisation.nom}}</th>
+        <th>{{piece.type.nom}}</th>
+        <th>{{piece.valeur}}</th>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
