@@ -21,6 +21,7 @@
                 <h3>{{ personnage.race.nom }}</h3>
                 <h3>{{ personnage.classe.nom }}</h3>
                 <h3>Niveau {{ personnage.niveau }}</h3>
+                <a href="{{ path("personnage_list_equipe", {"id" :personnage.equipe.id})}}">{{personnage.equipe.nom}}</a>
             </div>
             <div class="col-md-6">
 

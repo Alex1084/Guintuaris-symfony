@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Competence;
+use App\Entity\PieceArmure;
 use App\Form\CompetenceType;
+use App\Form\PieceArmureType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,5 +44,34 @@ class AdminController extends AbstractController
         return $this->render('admin/addcompetence.html.twig', [
             "competenceForm" => $competenceForm->createView()
         ]);
+    }
+    /**
+     * @Route("/ajout_piece", name="add_piece")
+     */
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(PieceArmure::class);
+        $piecesTab = $repo->findAll(); 
+        $piece = new PieceArmure();
+        $pieceForm = $this->createForm(PieceArmureType::class, $piece);
+        
+        $pieceForm->handleRequest($request);
+        if($pieceForm->isSubmitted()){
+            $entityManager->persist($piece);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('add_piece');
+        }
+        return $this->render('admin/addPiece.html.twig', [
+            "pieceForm" => $pieceForm->createView(),
+            "piecesTab" => $piecesTab
+        ]);
+    }
+    /**
+     * @Route("/ajout_membre", name="add_membre")
+     */
+    public function addMembreEquipe(){
+
+        return $this->render('admin/addMembreEquipe.html.twig');
     }
 }

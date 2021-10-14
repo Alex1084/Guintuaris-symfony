@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Personnage;
 use App\Entity\PieceArmurePersonnage;
+use App\Form\PersonnageType;
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-    /**
+    /*
      * @Route("/personnage", name="personnage_")
      */
 class FichePersonnageController extends AbstractController
@@ -22,15 +23,15 @@ class FichePersonnageController extends AbstractController
     /**
      * @Route("/{id}", name="view")
      */
-    public function fichePerso($id,Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
+     public function fichePerso($id, Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
     {
         //dd($request);
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
-        $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
+        dump($personnage);
+        //$competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
         $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
-        $armure = $repo->findBy(array("personnage" =>$personnage->getId()));
-        dump($armure);
+        //$armure = $repo->findBy(array("personnage" =>$personnage->getId()));
         //~~~~~~~~~~~~~~~~~~~~~~~formulaire pour les trois bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
         $statForm = $this->get('form.factory')->createNamedBuilder('stat',FormType::class, $personnage)
                     ->add('pv', IntegerType::class)
@@ -64,8 +65,8 @@ class FichePersonnageController extends AbstractController
             'personnage' => $personnage,
             'statForm' => $statForm->createView(),
             'inventaireForm' => $inventaireForm->createView(),
-            'competences' => $competences,
-            'armure' => $armure,
+            //'competences' => $competences,
+            //'armure' => $armure,
         ]);
     }
 }

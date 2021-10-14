@@ -3,13 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Personnage;
-use App\Entity\Equipe;
 use App\Entity\PieceArmurePersonnage;
 use App\Form\PersonnageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,9 +23,21 @@ class PersonnageController extends AbstractController
     public function list(): Response
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $personnages = $repo->findBy(array('joueur' => $user->getId()), array('nom' => 'ASC'));
         return $this->render('personnage/list.html.twig', [
+            "personnages" => $personnages
+        ]);
+    }
+
+    /**
+     * @Route("/list/equipe/{idEquipe}", name="list_equipe")
+     */
+    public function listEquipe($idEquipe): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnages = $repo->findBy(array('equipe' => $idEquipe), array('nom' => 'ASC'));
+        return $this->render('personnage/listEquipe.html.twig', [
             "personnages" => $personnages
         ]);
     }
@@ -103,6 +112,8 @@ class PersonnageController extends AbstractController
      * @Route("/{id}/armure", name="modif_armure")
      */
     public function modifArmure($id){
+        /* $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
+        $casque = $repo->findBy([]) */
         return $this->render('personnage/armurePersonnage.html.twig');
     }
 }
