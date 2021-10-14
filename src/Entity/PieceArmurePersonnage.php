@@ -12,6 +12,12 @@ class PieceArmurePersonnage
 {
 
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @ORM\Id 
      * @ORM\ManyToOne(targetEntity=Personnage::class)
      * @ORM\JoinColumn(name="personnage_id", referencedColumnName="id")
@@ -19,7 +25,7 @@ class PieceArmurePersonnage
     private $personnage;
 
     /**
-     * @ORM\Id 
+     * 
      * @ORM\ManyToOne(targetEntity=PieceArmure::class)
      * @ORM\JoinColumn(name="piece_id", referencedColumnName="id")
      */
@@ -33,6 +39,13 @@ class PieceArmurePersonnage
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getPersonnage(): ?Personnage

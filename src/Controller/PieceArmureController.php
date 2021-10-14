@@ -40,7 +40,8 @@ class PieceArmureController extends AbstractController
      * @Route("/viewarmure", name="view_armure")
      */
     public function viewArmure(PieceArmureRepository $armurerepo){
-        $vide = $armurerepo->getArmurebyType('12');
+        $vide = $armurerepo->getArmurebyTypeEmplacement('12', 1) ;
+        dump($vide);
 
         return $this->render('piece_armure/viewArmure.html.twig', [
             "vide" => $vide

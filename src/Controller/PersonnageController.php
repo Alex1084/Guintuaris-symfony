@@ -6,10 +6,8 @@ use App\Entity\Personnage;
 use App\Entity\Equipe;
 use App\Entity\PieceArmurePersonnage;
 use App\Form\PersonnageType;
-use App\Repository\PieceArmurePersonnageRepository;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -39,7 +37,7 @@ class PersonnageController extends AbstractController
     /**
      * @Route("/creation", name="create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, PieceArmurePersonnageRepository $repoEquipement): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $repoEquipement): Response
     {  
         // requete pour recuperer l'equipe n°5  nom -> aucune
         $id = 5;
@@ -76,13 +74,21 @@ class PersonnageController extends AbstractController
             // execution de la requete
             $entityManager->persist($personnage);
             $entityManager->flush();
-
-            //$fullEquipement = $repoEquipement->isertNewEquipement($personnage->getId());
-            $repoEquipement->isertNewEquipement($personnage->getId());
             //
+            
+            for($i = 1; $i <= 7; $i++){
+                $piecePersonnage = new PieceArmurePersonnage();
+                $piecePersonnage->setPersonnage($personnage);
+                $piecePersonnage->setid($i);
+                $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12,$i)); //  12 : type enlever et $i : emplacement
+                
+                $entityManager->persist($piecePersonnage);
+                $entityManager->flush();
+                
+            }
 
             $this->addFlash('success', 'ton perso a été créer');
-            //return $this->redirectToRoute('personnage_list');
+            return $this->redirectToRoute('personnage_list');
         }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()

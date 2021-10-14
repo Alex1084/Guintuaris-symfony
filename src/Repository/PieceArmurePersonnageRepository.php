@@ -53,17 +53,10 @@ class PieceArmurePersonnageRepository extends ServiceEntityRepository
     */
     public function isertNewEquipement(int $idPersonnage, PieceArmureRepository $piecerepo) {
 
-       /*  $piece = $piecerepo->getArmurebyType(12);
+        $piece = $piecerepo->getArmurebyType(12);
         for ($i = 1; $i<=7; $i++) {
-            
-            $repo= $this->getDoctrine()->getRepository(PieceArmure::class);
-            $piece = $repo->findOneBy(["type_id" => "17", "localisation_id" => $i]);  *///17 est l'id de type Elever $i represente la localisation allant de 1 a 7;
-            //dump($piece);
-            //$dql = "INSERT INTO `pieace_armure_personnage` VALUES (".$idPersonnage.", ".$i.", NULL)";
-            //$entityManager->persist($dql);
-            //$entityManager->flush();
-            //$query->executeQuery($dql);
-        //}
+            //$query = $this->createQueryBuilder()->insert();
+        }
         //return $fullEquipement;
     }
 }

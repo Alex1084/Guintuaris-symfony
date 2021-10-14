@@ -48,11 +48,13 @@ class PieceArmureRepository extends ServiceEntityRepository
     }
     */
 
-    public function getArmurebyType($typeId = 1){
+    public function getArmurebyTypeEmplacement($typeId, $empla){
         $query = $this->createQueryBuilder('a')
-                    ->where('a.type_id = :type')
+                    ->where('a.type = :type')
                     ->setParameter('type', $typeId)
+                    ->andWhere('a.localisation = :empla')
+                    ->setParameter('empla', $empla)
                     ->getQuery();
-        return $query->getResult();                
+        return $query->getSingleResult();                
     }
 }
