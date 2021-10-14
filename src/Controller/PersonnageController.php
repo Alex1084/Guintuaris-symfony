@@ -6,8 +6,6 @@ use App\Entity\Personnage;
 use App\Entity\Equipe;
 use App\Entity\PieceArmurePersonnage;
 use App\Form\PersonnageType;
-use App\Repository\CompetenceRepository;
-use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -35,112 +33,7 @@ class PersonnageController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/creation", name="create")
-     */
-    public function create(Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $repoEquipement): Response
-    {  
-        // requete pour recuperer l'equipe n°5  nom -> aucune
-        $id = 5;
-        $repo = $this->getDoctrine()->getRepository(Equipe::class);
-        $equipe = $repo->find($id);
-
-
-        $personnage = new Personnage();
-        $personnageForm = $this->createForm(PersonnageType::class, $personnage);
-
-        //annulation affichage champs hors formulaire
-        $personnageForm->remove('lore');
-        $personnageForm->remove('inventaire');
-        $personnageForm->remove('po');
-        $personnageForm->remove('joueur');
-        $personnageForm->remove('pv');
-        $personnageForm->remove('pc');
-        $personnageForm->remove('pm');
-        
-        //
-         $personnageForm->handleRequest($request);
-         if($personnageForm->isSubmitted()){
-            // hydratation des champs 
-            $personnage->setLore("");
-             $personnage->setInventaire("");
-             $personnage->setPo(0);
-             $personnage->setJoueur($this->getUser());
-             $personnage->setPv($personnage->getPvMax());
-             $personnage->setPm($personnage->getPmMax());
-             $personnage->setPc($personnage->getPcMax());
-             $personnage->setEquipe($equipe);
-            //
-
-            // execution de la requete
-            $entityManager->persist($personnage);
-            $entityManager->flush();
-            //
-            
-            for($i = 1; $i <= 7; $i++){
-                $piecePersonnage = new PieceArmurePersonnage();
-                $piecePersonnage->setPersonnage($personnage);
-                $piecePersonnage->setid($i);
-                $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12,$i)); //  12 : type enlever et $i : emplacement
-                
-                $entityManager->persist($piecePersonnage);
-                $entityManager->flush();
-                
-            }
-
-
-            $this->addFlash('success', 'ton perso a été créer');
-            //return $this->redirectToRoute('personnage_list');
-        }
-        return $this->render('personnage/creation.html.twig', [
-            "personnageForm" => $personnageForm->createView()
-        ]);
-    }
-    /**
-     * @Route("/{id}", name="view")
-     */
-    public function fichePerso($id,Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
-    {
-        //dd($request);
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
-        $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
-        //~~~~~~~~~~~~~~~~~~~~~~~formulaire pour les trois bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-        $statForm = $this->get('form.factory')->createNamedBuilder('stat',FormType::class, $personnage)
-                    ->add('pv', IntegerType::class)
-                    ->add('pm', IntegerType::class)
-                    ->add('pc', IntegerType::class)
-                    ->getForm();
-        //~~~~~~~~~~~~~~~~~~~~~~formulaire pour l'inventaire et les PO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        $inventaireForm = $this->get('form.factory')->createNamedBuilder('inventaire',FormType::class, $personnage)
-                        ->add('inventaire', TextareaType::class)
-                        ->add('po', IntegerType::class)
-                        ->getForm();
-        if($request->getMethod() === 'POST'){
-            $statForm->handleRequest($request);
-            $inventaireForm->handleRequest($request);
-            if($request->request->has('stat')){
-                //dd($request);
-                $entityManager->persist($personnage);
-                $entityManager->flush();
-                //
-            }
-            if($request->request->has('inventaire')){
-                $entityManager->persist($personnage);
-                $entityManager->flush();
-                //
-            }
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
-        } 
-         
-        //dd($inventaireForm);
-        return $this->render('personnage/index.html.twig',[
-            'personnage' => $personnage,
-            'statForm' => $statForm->createView(),
-            'inventaireForm' => $inventaireForm->createView(),
-            'competences' => $competences,
-        ]);
-    }
+    
     /**
      * @Route("/{id}/lore", name="modif_lore")
      */
@@ -204,5 +97,12 @@ class PersonnageController extends AbstractController
         return $this->render('personnage/levelup.html.twig', [
             "personnageForm" => $personnageForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/{id}/armure", name="modif_armure")
+     */
+    public function modifArmure($id){
+        return $this->render('personnage/armurePersonnage.html.twig');
     }
 }

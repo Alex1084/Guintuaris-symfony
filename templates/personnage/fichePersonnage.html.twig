@@ -152,9 +152,40 @@
             <option value="50">17+ (-50)</option>
         </select>
         <button id="de">test !</button>
+        <div id="result" ></div>
     </div>
 
-    <div id="result" ></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                {% set ca = 0 %}
+                <table>
+                    <tr>
+                        <th>pièce</th>
+                        <th>type</th>
+                        <th>CA</th>
+                        <th>Effet</th>
+                    </tr>
+                    {% for pieceArmure in armure %}
+                        {% set ca = ca + pieceArmure.piece.valeur %}
+                        <tr>
+                            <th>{{ pieceArmure.piece.localisation.nom }}</th>
+                            <th>{{ pieceArmure.piece.type.nom }}</th>
+                            <th>{{ pieceArmure.piece.valeur }}</th>
+                            <th>{{ pieceArmure.effet }}</th>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>total :</th>
+                        <th>{{ca}}</th>
+                    </tr>
+                </table>
+                <a href="{{ path("personnage_modif_armure", {"id" : personnage.id}) }}">armure</a>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+
 {% else %}
     <p>desoler accée interdit</p>
 {% endif %}
