@@ -47,7 +47,7 @@ class CompetenceRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findByLevel(int $level , int $classe){
+    public function findByLevel(int $level = 1 , int $classe = 1){
         $query = $this->createQueryBuilder('c');
         $query->where('c.niveau <= :level')->setParameter('level', $level);
         $query->andWhere('c.classe = :classe')->setParameter('classe', $classe);
