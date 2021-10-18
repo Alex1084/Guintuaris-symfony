@@ -77,7 +77,7 @@ class PieceArmurePersonnage
         return $this->effet;
     }
 
-    public function setEffet(string $effet): self
+    public function setEffet($effet): self
     {
         $this->effet = $effet;
 

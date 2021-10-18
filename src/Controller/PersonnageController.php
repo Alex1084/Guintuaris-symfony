@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -170,44 +171,41 @@ class PersonnageController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
         $armure = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class)->findBy(array("personnage" =>$personnage->getId()));
-        $casqueForm = $this->createFormBuilder()
-                    ->add('casque', EntityType::class,[
-                        'class' => PieceArmure::class,
-                        'choice_label' => 'type',
-                        'query_builder' => $this->optionType(1, $pr)
-                    ])
-                    ->add('effet')
-                    ->add('plastron', EntityType::class,[
-                        'class' => PieceArmure::class,
-                        'choice_label' => 'type',
-                        'query_builder' => $this->optionType(2, $pr)
-                    ])
-                    ->add('effet')
-                    ->add('jambiere', EntityType::class,[
-                        'class' => PieceArmure::class,
-                        'choice_label' => 'type',
-                        'query_builder' => $this->optionType(3, $pr)
-                    ])
-                    ->add('effet')
-                    ->getForm();
-        $casqueForm->handleRequest($request);
-        if($casqueForm->isSubmitted()){
-            $casque = $casqueForm->get('casque')->getData();
-            $plastron = $casqueForm->get('plastron')->getData();
-            $jambiere = $casqueForm->get('jambiere')->getData();
-            $effet = $casqueForm->get('effet')->getData();
-            $armure[0]->setPiece($casque);
-            $armure[1]->setPiece($plastron);
-            $armure[2]->setPiece($jambiere);
-            $armure[0]->setEffet($effet);
-            for($i = 0; $i <=3; $i++) {
-                $entityManager->persist($armure[$i]);
+        $pieces = [1 =>'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
+        dump($armure);
+        $armureForm = $this->createFormBuilder();
+        for ($i = 1; $i<= 7 ;$i++){
+            $str = 'effet_'.$pieces[$i];
+            $armureForm->add($pieces[$i], EntityType::class,[
+                'class' => PieceArmure::class,
+                'choice_label' => 'type',
+                'query_builder' => $this->optionType($i, $pr),
+                'data' => $armure[$i-1]->getPiece(),
+            ])
+                        ->add($str, TextType::class,[
+                            'required' => false,
+                            'data' => $armure[$i-1]->getEffet(),
+                            ]);
+        }
+        $armureForm = $armureForm->getForm();
+        $armureForm->handleRequest($request);
+        if($armureForm->isSubmitted()){
+
+            for($i = 1; $i <= 7; $i++){
+                $piece = $armureForm->get($pieces[$i])->getData();
+                $effet = $armureForm->get('effet_'.$pieces[$i])->getData();
+                $armure[$i-1]->setPiece($piece);
+                $armure[$i-1]->setEffet($effet);
+
+                $entityManager->persist($armure[$i-1]);
                 $entityManager->flush();
+                
+                
             }
-            //dd($pieceArmure);
+            return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
         return $this->render('personnage/armurePersonnage.html.twig', [
-            'casqueForm' => $casqueForm->createView(),
+            'armureForm' => $armureForm->createView(),
             'armure' => $armure
         ]);
     }
