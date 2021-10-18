@@ -4,7 +4,33 @@
 
 {% block body %}
 
-<select name="" id="">
+ {{ form_start(casqueForm)}}
+ {{ form_widget(casqueForm)}}
+ <button>Modifier !</button>
+ {{ form_end(casqueForm)}}
+{% set ca = 0 %}
+<table>
+    <tr>
+        <th>pièce</th>
+        <th>type</th>
+        <th>CA</th>
+        <th>Effet</th>
+    </tr>
+    {% for pieceArmure in armure %}
+        {% set ca = ca + pieceArmure.piece.valeur %}
+        <tr>
+            <th>{{ pieceArmure.piece.localisation.nom }}</th>
+            <th>{{ pieceArmure.piece.type.nom }}</th>
+            <th>{{ pieceArmure.piece.valeur }}</th>
+            <th>{{ pieceArmure.effet }}</th>
+        </tr>
+    {% endfor %}
+    <tr>
+        <th>total :</th>
+        <th>{{ca}}</th>
+    </tr>
+</table>
+{# <select name="" id="">
     <option value="">Tissu</option>
     <option value="">Matelassee</option>
     <option value="">cuir Souple</option>
@@ -59,6 +85,6 @@
     <option value="">Autre</option>
 <select name="" id="">
 
-</select>
+</select> #}
 
 {% endblock %}

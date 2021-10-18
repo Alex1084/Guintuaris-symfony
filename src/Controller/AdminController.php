@@ -76,11 +76,7 @@ class AdminController extends AbstractController
      * @Route("/ajout_membre/{idEquipe}", name="add_membre")
      */
     public function addMembreEquipe($idEquipe, Request $request, EntityManagerInterface $entityManager){
-        $equipeVide = $this->getDoctrine()->getRepository(Equipe::class)->find(5);
         $equipeJoin = $this->getDoctrine()->getRepository(Equipe::class)->find($idEquipe);
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnages = $repo->findBy(array('equipe' => $equipeVide));
-        //dump($personnages);
         $membre = $this->createFormBuilder()
                         ->add('personnage', EntityType::class,[
                             'class' => Personnage::class,
