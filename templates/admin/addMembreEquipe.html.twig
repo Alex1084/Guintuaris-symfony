@@ -3,6 +3,10 @@
 {% block title %}ajouter un Memebre{% endblock %}
 
 {% block body %}
+{{form_start(membre)}}
+    {{form_widget(membre)}}
+    <button>ajouter !</button>
+{{form_end(membre)}}
 
 
 {% endblock %}

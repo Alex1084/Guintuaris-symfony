@@ -165,8 +165,9 @@ class PersonnageController extends AbstractController
      * @Route("/{id}/armure", name="modif_armure")
      */
     public function modifArmure($id){
-        /* $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
-        $casque = $repo->findBy([]) */
+        $casqueForm = $this->createFormBuilder()
+                    ->add('lore', TextareaType::class)
+                    ->getForm();
         return $this->render('personnage/armurePersonnage.html.twig');
     }
 }

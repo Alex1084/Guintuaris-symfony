@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello PersonnageController!{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{asset('style/personnage.css')}}">
+<link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
+<link rel="stylesheet" href="{{asset('style/range.css')}}">
+
+{% endblock %}
+
+
+
+{% block body %}
+<div class="info container grid-container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="img"></div>
+            </div>
+            <div class="col-md-3">                
+                <h1 id="nom">{{ personnage.nom }}</h1>
+                <h3>{{ personnage.race.nom }}</h3>
+                <h3>{{ personnage.classe.nom }}</h3>
+                <h3>Niveau {{ personnage.niveau }}</h3>
+                <p>{{personnage.equipe.nom}}</p>
+            </div>
+            <div class="col-md-6">
+
+                <div class="dropdown" id="lore">
+                    <button class="dropbtn">Lore  <img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+                    <div class="dropdown-content">
+                        <p class="content">{{ personnage.lore }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <p class="comp">Constitution:</p>
+                <div class="circle">
+                    <p>{{ personnage.constitution }}</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p class="comp">Force :</p>
+                <div class="circle">
+                    <p>{{ personnage.laForce }}</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p class="comp">Dexterite :</p>
+                <div class="circle">
+                    <p>{{ personnage.dexterite }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                {{ form_start(statForm) }}
+                    <div class="stat">
+
+                        <!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
+                        <label for="pv" class="comp">PV </label>
+                        <input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{personnage.pv}}" readonly> <span>/ {{personnage.pvMax}}</span>
+                        
+                        <!-- ~~~~~~ bar de vie ~~~~~~ -->
+                        <input type="range" class="bar" id="pv-range" min="0", max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
+                    </div>
+
+                    <div class="stat">
+
+                        <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+                        <label for="pm" class="comp">PM</label>
+                        <input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}"> / {{personnage.pmMax}}
+
+                        <!-- ~~~~~~ bar de mana ~~~~~~ -->
+                        <input type="range" class="bar" id="pm-range" min="0", max="{{personnage.pmMax}}" value="{{personnage.pm}}" disabled>
+                    </div>
+                    <div class="stat">
+
+                        <!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+                        <label for="pc" class="comp">PC </label>
+                        <input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}"> / {{personnage.pcMax}}
+
+                        <!-- ~~~~~~ bar de mana ~~~~~~ -->
+                        <input type="range" class="bar" id="pc-range" min="0", max="{{personnage.pcMax}}" value="{{personnage.pc}}" disabled>
+                    </div>
+                {{ form_end(statForm) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <p class="comp">Intelligence:</p>
+                <div class="circle">
+                    <p>{{ personnage.intelligence }}</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p class="comp">Charisme :</p>
+                <div class="circle">
+                    <p>{{ personnage.charisme }}</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p class="comp">Foi :</p>
+                <div class="circle">
+                    <p>{{ personnage.foi }}</p>
+                </div>
+            </div>
+           <div class="col-md-6">
+                <div>{{personnage.inventaire}}</div>
+                <div>{{personnage.po}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <select name="" id="stat">
+            <option value="{{personnage.constitution}}">constitution</option>
+            <option value="{{personnage.laForce}}">force</option>
+            <option value="{{personnage.dexterite}}">dexteriter</option>
+            <option value="{{personnage.intelligence}}">intelligence</option>
+            <option value="{{personnage.charisme}}">charisme</option>
+            <option value="{{personnage.foi}}">Foi</option>
+        </select>
+
+        <select name="" id="ca">
+            <option value="0">0</option>
+            <option value="5">3 (-5)</option>
+            <option value="10">5 (-10)</option>
+            <option value="15">7 (-15)</option>
+            <option value="20">10 (-20)</option>
+            <option value="25">12 (-25)</option>
+            <option value="30">15 (-30)</option>
+            <option value="35">17 (-35)</option>
+            <option value="50">17+ (-50)</option>
+        </select>
+        <button id="de">test !</button>
+        <div id="result" ></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                {% set ca = 0 %}
+                <table>
+                    <tr>
+                        <th>pièce</th>
+                        <th>type</th>
+                        <th>CA</th>
+                        <th>Effet</th>
+                    </tr>
+                    {% for pieceArmure in armure %}
+                        {% set ca = ca + pieceArmure.piece.valeur %}
+                        <tr>
+                            <th>{{ pieceArmure.piece.localisation.nom }}</th>
+                            <th>{{ pieceArmure.piece.type.nom }}</th>
+                            <th>{{ pieceArmure.piece.valeur }}</th>
+                            <th>{{ pieceArmure.effet }}</th>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>total :</th>
+                        <th>{{ca}}</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+
+ <h2>Competences</h2>
+    {% for competence in competences %}
+        <div class="col-md-6">
+
+                <div class="dropdown">
+                    <button class="dropbtn"> {{competence.nom}} , {{competence.cout}}  <img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+                    <div class="dropdown-content">
+                        <p class="content">{{ competence.description }}</p>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+    <script src="{{asset('script/dropdown.js')}}"></script>
+    <script src="{{asset('script/bar.js')}}"></script>
+    <script src="{{asset('script/de.js')}}"></script>
+{% endblock %}

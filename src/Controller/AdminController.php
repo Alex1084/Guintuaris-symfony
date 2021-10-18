@@ -3,10 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Competence;
+use App\Entity\Equipe;
+use App\Entity\Personnage;
 use App\Entity\PieceArmure;
 use App\Form\CompetenceType;
 use App\Form\PieceArmureType;
+use App\Repository\PersonnageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\EntityListeners;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,10 +73,48 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/ajout_membre", name="add_membre")
+     * @Route("/ajout_membre/{idEquipe}", name="add_membre")
      */
-    public function addMembreEquipe(){
+    public function addMembreEquipe($idEquipe, Request $request, EntityManagerInterface $entityManager){
+        $equipeVide = $this->getDoctrine()->getRepository(Equipe::class)->find(5);
+        $equipeJoin = $this->getDoctrine()->getRepository(Equipe::class)->find($idEquipe);
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnages = $repo->findBy(array('equipe' => $equipeVide));
+        //dump($personnages);
+        $membre = $this->createFormBuilder()
+                        ->add('personnage', EntityType::class,[
+                            'class' => Personnage::class,
+                            'choice_label' => 'nom',
+                            'query_builder' => function (PersonnageRepository $pr){
+                                return $pr->createQueryBuilder('p')
+                                            ->where('p.equipe = 5')
+                                            ->orderBy('p.nom', 'ASC');
+                            }
+                        ])
+                        ->getForm();
+        $membre->handleRequest($request);
+        if($membre->isSubmitted()){
+            $personnageSelectionner = $membre->get('personnage')->getData();
+            $personnageSelectionner->setEquipe($equipeJoin);
+            dump($personnageSelectionner);
 
-        return $this->render('admin/addMembreEquipe.html.twig');
+            $entityManager->persist($personnageSelectionner);
+            $entityManager->flush();
+            return $this->redirectToRoute('admin_equipe_list');
+        }
+        return $this->render('admin/addMembreEquipe.html.twig', [
+            'membre' => $membre->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/equipe", name="equipe_list")
+     */
+    public function listEquipeAdmin(){
+        $repo = $this->getDoctrine()->getRepository(Equipe::class);
+        $equipes = $repo->findAll();
+        return $this->render('admin/listEquipe.html.twig', [
+            'equipes' => $equipes,
+        ]);
     }
 }

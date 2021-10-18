@@ -1,4 +1,4 @@
-{# {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Hello PersonnageController!{% endblock %}
 
@@ -7,11 +7,9 @@
     <ul>
     {% for personnage in personnages %}
         <li>
-            <a href="{{ path("personnage_view", {"id" : personnage.id}) }}">{{ personnage.nom }}</a>
+            <a href="{{ path("equipe_fiche_view", {"idEquipe" : personnage.equipe.id, "idPersonnage" : personnage.id}) }}">{{ personnage.nom }}</a>
         </li>
     {% endfor %}
     </ul>
         <hr/>
-        <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">nouveau personnage</a>
-
-{% endblock %} #}
+{% endblock %}

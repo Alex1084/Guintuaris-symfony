@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello PersonnageController!{% endblock %}
+
+{% block body %}
+    <h2>Fiches personnage</h2>
+    <ul>
+    {% for equipe in equipes %}
+        <li>
+            <a href="{{ path("admin_add_membre", {"idEquipe" : equipe.id}) }}">{{ equipe.nom }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+        {# <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">nouveau personnage</a> #}
+
+{% endblock %}
