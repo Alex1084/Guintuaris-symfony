@@ -20,13 +20,14 @@ class PieceArmurePersonnage
     /**
      * @ORM\Id 
      * @ORM\ManyToOne(targetEntity=Personnage::class)
+     * @ORM\JoinColumn(nullable=false)
      * @ORM\JoinColumn(name="personnage_id", referencedColumnName="id")
      */
     private $personnage;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity=PieceArmure::class)
+     * @ORM\JoinColumn(nullable=false)
      * @ORM\JoinColumn(name="piece_id", referencedColumnName="id")
      */
     private $piece;
@@ -41,10 +42,10 @@ class PieceArmurePersonnage
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id) : self
     {
         $this->id = $id;
-
+        
         return $this;
     }
 
@@ -77,7 +78,7 @@ class PieceArmurePersonnage
         return $this->effet;
     }
 
-    public function setEffet($effet): self
+    public function setEffet(?string $effet): self
     {
         $this->effet = $effet;
 

@@ -25,11 +25,6 @@ class Classe
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Personnage::class, mappedBy="classe")
-     */
-    private $personnages;
-
-    /**
      * @ORM\OneToMany(targetEntity=Competence::class, mappedBy="classe")
      */
     private $competences;
@@ -56,7 +51,6 @@ class Classe
 
     public function __construct()
     {
-        $this->personnages = new ArrayCollection();
         $this->competences = new ArrayCollection();
     }
 
@@ -73,36 +67,6 @@ class Classe
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Personnage[]
-     */
-    public function getPersonnages(): Collection
-    {
-        return $this->personnages;
-    }
-
-    public function addPersonnage(Personnage $personnage): self
-    {
-        if (!$this->personnages->contains($personnage)) {
-            $this->personnages[] = $personnage;
-            $personnage->setClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removePersonnage(Personnage $personnage): self
-    {
-        if ($this->personnages->removeElement($personnage)) {
-            // set the owning side to null (unless already changed)
-            if ($personnage->getClasse() === $this) {
-                $personnage->setClasse(null);
-            }
-        }
 
         return $this;
     }

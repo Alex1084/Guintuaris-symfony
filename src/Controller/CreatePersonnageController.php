@@ -79,7 +79,7 @@ class CreatePersonnageController extends AbstractController
     private function insertPiece($personnage, $numEmplacement, PieceArmureRepository $repoEquipement, EntityManagerInterface $entityManager){
         $piecePersonnage = new PieceArmurePersonnage();
         $piecePersonnage->setPersonnage($personnage);
-        $piecePersonnage->setid($numEmplacement);
+        $piecePersonnage->setId($numEmplacement);
         $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12,$numEmplacement)); //  12 : type enlever et $i : emplacement
         
         $entityManager->persist($piecePersonnage);

@@ -43,15 +43,6 @@ class User implements UserInterface
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Personnage::class, mappedBy="joueur")
-     */
-    private $personnages;
-
-    public function __construct()
-    {
-        $this->personnages = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -142,36 +133,6 @@ class User implements UserInterface
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Personnage[]
-     */
-    public function getPersonnages(): Collection
-    {
-        return $this->personnages;
-    }
-
-    public function addPersonnage(Personnage $personnage): self
-    {
-        if (!$this->personnages->contains($personnage)) {
-            $this->personnages[] = $personnage;
-            $personnage->setJoueur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePersonnage(Personnage $personnage): self
-    {
-        if ($this->personnages->removeElement($personnage)) {
-            // set the owning side to null (unless already changed)
-            if ($personnage->getJoueur() === $this) {
-                $personnage->setJoueur(null);
-            }
-        }
 
         return $this;
     }
