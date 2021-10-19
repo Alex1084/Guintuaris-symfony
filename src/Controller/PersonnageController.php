@@ -208,7 +208,7 @@ class PersonnageController extends AbstractController
             }
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
-        return $this->render('personnage/armurePersonnage.html.twig', [
+        return $this->render('personnage/equipement.html.twig', [
             'armureForm' => $armureForm->createView(),
         ]);
     }
@@ -253,7 +253,7 @@ class PersonnageController extends AbstractController
             }
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
-        return $this->render('personnage/armurePersonnage.html.twig', [
+        return $this->render('personnage/equipement.html.twig', [
             'armureForm' => $armureForm->createView(),
         ]);
     }

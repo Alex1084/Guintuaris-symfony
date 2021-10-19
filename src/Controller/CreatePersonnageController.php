@@ -69,7 +69,7 @@ class CreatePersonnageController extends AbstractController
 
 
             $this->addFlash('success', 'ton perso a été créer');
-            //return $this->redirectToRoute('personnage_list');
+            return $this->redirectToRoute('personnage_view', ["id" => $personnage->getId()]);
         }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()

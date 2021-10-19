@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RaceController!{% endblock %}
+{% block title %} {{classe.nom}} | {{parent()}}{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{asset('style/dropdown.css')}}">

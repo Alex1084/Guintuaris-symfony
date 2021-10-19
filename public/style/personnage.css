@@ -37,7 +37,6 @@ input[type="integer"]{
     height: 48px;
     width: 48px;
     text-align: center;
-    margin-left: 15px;
 }
 #bar-container{
     position: relative;
@@ -48,10 +47,30 @@ input[type="integer"]{
     font-size: 2rem;
     top : -45px;
 }
+.stat{
+    position: relative;
+}
+.input-enabled {
+    position: absolute;
+}
+.bar {
+    position: absolute;
+    left: 25%;
+    top : 13.6px
+}
 
-#label-moins{
+.soustrait{
     left: 73.7%;
 }
-#label-plus{
+.ajout{
     left: 60.5%;
+}
+#label-plus{
+    left: 62.8%;
+}
+#label-moins{
+    left: 76.8%;
+}
+.max{
+    margin-right: 15px;
 }
