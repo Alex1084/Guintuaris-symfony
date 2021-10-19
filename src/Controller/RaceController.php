@@ -18,7 +18,7 @@ class RaceController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Race::class);
         $race = $repo->find($id);
-        return $this->render('race/index.html.twig', [
+        return $this->render('race/race.html.twig', [
             'race' => $race
         ]);
     }

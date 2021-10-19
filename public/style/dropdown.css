@@ -29,7 +29,8 @@
   display: inline-block;
   position: relative;
   max-inline-size: 546px;
-  writing-mode: horizontal-tb; 
+  writing-mode: horizontal-tb;
+  word-wrap: break-word
 }
 
 .drop-logo{
@@ -42,4 +43,5 @@
 #lore-link{
   position: absolute;
   right: 10px;
+  bottom: 10px;
 }
