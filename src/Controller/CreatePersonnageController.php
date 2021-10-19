@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Arme;
+use App\Entity\ArmePersonnage;
 use App\Entity\Equipe;
 use App\Entity\Personnage;
 use App\Entity\PieceArmurePersonnage;
@@ -61,9 +63,13 @@ class CreatePersonnageController extends AbstractController
                 $this->insertPiece($personnage, $i, $repoEquipement ,$entityManager);
             }
 
+            for($i = 1; $i <= 3; $i++){
+                $this->insertArme($personnage, $i, $entityManager);
+            }
+
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('personnage_list');
+            //return $this->redirectToRoute('personnage_list');
         }
         return $this->render('personnage/creation.html.twig', [
             "personnageForm" => $personnageForm->createView()
@@ -72,12 +78,23 @@ class CreatePersonnageController extends AbstractController
 
     private function insertPiece($personnage, $numEmplacement, PieceArmureRepository $repoEquipement, EntityManagerInterface $entityManager){
         $piecePersonnage = new PieceArmurePersonnage();
-                $piecePersonnage->setPersonnage($personnage);
-                $piecePersonnage->setid($numEmplacement);
-                $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12,$numEmplacement)); //  12 : type enlever et $i : emplacement
-                
-                $entityManager->persist($piecePersonnage);
-                $entityManager->flush();
+        $piecePersonnage->setPersonnage($personnage);
+        $piecePersonnage->setid($numEmplacement);
+        $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12,$numEmplacement)); //  12 : type enlever et $i : emplacement
+        
+        $entityManager->persist($piecePersonnage);
+        $entityManager->flush();
 
+    }
+
+    private function insertArme($personnage, $id, EntityManagerInterface $entityManager){
+        $armePersonnage = new ArmePersonnage();
+        $armePersonnage->setId($id);
+        $armePersonnage->setPersonnage($personnage);
+        $armePersonnage->setArme($this->getDoctrine()->getRepository(Arme::class)->find(17));
+
+        //dump($armePersonnage);
+        $entityManager->persist($armePersonnage);
+        $entityManager->flush();
     }
 }

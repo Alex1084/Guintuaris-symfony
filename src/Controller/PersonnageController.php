@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Arme;
+use App\Entity\ArmePersonnage;
 use App\Entity\Personnage;
 use App\Entity\Equipe;
 use App\Entity\PieceArmure;
@@ -61,6 +63,8 @@ class PersonnageController extends AbstractController
         $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
         $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
         $armure = $repo->findBy(array("personnage" =>$personnage->getId()));
+        $repo = $this->getDoctrine()->getRepository(ArmePersonnage::class);
+        $armes = $repo->findBy(array("personnage" =>$personnage->getId()));
         //~~~~~~~~~~~~~~~~~~~~~~~formulaire pour les trois bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
         $statForm = $this->get('form.factory')->createNamedBuilder('stat',FormType::class, $personnage)
                     ->add('pv', IntegerType::class)
@@ -96,6 +100,7 @@ class PersonnageController extends AbstractController
             'inventaireForm' => $inventaireForm->createView(),
             'competences' => $competences,
             'armure' => $armure,
+            'armes' => $armes,
         ]);
     }
     
@@ -172,7 +177,6 @@ class PersonnageController extends AbstractController
         $personnage = $repo->find($id);
         $armure = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class)->findBy(array("personnage" =>$personnage->getId()));
         $pieces = [1 =>'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
-        dump($armure);
         $armureForm = $this->createFormBuilder();
         for ($i = 1; $i<= 7 ;$i++){
             $str = 'effet_'.$pieces[$i];
@@ -206,7 +210,51 @@ class PersonnageController extends AbstractController
         }
         return $this->render('personnage/armurePersonnage.html.twig', [
             'armureForm' => $armureForm->createView(),
-            'armure' => $armure
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/arme", name="modif_arme")
+     */
+    public function modifArme($id, Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $pr){
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnage = $repo->find($id);
+        $armes = $this->getDoctrine()->getRepository(ArmePersonnage::class)->findBy(array("personnage" =>$personnage->getId()));
+        //$pieces = [1 =>'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
+        dump($armes);
+        $armureForm = $this->createFormBuilder();
+        for ($i = 1; $i<= 3 ;$i++){
+            $str = 'effet_'.$i;
+            $armureForm->add(''.$i, EntityType::class,[
+                'class' => Arme::class,
+                'choice_label' => 'nom',
+                //'query_builder' => $this->optionType($i, $pr),
+                'data' => $armes[$i-1]->getArme(),
+            ])
+                        ->add($str, TextType::class,[
+                            'required' => false,
+                            'data' => $armes[$i-1]->getEffet(),
+                            ]);
+        }
+        $armureForm = $armureForm->getForm();
+        $armureForm->handleRequest($request);
+        if($armureForm->isSubmitted()){
+
+            for($i = 1; $i <= 3; $i++){
+                $arme = $armureForm->get($i)->getData();
+                $effet = $armureForm->get('effet_'.$i)->getData();
+                $armes[$i-1]->setArme($arme);
+                $armes[$i-1]->setEffet($effet);
+
+                $entityManager->persist($armes[$i-1]);
+                $entityManager->flush();
+                
+                
+            }
+            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+        }
+        return $this->render('personnage/armurePersonnage.html.twig', [
+            'armureForm' => $armureForm->createView(),
         ]);
     }
 
