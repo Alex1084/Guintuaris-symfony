@@ -10,7 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=FicheRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"fiche" = "Fiche", "personnage" = "Personnage"})
+ * @ORM\DiscriminatorMap(
+ * {
+ *      "fiche" = "Fiche", 
+ *      "personnage" = "Personnage",
+ *      "bestiaire" = "Bestiaire"
+ * })
  */
 abstract class Fiche
 {

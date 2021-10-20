@@ -52,6 +52,11 @@ class Competence
      */
     private $degat;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bestiaire::class, inversedBy="competance")
+     */
+    private $bestiaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Competence
     public function setDegat(?string $degat): self
     {
         $this->degat = $degat;
+
+        return $this;
+    }
+
+    public function getBestiaire(): ?Bestiaire
+    {
+        return $this->bestiaire;
+    }
+
+    public function setBestiaire(?Bestiaire $bestiaire): self
+    {
+        $this->bestiaire = $bestiaire;
 
         return $this;
     }

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Board | {{parent()}}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
+{% endblock %}
+{% block body %}
+    {{ form_start(beteForm, {'attr' : {'id' : 'add'}})}}
+      {{form_widget(beteForm)}}
+      <button>valider</button>
+    {{ form_end(beteForm)}}
+
+    <div class="container">
+        
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{asset('script/bar.js')}}"></script>
+    <script src="{{asset('script/minifiche.js')}}"></script>
+
+{% endblock %}

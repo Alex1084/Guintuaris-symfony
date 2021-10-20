@@ -27,8 +27,10 @@ divStats.forEach((div) =>{
         if (e.key === 'Enter'){
             e.preventDefault();
             valNumerique.value = eval(valNumerique.value - degat.value);
-            valeBar.value = valNumerique.value;
             degat.value = "";
+            if( valeBar != null){
+                valeBar.value = valNumerique.value;
+            }
         }
     })
     
@@ -36,8 +38,10 @@ divStats.forEach((div) =>{
         if (e.key === 'Enter'){
             e.preventDefault();
             valNumerique.value = eval(valNumerique.value + "+" + soin.value)
-            valeBar.value = valNumerique.value;
             soin.value = "";
+            if( valeBar != null){
+                valeBar.value = valNumerique.value;
+            }
         }
         
     })

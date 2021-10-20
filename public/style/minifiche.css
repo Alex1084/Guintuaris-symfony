@@ -1,0 +1,64 @@
+.fiche{
+    min-height: 380px;
+    border: 1px black solid;
+    position: relative;
+}
+
+.stat{
+    text-align: center;
+    min-height: 37px;
+    min-width: 37px;
+    border: 1px black solid;
+    border-radius: 55px;
+    display: inline-block;
+    font-size: 1.5rem;
+    display: table;
+    margin: 0 auto;
+}
+
+.fiche p{
+    text-align: center;
+    margin-bottom: 0;
+}
+
+input[type="integer"]{
+    background: none;
+    border-radius: 172px;
+    border: 2px black solid;
+    height: 37px;
+    width: 37px;
+    text-align: center;
+}
+.enabled{
+    position: absolute;
+}
+.soustrait{
+    right: 10px;
+}
+.ajout{
+    right: 68px;
+}
+
+.icon{
+    position: absolute;
+    z-index: 1;
+    height: 30px;
+    
+}
+.mort {
+    top: 5px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 2;
+}
+.croix{
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+.barre{
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    display: none;
+}

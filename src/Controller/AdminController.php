@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Bestiaire;
 use App\Entity\Competence;
 use App\Entity\Equipe;
 use App\Entity\Personnage;
 use App\Entity\PieceArmure;
+use App\Form\BestiaireType;
 use App\Form\CompetenceType;
 use App\Form\PieceArmureType;
 use App\Repository\PersonnageRepository;
@@ -96,7 +98,7 @@ class AdminController extends AbstractController
 
             $entityManager->persist($personnageSelectionner);
             $entityManager->flush();
-            return $this->redirectToRoute('admin_equipe_list');
+            return $this->redirectToRoute('admin_add_membre');
         }
         return $this->render('admin/addMembreEquipe.html.twig', [
             'membre' => $membre->createView(),
@@ -111,6 +113,31 @@ class AdminController extends AbstractController
         $equipes = $repo->findAll();
         return $this->render('admin/listEquipe.html.twig', [
             'equipes' => $equipes,
+        ]);
+    }
+
+    /**
+     * @Route("/Bestiaire", name="add_bete")
+     */
+    public function addBete(EntityManagerInterface $entityManager, Request $request){
+        $bete = new Bestiaire();
+        $beteForm = $this->createForm(BestiaireType::class, $bete);
+
+        $beteForm->remove('pv');
+        $beteForm->remove('pc');
+        $beteForm->remove('pm');
+        $beteForm->handleRequest($request);
+        if($beteForm->isSubmitted()){
+            $bete->setPv($bete->getPvMax());
+            $bete->setPc($bete->getPcMax());
+            $bete->setPm($bete->getPmMax());
+
+            dump($bete);
+            $entityManager->persist($bete);
+            $entityManager->flush();
+        }
+        return $this->render('admin/addBete.html.twig', [
+            "beteForm" => $beteForm->createView(),
         ]);
     }
 }
