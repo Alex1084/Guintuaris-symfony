@@ -1,23 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Board | {{parent()}}{% endblock %}
+{% block title %}
+	Board |
+	{{parent()}}
+{% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
+	<link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
 {% endblock %}
 {% block body %}
-    {{ form_start(beteForm, {'attr' : {'id' : 'add'}})}}
-      {{form_widget(beteForm)}}
-      <button>valider</button>
-    {{ form_end(beteForm)}}
+	<a href="{{ path('summon', {"id" : 3})}}" class="js-like">bullette</a>
+	<br>
+	<a href="{{ path('summon', {"id" : 4})}}" class="js-like">loup</a>
 
-    <div class="container">
-        
-    </div>
+
+	<div class="container"></div>
 {% endblock %}
 
 {% block script %}
-    <script src="{{asset('script/bar.js')}}"></script>
-    <script src="{{asset('script/minifiche.js')}}"></script>
-
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	{# <script src="{{asset("script/testajax.js")}}"></script> #}
+	<script src="{{ asset("script/minifiche.js")}}"></script>
 {% endblock %}

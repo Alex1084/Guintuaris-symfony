@@ -1,12 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Espace Administrateur | {{parent()}}{% endblock %}
+{% block title %}
+	Espace Administrateur |
+	{{parent()}}
+{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
+{% endblock %}
+
 
 {% block body %}
 
-            <li class="nav-item"><a href="{{ path('admin_add_competence')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une Competence</a></li>
-            <li class="nav-item"><a href="{{ path('admin_add_piece')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une piece d'armure</a></li>
-            <li class="nav-item"><a href="{{ path('admin_equipe_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter un membre a une equipe</a></li>
-            <li class="nav-item"><a href="{{ path('admin_add_bete')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une bete au Bestiaire</a></li>
-
+	<li class="nav-item">
+		<a href="{{ path('admin_add_competence')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une Competence</a>
+	</li>
+	<li class="nav-item">
+		<a href="{{ path('admin_add_piece')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une piece d'armure</a>
+	</li>
+	<li class="nav-item">
+		<a href="{{ path('admin_equipe_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter un membre a une equipe</a>
+	</li>
+	<li class="nav-item">
+		<a href="{{ path('admin_add_bete')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une bete au Bestiaire</a>
+	</li>
 {% endblock %}
