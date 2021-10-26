@@ -22,59 +22,58 @@
 							<ul>
 								{% for monstre in monstres %}
 									<li>
-										<a href="{{ path('summon', {"id" : monstre.id})}}" class="js-like">{{monstre.nom}}</a</li>
+										<a href="{{ path('summon', {"id" : monstre.id})}}" class="js-like">{{monstre.nom}}</a>
 									</li>
 								{% endfor %}
 							</ul>
 						</div>
 					</div>
 				</li>
-				<li>
-					<div class="dropdown">
+			</li>
+			<li>
+				<div class="dropdown">
 
-						<button class="dropbtn nav-btn">Animaux
-						</button>
-						<div class="dropdown-content">
-							<ul>
-								{% for animal in animaux %}
-									<li>
-										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.nom}}</a</li>
-									</li>
-								{% endfor %}
-
+					<button class="dropbtn nav-btn">Animaux
+					</button>
+					<div class="dropdown-content">
+						<ul>
+							{% for animal in animaux %}
 								<li>
-									<a href="#"></a>Requin</li>
-								<li>
-									<a href="#"></a>Cheval de Guerre
+									<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.nom}}</a</li>
 								</li>
-								<li>
-									<a href="#"></a>Araaigner Geante
-								</li>
-							</ul>
-						</div>
+							{% endfor %}
+
+							<li>
+								<a href="#"></a>Requin</li>
+							<li>
+								<a href="#"></a>Cheval de Guerre
+							</li>
+							<li>
+								<a href="#"></a>Araaigner Geante
+							</li>
+						</ul>
 					</div>
-				</li>
-				<li>
-					<div class="dropdown">
-						<button class="dropbtn nav-btn">Humanoïde
-						</button>
-						<div class="dropdown-content"></div>
-					</div>
-				</li>
-			</ul>
-		</div>
+				</div>
+			</li>
+			<li>
+				<div class="dropdown">
+					<button class="dropbtn nav-btn">Humanoïde
+					</button>
+					<div class="dropdown-content"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
 
-		<div class="page-content-wrapper">
-			<a href="#" id="menu-toggle">toggled</a>
-			<div class="container-fluid"></div>
-		</div>
-
-	{% endblock %}
-
-	{% block script %}
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		{# <script src="{{asset("script/testajax.js")}}"></script> #}
-		<script src="{{ asset("script/minifiche.js")}}"></script>
-		<script src="{{ asset("script/sidebar.js")}}"></script>
-		<script src="{{ asset("script/dropdown.js")}}"></script>
-	{% endblock %}
+	<div class="page-content-wrapper">
+		<a href="#" id="menu-toggle">toggled</a>
+		<div class="container-fluid"></div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	{# <script src="{{asset("script/testajax.js")}}"></script> #}
+	<script src="{{ asset("script/minifiche.js")}}"></script>
+	<script src="{{ asset("script/sidebar.js")}}"></script>
+	<script src="{{ asset("script/dropdown.js")}}"></script>
+{% endblock %}

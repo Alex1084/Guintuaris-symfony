@@ -24,15 +24,6 @@ class TypeBestiaire
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Bestiaire::class, mappedBy="type")
-     */
-    private $bestiaires;
-
-    public function __construct()
-    {
-        $this->bestiaires = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -47,36 +38,6 @@ class TypeBestiaire
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Bestiaire[]
-     */
-    public function getBestiaires(): Collection
-    {
-        return $this->bestiaires;
-    }
-
-    public function addBestiaire(Bestiaire $bestiaire): self
-    {
-        if (!$this->bestiaires->contains($bestiaire)) {
-            $this->bestiaires[] = $bestiaire;
-            $bestiaire->setType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBestiaire(Bestiaire $bestiaire): self
-    {
-        if ($this->bestiaires->removeElement($bestiaire)) {
-            // set the owning side to null (unless already changed)
-            if ($bestiaire->getType() === $this) {
-                $bestiaire->setType(null);
-            }
-        }
 
         return $this;
     }

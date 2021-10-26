@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\FicheRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FicheRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -23,78 +24,93 @@ abstract class Fiche
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"read"})
      */
     private $nom;
-    
+
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $niveau;
-    
+
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $pv;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $pvMax;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $pc;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $pcMax;
 
-    
+
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $pm;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $pmMax;
 
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $constitution;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $laForce;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $dexterite;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $intelligence;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $charisme;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $foi;
 
