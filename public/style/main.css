@@ -14,10 +14,10 @@ body{
     position: relative;
 }
 
- main{
+/*  main{
      margin-left: 5%;
      margin-right: 5%;
- }
+ } */
 
 /*********************** nav Bar *************************/
  nav {
@@ -77,8 +77,9 @@ body{
     display: block;
   }
 
+/***********les input***********/
 
-  /**************footer**************/
+/**************footer**************/
 footer{
     margin-top: 50px;
 }

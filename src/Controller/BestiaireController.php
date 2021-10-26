@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Bestiaire;
+use App\Entity\TypeBestiaire;
 use App\Form\BoardType;
+use App\Repository\BestiaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,18 +19,13 @@ class BestiaireController extends AbstractController
     /**
      * @Route("/bestiaire", name="bestiaire")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(BestiaireRepository $bRepo): Response
     {
-        $bete = new Bestiaire();
-        $repo = $this->getDoctrine()->getRepository(Bestiaire::class);
-        $beteForm = $this->createForm(BoardType::class, $bete);
-        $beteForm->handleRequest($request);
-        if ($beteForm->isSubmitted()) {
-            $bete = $repo->find($beteForm->get("bete")->getData());
-        }
+        $monstres = $bRepo->findAllNom(1);
+        $animaux = $bRepo->findAllNom(2);
         return $this->render('bestiaire/mjboard.html.twig', [
-            'beteForm' => $beteForm->createView(),
-            'bete' => $bete,
+            'monstres' => $monstres,
+            'animaux' => $animaux
         ]);
     }
 
@@ -39,7 +36,7 @@ class BestiaireController extends AbstractController
      * @param ObjectManager $manager
      * @return void
      */
-    public function beteToJson(int $id/*,  ObjectManage $manager */): Response
+    public function beteToJson(int $id): Response
     {
         $bete = $this->getDoctrine()->getRepository(Bestiaire::class)->find($id);
         return $this->json(["code" => 200, 'bete' => $bete], 200);

@@ -19,32 +19,11 @@ class BestiaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Bestiaire::class);
     }
 
-    // /**
-    //  * @return Bestiaire[] Returns an array of Bestiaire objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllNom(int $type)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $entityManager = $this->getEntityManager();
+        $dql = "SELECT b.id, b.nom FROM App\Entity\Bestiaire b WHERE b.type = :type ORDER BY b.nom";
+        $query = $entityManager->createQuery($dql)->setParameter('type', $type);
+        return $query->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Bestiaire
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

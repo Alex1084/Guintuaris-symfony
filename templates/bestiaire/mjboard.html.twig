@@ -7,18 +7,74 @@
 
 {% block style %}
 	<link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
+	<link rel="stylesheet" href="{{asset("style/dropdown.css")}}">
+	<link rel="stylesheet" href="{{asset("style/sidebar.css")}}">
 {% endblock %}
 {% block body %}
-	<a href="{{ path('summon', {"id" : 3})}}" class="js-like">bullette</a>
-	<br>
-	<a href="{{ path('summon', {"id" : 4})}}" class="js-like">loup</a>
+	<div id="wrapper">
+		<div class="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn nav-btn">Monstre
+						</button>
+						<div class="dropdown-content">
+							<ul>
+								{% for monstre in monstres %}
+									<li>
+										<a href="{{ path('summon', {"id" : monstre.id})}}" class="js-like">{{monstre.nom}}</a</li>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dropdown">
 
+						<button class="dropbtn nav-btn">Animaux
+						</button>
+						<div class="dropdown-content">
+							<ul>
+								{% for animal in animaux %}
+									<li>
+										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.nom}}</a</li>
+									</li>
+								{% endfor %}
 
-	<div class="container"></div>
-{% endblock %}
+								<li>
+									<a href="#"></a>Requin</li>
+								<li>
+									<a href="#"></a>Cheval de Guerre
+								</li>
+								<li>
+									<a href="#"></a>Araaigner Geante
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn nav-btn">Humanoïde
+						</button>
+						<div class="dropdown-content"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
 
-{% block script %}
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	{# <script src="{{asset("script/testajax.js")}}"></script> #}
-	<script src="{{ asset("script/minifiche.js")}}"></script>
-{% endblock %}
+		<div class="page-content-wrapper">
+			<a href="#" id="menu-toggle">toggled</a>
+			<div class="container-fluid"></div>
+		</div>
+
+	{% endblock %}
+
+	{% block script %}
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		{# <script src="{{asset("script/testajax.js")}}"></script> #}
+		<script src="{{ asset("script/minifiche.js")}}"></script>
+		<script src="{{ asset("script/sidebar.js")}}"></script>
+		<script src="{{ asset("script/dropdown.js")}}"></script>
+	{% endblock %}

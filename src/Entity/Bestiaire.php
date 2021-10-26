@@ -17,6 +17,17 @@ class Bestiaire extends Fiche
      */
     private $competance;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeBestiaire::class, inversedBy="bestiaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $note;
+
     public function __construct()
     {
         $this->competance = new ArrayCollection();
@@ -48,6 +59,30 @@ class Bestiaire extends Fiche
                 $competance->setBestiaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?TypeBestiaire
+    {
+        return $this->type;
+    }
+
+    public function setType(?TypeBestiaire $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
 
         return $this;
     }

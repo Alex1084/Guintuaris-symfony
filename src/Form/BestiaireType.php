@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Bestiaire;
+use App\Entity\TypeBestiaire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,6 +16,10 @@ class BestiaireType extends AbstractType
         $builder
             ->add('nom')
             ->add('niveau')
+            ->add('Type', EntityType::class, [
+                "class" => TypeBestiaire::class,
+                "choice_label" => "nom"
+            ])
             ->add('pv')
             ->add('pvMax')
             ->add('pc')
@@ -26,7 +32,7 @@ class BestiaireType extends AbstractType
             ->add('intelligence')
             ->add('charisme')
             ->add('foi')
-        ;
+            ->add("note");
     }
 
     public function configureOptions(OptionsResolver $resolver): void

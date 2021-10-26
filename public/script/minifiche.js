@@ -1,9 +1,9 @@
 //console.log(betes);
 const select = document.querySelector("#form_bete")
 const addFiche = document.querySelector("#add");
-let containerRow = document.querySelectorAll(".container>.row")
+let containerRow = document.querySelectorAll(".container-fluid>.row")
 let fiches = document.querySelectorAll(".fiche");
-const container = document.querySelector(".container")
+const container = document.querySelector(".container-fluid")
 let last = containerRow[containerRow.length - 1];
 let row = 0;
 
@@ -57,7 +57,7 @@ function insertFiche(monstre) {
     let str = ''
     row++;
     if (row === 1) {
-        containerRow = document.querySelectorAll(".container>.row");
+        containerRow = document.querySelectorAll(".container-fluid>.row");
         last = containerRow[containerRow.length - 1];
         str += '<div class="row">';
     }
@@ -118,7 +118,7 @@ function insertFiche(monstre) {
 
 
 function onClickBtnLike(event) {
-    containerRow = document.querySelectorAll(".container>.row");
+    containerRow = document.querySelectorAll(".container-fluid>.row");
     last = containerRow[containerRow.length - 1];
     event.preventDefault();
     const url = this.href;
@@ -127,7 +127,7 @@ function onClickBtnLike(event) {
         monstre = response.data.bete;
         console.log(monstre)
 
-        const container = document.querySelector(".container");
+        const container = document.querySelector(".container-fluid");
         if (row < 1) {
             container.innerHTML += insertFiche(monstre);
         }
