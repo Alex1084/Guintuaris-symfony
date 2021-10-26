@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}  | {{parent()}}{% endblock %}
+{% block title %}
+	|
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
-{{ form_start(personnageForm) }}
-{{ form_widget(personnageForm) }}
-<button>level up !</button>
+	{% if app.user.id == personnage.joueur.id %}
+		{{ form_start(personnageForm) }}
+		{{ form_widget(personnageForm) }}
+		<button>level up !</button>
 
-{{ form_end(personnageForm) }}
-
+		{{ form_end(personnageForm) }}
+	{% endif %}
 {% endblock %}

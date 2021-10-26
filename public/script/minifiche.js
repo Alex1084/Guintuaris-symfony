@@ -39,19 +39,14 @@ function statutListener(div) {
     const valNumerique = div.querySelector(".numerique")
     const degat = div.querySelector(".soustrait");
     const soin = div.querySelector(".ajout");
+    const valBar = null
 
 
-    degat.addEventListener('keypress', (e) => statut(e, "-", valNumerique, degat))
-    soin.addEventListener('keypress', (e) => statut(e, "+", valNumerique, soin))
+    degat.addEventListener('keypress', (e) => statut(e, "-", valNumerique, degat, valBar))
+    soin.addEventListener('keypress', (e) => statut(e, "+", valNumerique, soin, valBar))
 }
 
-function statut(event, opperateur, valNum, operande) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        valNum.value = eval(valNum.value + opperateur + operande.value);
-        operande.value = "";
-    }
-}
+
 
 function insertFiche(monstre) {
     let str = ''

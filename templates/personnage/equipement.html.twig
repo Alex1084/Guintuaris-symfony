@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Mon equipement | {{parent()}}{% endblock %}
+{% block title %}
+	Mon equipement |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
-
- {{ form_start(armureForm)}}
- {{ form_widget(armureForm)}}
- <button>Modifier !</button>
- {{ form_end(armureForm)}}
+	{% if app.user.id == personnage.joueur.id %}
+		{{ form_start(armureForm)}}
+		{{ form_widget(armureForm)}}
+		<button>Modifier !</button>
+		{{ form_end(armureForm)}}
+	{% endif %}
 {% endblock %}

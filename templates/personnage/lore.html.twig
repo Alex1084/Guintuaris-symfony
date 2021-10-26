@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Mon lore | {{parent()}}{% endblock %}
+{% block title %}
+	Mon lore |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
-    {{ form_start(loreForm)}}
-      {{form_widget(loreForm)}}
-      <button>valider</button>
-    {{ form_end(loreForm)}}
+	{% if app.user.id == personnage.joueur.id %}
+		{{ form_start(loreForm)}}
+		{{form_widget(loreForm)}}
+		<button>valider</button>
+		{{ form_end(loreForm)}}
+	{% endif %}
 {% endblock %}
