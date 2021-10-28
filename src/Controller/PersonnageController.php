@@ -101,7 +101,9 @@ class PersonnageController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
         $loreForm = $this->createFormBuilder($personnage)
-            ->add('lore', TextareaType::class)
+            ->add('lore', TextareaType::class, [
+                'attr' => ['class' => 'area-form']
+            ])
             ->getForm();
         $loreForm->handleRequest($request);
         if ($loreForm->isSubmitted()) {
@@ -175,10 +177,13 @@ class PersonnageController extends AbstractController
                 'choice_label' => 'type',
                 'query_builder' => $this->optionType($i, $pr),
                 'data' => $armure[$i - 1]->getPiece(),
+                'attr' => ['class' => 'input-form']
             ])
                 ->add($str, TextType::class, [
                     'required' => false,
                     'data' => $armure[$i - 1]->getEffet(),
+                    'label' => 'Effet',
+                    'attr' => ['class' => 'input-form']
                 ]);
         }
         $armureForm = $armureForm->getForm();
@@ -215,15 +220,19 @@ class PersonnageController extends AbstractController
         $armureForm = $this->createFormBuilder();
         for ($i = 1; $i <= 3; $i++) {
             $str = 'effet_' . $i;
-            $armureForm->add('' . $i, EntityType::class, [
+            $armureForm->add('n_' . $i, EntityType::class, [
                 'class' => Arme::class,
                 'choice_label' => 'nom',
                 //'query_builder' => $this->optionType($i, $pr),
                 'data' => $armes[$i - 1]->getArme(),
+                'attr' => ['class' => 'input-form'],
+                'label' => 'Arme N°' . $i
             ])
                 ->add($str, TextType::class, [
                     'required' => false,
                     'data' => $armes[$i - 1]->getEffet(),
+                    'label' => 'Effet',
+                    'attr' => ['class' => 'input-form']
                 ]);
         }
         $armureForm = $armureForm->getForm();
@@ -231,7 +240,7 @@ class PersonnageController extends AbstractController
         if ($armureForm->isSubmitted()) {
 
             for ($i = 1; $i <= 3; $i++) {
-                $arme = $armureForm->get($i)->getData();
+                $arme = $armureForm->get('n_' . $i)->getData();
                 $effet = $armureForm->get('effet_' . $i)->getData();
                 $armes[$i - 1]->setArme($arme);
                 $armes[$i - 1]->setEffet($effet);
@@ -241,7 +250,7 @@ class PersonnageController extends AbstractController
             }
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
-        return $this->render('personnage/equipement.html.twig', [
+        return $this->render('personnage/arme.html.twig', [
             'armureForm' => $armureForm->createView(),
             "personnage" => $personnage,
         ]);

@@ -1,11 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ajouter une competence | {{parent()}}{% endblock %}
+{% block title %}
+	Ajouter une competence |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
+	<div class="container">
+		{{ form_start(competenceForm) }}
+		<div>
+			<h3 class="title-form">General</h3>
+			<div class="row">
+				<div class="col-md-4 div-form">{{ form_label(competenceForm.nom) }}
+					<br>
+					{{ form_widget(competenceForm.nom) }}
+				</div>
+				<div class="col-md-4 div-form">{{ form_label(competenceForm.niveau) }}
+					<br>
+					{{ form_widget(competenceForm.niveau) }}
+				</div>
+				<div class="col-md-4 div-form">{{ form_label(competenceForm.classe) }}
+					<br>
+					{{ form_widget(competenceForm.classe) }}
+				</div>
+			</div>
+		</div>
+		<div>
+			<h3 class="title-form">Precise</h3>
+			<div class="row">
+				<div class="col-md-4 div-form">{{ form_label(competenceForm.cout) }}
+					<br>
+					{{ form_widget(competenceForm.cout) }}
+				</div>
+				<div class="col-md-4 div-form">{{ form_label(competenceForm.portee) }}
+					<br>
+					{{ form_widget(competenceForm.portee) }}
+				</div>
+				<div class="col-md-4 div-form">{{ form_label(competenceForm.degat) }}
+					<br>
+					{{ form_widget(competenceForm.degat) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 div-form">
+				<h3 class="title-form">
+					{{ form_label(competenceForm.description) }}
+				</h3>
+				<br>
+				{{ form_widget(competenceForm.description) }}
 
-{{ form_start(competenceForm) }}
-{{ form_widget(competenceForm)}}
-<button>Ajouter !</button>
-{{form_end(competenceForm)}}
+			</div>
+		</div>
+
+		<button class="valid-form">Ajouter !</button>
+		{{form_end(competenceForm)}}
+	</div>
 {% endblock %}

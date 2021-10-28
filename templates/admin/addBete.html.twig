@@ -1,11 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ajouter une Bete | {{parent()}}{% endblock %}
+{% block title %}
+	Ajouter une Bete |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
+	<div class="container">
+		{{ form_start(beteForm) }}
+		<div>
+			<h3 class="title-form">Monstre</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-4 div-form">{{ form_label(beteForm.nom) }}
+				<br>
+				{{ form_widget(beteForm.nom) }}
+			</div>
 
-{{ form_start(beteForm) }}
-{{ form_widget(beteForm)}}
-<button>Ajouter !</button>
-{{form_end(beteForm)}}
+			<div class="col-md-4 div-form">{{ form_label(beteForm.niveau) }}
+				<br>
+				{{ form_widget(beteForm.niveau) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.Type) }}
+				<br>
+				{{ form_widget(beteForm.Type) }}
+			</div>
+		</div>
+		<div>
+			<h3 class="title-form">Statut</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-4 div-form">{{ form_label(beteForm.pvMax) }}
+				<br>
+				{{ form_widget(beteForm.pvMax) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.pmMax) }}
+				<br>
+				{{ form_widget(beteForm.pmMax) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.pcMax) }}
+				<br>
+				{{ form_widget(beteForm.pcMax) }}
+			</div>
+		</div>
+		<div>
+			<h3 class="title-form">Statistique</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-4 div-form">{{ form_label(beteForm.constitution) }}
+				<br>
+				{{ form_widget(beteForm.constitution) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.laForce) }}
+				<br>
+				{{ form_widget(beteForm.laForce) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.dexterite) }}
+				<br>
+				{{ form_widget(beteForm.dexterite) }}
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-md-4 div-form">{{ form_label(beteForm.intelligence) }}
+				<br>
+				{{ form_widget(beteForm.intelligence) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.charisme) }}
+				<br>
+				{{ form_widget(beteForm.charisme) }}
+			</div>
+			<div class="col-md-4 div-form">{{ form_label(beteForm.foi) }}
+				<br>
+				{{ form_widget(beteForm.foi) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 div-form">
+				<h3 class="title-form">
+					{{ form_label(beteForm.note) }}
+				</h3>
+				<br>
+				{{ form_widget(beteForm.note) }}
+			</div>
+		</div>
+		<button class="valid-form">Ajouter !</button>
+		{{form_end(beteForm)}}
+	</div>
 {% endblock %}

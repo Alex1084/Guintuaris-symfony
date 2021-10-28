@@ -117,7 +117,15 @@ form button:active, #de:active{
     transform: translateY(4px);
     scale: 0.95;
 }
+select{
+    border: 1px solid #41392f80;
+    background-color: #eed4b1;
+    box-shadow: 10px 5px 5px #b89c7794
+}
+select:hover{
+    background-color: #ceb799;
 
+}
 .title-form{
     margin-top: 25px;
     text-align: center;
@@ -143,7 +151,15 @@ form button:active, #de:active{
     -moz-box-align: center;
     box-align: center;
 }
+.log{
+    width: 100%;
+    height: 39px;
+}
 
+.area-form{
+    width: 90%;
+    height: 150px;
+}
 /**************footer**************/
 footer{
     margin-top: 50px;

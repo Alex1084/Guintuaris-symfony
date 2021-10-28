@@ -20,8 +20,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
-     * @Route("/admin", name="admin_")
-     */
+ * @Route("/admin", name="admin_")
+ */
 class AdminController extends AbstractController
 {
     /**
@@ -29,8 +29,7 @@ class AdminController extends AbstractController
      */
     public function adminHome(): Response
     {
-        return $this->render('admin/admin.html.twig', [
-        ]);
+        return $this->render('admin/admin.html.twig', []);
     }
 
 
@@ -41,9 +40,9 @@ class AdminController extends AbstractController
     {
         $competence = new Competence();
         $competenceForm = $this->createForm(CompetenceType::class, $competence);
-        
+
         $competenceForm->handleRequest($request);
-        if($competenceForm->isSubmitted()){
+        if ($competenceForm->isSubmitted()) {
 
             $entityManager->persist($competence);
             $entityManager->flush();
@@ -58,12 +57,12 @@ class AdminController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $repo = $this->getDoctrine()->getRepository(PieceArmure::class);
-        $piecesTab = $repo->findAll(); 
+        $piecesTab = $repo->findAll();
         $piece = new PieceArmure();
         $pieceForm = $this->createForm(PieceArmureType::class, $piece);
-        
+
         $pieceForm->handleRequest($request);
-        if($pieceForm->isSubmitted()){
+        if ($pieceForm->isSubmitted()) {
             $entityManager->persist($piece);
             $entityManager->flush();
 
@@ -77,28 +76,29 @@ class AdminController extends AbstractController
     /**
      * @Route("/ajout_membre/{idEquipe}", name="add_membre")
      */
-    public function addMembreEquipe($idEquipe, Request $request, EntityManagerInterface $entityManager){
+    public function addMembreEquipe($idEquipe, Request $request, EntityManagerInterface $entityManager)
+    {
         $equipeJoin = $this->getDoctrine()->getRepository(Equipe::class)->find($idEquipe);
         $membre = $this->createFormBuilder()
-                        ->add('personnage', EntityType::class,[
-                            'class' => Personnage::class,
-                            'choice_label' => 'nom',
-                            'query_builder' => function (PersonnageRepository $pr){
-                                return $pr->createQueryBuilder('p')
-                                            ->where('p.equipe = 5')
-                                            ->orderBy('p.nom', 'ASC');
-                            }
-                        ])
-                        ->getForm();
+            ->add('personnage', EntityType::class, [
+                'class' => Personnage::class,
+                'choice_label' => 'nom',
+                'query_builder' => function (PersonnageRepository $pr) {
+                    return $pr->createQueryBuilder('p')
+                        ->where('p.equipe = 5')
+                        ->orderBy('p.nom', 'ASC');
+                }
+            ])
+            ->getForm();
         $membre->handleRequest($request);
-        if($membre->isSubmitted()){
+        if ($membre->isSubmitted()) {
             $personnageSelectionner = $membre->get('personnage')->getData();
             $personnageSelectionner->setEquipe($equipeJoin);
             dump($personnageSelectionner);
 
             $entityManager->persist($personnageSelectionner);
             $entityManager->flush();
-            return $this->redirectToRoute('admin_add_membre');
+            return $this->redirectToRoute('admin_add_membre', ['idEquipe' => $idEquipe]);
         }
         return $this->render('admin/addMembreEquipe.html.twig', [
             'membre' => $membre->createView(),
@@ -108,7 +108,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/equipe", name="equipe_list")
      */
-    public function listEquipeAdmin(){
+    public function listEquipeAdmin()
+    {
         $repo = $this->getDoctrine()->getRepository(Equipe::class);
         $equipes = $repo->findAll();
         return $this->render('admin/listEquipe.html.twig', [
@@ -119,7 +120,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/Bestiaire", name="add_bete")
      */
-    public function addBete(EntityManagerInterface $entityManager, Request $request){
+    public function addBete(EntityManagerInterface $entityManager, Request $request)
+    {
         $bete = new Bestiaire();
         $beteForm = $this->createForm(BestiaireType::class, $bete);
 
@@ -127,7 +129,7 @@ class AdminController extends AbstractController
         $beteForm->remove('pc');
         $beteForm->remove('pm');
         $beteForm->handleRequest($request);
-        if($beteForm->isSubmitted()){
+        if ($beteForm->isSubmitted()) {
             $bete->setPv($bete->getPvMax());
             $bete->setPc($bete->getPcMax());
             $bete->setPm($bete->getPmMax());

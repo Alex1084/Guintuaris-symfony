@@ -1,13 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register | {{parent()}}{% endblock %}
+{% block title %}Register |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+	<div class="container">
+		<h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_widget(registrationForm) }}
+		{{ form_start(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+		<div class="row">
+			<div class="col-md-12 div-form">
+				{{ form_label(registrationForm.email) }}
+				<br>
+				{{ form_widget(registrationForm.email) }}
+
+
+			</div>
+
+			<div class="col-md-12 div-form">
+				{{ form_label(registrationForm.nom) }}
+				<br>
+				{{ form_widget(registrationForm.nom) }}
+			</div>
+
+			<div class="col-md-12 div-form">
+				{{ form_label(registrationForm.plainPassword) }}
+				<br>
+				{{ form_widget(registrationForm.plainPassword) }}
+			</div>
+
+		</div>
+
+
+		<button type="submit" class="valid-form">Register</button>
+		{{ form_end(registrationForm) }}
+	</div>
 {% endblock %}

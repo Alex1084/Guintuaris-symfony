@@ -22,19 +22,22 @@ class PersonnageType extends AbstractType
                 "attr" => [
                     "min" => 10,
                     "class" => "input-form",
-                ]
+                ],
+                'label' => 'PV'
             ])
             ->add('pcMax', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "class" => "input-form",
-                ]
+                ],
+                'label' => 'PC'
             ])
             ->add('pmMax', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "class" => "input-form",
-                ]
+                ],
+                'label' => 'PM'
             ])
             ->add('niveau', IntegerType::class, [
                 "attr" => [
@@ -58,7 +61,8 @@ class PersonnageType extends AbstractType
                     "max" => 85,
                     "class" => "input-form",
 
-                ]
+                ],
+                'label' => 'Force'
             ])
             ->add('dexterite', IntegerType::class, [
                 "attr" => [

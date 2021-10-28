@@ -7,9 +7,20 @@
 
 {% block body %}
 	{% if app.user.id == personnage.joueur.id %}
-		{{ form_start(loreForm)}}
-		{{form_widget(loreForm)}}
-		<button>valider</button>
-		{{ form_end(loreForm)}}
+		<div class="container">
+			{{ form_start(loreForm)}}
+			<div class="row">
+				<div class="col-md-12 div-form">
+					<h3 class="title-form">
+						{{ form_label(loreForm.lore) }}
+					</h3>
+					<br>
+					{{ form_widget(loreForm.lore) }}
+				</div>
+			</div>
+
+			<button class="valid-form">valider</button>
+			{{ form_end(loreForm)}}
+		</div>
 	{% endif %}
 {% endblock %}

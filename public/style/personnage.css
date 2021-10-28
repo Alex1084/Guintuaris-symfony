@@ -125,3 +125,10 @@ table, th, td {
     width: 202px;
     border: 1px black solid
 }
+
+
+
+
+#result{
+    height: 64px;
+}
