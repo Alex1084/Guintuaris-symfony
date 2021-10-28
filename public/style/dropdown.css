@@ -5,7 +5,7 @@
   cursor: pointer;
   text-align: center;
   width: 546px;
-  height: 50px;  
+  height: 50px; 
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -22,10 +22,14 @@
   position: relative;
   z-index: 1;
   max-width: 546px;
+  height: 204px;
   padding-right: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px black solid;
 }
 
-.dropdown-content p {
+.dropdown-content p, .dropdown-content pre {
   display: inline-block;
   position: relative;
   max-inline-size: 546px;
@@ -43,5 +47,5 @@
 #lore-link{
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: auto;
 }

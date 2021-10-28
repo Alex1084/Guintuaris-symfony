@@ -25,7 +25,7 @@
 					<h3>{{ personnage.classe.nom }}</h3>
 					<h3>Niveau
 						{{ personnage.niveau }}</h3>
-					<a href="{{ path("personnage_list_equipe", {"idEquipe" :personnage.equipe.id})}}">{{personnage.equipe.nom}}</a>
+					<a href="{{ path("equipe_list", {"idEquipe" :personnage.equipe.id})}}">{{personnage.equipe.nom}}</a>
 				</div>
 				<div class="col-md-6">
 
@@ -34,8 +34,8 @@
 							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
 						<div class="dropdown-content">
 							<p class="content">{{ personnage.lore }}</p>
-							<a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">modifier le lore</a>
 						</div>
+						<a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">modifier le lore</a>
 					</div>
 				</div>
 			</div>
@@ -43,27 +43,29 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
-					<p class="comp">Constitution:</p>
-					<div class="circle">
+					<p class="label">Constitution:</p>
+					<div class="statistique">
 						<p>{{ personnage.constitution }}</p>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<p class="comp">Force :</p>
-					<div class="circle">
+					<p class="label">Force :</p>
+					<div class="statistique">
 						<p>{{ personnage.laForce }}</p>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<p class="comp">Dexterite :</p>
-					<div class="circle">
+					<p class="label">Dexterite :</p>
+					<div class="statistique">
 						<p>{{ personnage.dexterite }}</p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div id="bar-container">
-						<span class="label" id="label-plus">+</span>
-						<span class="label" id="label-moins">-</span>
+						<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">level up !</a>
+						<span class="label-statut" id="label-plus">+</span>
+						<span class="label-statut" id="label-moins">-</span>
+
 
 					</div>
 					{{ form_start(statForm) }}
@@ -71,7 +73,7 @@
 						class="statut">
 
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
-						<label for="pv" class="comp">PV
+						<label for="pv" class="label">PV
 						</label>
 						<input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{personnage.pv}}" readonly>
 						<span class="max">/
@@ -88,8 +90,9 @@
 						class="statut">
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-						<label for="pm" class="comp">PM</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}">
+						<label for="pm" class="label">PM</label>
+						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}" readonly>
+
 						<span class="max">/
 							{{personnage.pmMax}}</span>
 
@@ -103,9 +106,10 @@
 						class="statut">
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-						<label for="pc" class="comp">PC
+						<label for="pc" class="label">PC
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}">
+						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}" readonly>
+
 						<span class="max">/
 							{{personnage.pcMax}}</span>
 
@@ -115,34 +119,48 @@
 						<input type="integer" class="input-enabled ajout">
 						<input type="integer" class="input-enabled soustrait">
 					</div>
-					<button>Sauvegarder !</button>
+					<div class="div-sauvegarde">
+
+						<button class="sauvegarde">Sauvegarder !</button>
+					</div>
 					{{ form_end(statForm) }}
-					<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">level up !</a>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<p class="comp">Intelligence:</p>
-					<div class="circle">
+					<p class="label">Intelligence:</p>
+					<div class="statistique">
 						<p>{{ personnage.intelligence }}</p>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<p class="comp">Charisme :</p>
-					<div class="circle">
+					<p class="label">Charisme :</p>
+					<div class="statistique">
 						<p>{{ personnage.charisme }}</p>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<p class="comp">Foi :</p>
-					<div class="circle">
+					<p class="label">Foi :</p>
+					<div class="statistique">
 						<p>{{ personnage.foi }}</p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					{{ form_start(inventaireForm) }}
-					{{ form_widget(inventaireForm) }}
-					<button>Sauvegarder</button>
+					<div>
+						<div class="label label-form">
+							{{ form_label(inventaireForm.inventaire) }}
+						</div>
+						{{ form_widget(inventaireForm.inventaire) }}
+					</div>
+
+					<div class="div-sauvegarde">
+						<div class="label label-form">
+							{{ form_label(inventaireForm.po) }}
+						</div>
+						{{ form_widget(inventaireForm.po) }}
+						<button class="sauvegarde">Sauvegarder !</button>
+					</div>
 
 					{{ form_end(inventaireForm) }}
 				</div>
@@ -174,10 +192,26 @@
 		</div>
 
 		<div class="container">
-			<div class="row">
+			<div class="row tableaux-row">
+
+				<div class="col-md-6">
+					<a href="{{ path("personnage_modif_armure", {"id" : personnage.id}) }}" class="titre-table">
+						<h2>Armure</h2>
+					</a>
+				</div>
+				<div class="col-md-6">
+					<a href="{{ path("personnage_modif_arme", {"id" : personnage.id}) }}" class="titre-table">
+
+						<h2>Arme</h2>
+					</a>
+				</div>
+			</div>
+			<div class="row tableaux-row">
+
+
 				<div class="col-md-6">
 					{% set ca = 0 %}
-					<table>
+					<table class="tableau">
 						<tr>
 							<th>pièce</th>
 							<th>type</th>
@@ -198,10 +232,10 @@
 							<th>{{ca}}</th>
 						</tr>
 					</table>
-					<a href="{{ path("personnage_modif_armure", {"id" : personnage.id}) }}">armure</a>
 				</div>
 				<div class="col-md-6">
-					<table>
+					<table class="tableau">
+
 						<tr>
 							<th>arme</th>
 							<th>dégats</th>
@@ -217,39 +251,38 @@
 							</tr>
 						{% endfor %}
 					</table>
-					<a href="{{ path("personnage_modif_arme", {"id" : personnage.id}) }}">arme</a>
 				</div>
 			</div>
 		</div>
 
+		<h2 id="title">Competences</h2>
+		{% set row = 0 %}
+		{% for competence in competences %}
+			{% set row = row + 1 %}
+			{% if row  == 1 %}
+				<div class="row">
+				{% endif %}
+				<div class="col-md-6">
+					<div class="dropdown">
+						<button class="dropbtn">
+							{{competence.nom}}
+							,
+							{{competence.cout}}
+							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+						<div class="dropdown-content">
+							<p class="content">{{ competence.description }}</p>
+						</div>
+					</div>
+				</div>
+				{% if row == 2 %}
+				</div>
+				{% set row = 0 %}
+			{% endif %}
+		{% endfor %}
 	{% else %}
 		<p>desoler accée interdit</p>
 	{% endif %}
 
-	<h2>Competences</h2>
-	{% set row = 0 %}
-	{% for competence in competences %}
-		{% set row = row + 1 %}
-		{% if row  == 1 %}
-			<div class="row">
-			{% endif %}
-			<div class="col-md-6">
-				<div class="dropdown">
-					<button class="dropbtn">
-						{{competence.nom}}
-						,
-						{{competence.cout}}
-						<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
-					<div class="dropdown-content">
-						<p class="content">{{ competence.description }}</p>
-					</div>
-				</div>
-			</div>
-			{% if row == 2 %}
-			</div>
-			{% set row = 0 %}
-		{% endif %}
-	{% endfor %}
 {% endblock %}
 
 {% block script %}

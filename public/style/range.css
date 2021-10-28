@@ -4,6 +4,7 @@
     width: 0px;
     height: 0px;
     margin-left: 15px;
+    border: none;
   }
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;

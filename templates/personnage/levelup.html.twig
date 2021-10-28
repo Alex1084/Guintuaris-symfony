@@ -8,9 +8,95 @@
 {% block body %}
 	{% if app.user.id == personnage.joueur.id %}
 		{{ form_start(personnageForm) }}
-		{{ form_widget(personnageForm) }}
-		<button>level up !</button>
+		<div class="container">
+			<div>
+				<h3 class="title-form">niveau</h3>
+			</div>
 
+			<div class="row">
+				<div class="col-md-12 div-form">
+					{{ form_label(personnageForm.niveau) }}
+					<br>
+					{{ form_widget(personnageForm.niveau)}}
+				</div>
+			</div>
+
+			<div>
+				<h3 class="title-form">Statut</h3>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.pvMax) }}
+					<br>
+					{{ form_widget(personnageForm.pvMax)}}
+
+					<div class="note">
+						<p>{{personnage.classe.dePv}}</p>
+					</div>
+
+				</div>
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.pcMax) }}
+					<br>
+					{{ form_widget(personnageForm.pcMax)}}
+					<div class="note">
+						<p>{{personnage.classe.dePc}}</p>
+					</div>
+				</div>
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.pmMax) }}
+					<br>
+					{{ form_widget(personnageForm.pmMax)}}
+					<div class="note">
+						<p>{{personnage.classe.dePm}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<h3 class="title-form">Statistique</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.constitution) }}
+					<br>
+					{{ form_widget(personnageForm.constitution)}}
+				</div>
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.laForce) }}
+					<br>
+					{{ form_widget(personnageForm.laForce)}}
+				</div>
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.dexterite) }}
+					<br>
+					{{ form_widget(personnageForm.dexterite)}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.intelligence) }}
+					<br>
+					{{ form_widget(personnageForm.intelligence)}}
+				</div>
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.charisme) }}
+					<br>
+					{{ form_widget(personnageForm.charisme)}}
+				</div>
+				<div class="col-md-4 div-form">
+					{{ form_label(personnageForm.foi) }}
+					<br>
+					{{ form_widget(personnageForm.foi)}}
+				</div>
+			</div>
+
+
+			<div>
+				<button class="valid-form">level up !</button>
+			</div>
+		</div>
 		{{ form_end(personnageForm) }}
 	{% endif %}
 {% endblock %}

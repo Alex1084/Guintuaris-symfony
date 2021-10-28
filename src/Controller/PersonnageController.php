@@ -42,17 +42,6 @@ class PersonnageController extends AbstractController
     }
 
     /**
-     * @Route("/list/equipe/{idEquipe}", name="list_equipe")
-     */
-    public function listEquipe($idEquipe): Response
-    {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnages = $repo->findBy(array('equipe' => $idEquipe), array('nom' => 'ASC'));
-        return $this->render('personnage/listEquipe.html.twig', [
-            "personnages" => $personnages
-        ]);
-    }
-    /**
      * @Route("/{id}", name="view")
      */
     public function fichePerso($id, Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
@@ -145,9 +134,6 @@ class PersonnageController extends AbstractController
         $personnageForm->remove('inventaire');
         $personnageForm->remove('po');
         $personnageForm->remove('joueur');
-        $personnageForm->remove('pv');
-        $personnageForm->remove('pc');
-        $personnageForm->remove('pm');
         $personnageForm->remove('classe');
         $personnageForm->remove('race');
 

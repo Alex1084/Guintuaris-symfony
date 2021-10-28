@@ -6,6 +6,7 @@ use App\Entity\Classe;
 use App\Entity\Personnage;
 use App\Entity\Race;
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,34 +18,91 @@ class PersonnageType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('pv')
-            ->add('pvMax')
-            ->add('pc')
-            ->add('pcMax')
-            ->add('pm')
-            ->add('pmMax')
-            ->add('niveau')
-            ->add('constitution')
-            ->add('laForce')
-            ->add('dexterite')
-            ->add('intelligence')
-            ->add('charisme')
-            ->add('foi')
+            ->add('pvMax', IntegerType::class, [
+                "attr" => [
+                    "min" => 10,
+                    "class" => "input-form",
+                ]
+            ])
+            ->add('pcMax', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "class" => "input-form",
+                ]
+            ])
+            ->add('pmMax', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "class" => "input-form",
+                ]
+            ])
+            ->add('niveau', IntegerType::class, [
+                "attr" => [
+                    "min" => 1,
+                    "max" => 10,
+                    "class" => "input-form",
+
+                ]
+            ])
+            ->add('constitution', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "max" => 85,
+                    "class" => "input-form",
+
+                ]
+            ])
+            ->add('laForce', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "max" => 85,
+                    "class" => "input-form",
+
+                ]
+            ])
+            ->add('dexterite', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "max" => 85,
+                    "class" => "input-form",
+
+                ]
+            ])
+            ->add('intelligence', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "max" => 85,
+                    "class" => "input-form",
+                ]
+            ])
+            ->add('charisme', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "max" => 85,
+                    "class" => "input-form",
+                ]
+            ])
+            ->add('foi', IntegerType::class, [
+                "attr" => [
+                    "min" => 0,
+                    "max" => 85,
+                    "class" => "input-form",
+                ]
+            ])
             ->add('lore')
             ->add('inventaire')
             ->add('po')
-            ->add('classe', EntityType::class,[
+            ->add('classe', EntityType::class, [
                 'class' => Classe::class,
                 'choice_label' => 'nom'
             ])
-            ->add('race', EntityType::class,[
+            ->add('race', EntityType::class, [
                 'class' => Race::class,
                 'choice_label' => 'nom'
             ])
             ->add('joueur')
             /*
-            ->add('equipe') */
-        ;
+            ->add('equipe') */;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

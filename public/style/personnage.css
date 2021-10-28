@@ -8,27 +8,37 @@
     height: 150px;
     width: 100px;
 }
+a{
+    text-align: center;
+    color: black;
+}
+a:hover{
+    color: white;
+}
 
-
-.circle{
+#title{
+    text-align: center;
+}
+/* ~~~~~~~~~~~Statistique~~~~~~~~~~~ */
+.statistique{
 
     padding: 0;
     text-align: center;
     border: 2px black solid;
     border-radius: 172px;
 }
-.circle p {
+.statistique p {
     font-size: 2rem;
 }
-.comp{
+.label{
     text-align: center;
     font-weight: bold;
 }
-
-table, th, td {
-    border: 1px solid black;
-    text-align: center;
+.label-form{
+    margin: 0;
+    text-align: inherit;
 }
+/* ~~~~~~~~~~~Statut~~~~~~~~~~~ */
 
 input[type="integer"]{
     background: none;
@@ -37,11 +47,12 @@ input[type="integer"]{
     height: 48px;
     width: 48px;
     text-align: center;
+    box-shadow: none;
 }
 #bar-container{
     position: relative;
 }
-.label{
+.label-statut{
     position: absolute;
     font-weight: bold;
     font-size: 2rem;
@@ -49,6 +60,9 @@ input[type="integer"]{
 }
 .statut{
     position: relative;
+}
+.max{
+    margin-right: 15px;
 }
 .input-enabled {
     position: absolute;
@@ -58,7 +72,6 @@ input[type="integer"]{
     left: 25%;
     top : 13.6px
 }
-
 .soustrait{
     left: 73.7%;
 }
@@ -71,6 +84,44 @@ input[type="integer"]{
 #label-moins{
     left: 76.8%;
 }
-.max{
-    margin-right: 15px;
+
+/* ~~~~~~~~~~~Les Tableaux~~~~~~~~~~~ */
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.tableaux-row{
+    margin: 10px;
+}
+.titre-table{
+    text-decoration: none;
+    text-align: center;
+}
+
+
+
+.tableau{
+    margin: auto;
+}
+
+/* ~~~~~~~~~~~form~~~~~~~~~~~ */
+.div-sauvegarde{
+    position: relative;
+    min-height: 50px;
+}
+.sauvegarde{
+    position: absolute;
+    left: 60%;
+}
+#inventaire{
+    width: 400px;
+    height: 200px;
+    overflow-y: auto;
+    border: 1px black solid
+}
+#po{
+    height: 26px;
+    width: 202px;
+    border: 1px black solid
 }
