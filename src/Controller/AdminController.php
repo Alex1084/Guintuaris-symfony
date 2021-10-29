@@ -155,10 +155,10 @@ class AdminController extends AbstractController
             "beteForm" => $beteForm->createView(),
         ]);
     }
-    /**
+    /*
      * @Route("/list_type_bestiaire", name="type_bestiaire_list")
      */
-    public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager)
+    /* public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager)
     {
         $newType = new TypeBestiaire();
         $results = $this->createFormTable($newType, TypeBestiaire::class);
@@ -173,7 +173,7 @@ class AdminController extends AbstractController
             'list' => $typesBestiaire,
             'form' => $addTypeForm->createView()
         ]);
-    }
+    } */
 
     /**
      * @Route("/list_type_armure", name="type_armure_list")

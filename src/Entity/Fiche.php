@@ -98,7 +98,7 @@ abstract class Fiche
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("post:read")
+     * @Groups("read")
      */
     private $intelligence;
 

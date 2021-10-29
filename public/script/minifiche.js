@@ -118,9 +118,7 @@ function onClickBtnLike(event) {
     event.preventDefault();
     const url = this.href;
     axios.get(url).then(function (response) {
-        //console.log(response)
-        monstre = response.data.bete;
-        console.log(monstre)
+        monstre = response.data;
 
         const container = document.querySelector(".container-fluid");
         if (row < 1) {
