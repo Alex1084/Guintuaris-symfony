@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\FicheRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -30,36 +31,61 @@ abstract class Fiche
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(
+     *      min=3,
+     *      max=50,
+     * )
      * @Groups({"read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=1,
+     *      max=10,
+     * )
      * @Groups({"read"})
      */
     private $niveau;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=10,
+     *      max=500,
+     * )
      * @Groups({"read"})
      */
     private $pv;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=10,
+     *      max=500,
+     * )
      * @Groups({"read"})
      */
     private $pvMax;
 
     /**
      * @ORM\Column(type="integer")
+     
+     * @Assert\Range(
+     *      min=0,
+     *      max=500,
+     * )
      * @Groups({"read"})
      */
     private $pc;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=500,
+     * )
      * @Groups({"read"})
      */
     private $pcMax;
@@ -67,12 +93,20 @@ abstract class Fiche
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=500,
+     * )
      * @Groups({"read"})
      */
     private $pm;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=500,
+     * )
      * @Groups({"read"})
      */
     private $pmMax;
@@ -80,36 +114,60 @@ abstract class Fiche
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=85,
+     * )
      * @Groups({"read"})
      */
     private $constitution;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=85,
+     * )
      * @Groups({"read"})
      */
     private $laForce;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=85,
+     * )
      * @Groups({"read"})
      */
     private $dexterite;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=85,
+     * )
      * @Groups("read")
      */
     private $intelligence;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=85,
+     * )
      * @Groups({"read"})
      */
     private $charisme;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min=0,
+     *      max=85,
+     * )
      * @Groups({"read"})
      */
     private $foi;

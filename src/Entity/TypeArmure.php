@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TypeArmureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TypeArmureRepository::class)
@@ -14,6 +15,10 @@ class TypeArmure
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Length(
+     *      min=5,
+     *      max=50,
+     * )
      */
     private $id;
 

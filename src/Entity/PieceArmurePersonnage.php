@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PieceArmurePersonnageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PieceArmurePersonnageRepository::class)
@@ -34,7 +35,11 @@ class PieceArmurePersonnage
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     */
+     * @Assert\Length(
+     *      min=5,
+     *      max=50,
+     * )
+     * */
     private $effet;
 
     public function getId(): ?int
@@ -42,10 +47,10 @@ class PieceArmurePersonnage
         return $this->id;
     }
 
-    public function setId(int $id) : self
+    public function setId(int $id): self
     {
         $this->id = $id;
-        
+
         return $this;
     }
 

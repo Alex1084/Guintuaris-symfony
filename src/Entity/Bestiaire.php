@@ -14,11 +14,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Bestiaire extends Fiche
 {
     /**
-     * @ORM\OneToMany(targetEntity=Competence::class, mappedBy="bestiaire")
-     */
-    private $competance;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups("post:read")
      */
@@ -35,35 +30,6 @@ class Bestiaire extends Fiche
         $this->competance = new ArrayCollection();
     }
 
-    /**
-     * @return Collection|Competence[]
-     */
-    public function getCompetance(): Collection
-    {
-        return $this->competance;
-    }
-
-    public function addCompetance(Competence $competance): self
-    {
-        if (!$this->competance->contains($competance)) {
-            $this->competance[] = $competance;
-            $competance->setBestiaire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompetance(Competence $competance): self
-    {
-        if ($this->competance->removeElement($competance)) {
-            // set the owning side to null (unless already changed)
-            if ($competance->getBestiaire() === $this) {
-                $competance->setBestiaire(null);
-            }
-        }
-
-        return $this;
-    }
     public function getNote(): ?string
     {
         return $this->note;

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PersonnageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PersonnageRepository::class)
@@ -51,6 +52,10 @@ class Personnage extends Fiche
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Range(
+     *      min=0,
+     *      max=999999999,
+     * )
      */
     private $image;
 

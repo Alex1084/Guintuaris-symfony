@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ArmePersonnageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArmePersonnageRepository::class)
@@ -31,6 +32,10 @@ class ArmePersonnage
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min=5,
+     *      max=50,
+     * )
      */
     private $effet;
 

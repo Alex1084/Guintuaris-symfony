@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TypeBestiaireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TypeBestiaireRepository::class)
@@ -18,8 +19,12 @@ class TypeBestiaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
+     * @ORM\Column(type="string", length=50) 
+     * @Assert\Length(
+     *      min=5,
+     *      max=50,
+     * )*/
+
     private $nom;
 
     public function getId(): ?int
