@@ -17,7 +17,10 @@
 		<div class="info container grid-container">
 			<div class="row">
 				<div class="col-md-3">
-					<div class="img"></div>
+					<div>
+						<img src="{{asset('image_personnage/'~ personnage.image)}}" alt="" height="200">
+					</div>
+					<a href="{{ path("personnage_change_image", {'id' : personnage.id})}}">changer d'image</a>
 				</div>
 				<div class="col-md-3">
 					<h1 id="nom">{{ personnage.nom }}</h1>

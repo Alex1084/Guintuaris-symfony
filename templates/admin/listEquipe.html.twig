@@ -10,6 +10,9 @@
         </li>
     {% endfor %}
     </ul>
-        {# <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">nouveau personnage</a> #}
 
+{{form_start(addEquipeForm) }}
+{{form_widget(addEquipeForm) }}
+<button>creer</button>
+{{form_end(addEquipeForm) }}
 {% endblock %}

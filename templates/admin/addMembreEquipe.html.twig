@@ -1,12 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ajouter un Membre | {{parent()}}{% endblock %}
+{% block title %}
+	Ajouter un Membre |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
-{{form_start(membre)}}
-    {{form_widget(membre)}}
-    <button>ajouter !</button>
-{{form_end(membre)}}
+	<div class="container">
+		{{form_start(membreForm)}}
+		{{form_widget(membreForm)}}
+		<button>ajouter !</button>
+		{{form_end(membreForm)}}
+		<ul>
+			{% for membre in membresEquipe %}
+				<li>
+					<a href="{{ path("equipe_fiche_view", {"idEquipe" : membre.equipe.id, "idPersonnage" : membre.id}) }}">{{ membre.nom }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
 
 
 {% endblock %}

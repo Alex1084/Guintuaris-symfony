@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Les Equipe |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<h2>Fiches personnage</h2>
+	<ul>
+		{% for element in list %}
+
+			<li>
+				{{ element.nom }}
+			</li>
+		{% endfor %}
+	</ul>
+
+	{{form_start(form) }}
+	{{form_widget(form) }}
+	<button>creer</button>
+	{{form_end(form) }}
+{% endblock %}

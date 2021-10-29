@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Image |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(imageForm) }}
+		{{ form_widget(imageForm) }}
+		<button class="valid-form">valider</button>
+		{{ form_end(imageForm) }}
+
+	</div>
+{% endblock %}

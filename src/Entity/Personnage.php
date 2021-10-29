@@ -49,6 +49,11 @@ class Personnage extends Fiche
      */
     private $po;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
     public function getJoueur(): ?User
     {
         return $this->joueur;
@@ -129,6 +134,18 @@ class Personnage extends Fiche
     public function setPo(int $po): self
     {
         $this->po = $po;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

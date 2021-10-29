@@ -12,8 +12,10 @@ use App\Form\PersonnageType;
 use App\Repository\CompetenceRepository;
 use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Filesystem;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * @Route("/personnage", name="personnage_")
@@ -161,6 +164,46 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/image", name="change_image")
+     */
+    public function modifImage($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        $personnage = $this->getDoctrine()->getRepository(Personnage::class)->find($id);
+        $imageForm = $this->createFormBuilder()
+            ->add('image', FileType::class, [
+                'label' => 'image (jpg)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        //'maxSize' => '50k'
+                    ])
+                ]
+            ])
+            ->getForm();
+        $imageForm->handleRequest($request);
+        if ($imageForm->isSubmitted()) {
+            $ancienneImage = $personnage->getImage();
+            $photo = $imageForm->get('image')->getData();
+
+            if ($ancienneImage != null) {
+                $this->removeFile($ancienneImage);
+            }
+            if ($photo) {
+                $fichier = md5(uniqid()) . '.' . $photo->guessExtension();
+                $photo->move($this->getParameter('images_directory'), $fichier);
+                $personnage->setImage($fichier);
+                $entityManager->persist($personnage);
+                $entityManager->flush();
+            }
+            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+        }
+        return $this->render('personnage/changeImage.html.twig', [
+            "imageForm" => $imageForm->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}/armure", name="modif_armure")
      */
     public function modifArmure($id, Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $pr)
@@ -261,5 +304,10 @@ class PersonnageController extends AbstractController
         return $pr->createQueryBuilder('p')
             ->where('p.localisation = :id')
             ->setParameter("id", $id);
+    }
+    public function removeFile($file)
+    {
+        $file_path = $this->getParameter('images_directory') . '/' . $file;
+        if (file_exists($file_path)) unlink($file_path);
     }
 }
