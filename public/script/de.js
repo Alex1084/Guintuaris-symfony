@@ -11,22 +11,22 @@ de.addEventListener('click', () => {
     valMalus =  stat.value - cA.value
     str += "<p> "+ lance +"<"+ valMalus +"("+ stat.value +" - "+ cA.value +") </p>"
     if (lance <= 5){
-        str += "succée  critique !"
+        str += "Succèe critique !"
     }
     else if(lance < valMalus){
-        str += "succée !"
+        str += "Succèe !"
 
         
     }
     else if(lance > valMalus && lance <= stat.value){
-        str += "presque reussite !"
+        str += "Presque réussite !"
 
     }
     else if (lance >= 95){
-        str += "echec  critique !"
+        str += "Echec critique !"
     }
     else {
-        str += "echec !"
+        str += "Echec !"
     }
     resultat.innerHTML = str
 })
