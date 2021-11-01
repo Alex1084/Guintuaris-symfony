@@ -11,10 +11,12 @@
         <link rel="icon" href="{{ asset('img/icon.png')}}">
     </head>
     <body>
-        <header>
+        <header class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="{{asset('img/logo2.png')}}" alt="">
+                <a href="/">
+                    <img src="{{asset('img/logo2.png')}}" alt="Logo de Guintuaris">
+                </a>
                 </div>
                 <div class="col-md-12">
                     {% include("inc/nav.html.twig") %}
@@ -22,13 +24,15 @@
             </div>
         </header>
 
-        <main>
+        <main class="container">
             {% block body %}{% endblock %}
         </main>
 
         {% block script %}{% endblock %}
-        <footer>
-            <p>© <span id="titre">Guintuaris</span>  - {{ "now"|date("Y")}} <a href="{{ path("main_egg") }}">.</a></p>
+        <footer class="footer">
+            <div class="container text-center">
+                <p>Copyright © {{ "now"|date("Y")}} <span id="titre">Guintuaris</span><a style="color: inherit; text-decoration: none;" href="{{ path("main_egg") }}">.</br></a> Codé avec ❤️ par les <a href="https://github.com/Alex1084/Guintuaris-symfony">contributeurs</a><a style="color: inherit; text-decoration: none;" href="{{ path("main_egg") }}">.</a></p>
+            </div>
         </footer>
     </body>
 </html>
