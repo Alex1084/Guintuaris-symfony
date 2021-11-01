@@ -27,7 +27,7 @@ class FicheEquipeController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnages = $repo->findBy(array('equipe' => $idEquipe), array('nom' => 'ASC'));
-        return $this->render('personnage/listEquipe.html.twig', [
+        return $this->render('fiche_equipe/listEquipe.html.twig', [
             "personnages" => $personnages
         ]);
     }
