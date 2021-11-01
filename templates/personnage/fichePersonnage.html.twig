@@ -20,7 +20,7 @@
 					<div>
 						<img src="{{asset('image_personnage/'~ personnage.image)}}" alt="" height="200">
 					</div>
-					<a href="{{ path("personnage_change_image", {'id' : personnage.id})}}">changer d'image</a>
+					<a href="{{ path("personnage_change_image", {'id' : personnage.id})}}">Changer d'image</a>
 				</div>
 				<div class="col-md-3">
 					<h1 id="nom">{{ personnage.nom }}</h1>
@@ -38,7 +38,7 @@
 						<div class="dropdown-content">
 							<p class="content">{{ personnage.lore }}</p>
 						</div>
-						<a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">modifier le lore</a>
+						<a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">Modifier le lore</a>
 					</div>
 				</div>
 			</div>
@@ -58,14 +58,14 @@
 					</div>
 				</div>
 				<div class="col-md-2">
-					<p class="label">Dexterite :</p>
+					<p class="label">Dextérite :</p>
 					<div class="statistique">
 						<p>{{ personnage.dexterite }}</p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div id="bar-container">
-						<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">level up !</a>
+						<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">Level up !</a>
 						<span class="label-statut" id="label-plus">+</span>
 						<span class="label-statut" id="label-moins">-</span>
 
@@ -131,7 +131,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<p class="label">Intelligence:</p>
+					<p class="label">Intelligence :</p>
 					<div class="statistique">
 						<p>{{ personnage.intelligence }}</p>
 					</div>
@@ -171,11 +171,11 @@
 		</div>
 		<div class="container">
 			<select name="" id="stat">
-				<option value="{{personnage.constitution}}">constitution</option>
-				<option value="{{personnage.laForce}}">force</option>
-				<option value="{{personnage.dexterite}}">dexteriter</option>
-				<option value="{{personnage.intelligence}}">intelligence</option>
-				<option value="{{personnage.charisme}}">charisme</option>
+				<option value="{{personnage.constitution}}">Constitution</option>
+				<option value="{{personnage.laForce}}">Force</option>
+				<option value="{{personnage.dexterite}}">Dextérité</option>
+				<option value="{{personnage.intelligence}}">Intelligence</option>
+				<option value="{{personnage.charisme}}">Charisme</option>
 				<option value="{{personnage.foi}}">Foi</option>
 			</select>
 
@@ -190,7 +190,7 @@
 				<option value="35">17 (-35)</option>
 				<option value="50">17+ (-50)</option>
 			</select>
-			<button id="de">test !</button>
+			<button id="de">Test !</button>
 			<div id="result"></div>
 		</div>
 
@@ -216,8 +216,8 @@
 					{% set ca = 0 %}
 					<table class="tableau">
 						<tr>
-							<th>pièce</th>
-							<th>type</th>
+							<th>Pièce</th>
+							<th>Type</th>
 							<th>CA</th>
 							<th>Effet</th>
 						</tr>
@@ -231,7 +231,7 @@
 							</tr>
 						{% endfor %}
 						<tr>
-							<th>total :</th>
+							<th>Total :</th>
 							<th>{{ca}}</th>
 						</tr>
 					</table>
@@ -240,9 +240,9 @@
 					<table class="tableau">
 
 						<tr>
-							<th>arme</th>
-							<th>dégats</th>
-							<th>dé</th>
+							<th>Arme</th>
+							<th>Dégats</th>
+							<th>Dé</th>
 							<th>Effet</th>
 						</tr>
 						{% for arme in armes %}
@@ -258,7 +258,7 @@
 			</div>
 		</div>
 
-		<h2 id="title">Competences</h2>
+		<h2 id="title">Compétences</h2>
 		{% set row = 0 %}
 		{% for competence in competences %}
 			{% set row = row + 1 %}
@@ -283,7 +283,7 @@
 			{% endif %}
 		{% endfor %}
 	{% else %}
-		<p>desoler accée interdit</p>
+		<p>Désolé accès interdit</p>
 	{% endif %}
 
 {% endblock %}

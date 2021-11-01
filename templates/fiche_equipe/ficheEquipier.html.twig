@@ -46,7 +46,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
-					<p class="label">Constitution:</p>
+					<p class="label">Constitution :</p>
 					<div class="statistique">
 						<p>{{ personnage.constitution }}</p>
 					</div>
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="col-md-2">
-					<p class="label">Dexterite :</p>
+					<p class="label">Dextérite :</p>
 					<div class="statistique">
 						<p>{{ personnage.dexterite }}</p>
 					</div>
@@ -75,7 +75,7 @@
 						<span class="max">/
 							{{personnage.pvMax}}</span>
 
-						<!-- ~~~~~~ bar de vie ~~~~~~ -->
+						<!-- ~~~~~~ barre de vie ~~~~~~ -->
 						<input type="range" class="bar" id="pv-range" min="0" , max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
 					</div>
 
@@ -111,7 +111,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<p class="label">Intelligence:</p>
+					<p class="label">Intelligence :</p>
 					<div class="statistique">
 						<p>{{ personnage.intelligence }}</p>
 					</div>
@@ -130,7 +130,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="label label-form">
-						<span>ineventaire</span>
+						<span>Inventaire</span>
 					</div>
 					<div id="inventaire">
 						<pre>{{personnage.inventaire}}</pre>
@@ -148,11 +148,11 @@
 		</div>
 		<div class="container">
 			<select name="" id="stat">
-				<option value="{{personnage.constitution}}">constitution</option>
-				<option value="{{personnage.laForce}}">force</option>
-				<option value="{{personnage.dexterite}}">dexteriter</option>
-				<option value="{{personnage.intelligence}}">intelligence</option>
-				<option value="{{personnage.charisme}}">charisme</option>
+				<option value="{{personnage.constitution}}">Constitution</option>
+				<option value="{{personnage.laForce}}">Force</option>
+				<option value="{{personnage.dexterite}}">Dextérité</option>
+				<option value="{{personnage.intelligence}}">Intelligence</option>
+				<option value="{{personnage.charisme}}">Charisme</option>
 				<option value="{{personnage.foi}}">Foi</option>
 			</select>
 
@@ -167,7 +167,7 @@
 				<option value="35">17 (-35)</option>
 				<option value="50">17+ (-50)</option>
 			</select>
-			<button id="de">test !</button>
+			<button id="de">Test !</button>
 			<div id="result"></div>
 		</div>
 
@@ -188,8 +188,8 @@
 					{% set ca = 0 %}
 					<table class="tableau">
 						<tr>
-							<th>pièce</th>
-							<th>type</th>
+							<th>Pièce</th>
+							<th>Type</th>
 							<th>CA</th>
 							<th>Effet</th>
 						</tr>
@@ -203,7 +203,7 @@
 							</tr>
 						{% endfor %}
 						<tr>
-							<th>total :</th>
+							<th>Total :</th>
 							<th>{{ca}}</th>
 						</tr>
 					</table>
@@ -212,9 +212,9 @@
 					<table class="tableau">
 
 						<tr>
-							<th>arme</th>
-							<th>dégats</th>
-							<th>dé</th>
+							<th>Arme</th>
+							<th>Dégats</th>
+							<th>Dé</th>
 							<th>Effet</th>
 						</tr>
 						{% for arme in armes %}
@@ -230,7 +230,7 @@
 			</div>
 		</div>
 
-		<h2 id="title">Competences</h2>
+		<h2 id="title">Compétences</h2>
 		{% set row = 0 %}
 		{% for competence in competences %}
 			{% set row = row + 1 %}
@@ -255,7 +255,7 @@
 			{% endif %}
 		{% endfor %}
 	{% else %}
-		<h2>désloer se Personnage n'appartient pas a cette équipe</h2>
+		<h2>Désolé, ce personnage n'appartient pas à cette équipe</h2>
 	{% endif %}
 {% endblock %}
 

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Mes Personnage | {{parent()}}{% endblock %}
+{% block title %} Mes Personnages | {{parent()}}{% endblock %}
 
 {% block body %}
-    <h2>Fiches personnage</h2>
+    <h2>Fiches personnages</h2>
     <ul>
     {% for personnage in personnages %}
         <li>
@@ -12,6 +12,6 @@
     {% endfor %}
     </ul>
         <hr/>
-        <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">nouveau personnage</a>
+        <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Nouveau personnage</a>
 
 {% endblock %}
