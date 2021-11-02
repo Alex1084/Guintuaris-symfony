@@ -9,14 +9,14 @@
 
     {% if app.user.id == user.id %}
         <h3>Mes infos: </h3>
-        <p>username: {{ user.username }}</p>
-        <p>email: {{ user.email }}</p>
-        <p>nom: {{ user.nom }}</p>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Nom: {{ user.nom }}</p>
 
         <h3>Mes personnages: </h3>
         <a href="{{ path("personnage_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a>
     {% else%}
-        <p>infos filtrés</p>
+        <p>Infos filtrés</p>
     {% endif %}
 
 {% endblock %}

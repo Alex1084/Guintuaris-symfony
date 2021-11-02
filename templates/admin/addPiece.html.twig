@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ajouter une Piece d'arume | {{parent()}}{% endblock %}
+{% block title %} Ajouter une pièce d'armure | {{parent()}}{% endblock %}
 
 {% block body %}
 
  {{form_start(pieceForm)}}
  {{form_widget(pieceForm)}}
- <button>créer</button>
+ <button>Créer</button>
  {{form_end(pieceForm)}}
 <table>
     <tr>
-        <th>id</th>
-        <th>emplacement</th>
-        <th>type</th>
-        <th>valeur</th>
+        <th>Id</th>
+        <th>Emplacement</th>
+        <th>Type</th>
+        <th>Valeur</th>
     </tr>
     {% for piece in piecesTab %}
     <tr>

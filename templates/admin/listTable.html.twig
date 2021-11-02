@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Les Equipe |
+	Les équipes |
 	{{parent()}}
 {% endblock %}
 
 {% block body %}
-	<h2>Fiches personnage</h2>
+	<h2>Fiches personnages</h2>
 	<ul>
 		{% for element in list %}
 
@@ -17,6 +17,6 @@
 
 	{{form_start(form) }}
 	{{form_widget(form) }}
-	<button>creer</button>
+	<button>Créer</button>
 	{{form_end(form) }}
 {% endblock %}
