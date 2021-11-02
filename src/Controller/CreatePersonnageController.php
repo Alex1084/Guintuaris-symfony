@@ -18,6 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreatePersonnageController extends AbstractController
 {
     /**
+     * cette page permet de creer pour un utilisateur un nouveau personnage$
+     * lors de la creation 7 nouvelle ligne sont créer dans la table piece_armure_personnage 
+     * avec comme idantifiant le personnage et un nombre allant de 1 à 7
+     * et trois ligne sont créer pour les arme_personnage
      * @Route("/personnage/creation", name="personnage_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $repoEquipement): Response
@@ -41,8 +45,6 @@ class CreatePersonnageController extends AbstractController
         $personnageForm->handleRequest($request);
         if ($personnageForm->isSubmitted()) {
             // hydratation des champs 
-            $personnage->setLore("");
-            $personnage->setInventaire("");
             $personnage->setPo(0);
             $personnage->setJoueur($this->getUser());
             $personnage->setPv($personnage->getPvMax());
@@ -73,17 +75,23 @@ class CreatePersonnageController extends AbstractController
         ]);
     }
 
+
+    //cette fonction permet d'inserrer une nouvelle ligne dans la table piece_armure_personnage
+    //le numEmplacement est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
+    //ces ligne sont mis dans un fonction parce que je trouve sa plus lisible
     private function insertPiece($personnage, $numEmplacement, PieceArmureRepository $repoEquipement, EntityManagerInterface $entityManager)
     {
         $piecePersonnage = new PieceArmurePersonnage();
         $piecePersonnage->setPersonnage($personnage);
         $piecePersonnage->setId($numEmplacement);
-        $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12, $numEmplacement)); //  12 : type enlever et $i : emplacement
+        $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12, $numEmplacement)); //  12 : type enlever et $numEmplacement : emplacement (allant de 1 a 7)
 
         $entityManager->persist($piecePersonnage);
         $entityManager->flush();
     }
 
+    //cette fonction permet d'inserrer une nouvelle ligne dans la table arme_personnage
+    //ces ligne sont mis dans un fonction parce que je trouve sa plus lisible
     private function insertArme($personnage, $id, EntityManagerInterface $entityManager)
     {
         $armePersonnage = new ArmePersonnage();

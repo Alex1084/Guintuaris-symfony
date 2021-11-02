@@ -27,6 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
+     * affiche le lien des pour acceder au fonctionaliter administrateur
      * @Route("/", name="home")
      */
     public function adminHome(): Response
@@ -36,6 +37,7 @@ class AdminController extends AbstractController
 
 
     /**
+     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      * @Route("/add_competence", name="add_competence")
      */
     public function competence(Request $request, EntityManagerInterface $entityManager): Response
@@ -54,6 +56,8 @@ class AdminController extends AbstractController
         ]);
     }
     /**
+     * permet d'ajouter une nouvel Piece d'armure dans la BDD (table Piece_armure)
+     * permet aussi d'afficher toute les instance de cette table
      * @Route("/ajout_piece", name="add_piece")
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
@@ -76,6 +80,9 @@ class AdminController extends AbstractController
         ]);
     }
     /**
+     * affiche dans un select tout les personnage present dans l'equipe aucune
+     * lorsque le formulaire est valider le persnnage selectioner changer d'equipe et a pour equipe celle selectionner dans la page admin_equipe_list
+     * de plus la page affiche le nom de tout les personnage apartenent a l'equipe (les nom emmenent ensuite vers leur fiche)
      * @Route("/ajout_membre/{idEquipe}", name="add_membre")
      */
     public function addMembreEquipe($idEquipe, Request $request, EntityManagerInterface $entityManager)
@@ -110,6 +117,8 @@ class AdminController extends AbstractController
     }
 
     /**
+     * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
+     * de plus un formulaire permet de créer une nouvelle equipe
      * @Route("/equipe", name="equipe_list")
      */
     public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager)
@@ -131,6 +140,7 @@ class AdminController extends AbstractController
     }
 
     /**
+     * permet d'ajouter une bete dans la base de donnée  (table bestiaire)
      * @Route("/bestiaire", name="add_bete")
      */
     public function addBete(EntityManagerInterface $entityManager, Request $request)
@@ -150,15 +160,18 @@ class AdminController extends AbstractController
             dump($bete);
             $entityManager->persist($bete);
             $entityManager->flush();
+            return $this->redirectToRoute("admin_add_bete");
         }
         return $this->render('admin/addBete.html.twig', [
             "beteForm" => $beteForm->createView(),
         ]);
     }
-    /*
+    /**
+     * permet d'ajouter un nouveau type de bete dans la base de donné (table type_bestiaire)
+     * affiche toute les instance se trouvant dans cette table
      * @Route("/list_type_bestiaire", name="type_bestiaire_list")
      */
-    /* public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager)
+    public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager)
     {
         $newType = new TypeBestiaire();
         $results = $this->createFormTable($newType, TypeBestiaire::class);
@@ -173,9 +186,11 @@ class AdminController extends AbstractController
             'list' => $typesBestiaire,
             'form' => $addTypeForm->createView()
         ]);
-    } */
+    }
 
     /**
+     * permet d'ajouter un nouveau type d'armure dans la base de donné (table type_armure)
+     * affiche toute les instance se trouvant dans cette table
      * @Route("/list_type_armure", name="type_armure_list")
      */
     public function addTypeArmure(Request $request, EntityManagerInterface $entityManager)

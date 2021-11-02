@@ -1,4 +1,3 @@
-//console.log(betes);
 const select = document.querySelector("#form_bete")
 const addFiche = document.querySelector("#add");
 let containerRow = document.querySelectorAll(".container-fluid>.row")
@@ -7,6 +6,9 @@ const container = document.querySelector(".container-fluid")
 let last = containerRow[containerRow.length - 1];
 let row = 0;
 
+// cette fonction a pour but de barrer une fiche ou de la débarrer et de supprimer la fiche du DOM
+// la constante mort est une image qui lorsqu'on clique dessus une barre (constante bar) rouge apparait et recouvre l'integraliter de la fiche (cette barre disparait lorsqu'un deuxime clique est effectuer)
+//la constante quitter elle permetc de remove la fiche du DOM
 function ficheControl(fiche) {
     const mort = fiche.querySelector('.mort');
     const barre = fiche.querySelector('.barre');
@@ -35,6 +37,7 @@ function ficheControl(fiche) {
     })
 }
 
+//cette fonction a pour but de pouvoir changer le statut d'une fiche en utilisant la fonction statut contennu dans le fichier bar.js
 function statutListener(div) {
     const valNumerique = div.querySelector(".numerique")
     const degat = div.querySelector(".soustrait");
@@ -47,7 +50,9 @@ function statutListener(div) {
 }
 
 
-
+// cette fonction créer une division nommé fiche en html qui represente une fiche
+//cette division sera contenu dans une division row si la variable row est egale a 1
+//cette fiche contiendra toute les information de l'objet monstres
 function insertFiche(monstre) {
     let str = ''
     row++;
@@ -111,7 +116,11 @@ function insertFiche(monstre) {
     return str;
 }
 
-
+// cette fonction a pour but d'inserer une nouvelle fiche dans le DOM
+//avec un conteur (allant de 0 4 ) un if decide si on peut ajouter la fiche dans la dernire row creer
+//sinon la fonction insert la fiche dans le container
+//la fonction va chercher un objet qui est une requate dans le backend
+//et le revoie au format json le json est ensuite traduit en objet et est envoyer la la fonction insertFiche
 function onClickBtnLike(event) {
     containerRow = document.querySelectorAll(".container-fluid>.row");
     last = containerRow[containerRow.length - 1];

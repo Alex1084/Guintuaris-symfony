@@ -17,7 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class BestiaireController extends AbstractController
 {
     /**
-     * @Route("/bestiaire", name="bestiaire")
+     * affiche un page qui permet d'afficher des carte de bete se trouvant dans le bestiaire
+     * cette page est utile au mj uniquement durant des partie
+     * @Route("admin/board", name="bestiaire")
      */
     public function index(BestiaireRepository $bRepo): Response
     {
@@ -30,6 +32,9 @@ class BestiaireController extends AbstractController
     }
 
     /**
+     * renvoie un reponse json pour afficher les carte dans le mj board
+     * grace a des lien contennent un identifiant, 
+     * une bete du bestiaire va etre appeler et est interpreter par une requete ajax se trouvant dans le fichier miniFiche.js
      * @Route("admin/summon/{id}", name="summon")
      *
      * @param integer $id

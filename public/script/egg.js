@@ -1,27 +1,29 @@
+//ce fichier est un petit jeu cacher dans le site web
+//il fait apparaitre des division (des bulles) qui disparaiteron lorsque l'utilisateur cliqera dessus (si la bulle est apparu il y a 8seconde alors et seras remove du DOM )
 const counterDisplay = document.querySelector("h3");
 let counter = 0;
 
-const bubbleMaker = () =>
-{const bubble = document.createElement("span");
-bubble.classList.add("bubble");
-document.body.appendChild(bubble);
+const bubbleMaker = () => {
+    const bubble = document.createElement("span");
+    bubble.classList.add("bubble");
+    document.body.appendChild(bubble);
 
-const size = Math.random() * 200 + 100 +"px";
+    const size = Math.random() * 200 + 100 + "px";
 
-bubble.style.height = size;
-bubble.style.width = size;
-bubble.style.top = Math.random() * 100 + 50 +"%";
-bubble.style.left = Math.random() * 100+"%";
-const plusMinus = Math.random() > 0.5 ? 1 : -1;
-bubble.style.setProperty("--left", Math.random() * 100 * plusMinus +"%")
-bubble.addEventListener("click", () => {
-    bubble.remove();
-    counter ++;
-    counterDisplay.textContent = counter;
-})
-setTimeout(() => {
-    bubble.remove();
-}, 8000);
+    bubble.style.height = size;
+    bubble.style.width = size;
+    bubble.style.top = Math.random() * 100 + 50 + "%";
+    bubble.style.left = Math.random() * 100 + "%";
+    const plusMinus = Math.random() > 0.5 ? 1 : -1;
+    bubble.style.setProperty("--left", Math.random() * 100 * plusMinus + "%")
+    bubble.addEventListener("click", () => {
+        bubble.remove();
+        counter++;
+        counterDisplay.textContent = counter;
+    })
+    setTimeout(() => {
+        bubble.remove();
+    }, 8000);
 }
 
 setInterval(bubbleMaker, 300)
