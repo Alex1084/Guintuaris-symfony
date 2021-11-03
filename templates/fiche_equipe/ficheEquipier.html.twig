@@ -17,7 +17,10 @@
 		<div class="info container grid-container">
 			<div class="row">
 				<div class="col-md-3">
-					<div class="img"></div>
+					<div>
+						<img src="{{asset('image_personnage/'~ personnage.image)}}" alt="" height="200">
+					</div>
+
 				</div>
 				<div class="col-md-3">
 					<h1 id="nom">{{ personnage.nom }}</h1>
@@ -35,9 +38,7 @@
 						<button class="dropbtn">Lore
 							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
 						<div class="dropdown-content">
-							<p class="content">
-								{{ personnage.lore }}
-							</p>
+							<textarea name="" id="lore-content" cols="50" readonly>{{ personnage.lore }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -132,16 +133,11 @@
 					<div class="label label-form">
 						<span>Inventaire</span>
 					</div>
-					<div id="inventaire">
-						<pre>{{personnage.inventaire}}</pre>
-					</div>
+					<textarea readonly>{{personnage.inventaire}}</textarea>
 					<div class="label label-form">
 						<span>Po</span>
 					</div>
-
-					<div id="po">
-						<p>{{personnage.po}}</p>
-					</div>
+					<input type="number" value="{{personnage.po}}" readonly>
 
 				</div>
 			</div>

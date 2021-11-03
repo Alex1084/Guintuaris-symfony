@@ -8,13 +8,6 @@
     height: 200px;
     min-width: 100px;
 }
-a{
-    text-align: center;
-    color: black;
-}
-a:hover{
-    color: white;
-}
 
 #title{
     text-align: center;
@@ -131,4 +124,7 @@ table, th, td {
 
 #result{
     height: 64px;
+}
+#lore-content{
+    width: 546px;
 }

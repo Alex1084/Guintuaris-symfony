@@ -17,11 +17,13 @@ body{
     position: relative;
 }
 
-/*  main{
-     margin-left: 5%;
-     margin-right: 5%;
- } */
-
+a{
+    text-align: center;
+    color: black;
+}
+a:hover{
+    color: white;
+}
 /*********************** nav Bar *************************/
  nav {
 

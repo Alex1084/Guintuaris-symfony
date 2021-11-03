@@ -25,11 +25,6 @@ class Classe
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Competence::class, mappedBy="classe")
-     */
-    private $competences;
-
-    /**
      * @ORM\Column(type="string", length=30)
      */
     private $dePv;
@@ -49,10 +44,6 @@ class Classe
      */
     private $description;
 
-    public function __construct()
-    {
-        $this->competences = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -67,36 +58,6 @@ class Classe
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Competence[]
-     */
-    public function getCompetences(): Collection
-    {
-        return $this->competences;
-    }
-
-    public function addCompetence(Competence $competence): self
-    {
-        if (!$this->competences->contains($competence)) {
-            $this->competences[] = $competence;
-            $competence->setClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompetence(Competence $competence): self
-    {
-        if ($this->competences->removeElement($competence)) {
-            // set the owning side to null (unless already changed)
-            if ($competence->getClasse() === $this) {
-                $competence->setClasse(null);
-            }
-        }
 
         return $this;
     }

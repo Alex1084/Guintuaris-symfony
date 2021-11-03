@@ -80,7 +80,9 @@ class PersonnageController extends AbstractController
             ->getForm();
         //~~~~~~~~~~~~~~~~~~~~~~formulaire pour l'inventaire et les PO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         $inventaireForm = $this->get('form.factory')->createNamedBuilder('inventaire', FormType::class, $personnage)
-            ->add('inventaire', TextareaType::class)
+            ->add('inventaire', TextareaType::class, [
+                'required' => false,
+            ])
             ->add('po', IntegerType::class)
             ->getForm();
         if ($request->getMethod() === 'POST') {
@@ -128,6 +130,7 @@ class PersonnageController extends AbstractController
         $personnage = $repo->find($id);
         $loreForm = $this->createFormBuilder($personnage)
             ->add('lore', TextareaType::class, [
+                'required' => false,
                 'attr' => ['class' => 'area-form']
             ])
             ->getForm();
@@ -196,7 +199,6 @@ class PersonnageController extends AbstractController
 
     /**
      * permet d'editer la photo de "profil" du personnage
-     * todo : cette page doit etre secur
      * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
      * 
      * @Route("/{id}/image", name="change_image")
@@ -240,6 +242,7 @@ class PersonnageController extends AbstractController
         }
         return $this->render('personnage/changeImage.html.twig', [
             "imageForm" => $imageForm->createView(),
+            "personnage" => $personnage
         ]);
     }
 

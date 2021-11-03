@@ -28,11 +28,6 @@ class Competence
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Classe::class, inversedBy="competences")
-     */
-    private $classe;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $niveau;
@@ -53,9 +48,9 @@ class Competence
     private $degat;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Bestiaire::class, inversedBy="competance")
+     * @ORM\ManyToOne(targetEntity=Classe::class)
      */
-    private $bestiaire;
+    private $classe;
 
     public function getId(): ?int
     {
@@ -82,18 +77,6 @@ class Competence
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getClasse(): ?Classe
-    {
-        return $this->classe;
-    }
-
-    public function setClasse(?Classe $classe): self
-    {
-        $this->classe = $classe;
 
         return $this;
     }
@@ -154,6 +137,18 @@ class Competence
     public function setBestiaire(?Bestiaire $bestiaire): self
     {
         $this->bestiaire = $bestiaire;
+
+        return $this;
+    }
+
+    public function getClasse(): ?Classe
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(?Classe $classe): self
+    {
+        $this->classe = $classe;
 
         return $this;
     }
