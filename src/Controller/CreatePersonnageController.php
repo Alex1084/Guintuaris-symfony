@@ -22,7 +22,13 @@ class CreatePersonnageController extends AbstractController
      * lors de la creation 7 nouvelle ligne sont créer dans la table piece_armure_personnage 
      * avec comme idantifiant le personnage et un nombre allant de 1 à 7
      * et trois ligne sont créer pour les arme_personnage
+     * 
      * @Route("/personnage/creation", name="personnage_create")
+     * 
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param PieceArmureRepository $repoEquipement
+     * @return Response
      */
     public function create(Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $repoEquipement): Response
     {
@@ -76,10 +82,18 @@ class CreatePersonnageController extends AbstractController
     }
 
 
-    //cette fonction permet d'inserrer une nouvelle ligne dans la table piece_armure_personnage
-    //le numEmplacement est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
-    //ces ligne sont mis dans un fonction parce que je trouve sa plus lisible
-    private function insertPiece($personnage, $numEmplacement, PieceArmureRepository $repoEquipement, EntityManagerInterface $entityManager)
+    /**
+     * cette fonction permet d'inserrer une nouvelle ligne dans la table piece_armure_personnage
+     * le numEmplacement est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
+     * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
+     *
+     * @param Personnage $personnage
+     * @param integer $numEmplacement
+     * @param PieceArmureRepository $repoEquipement
+     * @param EntityManagerInterface $entityManager
+     * @return void
+     */
+    private function insertPiece(Personnage $personnage, int $numEmplacement, PieceArmureRepository $repoEquipement, EntityManagerInterface $entityManager)
     {
         $piecePersonnage = new PieceArmurePersonnage();
         $piecePersonnage->setPersonnage($personnage);
@@ -90,9 +104,16 @@ class CreatePersonnageController extends AbstractController
         $entityManager->flush();
     }
 
-    //cette fonction permet d'inserrer une nouvelle ligne dans la table arme_personnage
-    //ces ligne sont mis dans un fonction parce que je trouve sa plus lisible
-    private function insertArme($personnage, $id, EntityManagerInterface $entityManager)
+    /**
+     * cette fonction permet d'inserrer une nouvelle ligne dans la table arme_personnage
+     * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
+     *
+     * @param Personnage $personnage
+     * @param integer $id
+     * @param EntityManagerInterface $entityManager
+     * @return void
+     */
+    private function insertArme(Personnage $personnage, int $id, EntityManagerInterface $entityManager)
     {
         $armePersonnage = new ArmePersonnage();
         $armePersonnage->setId($id);

@@ -15,6 +15,8 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
+     * ce controller permet l'inscription de nouveau utilisateur sur le site
+     * (utilisation de la generation automatique des registration par composer)
      * @Route("/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoderInterface, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
@@ -27,7 +29,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordEncoderInterface->encodePassword(
+                $userPasswordEncoderInterface->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )

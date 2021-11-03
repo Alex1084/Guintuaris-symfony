@@ -19,42 +19,14 @@ class PieceArmureRepository extends ServiceEntityRepository
         parent::__construct($registry, PieceArmure::class);
     }
 
-    // /**
-    //  * @return PieceArmure[] Returns an array of PieceArmure objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getArmurebyTypeEmplacement($typeId, $empla)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?PieceArmure
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
-    public function getArmurebyTypeEmplacement($typeId, $empla){
         $query = $this->createQueryBuilder('a')
-                    ->where('a.type = :type')
-                    ->setParameter('type', $typeId)
-                    ->andWhere('a.localisation = :empla')
-                    ->setParameter('empla', $empla)
-                    ->getQuery();
-        return $query->getSingleResult();                
+            ->where('a.type = :type')
+            ->setParameter('type', $typeId)
+            ->andWhere('a.localisation = :empla')
+            ->setParameter('empla', $empla)
+            ->getQuery();
+        return $query->getSingleResult();
     }
 }

@@ -19,7 +19,12 @@ class BestiaireController extends AbstractController
     /**
      * affiche un page qui permet d'afficher des carte de bete se trouvant dans le bestiaire
      * cette page est utile au mj uniquement durant des partie
+     * 
      * @Route("admin/board", name="bestiaire")
+     * 
+     * 
+     * @param BestiaireRepository $bRepo
+     * @return Response
      */
     public function index(BestiaireRepository $bRepo): Response
     {
@@ -38,10 +43,9 @@ class BestiaireController extends AbstractController
      * @Route("admin/summon/{id}", name="summon")
      *
      * @param integer $id
-     * @param ObjectManager $manager
-     * @return void
+     * @return Response
      */
-    public function beteToJson(int $id/*,  ObjectManage $manager */): Response
+    public function beteToJson(int $id): Response
     {
         $bete = $this->getDoctrine()->getRepository(Bestiaire::class)->find($id);
         return $this->json(

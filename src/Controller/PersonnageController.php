@@ -5,14 +5,12 @@ namespace App\Controller;
 use App\Entity\Arme;
 use App\Entity\ArmePersonnage;
 use App\Entity\Personnage;
-use App\Entity\Equipe;
 use App\Entity\PieceArmure;
 use App\Entity\PieceArmurePersonnage;
 use App\Form\PersonnageType;
 use App\Repository\CompetenceRepository;
 use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Util\Filesystem;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -26,13 +24,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
 
 /**
+ * voici le plus gros controller il permet de gerer tout ce qui est lié de près au personnage
+ * chacun des controller son lié au joueur qui possede le personnage 
+ * donc toute les page ayant un id dans l'url ne doivent pas etre accessible par un joueur qui ne possede pas un personnage 
+ * 
  * @Route("/personnage", name="personnage_")
  */
 class PersonnageController extends AbstractController
 {
 
     /**
+     * affiche la liste des personnage qui appartienent au joueur connecter
+     * chaque nom des personnage rammene ver leur fiche
+     * 
      * @Route("/list", name="list")
+     *
+     * @return Response
      */
     public function list(): Response
     {
@@ -45,9 +52,17 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * permet d'afficher et d'editer la fiche de personnage que l'on souhaite
+     * 
      * @Route("/{id}", name="view")
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param CompetenceRepository $compRepo
+     * @return Response
      */
-    public function fichePerso($id, Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
+    public function fichePerso(int $id, Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
     {
         //dd($request);
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
@@ -97,9 +112,17 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * permet d'editer le champ lore du personnage passer en id 
+     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * 
      * @Route("/{id}/lore", name="modif_lore")
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function lore($id, Request $request, EntityManagerInterface $entityManager): Response
+    public function lore(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
@@ -124,9 +147,17 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * permet d'editer les statistique du personnage, son statut au max et son niveau
+     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * 
      * @Route("/{id}/level_up", name="level_up")
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function levulUp($id, Request $request, EntityManagerInterface $entityManager)
+    public function levulUp(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
 
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
@@ -164,9 +195,18 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * permet d'editer la photo de "profil" du personnage
+     * todo : cette page doit etre secur
+     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * 
      * @Route("/{id}/image", name="change_image")
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function modifImage($id, Request $request, EntityManagerInterface $entityManager)
+    public function modifImage(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $personnage = $this->getDoctrine()->getRepository(Personnage::class)->find($id);
         $imageForm = $this->createFormBuilder()
@@ -204,17 +244,34 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * permet de creer un formulaire servant a modifier l'equipement d'un personnage
+     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * 
      * @Route("/{id}/armure", name="modif_armure")
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param PieceArmureRepository $pr
+     * @return Response
      */
-    public function modifArmure($id, Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $pr)
+    public function modifArmure(int $id, Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $pr): Response
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
+        // recherche des toute les piece d'armure appartenent au personnage (dans la table Piece_armure_personnage)
         $armure = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class)->findBy(array("personnage" => $personnage->getId()));
+
+        //ce tableau permet de savoir dans la boucle a quel localisation fais reference un champs 
         $pieces = [1 => 'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
+
         $armureForm = $this->createFormBuilder();
+
+        //ajout des champs dans le formulmaire
         for ($i = 1; $i <= 7; $i++) {
             $str = 'effet_' . $pieces[$i];
+
+            //ajout d'un Select avec en option les piece d'armure apartenent a la localisation $i
             $armureForm->add($pieces[$i], EntityType::class, [
                 'class' => PieceArmure::class,
                 'choice_label' => 'type',
@@ -222,6 +279,7 @@ class PersonnageController extends AbstractController
                 'data' => $armure[$i - 1]->getPiece(),
                 'attr' => ['class' => 'input-form']
             ])
+                //ajout d'un champs string pour metre l'effet de la piece d'armure
                 ->add($str, TextType::class, [
                     'required' => false,
                     'data' => $armure[$i - 1]->getEffet(),
@@ -229,10 +287,12 @@ class PersonnageController extends AbstractController
                     'attr' => ['class' => 'input-form']
                 ]);
         }
+
         $armureForm = $armureForm->getForm();
         $armureForm->handleRequest($request);
         if ($armureForm->isSubmitted()) {
 
+            //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 7; $i++) {
                 $piece = $armureForm->get($pieces[$i])->getData();
                 $effet = $armureForm->get('effet_' . $pieces[$i])->getData();
@@ -251,26 +311,39 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * permet de modifier les arme equiper par un personnage
+     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * 
      * @Route("/{id}/arme", name="modif_arme")
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function modifArme($id, Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $pr)
+    public function modifArme(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
+
+        // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
         $armes = $this->getDoctrine()->getRepository(ArmePersonnage::class)->findBy(array("personnage" => $personnage->getId()));
-        //$pieces = [1 =>'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
-        dump($armes);
+
         $armureForm = $this->createFormBuilder();
+
+        //ajout des champs dans le formulmaire
         for ($i = 1; $i <= 3; $i++) {
             $str = 'effet_' . $i;
+            //ajout d'un champs select ayant comme identifiant un numero allant de 1 a 3
+            // et ayant comme option la liste de toute les armes
             $armureForm->add('n_' . $i, EntityType::class, [
                 'class' => Arme::class,
                 'choice_label' => 'nom',
-                //'query_builder' => $this->optionType($i, $pr),
                 'data' => $armes[$i - 1]->getArme(),
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Arme N°' . $i
             ])
+                //ajout d'un champs String pour metre l'enchetement de l'arme 
                 ->add($str, TextType::class, [
                     'required' => false,
                     'data' => $armes[$i - 1]->getEffet(),
@@ -282,6 +355,7 @@ class PersonnageController extends AbstractController
         $armureForm->handleRequest($request);
         if ($armureForm->isSubmitted()) {
 
+            //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 3; $i++) {
                 $arme = $armureForm->get('n_' . $i)->getData();
                 $effet = $armureForm->get('effet_' . $i)->getData();
@@ -299,13 +373,27 @@ class PersonnageController extends AbstractController
         ]);
     }
 
-    private function optionType($id, PieceArmureRepository $pr)
+    /**
+     * cette fonction a pour but de retouver toute les piece d'armure ayant comme localisation l'identifient placer en parametre
+     *
+     * @param integer $id
+     * @param PieceArmureRepository $pr
+     * @return void
+     */
+    private function optionType(int $id, PieceArmureRepository $pr)
     {
         return $pr->createQueryBuilder('p')
             ->where('p.localisation = :id')
             ->setParameter("id", $id);
     }
-    public function removeFile($file)
+
+    /**
+     *  cette fonctrion permet de suprimmer l'encienne image de profil d'un personnage lorsque l'utilisateur la change
+     *
+     * @param string $file
+     * @return void
+     */
+    public function removeFile(string $file)
     {
         $file_path = $this->getParameter('images_directory') . '/' . $file;
         if (file_exists($file_path)) unlink($file_path);

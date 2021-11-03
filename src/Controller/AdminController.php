@@ -28,7 +28,10 @@ class AdminController extends AbstractController
 {
     /**
      * affiche le lien des pour acceder au fonctionaliter administrateur
+     * 
      * @Route("/", name="home")
+     * 
+     * @return Response
      */
     public function adminHome(): Response
     {
@@ -38,7 +41,12 @@ class AdminController extends AbstractController
 
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
+     * 
      * @Route("/add_competence", name="add_competence")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function competence(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -58,7 +66,12 @@ class AdminController extends AbstractController
     /**
      * permet d'ajouter une nouvel Piece d'armure dans la BDD (table Piece_armure)
      * permet aussi d'afficher toute les instance de cette table
+     * 
      * @Route("/ajout_piece", name="add_piece")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -83,9 +96,15 @@ class AdminController extends AbstractController
      * affiche dans un select tout les personnage present dans l'equipe aucune
      * lorsque le formulaire est valider le persnnage selectioner changer d'equipe et a pour equipe celle selectionner dans la page admin_equipe_list
      * de plus la page affiche le nom de tout les personnage apartenent a l'equipe (les nom emmenent ensuite vers leur fiche)
+     * 
      * @Route("/ajout_membre/{idEquipe}", name="add_membre")
+     *
+     * @param int $idEquipe
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function addMembreEquipe($idEquipe, Request $request, EntityManagerInterface $entityManager)
+    public function addMembreEquipe(int $idEquipe, Request $request, EntityManagerInterface $entityManager): Response
     {
         $membresEquipe = $this->getDoctrine()->getRepository(Personnage::class)->findBy(['equipe' => $idEquipe]); //list des Memebre apartennant a cette equipe
         $equipeJoin = $this->getDoctrine()->getRepository(Equipe::class)->find($idEquipe); //represente la L'equipe sur la quelle des membre vont etre ajouter
@@ -119,9 +138,14 @@ class AdminController extends AbstractController
     /**
      * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
      * de plus un formulaire permet de créer une nouvelle equipe
-     * @Route("/equipe", name="equipe_list")
+     *
+     *  @Route("/equipe", name="equipe_list")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager)
+    public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager): Response
     {
         $newEquipe = new Equipe();
         $results = $this->createFormTable($newEquipe, Equipe::class);
@@ -141,9 +165,14 @@ class AdminController extends AbstractController
 
     /**
      * permet d'ajouter une bete dans la base de donnée  (table bestiaire)
+     * 
      * @Route("/bestiaire", name="add_bete")
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
      */
-    public function addBete(EntityManagerInterface $entityManager, Request $request)
+    public function addBete(EntityManagerInterface $entityManager, Request $request): Response
     {
         $bete = new Bestiaire();
         $beteForm = $this->createForm(BestiaireType::class, $bete);
@@ -169,9 +198,14 @@ class AdminController extends AbstractController
     /**
      * permet d'ajouter un nouveau type de bete dans la base de donné (table type_bestiaire)
      * affiche toute les instance se trouvant dans cette table
+     * 
      * @Route("/list_type_bestiaire", name="type_bestiaire_list")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager)
+    public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager): Response
     {
         $newType = new TypeBestiaire();
         $results = $this->createFormTable($newType, TypeBestiaire::class);
@@ -191,9 +225,14 @@ class AdminController extends AbstractController
     /**
      * permet d'ajouter un nouveau type d'armure dans la base de donné (table type_armure)
      * affiche toute les instance se trouvant dans cette table
-     * @Route("/list_type_armure", name="type_armure_list")
+     *
+     *  @Route("/list_type_armure", name="type_armure_list")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function addTypeArmure(Request $request, EntityManagerInterface $entityManager)
+    public function addTypeArmure(Request $request, EntityManagerInterface $entityManager): Response
     {
         $newType = new TypeArmure();
         $results = $this->createFormTable($newType, TypeArmure::class);
@@ -211,7 +250,14 @@ class AdminController extends AbstractController
     }
 
 
-    private function createFormTable($objet, $class)
+    /**
+     * Undocumented function
+     *
+     * @param Object $objet
+     * @param string $class
+     * @return array
+     */
+    private function createFormTable(Object $objet, string $class): array
     {
         $repo = $this->getDoctrine()->getRepository($class);
         $findall = $repo->findAll();

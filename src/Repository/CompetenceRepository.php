@@ -19,40 +19,13 @@ class CompetenceRepository extends ServiceEntityRepository
         parent::__construct($registry, Competence::class);
     }
 
-    // /**
-    //  * @return Competence[] Returns an array of Competence objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Competence
+    public function findByLevel(int $level = 1, int $classe = 1)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-    public function findByLevel(int $level = 1 , int $classe = 1){
         $query = $this->createQueryBuilder('c');
         $query->where('c.niveau <= :level')->setParameter('level', $level);
         $query->andWhere('c.classe = :classe')->setParameter('classe', $classe);
-        
+
         return $query->getQuery()->getResult();
-        
     }
 }
