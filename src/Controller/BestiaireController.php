@@ -48,11 +48,12 @@ class BestiaireController extends AbstractController
     public function beteToJson(int $id): Response
     {
         $bete = $this->getDoctrine()->getRepository(Bestiaire::class)->find($id);
+        //dd($bete);
         return $this->json(
             $bete,
             200,
-            [],
-            ['groups' => "read"]
+            /* [],
+            ['groups' => ["read", "note"]] */
         );
         //return $this->json(["code" => 200, 'bete' => $bete], 200);
     }

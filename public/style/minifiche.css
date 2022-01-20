@@ -2,6 +2,7 @@
     min-height: 380px;
     border: 1px black solid;
     position: relative;
+    max-width: 315.5px;
 }
 
 .stat{
@@ -14,6 +15,10 @@
     font-size: 1.5rem;
     display: table;
     margin: 0 auto;
+}
+
+.title {
+    max-width: 265.5;
 }
 
 .fiche p{
@@ -61,4 +66,8 @@ input[type="integer"]{
     left: 0;
     z-index: -1;
     display: none;
+}
+
+.note{
+    max-width: 213.75px;
 }

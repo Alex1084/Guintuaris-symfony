@@ -15,7 +15,8 @@ class Bestiaire extends Fiche
 {
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups("post:read")
+     * 
+     * @Groups({"note"})
      */
     private $note;
 
@@ -24,11 +25,6 @@ class Bestiaire extends Fiche
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
-
-    public function __construct()
-    {
-        $this->competance = new ArrayCollection();
-    }
 
     public function getNote(): ?string
     {

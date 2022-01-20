@@ -55,6 +55,9 @@ function statutListener(div) {
 //cette fiche contiendra toute les information de l'objet monstres
 function insertFiche(monstre) {
     let str = ''
+    if (monstre.note == null) {
+        monstre.note = ""
+    }
     row++;
     if (row === 1) {
         containerRow = document.querySelectorAll(".container-fluid>.row");
@@ -62,8 +65,8 @@ function insertFiche(monstre) {
         str += '<div class="row">';
     }
     str += `  <div class="fiche col-md-3">
-            <img src="img/barre_mort.png" alt="" class="barre">
-            <h3>${monstre.nom}</h3> <img src="img/mort.png" alt="" class="icon mort"> <img src="img/croix.png" alt="" class="icon croix">
+            <img src="../img/barre_mort.png" alt="" class="barre">
+            <h3 class="title">${monstre.nom}</h3> <img src="../img/mort.png" alt="" class="icon mort"> <img src="../img/croix.png" alt="" class="icon croix">
             <div class="row">
                 <div class="col-md-4">
                     <p>Constitution</p>
@@ -104,6 +107,8 @@ function insertFiche(monstre) {
             <div class="statut">
                 <label for="">PC</label><input type="integer" value="${monstre.pc}" class="numerique" readonly> <input type="integer" class="enabled ajout"> <input type="integer" class="enabled soustrait"> <br>
             </div>
+
+            <textarea class="note">${monstre.note}</textarea>
         </div>`;
 
     if (row === 1) {
