@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Arme;
 use App\Entity\Bestiaire;
 use App\Entity\Competence;
 use App\Entity\Equipe;
+use App\Entity\LocalisationArmure;
 use App\Entity\Personnage;
 use App\Entity\PieceArmure;
 use App\Entity\TypeArmure;
@@ -136,34 +138,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
-     * de plus un formulaire permet de créer une nouvelle equipe
-     *
-     *  @Route("/equipe", name="equipe_list")
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $newEquipe = new Equipe();
-        $results = $this->createFormTable($newEquipe, Equipe::class);
-        $equipes = $results[0];
-        $addEquipeForm = $results[1];
-        $addEquipeForm->handleRequest($request);
-        if ($addEquipeForm->isSubmitted()) {
-            $entityManager->persist($newEquipe);
-            $entityManager->flush();
-            return $this->redirectToRoute("admin_add_membre", ['idEquipe' => $newEquipe->getId()]);
-        }
-        return $this->render('admin/listEquipe.html.twig', [
-            'equipes' => $equipes,
-            'addEquipeForm' => $addEquipeForm->createView()
-        ]);
-    }
-
-    /**
      * permet d'ajouter une bete dans la base de donnée  (table bestiaire)
      * 
      * @Route("/bestiaire", name="add_bete")
@@ -208,20 +182,42 @@ class AdminController extends AbstractController
     public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager): Response
     {
         $newType = new TypeBestiaire();
-        $results = $this->createFormTable($newType, TypeBestiaire::class);
-        $typesBestiaire = $results[0];
-        $addTypeForm = $results[1];
-        $addTypeForm->handleRequest($request);
-        if ($addTypeForm->isSubmitted()) {
-            $entityManager->persist($newType);
-            $entityManager->flush();
+
+        $results = $this->createFormTable($newType, $request, $entityManager);
+
+        if ($results['formulaire']->isSubmitted()) {
+            return $this->redirectToRoute('admin_type_bestiaire_list');
         }
+        //dd($results['formulaire']);
         return $this->render('admin/listTable.html.twig', [
-            'list' => $typesBestiaire,
-            'form' => $addTypeForm->createView()
+            'list' => $results['dataList'],
+            'form' => $results['formulaire']->createView()
         ]);
     }
 
+
+    /**
+     * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
+     * de plus un formulaire permet de créer une nouvelle equipe
+     *
+     *  @Route("/equipe", name="equipe_list")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $newEquipe = new Equipe();
+        $results = $this->createFormTable($newEquipe, $request, $entityManager);
+        if ($results['formulaire']->isSubmitted()) {
+            return $this->redirectToRoute("admin_add_membre", ['idEquipe' => $newEquipe->getId()]);
+        }
+        return $this->render('admin/listEquipe.html.twig', [
+            'equipes' => $results['dataList'],
+            'addEquipeForm' => $results['formulaire']->createView()
+        ]);
+    }
     /**
      * permet d'ajouter un nouveau type d'armure dans la base de donné (table type_armure)
      * affiche toute les instance se trouvant dans cette table
@@ -235,17 +231,55 @@ class AdminController extends AbstractController
     public function addTypeArmure(Request $request, EntityManagerInterface $entityManager): Response
     {
         $newType = new TypeArmure();
-        $results = $this->createFormTable($newType, TypeArmure::class);
-        $typesArmure = $results[0];
-        $addTypeForm = $results[1];
-        $addTypeForm->handleRequest($request);
-        if ($addTypeForm->isSubmitted()) {
-            $entityManager->persist($newType);
-            $entityManager->flush();
+        $results = $this->createFormTable($newType, $request, $entityManager);
+        if ($results['formulaire']->isSubmitted()) {
+            return $this->redirectToRoute('admin_type_armure_list');
         }
         return $this->render('admin/listTable.html.twig', [
-            'list' => $typesArmure,
-            'form' => $addTypeForm->createView()
+            'list' => $results['dataList'],
+            'form' => $results['formulaire']->createView()
+        ]);
+    }
+    /**
+     *
+     *  @Route("/list_localisation_armure", name="localisation_armure_list")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function addLocalisationArmure(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $newLoca = new LocalisationArmure();
+        $results = $this->createFormTable($newLoca, $request, $entityManager);
+        if ($results['formulaire']->isSubmitted()) {
+            return $this->redirectToRoute('admin_type_armure_list');
+        }
+        return $this->render('admin/listTable.html.twig', [
+            'list' => $results['dataList'],
+            'form' => $results['formulaire']->createView()
+        ]);
+    }
+
+
+    /**
+     * 
+     * @Route("/list_arme", name="arme_list")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function addArme(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $newArme = new Arme();
+        $results = $this->createFormTable($newArme, $request, $entityManager);
+        if ($results['formulaire']->isSubmitted()) {
+            return $this->redirectToRoute('admin_arme_list');
+        }
+        return $this->render('admin/listTable.html.twig', [
+            'list' => $results['dataList'],
+            'form' => $results['formulaire']->createView()
         ]);
     }
 
@@ -255,16 +289,21 @@ class AdminController extends AbstractController
      *
      * @param Object $objet
      * @param string $class
-     * @return array
      */
-    private function createFormTable(Object $objet, string $class): array
+    private function createFormTable(Object $objet, Request $request, EntityManagerInterface $entityManager)
     {
-        $repo = $this->getDoctrine()->getRepository($class);
+        $repo = $this->getDoctrine()->getRepository(get_class($objet));
         $findall = $repo->findAll();
         $form = $this->createFormBuilder($objet)
             ->add('nom', TextType::class)
             ->getForm();
-        $resArray = [$findall, $form];
-        return $resArray;
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $entityManager->persist($objet);
+            $entityManager->flush();
+        }
+
+        $array = ['dataList' => $findall, 'formulaire' => $form];
+        return $array;
     }
 }

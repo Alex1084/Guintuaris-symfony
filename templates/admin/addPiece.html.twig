@@ -1,27 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ajouter une pièce d'armure | {{parent()}}{% endblock %}
+{% block title %}
+	Ajouter une pièce d'armure |
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
+	<div class="container">
+		{{form_start(pieceForm)}}
+		<div class="row">
 
- {{form_start(pieceForm)}}
- {{form_widget(pieceForm)}}
- <button>Créer</button>
- {{form_end(pieceForm)}}
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Emplacement</th>
-        <th>Type</th>
-        <th>Valeur</th>
-    </tr>
-    {% for piece in piecesTab %}
-    <tr>
-        <th>{{piece.id}}</th>
-        <th>{{piece.localisation.nom}}</th>
-        <th>{{piece.type.nom}}</th>
-        <th>{{piece.valeur}}</th>
-    </tr>
-    {% endfor %}
-</table>
+			<div class="div-form">{{ form_label(pieceForm.localisation)}}{{form_widget(pieceForm.localisation)}}</div>
+			<div class="div-form">{{ form_label(pieceForm.type)}}{{form_widget(pieceForm.type)}}</div>
+			<div class="div-form">{{ form_label(pieceForm.valeur)}}{{form_widget(pieceForm.valeur)}}</div>
+		</div>
+		<div>
+			<button class="valid-form">Créer</button>
+		</div>
+		{{form_end(pieceForm)}}
+	</div>
+	<div class="container">
+		<table class="tableau">
+			<tr>
+				<th>Id</th>
+				<th>Emplacement</th>
+				<th>Type</th>
+				<th>Valeur</th>
+			</tr>
+			{% for piece in piecesTab %}
+				<tr>
+					<th>{{piece.id}}</th>
+					<th>{{piece.localisation.nom}}</th>
+					<th>{{piece.type.nom}}</th>
+					<th>{{piece.valeur}}</th>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
 {% endblock %}

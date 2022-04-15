@@ -1,104 +1,109 @@
-.row{
-    margin: 50px 0;
+.img-div{
+    width: 30vw;
 }
 
-.img{
-
-    border: 2px solid;
-    height: 200px;
-    min-width: 100px;
+.div-detail-personnage{
+    width: 20vw;
+    font-weight: normal;
 }
 
-#title{
-    text-align: center;
+.div-detail-personnage h1{
+    font-weight: normal;
+    font-size: 2.5rem;
 }
+.div-detail-personnage h3{
+    font-weight: normal;
+    font-size: 1.75rem;
+}
+.div-lore{
+    width: 50vw;
+}
+
+
 /* ~~~~~~~~~~~Statistique~~~~~~~~~~~ */
-.statistique{
+.div-statistique{
+    width: 50vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1%;
+    grid-auto-rows: minmax(100px, auto);
+    text-align : center;
+}
 
-    padding: 0;
+.statistique-valeur{
+    /* padding; */
+    display: table;
     text-align: center;
     border: 2px black solid;
     border-radius: 172px;
+    height: 7.5vh;
+    width: 15vw;
+    background: rgba(238, 212, 177, 0.50);
 }
-.statistique p {
+
+.statistique-valeur p {
     font-size: 2rem;
+    margin-top: auto;
+    vertical-align: middle;
+    display: table-cell;
 }
 .label{
     text-align: center;
     font-weight: bold;
+    font-size: 1.25rem;
 }
 .label-form{
     margin: 0;
     text-align: inherit;
 }
 /* ~~~~~~~~~~~Statut~~~~~~~~~~~ */
-
+.div-statut{
+    width: 40vw;
+}
+.indication-statut{
+    /* position: absolute; */
+    font-weight: bold;
+    font-size: 2rem;
+    top : -45px;
+}
+.statut{
+    display: block;
+}
+.label-statut{
+    display: inline-block;
+    width: 32px;
+}
 input[type="integer"]{
-    background: none;
+    /* background: none; */
     border-radius: 172px;
     border: 2px black solid;
     height: 48px;
     width: 48px;
     text-align: center;
     box-shadow: none;
+    font-size: 1.5rem;
 }
-#bar-container{
-    position: relative;
-}
-.label-statut{
-    position: absolute;
-    font-weight: bold;
-    font-size: 2rem;
-    top : -45px;
-}
-.statut{
-    position: relative;
+
+input[type="integer"]::placeholder{
+    color: rgb(37, 60, 80);
+    opacity: 1;
+    font-family: 'centurion';
 }
 .max{
-    margin-right: 15px;
-}
-.input-enabled {
-    position: absolute;
-}
-.bar {
-    position: absolute;
-    left: 25%;
-    top : 13.6px
-}
-.soustrait{
-    left: 73.7%;
-}
-.ajout{
-    left: 60.5%;
-}
-#label-plus{
-    left: 62.8%;
-}
-#label-moins{
-    left: 76.8%;
+    display: inline-block;
+    width: 75px;
+    font-size: 1.5rem;
+    margin-right: 5%;
 }
 
-/* ~~~~~~~~~~~Les Tableaux~~~~~~~~~~~ */
-table, th, td {
-    border: 1px solid black;
-    text-align: center;
-}
-
-.tableaux-row{
-    margin: 10px;
-}
-.titre-table{
-    text-decoration: none;
-    text-align: center;
-}
-
-
-
-.tableau{
-    margin: auto;
-}
 
 /* ~~~~~~~~~~~form~~~~~~~~~~~ */
+.inventaire-form{
+    text-align: center;
+}
+.inventaire-form textarea, .inventaire-form input{
+    width: 90vw;
+}
 .div-sauvegarde{
     position: relative;
     min-height: 50px;
@@ -107,24 +112,49 @@ table, th, td {
     position: absolute;
     left: 60%;
 }
-#inventaire{
-    width: 400px;
-    height: 200px;
-    overflow-y: auto;
-    border: 1px black solid
-}
-#po{
-    height: 26px;
-    width: 202px;
-    border: 1px black solid
-}
-
-
-
 
 #result{
     height: 64px;
 }
-#lore-content{
-    width: 546px;
+
+
+@media (max-width: 1000px) {
+
+    .div-detail-personnage{
+        text-align: center;
+        width: 90vw;
+    }
+    .div-lore{
+        width: 90vw;
+    }
+
+    .div-statistique{
+        width: 90vw;
+    }
+    .statistique-valeur{
+        margin: auto;
+        height: 5vh;
+    }
+
+    .div-statut{
+        width: 100vw;
+    }
+
+    .div-competence{
+        display: block;
+    }
+  .competence{
+        width: 90vw;
+        margin-bottom: 5vh;
+    }
+}
+@media (max-width: 1100px) {
+    input[type="integer"]{
+        height: 40px;
+        width: 40px;
+    }
+    .label-statut{
+        font-size: 1rem;
+        width: 24px;
+    }
 }

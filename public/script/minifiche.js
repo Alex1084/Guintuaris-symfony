@@ -1,10 +1,7 @@
 const select = document.querySelector("#form_bete")
 const addFiche = document.querySelector("#add");
-let containerRow = document.querySelectorAll(".container-fluid>.row")
 let fiches = document.querySelectorAll(".fiche");
-const container = document.querySelector(".container-fluid")
-let last = containerRow[containerRow.length - 1];
-let row = 0;
+const container = document.querySelector(".board")
 
 // cette fonction a pour but de barrer une fiche ou de la débarrer et de supprimer la fiche du DOM
 // la constante mort est une image qui lorsqu'on clique dessus une barre (constante bar) rouge apparait et recouvre l'integraliter de la fiche (cette barre disparait lorsqu'un deuxime clique est effectuer)
@@ -27,13 +24,10 @@ function ficheControl(fiche) {
         }
     })
     quitter.addEventListener('click', () => {
-        fiche.remove();
-        if (row > 1) {
-            row--
-        }
-        else if (row === 0) {
-            row = 4
-        }
+        fiche.classList.add("fiche-remove")
+        setTimeout(() => {
+            fiche.remove();
+        }, 2000);
     })
 }
 
@@ -58,66 +52,56 @@ function insertFiche(monstre) {
     if (monstre.note == null) {
         monstre.note = ""
     }
-    row++;
-    if (row === 1) {
-        containerRow = document.querySelectorAll(".container-fluid>.row");
-        last = containerRow[containerRow.length - 1];
-        str += '<div class="row">';
-    }
-    str += `  <div class="fiche col-md-3">
+    str += `  <div class="fiche ">
             <img src="../img/barre_mort.png" alt="" class="barre">
             <h3 class="title">${monstre.nom}</h3> <img src="../img/mort.png" alt="" class="icon mort"> <img src="../img/croix.png" alt="" class="icon croix">
-            <div class="row">
-                <div class="col-md-4">
+            <div class="div-statistique">
+                <div>
                     <p>Constitution</p>
                     <span class="stat">${monstre.constitution}</span>
                 </div>
-                <div class="col-md-4">
+                <div>
                     <p>Force</p>
                     <span class="stat">${monstre.laForce}</span>
                 </div>
-                <div class="col-md-4">
+                <div>
                     <p>Dexterité</p>
                     <span class="stat">${monstre.dexterite}</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
+                <div>
                     <p>Intelligence</p>
                     <span class="stat">${monstre.intelligence}</span>
                 </div>
-                <div class="col-md-4">
+                <div>
                     <p>Charisme</p>
                     <span class="stat">${monstre.charisme}</span>
                 </div>
-                <div class="col-md-4">
+                <div>
                     <p>Foi</p>
                     <span class="stat">${monstre.foi}</span>
                 </div>
             </div>
 
             <div class="statut">
-                <label for="">PV</label><input type="integer" value="${monstre.pv}" class="numerique" readonly> <input type="integer" class="enabled ajout"> <input type="integer" class="enabled soustrait"> <br>
+                <label for="">PV</label><input type="integer" value="${monstre.pv}" class="numerique" readonly> 
+                <input type="integer" class="enabled ajout" placeholder="+"> 
+                <input type="integer" class="enabled soustrait" placeholder="-">    
             </div>
             
             <div class="statut">
-                <label for="">PM</label><input type="integer" value="${monstre.pm}" class="numerique" readonly> <input type="integer" class="enabled ajout"> <input type="integer" class="enabled soustrait"> <br>
+                <label for="">PM</label><input type="integer" value="${monstre.pm}" class="numerique" readonly> 
+                <input type="integer" class="enabled ajout" placeholder="+"> 
+                <input type="integer" class="enabled soustrait" placeholder="-">
             </div>
             
             <div class="statut">
-                <label for="">PC</label><input type="integer" value="${monstre.pc}" class="numerique" readonly> <input type="integer" class="enabled ajout"> <input type="integer" class="enabled soustrait"> <br>
+                <label for="">PC</label><input type="integer" value="${monstre.pc}" class="numerique" readonly> 
+                <input type="integer" class="enabled ajout" placeholder="+"> 
+                <input type="integer" class="enabled soustrait" placeholder="-">
             </div>
 
             <textarea class="note">${monstre.note}</textarea>
         </div>`;
-
-    if (row === 1) {
-
-        str += '</div>';
-    }
-    if (row === 4) {
-        row = 0;
-    }
     return str;
 }
 
@@ -127,22 +111,15 @@ function insertFiche(monstre) {
 //la fonction va chercher un objet qui est une requate dans le backend
 //et le revoie au format json le json est ensuite traduit en objet et est envoyer la la fonction insertFiche
 function onClickBtnLike(event) {
-    containerRow = document.querySelectorAll(".container-fluid>.row");
-    last = containerRow[containerRow.length - 1];
     event.preventDefault();
     const url = this.href;
     axios.get(url).then(function (response) {
         monstre = response.data;
+        container.innerHTML += insertFiche(monstre);
 
-        const container = document.querySelector(".container-fluid");
-        if (row < 1) {
-            container.innerHTML += insertFiche(monstre);
-        }
-        else if (row >= 1) {
-            last.innerHTML += insertFiche(monstre);
-        }
         fiches = document.querySelectorAll(".fiche");
         fiches.forEach(ficheControl)
+
     });
 }
 

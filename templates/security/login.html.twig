@@ -12,43 +12,45 @@
 
 		{% if app.user %}
 			<div class="mb-3">
-				Vous êtes connectée avec le compte 
+				Vous êtes connectée avec le compte
 				{{ app.user.username }}.
 			</div>
 			<a href="{{ path('app_logout') }}">Déconexion</a>
 		{% else %}
-			<h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+			<h1 class="title-form">Connexion</h1>
 			<div class="container">
-			<div class="row">
-				<div class="col-md-12 div-form">
-					<label for="inputEmail">Adresse e-mail</label>
-					<br>
-					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="log" autocomplete="email" required autofocus>
+				<div class="row">
+					<div class="div-form">
+						<label for="inputEmail">Adresse e-mail</label>
+
+						<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="log" autocomplete="email" required autofocus>
+					</div>
 				</div>
+				<div class="row">
+					<div class="div-form">
+						<label for="inputPassword">Mot de passe</label>
 
-				<div class="col-md-12 div-form">
-					<label for="inputPassword">Mot de passe</label>
-					<br>
-					<input type="password" name="password" id="inputPassword" class="log" autocomplete="current-password" required>
+						<input type="password" name="password" id="inputPassword" class="log" autocomplete="current-password" required>
+					</div>
+
 				</div>
-
 			</div>
-		</div>
 
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<input
+			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-		{#
-			Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-			See https://symfony.com/doc/current/security/remember_me.html
-			
-			<div class="checkbox mb-3">
-			<label>
-				<input type="checkbox" name="_remember_me"> Remember me
-			</label>
-			</div>
-		#}
+			{#
+															Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+															See https://symfony.com/doc/current/security/remember_me.html
+															
+															<div class="checkbox mb-3">
+															<label>
+																<input type="checkbox" name="_remember_me"> Remember me
+															</label>
+															</div>
+														#}
 
-		<button class="valid-form" type="submit">Sign in</button>
-	</form>
+			<button class="valid-form" type="submit">Sign in</button>
+		</form>
 	{% endif %}
 {% endblock %}

@@ -1,6 +1,7 @@
 //ce fichier a pour but d'afficher ou de masque un texte contenu dans un division lorsque on appui sur le bouton pour l'afficher
 
 const divs = document.querySelectorAll(".dropdown");
+document.getElementById
 divs.forEach((div) => {
 
     //button est le bouton qui sert a afficher le contenu
@@ -9,13 +10,12 @@ divs.forEach((div) => {
     const dropdown = div.querySelector('.dropdown-content');
     const logo = div.querySelector('.drop-logo')
     button.addEventListener('click', () => {
-        if (dropdown.style.display != "block") {
-            dropdown.style.display = "block"
+        if (dropdown.classList.contains("hidden")) {
+            dropdown.classList.replace("hidden", "show");
             logo.style.transform = "rotate(90deg)";
         }
         else {
-            div.style.display = "inline-block";
-            dropdown.style.display = "none";
+            dropdown.classList.replace("show", "hidden");
             logo.style.transform = "rotate(0deg)";
         }
     })

@@ -12,13 +12,16 @@
 {% endblock %}
 {% block body %}
 	<div id="wrapper">
+		<div class="page-content-wrapper">
+			<a href="#" id="menu-toggle">toggled</a>
+			<div class="board"></div>
+		</div>
 		<div class="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li>
 					<div class="dropdown">
-						<button class="dropbtn nav-btn">Monstres
-						</button>
-						<div class="dropdown-content">
+						<button class="dropbtn nav-btn">Monstres</button>
+						<div class="dropdown-content hidden">
 							<ul>
 								{% for monstre in monstres %}
 									<li>
@@ -29,45 +32,39 @@
 						</div>
 					</div>
 				</li>
-			</li>
-			<li>
-				<div class="dropdown">
+				<li>
+					<div class="dropdown">
 
-					<button class="dropbtn nav-btn">Animaux
-					</button>
-					<div class="dropdown-content">
-						<ul>
-							{% for animal in animaux %}
-								<li>
-									<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.nom}}</a</li>
-								</li>
-							{% endfor %}
-
-							<li>
-								<a href="#"></a>Requin</li>
-							<li>
-								<a href="#"></a>Cheval de Guerre
-							</li>
-							<li>
-								<a href="#"></a>Araignée Géante
-							</li>
-						</ul>
+						<button class="dropbtn nav-btn">Animaux
+						</button>
+						<div class="dropdown-content hidden">
+							<ul>
+								{% for animal in animaux %}
+									<li>
+										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.nom}}</a>
+									</li>
+								{% endfor %}
+								{#  #}
+							</ul>
+						</div>
 					</div>
-				</div>
-			</li>
-			<li>
-				<div class="dropdown">
-					<button class="dropbtn nav-btn">Humanoïde
-					</button>
-					<div class="dropdown-content"></div>
-				</div>
-			</li>
-		</ul>
-	</div>
-
-	<div class="page-content-wrapper">
-		<a href="#" id="menu-toggle">toggled</a>
-		<div class="container-fluid"></div>
+				</li>
+				<li>
+					<div {# class="dropdown" #}>
+						<button {# class="dropbtn nav-btn" #}>Humanoïde
+						</button>
+						<ul>
+							<li>Lorem, ipsum.</li>
+							<li>Lorem, ipsum.</li>
+							<li>Lorem, ipsum.</li>
+							<li>Lorem, ipsum.</li>
+							<li>Lorem, ipsum.</li>
+						</ul>
+						<div {# class="dropdown-content" #}></div>
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 {% endblock %}
 {% block script %}

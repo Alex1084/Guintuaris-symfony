@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{race.nom}} | {{parent()}}{% endblock %}
+{% block title %}
+	{{race.nom}}
+	|
+	{{parent()}}
+{% endblock %}
 
 {% block body %}
-    <h1>
-        {{race.nom}}
-    </h1>
+	<div class="container">
+		<h1 class="title">
+			{{race.nom}}
+		</h1>
 
-    <h2>Description</h2>
-    <p>{{ race.description}}</p>
+		<h2 class="sub-title">Description</h2>
+		<p class="content">{{ race.description}}</p>
 
-    <h2>Aptitude</h2>
-    <p>{{ race.aptitude}}</p>
+		<h2 class="sub-title">Aptitude</h2>
+		<p class="content">{{ race.aptitude}}</p>
 
-    <h2>Bonus</h2>
-    <p>{{ race.bonus}}</p>
+		<h2 class="sub-title">Bonus</h2>
+		<p class="content">{{ race.bonus}}</p>
+	</div>
 {% endblock %}

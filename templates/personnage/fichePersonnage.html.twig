@@ -14,29 +14,29 @@
 
 {% block body %}
 	{% if app.user.id == personnage.joueur.id %}
-		<div class="info container grid-container">
+		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="img-div">
 					<div>
 						<img src="{{asset('image_personnage/'~ personnage.image)}}" alt="" height="200">
 					</div>
 					<a href="{{ path("personnage_change_image", {'id' : personnage.id})}}">Changer d'image</a>
 				</div>
-				<div class="col-md-3">
-					<h1 id="nom">{{ personnage.nom }}</h1>
+				<div class="div-detail-personnage">
+
+					<h1>{{ personnage.nom }}</h1>
 					<h3>{{ personnage.race.nom }}</h3>
 					<h3>{{ personnage.classe.nom }}</h3>
 					<h3>Niveau
 						{{ personnage.niveau }}</h3>
 					<a href="{{ path("equipe_list", {"idEquipe" :personnage.equipe.id})}}">{{personnage.equipe.nom}}</a>
 				</div>
-				<div class="col-md-6">
-
-					<div class="dropdown" id="lore">
+				<div class="div-lore">
+					<div class="dropdown">
 						<button class="dropbtn">Lore
 							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
-						<div class="dropdown-content">
-							<textarea name="" id="lore-content" cols="50" readonly>{{ personnage.lore }}</textarea>
+						<div class=" hidden dropdown-content">
+							<textarea name="" cols="50" readonly>{{ personnage.lore }}</textarea>
 						</div>
 						<a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">Modifier le lore</a>
 					</div>
@@ -45,55 +45,72 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2">
-					<p class="label">Constitution:</p>
+				<div class="div-statistique">
 					<div class="statistique">
-						<p>{{ personnage.constitution }}</p>
+						<p class="label">Intelligence :</p>
+						<div class="statistique-valeur">
+							<p>{{ personnage.intelligence }}</p>
+						</div>
+					</div>
+					<div class="statistique">
+						<p class="label">Charisme :</p>
+						<div class="statistique-valeur">
+							<p>{{ personnage.charisme }}</p>
+						</div>
+					</div>
+					<div class="statistique">
+						<p class="label">Foi :</p>
+						<div class="statistique-valeur">
+							<p>{{ personnage.foi }}</p>
+						</div>
+					</div>
+					<div class="statistique">
+						<p class="label">Constitution:</p>
+						<div class="statistique-valeur">
+							<p>{{ personnage.constitution }}</p>
+						</div>
+					</div>
+					<div class="statistique">
+						<p class="label">Force :</p>
+						<div class="statistique-valeur">
+							<p>{{ personnage.laForce }}</p>
+						</div>
+					</div>
+					<div class="statistique">
+						<p class="label">Dextérite :</p>
+						<div class="statistique-valeur">
+							<p>{{ personnage.dexterite }}</p>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<p class="label">Force :</p>
-					<div class="statistique">
-						<p>{{ personnage.laForce }}</p>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<p class="label">Dextérite :</p>
-					<div class="statistique">
-						<p>{{ personnage.dexterite }}</p>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div id="bar-container">
+				<div class="div-statut">
+					<div>
 						<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">Level up !</a>
-						<span class="label-statut" id="label-plus">+</span>
-						<span class="label-statut" id="label-moins">-</span>
-
-
 					</div>
 					{{ form_start(statForm) }}
 					<div
-						class="statut">
-
+						class="statut" id="vie">
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
-						<label for="pv" class="label">PV
+						<label for="pv" class="label label-statut">
+							PV
 						</label>
 						<input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{personnage.pv}}" readonly>
 						<span class="max">/
-							{{personnage.pvMax}}</span>
+							{{personnage.pvMax}}
+						</span>
 
 						<!-- ~~~~~~ bar de vie ~~~~~~ -->
 						<input type="range" class="bar" id="pv-range" min="0" , max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
 
-						<input type="integer" id="degat" class="input-enabled ajout">
-						<input type="integer" id="soin" class="input-enabled soustrait">
+						<input type="integer" class="input-enabled ajout" placeholder="+">
+						<input type="integer" class="input-enabled soustrait" placeholder="-">
 					</div>
 
 					<div
-						class="statut">
+						class="statut" id="mana">
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-						<label for="pm" class="label">PM</label>
+						<label for="pm" class="label label-statut">PM</label>
 						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}" readonly>
 
 						<span class="max">/
@@ -102,14 +119,14 @@
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
 						<input type="range" class="bar" id="pm-range" min="0" , max="{{personnage.pmMax}}" value="{{personnage.pm}}" disabled>
 
-						<input type="integer" class="input-enabled ajout">
-						<input type="integer" class="input-enabled soustrait">
+						<input type="integer" class="input-enabled ajout" placeholder="+">
+						<input type="integer" class="input-enabled soustrait" placeholder="-">
 					</div>
 					<div
 						class="statut">
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-						<label for="pc" class="label">PC
+						<label for="pc" class="label label-statut">PC
 						</label>
 						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}" readonly>
 
@@ -119,36 +136,14 @@
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
 						<input type="range" class="bar" id="pc-range" min="0" , max="{{personnage.pcMax}}" value="{{personnage.pc}}" disabled>
 
-						<input type="integer" class="input-enabled ajout">
-						<input type="integer" class="input-enabled soustrait">
-					</div>
-					<div class="div-sauvegarde">
-
-						<button class="sauvegarde">Sauvegarder !</button>
+						<input type="integer" class="input-enabled ajout" placeholder="+">
+						<input type="integer" class="input-enabled soustrait" placeholder="-">
 					</div>
 					{{ form_end(statForm) }}
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2">
-					<p class="label">Intelligence :</p>
-					<div class="statistique">
-						<p>{{ personnage.intelligence }}</p>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<p class="label">Charisme :</p>
-					<div class="statistique">
-						<p>{{ personnage.charisme }}</p>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<p class="label">Foi :</p>
-					<div class="statistique">
-						<p>{{ personnage.foi }}</p>
-					</div>
-				</div>
-				<div class="col-md-6">
+				<div class="inventaire-form">
 					{{ form_start(inventaireForm) }}
 					<div>
 						<div class="label label-form">
@@ -159,15 +154,15 @@
 
 					<div class="div-sauvegarde">
 						<div class="label label-form">
-							{{ form_label(inventaireForm.po) }}
+							{{ form_label(inventaireForm.po	) }}
 						</div>
 						{{ form_widget(inventaireForm.po) }}
-						<button class="sauvegarde">Sauvegarder !</button>
 					</div>
 
 					{{ form_end(inventaireForm) }}
 				</div>
 			</div>
+
 		</div>
 		<div class="container">
 			<select name="" id="stat">
@@ -195,24 +190,15 @@
 		</div>
 
 		<div class="container">
-			<div class="row tableaux-row">
-
-				<div class="col-md-6">
-					<a href="{{ path("personnage_modif_armure", {"id" : personnage.id}) }}" class="titre-table">
-						<h2>Armure</h2>
-					</a>
-				</div>
-				<div class="col-md-6">
-					<a href="{{ path("personnage_modif_arme", {"id" : personnage.id}) }}" class="titre-table">
-
-						<h2>Arme</h2>
-					</a>
-				</div>
-			</div>
-			<div class="row tableaux-row">
-
-
-				<div class="col-md-6">
+			<div class="row">
+				<div>
+					<div>
+						<div>
+							<a href="{{ path("personnage_modif_armure", {"id" : personnage.id}) }}" class="titre-table">
+								<h2>Armure</h2>
+							</a>
+						</div>
+					</div>
 					{% set ca = 0 %}
 					<table class="tableau">
 						<tr>
@@ -232,56 +218,66 @@
 						{% endfor %}
 						<tr>
 							<th>Total :</th>
+							<th></th>
 							<th>{{ca}}</th>
 						</tr>
 					</table>
 				</div>
-				<div class="col-md-6">
-					<table class="tableau">
 
-						<tr>
-							<th>Arme</th>
-							<th>Dégats</th>
-							<th>Dé</th>
-							<th>Effet</th>
-						</tr>
-						{% for arme in armes %}
+				<div>
+					<div>
+						<a href="{{ path("personnage_modif_arme", {"id" : personnage.id}) }}" class="titre-table">
+
+							<h2>Arme</h2>
+						</a>
+					</div>
+
+					<div>
+						<table class="tableau">
+
 							<tr>
-								<th>{{ arme.arme.nom }}</th>
-								<th>{{ arme.arme.degats }}</th>
-								<th>{{ arme.arme.de }}</th>
-								<th>{{ arme.effet }}</th>
+								<th>Arme</th>
+								<th>Dégats</th>
+								<th>Dé</th>
+								<th>Effet</th>
 							</tr>
-						{% endfor %}
-					</table>
+							{% for arme in armes %}
+								<tr>
+									<th>{{ arme.arme.nom }}</th>
+									<th>{{ arme.arme.degats }}</th>
+									<th>{{ arme.arme.de }}</th>
+									<th>{{ arme.effet }}</th>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<h2 id="title">Compétences</h2>
-		{% set row = 0 %}
-		{% for competence in competences %}
-			{% set row = row + 1 %}
-			{% if row  == 1 %}
-				<div class="row">
-				{% endif %}
-				<div class="col-md-6">
-					<div class="dropdown">
-						<button class="dropbtn">
-							{{competence.nom}}
-							,
-							{{competence.cout}}
-							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
-						<div class="dropdown-content">
-							<p class="content">{{ competence.description }}</p>
+		<div class="container">
+			<div class="row">
+				<h2>Compétences</h2>
+			</div>
+		</div>
+		<div class="container">
+			<div class="div-competence">
+				{% for competence in competences %}
+					<div class="competence">
+						<div class="dropdown">
+							<button class="dropbtn">
+								{{competence.nom}}
+								,
+								{{competence.cout}}
+								<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+							<div class="hidden dropdown-content">
+								<textarea readonly>{{ competence.description }}</textarea>
+								{# <p class="content"></p> #}
+							</div>
 						</div>
 					</div>
-				</div>
-				{% if row == 2 %}
-				</div>
-				{% set row = 0 %}
-			{% endif %}
-		{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
 	{% else %}
 		<p>Désolé accès interdit</p>
 	{% endif %}

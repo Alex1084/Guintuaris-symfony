@@ -1,24 +1,41 @@
+.board{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .fiche{
     min-height: 380px;
     border: 1px black solid;
     position: relative;
-    max-width: 315.5px;
+    width: 315px;
+    transition: 2s;
+    /* margin: 0 1%; */
 }
-
+.fiche-remove{
+    transform: scaleX(0) translate(50%);
+    width: 0;
+}
+.div-statistique{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) ;
+}
 .stat{
     text-align: center;
     min-height: 37px;
     min-width: 37px;
     border: 1px black solid;
-    border-radius: 55px;
+    border-radius: 100%;
     display: inline-block;
     font-size: 1.5rem;
     display: table;
     margin: 0 auto;
+    background:rgba(238, 212, 177, 0.50);
 }
 
 .title {
-    max-width: 265.5;
+    /* max-width: 265.5; */
+    font-size: 1.25rem;
 }
 
 .fiche p{
@@ -33,6 +50,13 @@ input[type="integer"]{
     height: 37px;
     width: 37px;
     text-align: center;
+    background:rgba(238, 212, 177, 0.50);
+}
+
+input[type="integer"]::placeholder{
+    color: rgb(37, 60, 80);
+    opacity: 1;
+    font-family: 'centurion';
 }
 .enabled{
     position: absolute;
@@ -69,5 +93,5 @@ input[type="integer"]{
 }
 
 .note{
-    max-width: 213.75px;
+    width: 90%;
 }
