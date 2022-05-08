@@ -18,4 +18,17 @@ class PersonnageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Personnage::class);
     }
+
+    public function updateInventaire($id, $inventaire, $po)
+    {
+        $this->createQueryBuilder('p')
+        ->update(Personnage::class, 'p')
+        ->set('p.inventaire', ':inventaire')
+        ->set('p.po', ':po')
+        ->where('p.id = :id')
+        ->setParameter('inventaire', $inventaire)
+        ->setParameter('po', $po)
+        ->setParameter('id', $id)
+        ->getQuery()->execute();
+    }
 }

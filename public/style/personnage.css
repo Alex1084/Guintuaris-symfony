@@ -73,7 +73,7 @@
     display: inline-block;
     width: 32px;
 }
-input[type="integer"]{
+.statut input[type="number"]{
     /* background: none; */
     border-radius: 172px;
     border: 2px black solid;
@@ -84,7 +84,7 @@ input[type="integer"]{
     font-size: 1.5rem;
 }
 
-input[type="integer"]::placeholder{
+.statut input[type="number"]::placeholder{
     color: rgb(37, 60, 80);
     opacity: 1;
     font-family: 'centurion';
@@ -149,7 +149,7 @@ input[type="integer"]::placeholder{
     }
 }
 @media (max-width: 1100px) {
-    input[type="integer"]{
+    input[type="number"]{
         height: 40px;
         width: 40px;
     }

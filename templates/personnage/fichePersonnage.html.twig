@@ -87,14 +87,12 @@
 					<div>
 						<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">Level up !</a>
 					</div>
-					{{ form_start(statForm) }}
-					<div
-						class="statut" id="vie">
+					<div class="statut">
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
 						<label for="pv" class="label label-statut">
 							PV
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{personnage.pv}}" readonly>
+						<input type="number" class="numerique ajax" id="pv" name="pv" value="{{personnage.pv}}" readonly>
 						<span class="max">/
 							{{personnage.pvMax}}
 						</span>
@@ -102,16 +100,15 @@
 						<!-- ~~~~~~ bar de vie ~~~~~~ -->
 						<input type="range" class="bar" id="pv-range" min="0" , max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
 
-						<input type="integer" class="input-enabled ajout" placeholder="+">
-						<input type="integer" class="input-enabled soustrait" placeholder="-">
+						<input type="number" class="input-enabled ajout" placeholder="+">
+						<input type="number" class="input-enabled soustrait" placeholder="-">
 					</div>
 
-					<div
-						class="statut" id="mana">
+					<div class="statut">
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pm" class="label label-statut">PM</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}" readonly>
+						<input type="number" class="numerique ajax" id="pm" name="pm" value="{{personnage.pm}}" readonly>
 
 						<span class="max">/
 							{{personnage.pmMax}}</span>
@@ -119,16 +116,15 @@
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
 						<input type="range" class="bar" id="pm-range" min="0" , max="{{personnage.pmMax}}" value="{{personnage.pm}}" disabled>
 
-						<input type="integer" class="input-enabled ajout" placeholder="+">
-						<input type="integer" class="input-enabled soustrait" placeholder="-">
+						<input type="number" class="input-enabled ajout" placeholder="+">
+						<input type="number" class="input-enabled soustrait" placeholder="-">
 					</div>
-					<div
-						class="statut">
+					<div class="statut">
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pc" class="label label-statut">PC
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}" readonly>
+						<input type="number" class="numerique ajax" id="pc" name="pc" value="{{personnage.pc}}" readonly>
 
 						<span class="max">/
 							{{personnage.pcMax}}</span>
@@ -136,36 +132,32 @@
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
 						<input type="range" class="bar" id="pc-range" min="0" , max="{{personnage.pcMax}}" value="{{personnage.pc}}" disabled>
 
-						<input type="integer" class="input-enabled ajout" placeholder="+">
-						<input type="integer" class="input-enabled soustrait" placeholder="-">
+						<input type="number" class="input-enabled ajout" placeholder="+">
+						<input type="number" class="input-enabled soustrait" placeholder="-">
 					</div>
-					{{ form_end(statForm) }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="inventaire-form">
-					{{ form_start(inventaireForm) }}
 					<div>
 						<div class="label label-form">
-							{{ form_label(inventaireForm.inventaire) }}
+							<label for="inventaire">Inventaire</label>
 						</div>
-						{{ form_widget(inventaireForm.inventaire) }}
+						<textarea class="ajax" name="inventaire" id="inventaire" cols="30" rows="10">{{personnage.inventaire}}</textarea>
 					</div>
 
 					<div class="div-sauvegarde">
 						<div class="label label-form">
-							{{ form_label(inventaireForm.po	) }}
+							<label for="">Piece d'or</label>
 						</div>
-						{{ form_widget(inventaireForm.po) }}
+						<input class="ajax" type="number" name="po" id="po" value="{{personnage.po}}">
 					</div>
-
-					{{ form_end(inventaireForm) }}
 				</div>
 			</div>
 
 		</div>
 		<div class="container">
-			<select name="" id="stat">
+			<select name="" id="select-stat">
 				<option value="{{personnage.constitution}}">Constitution</option>
 				<option value="{{personnage.laForce}}">Force</option>
 				<option value="{{personnage.dexterite}}">Dextérité</option>
@@ -285,7 +277,9 @@
 {% endblock %}
 
 {% block script %}
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="{{asset('script/dropdown.js')}}"></script>
 	<script src="{{asset('script/bar.js')}}"></script>
 	<script src="{{asset('script/de.js')}}"></script>
+	<script src="{{asset('script/personnage.js')}}"></script>
 {% endblock %}

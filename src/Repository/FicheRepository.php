@@ -18,4 +18,19 @@ class FicheRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Fiche::class);
     }
+
+    public function updateStatus($id, $pv, $pc, $pm)
+    {
+        $this->createQueryBuilder('f')
+        ->update(Fiche::class, 'f')
+        ->set('f.pv', ':pv')
+        ->set('f.pc', ':pc')
+        ->set('f.pm', ':pm')
+        ->where('f.id = :id')
+        ->setParameter('pv', $pv)
+        ->setParameter('pc', $pc)
+        ->setParameter('pm', $pm)
+        ->setParameter('id', $id)
+        ->getQuery()->execute();        
+    }
 }

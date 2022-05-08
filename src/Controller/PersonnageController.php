@@ -9,6 +9,8 @@ use App\Entity\PieceArmure;
 use App\Entity\PieceArmurePersonnage;
 use App\Form\PersonnageType;
 use App\Repository\CompetenceRepository;
+use App\Repository\FicheRepository;
+use App\Repository\PersonnageRepository;
 use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -52,6 +54,26 @@ class PersonnageController extends AbstractController
     }
 
     /**
+     * Undocumented function
+     *
+     * @Route("/update", name="update_statut")
+     */
+    public function updateStatut(Request $request, PersonnageRepository $personnageRepository, FicheRepository $ficheRepository)
+    {
+        if ($request->isMethod('post')) {
+            $data = json_decode($request->getContent());
+            $personnageRepository->updateInventaire($data->id, $data->inventaire, $data->po);
+            $ficheRepository->updateStatus($data->id, $data->pv, $data->pc, $data->pm);
+            
+            return $this->json(
+                "result", 200
+            );
+        }
+        else{
+            return $this->json('error', 401);
+        }
+    }
+    /**
      * permet d'afficher et d'editer la fiche de personnage que l'on souhaite
      * 
      * @Route("/{id}", name="view")
@@ -64,7 +86,6 @@ class PersonnageController extends AbstractController
      */
     public function fichePerso(int $id, Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
     {
-        //dd($request);
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
         $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
@@ -72,41 +93,10 @@ class PersonnageController extends AbstractController
         $armure = $repo->findBy(array("personnage" => $personnage->getId()));
         $repo = $this->getDoctrine()->getRepository(ArmePersonnage::class);
         $armes = $repo->findBy(array("personnage" => $personnage->getId()));
-        //~~~~~~~~~~~~~~~~~~~~~~~formulaire pour les trois bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-        $statForm = $this->get('form.factory')->createNamedBuilder('stat', FormType::class, $personnage)
-            ->add('pv', IntegerType::class)
-            ->add('pm', IntegerType::class)
-            ->add('pc', IntegerType::class)
-            ->getForm();
-        //~~~~~~~~~~~~~~~~~~~~~~formulaire pour l'inventaire et les PO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        $inventaireForm = $this->get('form.factory')->createNamedBuilder('inventaire', FormType::class, $personnage)
-            ->add('inventaire', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('po', IntegerType::class)
-            ->getForm();
-        if ($request->getMethod() === 'POST') {
-            $statForm->handleRequest($request);
-            $inventaireForm->handleRequest($request);
-            if ($request->request->has('stat')) {
-                //dd($request);
-                $entityManager->persist($personnage);
-                $entityManager->flush();
-                //
-            }
-            if ($request->request->has('inventaire')) {
-                $entityManager->persist($personnage);
-                $entityManager->flush();
-                //
-            }
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
-        }
-
-        //dd($inventaireForm);
+        
         return $this->render('personnage/fichePersonnage.html.twig', [
             'personnage' => $personnage,
-            'statForm' => $statForm->createView(),
-            'inventaireForm' => $inventaireForm->createView(),
+
             'competences' => $competences,
             'armure' => $armure,
             'armes' => $armes,

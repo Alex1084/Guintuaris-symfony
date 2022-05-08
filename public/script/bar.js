@@ -1,10 +1,9 @@
-const divStats = document.querySelectorAll(".statut");
+const divStatus = document.querySelectorAll(".statut");
 
 //sur les trois division status de la fiche de personnage cette fonction permet avec des input de changer se statut
 //les division numerique et bar sont des division en read only et les division ajout et soustrait son les opperendre qui vont interagir
 //avec les divisions numerique 
-divStats.forEach((div) => {
-    console.log(div);
+divStatus.forEach((div) => {
     const valNumerique = div.querySelector(".numerique")
     const valeBar = div.querySelector(".bar");
     const degat = div.querySelector(".soustrait");
@@ -29,5 +28,6 @@ function statut(event, opperateur, valNum, operande, valeBare) {
         if (valeBare != null) {
             valeBare.value = valNum.value;
         }
+        ajax();
     }
 }

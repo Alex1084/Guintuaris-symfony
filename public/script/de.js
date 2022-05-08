@@ -5,7 +5,7 @@ const de = document.getElementById("de");
 //result est la division dans le quel sera affiche la resultat du lancée
 const resultat = document.getElementById("result")
 //stat est la valeur de reference pour le resultat c'est cette variable qui sera en mesure de dire si le lance est reussi ou si il a échouer
-const stat = document.getElementById("stat")
+const stat = document.getElementById("select-stat")
 // la cA est un malus on va soustraire la stat a la ca et donnera une vision plus precise sur les chance de réussite
 const cA = document.getElementById("ca")
 let str = ""
