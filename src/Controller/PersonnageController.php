@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\ArmorPiece;
+use App\Entity\ArmorPieceCharacter;
 use App\Entity\Personnage;
-use App\Entity\PieceArmure;
-use App\Entity\PieceArmurePersonnage;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\PersonnageType;
+use App\Repository\ArmorPieceRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\FicheRepository;
 use App\Repository\PersonnageRepository;
-use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,8 +89,8 @@ class PersonnageController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
         $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
-        $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
-        $armure = $repo->findBy(["personnage" => $personnage->getId()]);
+        $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
+        $armor = $repo->findBy(["charact" => $personnage->getId()]);
         $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
         $weapons = $repo->findBy(["charact" => $personnage->getId()]);
         
@@ -98,7 +98,7 @@ class PersonnageController extends AbstractController
             'personnage' => $personnage,
 
             'competences' => $competences,
-            'armure' => $armure,
+            'armor' => $armor,
             'weapons' => $weapons,
         ]);
     }
@@ -242,63 +242,58 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/{id}/armure", name="modif_armure")
      *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param PieceArmureRepository $pr
-     * @return Response
      */
-    public function modifArmure(int $id, Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $pr): Response
+    public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $pr): Response
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
-        // recherche des toute les piece d'armure appartenent au personnage (dans la table Piece_armure_personnage)
-        $armure = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class)->findBy(array("personnage" => $personnage->getId()));
+        // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
+        $armor = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $personnage->getId()]);
 
         //ce tableau permet de savoir dans la boucle a quel localisation fais reference un champs 
         $pieces = [1 => 'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
 
-        $armureForm = $this->createFormBuilder();
+        $armorForm = $this->createFormBuilder();
 
         //ajout des champs dans le formulmaire
         for ($i = 1; $i <= 7; $i++) {
             $str = 'effet_' . $pieces[$i];
 
             //ajout d'un Select avec en option les piece d'armure apartenent a la localisation $i
-            $armureForm->add($pieces[$i], EntityType::class, [
-                'class' => PieceArmure::class,
-                'choice_label' => 'type',
+            $armorForm->add($pieces[$i], EntityType::class, [
+                'class' => ArmorPiece::class,
+                'choice_label' => 'type.name',
                 'query_builder' => $this->optionType($i, $pr),
-                'data' => $armure[$i - 1]->getPiece(),
+                'data' => $armor[$i - 1]->getPiece(),
                 'attr' => ['class' => 'input-form']
             ])
                 //ajout d'un champs string pour metre l'effet de la piece d'armure
                 ->add($str, TextType::class, [
                     'required' => false,
-                    'data' => $armure[$i - 1]->getEffect(),
+                    'data' => $armor[$i - 1]->getEffect(),
                     'label' => 'Effet',
                     'attr' => ['class' => 'input-form']
                 ]);
         }
 
-        $armureForm = $armureForm->getForm();
-        $armureForm->handleRequest($request);
-        if ($armureForm->isSubmitted()) {
+        $armorForm = $armorForm->getForm();
+        $armorForm->handleRequest($request);
+        if ($armorForm->isSubmitted()) {
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 7; $i++) {
-                $piece = $armureForm->get($pieces[$i])->getData();
-                $effect = $armureForm->get('effet_' . $pieces[$i])->getData();
-                $armure[$i - 1]->setPiece($piece);
-                $armure[$i - 1]->setEffect($effect);
+                $piece = $armorForm->get($pieces[$i])->getData();
+                $effect = $armorForm->get('effet_' . $pieces[$i])->getData();
+                $armor[$i - 1]->setPiece($piece);
+                $armor[$i - 1]->setEffect($effect);
 
-                $entityManager->persist($armure[$i - 1]);
+                $entityManager->persist($armor[$i - 1]);
                 $entityManager->flush();
             }
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
         return $this->render('personnage/equipement.html.twig', [
-            'armureForm' => $armureForm->createView(),
+            'armorForm' => $armorForm->createView(),
             "personnage" => $personnage,
         ]);
     }
@@ -322,14 +317,14 @@ class PersonnageController extends AbstractController
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
         $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(array("charact" => $personnage->getId()));
 
-        $armureForm = $this->createFormBuilder();
+        $weaponForm = $this->createFormBuilder();
 
         //ajout des champs dans le formulmaire
         for ($i = 1; $i <= 3; $i++) {
             $str = 'effet_' . $i;
             //ajout d'un champs select ayant comme identifiant un numero allant de 1 a 3
             // et ayant comme option la liste de toute les armes
-            $armureForm->add('n_' . $i, EntityType::class, [
+            $weaponForm->add('n_' . $i, EntityType::class, [
                 'class' => Weapon::class,
                 'choice_label' => 'name',
                 'data' => $weapons[$i - 1]->getWeapon(),
@@ -344,14 +339,14 @@ class PersonnageController extends AbstractController
                     'attr' => ['class' => 'input-form']
                 ]);
         }
-        $armureForm = $armureForm->getForm();
-        $armureForm->handleRequest($request);
-        if ($armureForm->isSubmitted()) {
+        $weaponForm = $weaponForm->getForm();
+        $weaponForm->handleRequest($request);
+        if ($weaponForm->isSubmitted()) {
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 3; $i++) {
-                $weapon = $armureForm->get('n_' . $i)->getData();
-                $effect = $armureForm->get('effet_' . $i)->getData();
+                $weapon = $weaponForm->get('n_' . $i)->getData();
+                $effect = $weaponForm->get('effet_' . $i)->getData();
                 $weapons[$i - 1]->setWeapon($weapon);
                 $weapons[$i - 1]->setEffect($effect);
 
@@ -361,7 +356,7 @@ class PersonnageController extends AbstractController
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
         return $this->render('personnage/arme.html.twig', [
-            'armureForm' => $armureForm->createView(),
+            'weaponForm' => $weaponForm->createView(),
             "personnage" => $personnage,
         ]);
     }
@@ -369,14 +364,11 @@ class PersonnageController extends AbstractController
     /**
      * cette fonction a pour but de retouver toute les piece d'armure ayant comme localisation l'identifient placer en parametre
      *
-     * @param integer $id
-     * @param PieceArmureRepository $pr
-     * @return void
      */
-    private function optionType(int $id, PieceArmureRepository $pr)
+    private function optionType(int $id, ArmorPieceRepository $pr)
     {
         return $pr->createQueryBuilder('p')
-            ->where('p.localisation = :id')
+            ->where('p.location = :id')
             ->setParameter("id", $id);
     }
 

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\ArmorPieceCharacter;
 use App\Entity\Personnage;
-use App\Entity\PieceArmurePersonnage;
 use App\Entity\WeaponCharacter;
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -56,8 +56,8 @@ class FicheEquipeController extends AbstractController
         $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
 
         //requete pour les armes et armures
-        $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
-        $armure = $repo->findBy(["personnage" => $personnage->getId()]);
+        $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
+        $armor = $repo->findBy(["charact" => $personnage->getId()]);
         $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
         $weapons = $repo->findBy(["charact" => $personnage->getId()]);
 
@@ -73,7 +73,7 @@ class FicheEquipeController extends AbstractController
             'personnage' => $personnage,
             'statForm' => $statForm->createView(),
             'competences' => $competences,
-            'armure' => $armure,
+            'armor' => $armor,
             'weapons' => $weapons
         ]);
     }

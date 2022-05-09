@@ -184,13 +184,13 @@
 							<th>CA</th>
 							<th>Effet</th>
 						</tr>
-						{% for pieceArmure in armure %}
-							{% set ca = ca + pieceArmure.piece.valeur %}
+						{% for armorPiece in armor %}
+							{% set ca = ca + armorPiece.piece.value %}
 							<tr>
-								<th>{{ pieceArmure.piece.localisation.nom }}</th>
-								<th>{{ pieceArmure.piece.type.nom }}</th>
-								<th>{{ pieceArmure.piece.valeur }}</th>
-								<th>{{ pieceArmure.effet }}</th>
+								<th>{{ armorPiece.piece.location.name }}</th>
+								<th>{{ armorPiece.piece.type.name }}</th>
+								<th>{{ armorPiece.piece.value }}</th>
+								<th>{{ armorPiece.effect }}</th>
 							</tr>
 						{% endfor %}
 						<tr>

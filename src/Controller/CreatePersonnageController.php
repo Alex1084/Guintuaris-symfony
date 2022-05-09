@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\ArmorPieceCharacter;
 use App\Entity\Equipe;
 use App\Entity\Personnage;
-use App\Entity\PieceArmurePersonnage;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\PersonnageType;
-use App\Repository\PieceArmureRepository;
+use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,18 +19,14 @@ class CreatePersonnageController extends AbstractController
 {
     /**
      * cette page permet de creer pour un utilisateur un nouveau personnage$
-     * lors de la creation 7 nouvelle ligne sont créer dans la table piece_armure_personnage 
+     * lors de la creation 7 nouvelle ligne sont créer dans la table armor_piece_character
      * avec comme idantifiant le personnage et un nombre allant de 1 à 7
      * et trois ligne sont créer pour les arme_personnage
      * 
      * @Route("/personnage/creation", name="personnage_create")
      * 
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param PieceArmureRepository $repoEquipement
-     * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, PieceArmureRepository $repoEquipement): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $repoArmorPiece): Response
     {
         // requete pour recuperer l'equipe n°5  nom -> aucune
         $id = 5;
@@ -65,7 +61,7 @@ class CreatePersonnageController extends AbstractController
             //
 
             for ($i = 1; $i <= 7; $i++) {
-                $this->insertPiece($personnage, $i, $repoEquipement, $entityManager);
+                $this->insertPiece($personnage, $i, $repoArmorPiece, $entityManager);
             }
 
             for ($i = 1; $i <= 3; $i++) {
@@ -83,22 +79,17 @@ class CreatePersonnageController extends AbstractController
 
 
     /**
-     * cette fonction permet d'inserrer une nouvelle ligne dans la table piece_armure_personnage
+     * cette fonction permet d'inserrer une nouvelle ligne dans la table armor_piece_character
      * le numEmplacement est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
-     * @param Personnage $personnage
-     * @param integer $numEmplacement
-     * @param PieceArmureRepository $repoEquipement
-     * @param EntityManagerInterface $entityManager
-     * @return void
      */
-    private function insertPiece(Personnage $personnage, int $numEmplacement, PieceArmureRepository $repoEquipement, EntityManagerInterface $entityManager)
+    private function insertPiece(Personnage $personnage, int $numEmplacement, ArmorPieceRepository $repoArmorPiece, EntityManagerInterface $entityManager)
     {
-        $piecePersonnage = new PieceArmurePersonnage();
-        $piecePersonnage->setPersonnage($personnage);
+        $piecePersonnage = new ArmorPieceCharacter();
+        $piecePersonnage->setCharact($personnage);
         $piecePersonnage->setId($numEmplacement);
-        $piecePersonnage->setPiece($repoEquipement->getArmurebyTypeEmplacement(12, $numEmplacement)); //  12 : type enlever et $numEmplacement : emplacement (allant de 1 a 7)
+        $piecePersonnage->setPiece($repoArmorPiece->getArmorbyLocation(12, $numEmplacement)); //  12 : type enlever et $numEmplacement : emplacement (allant de 1 a 7)
 
         $entityManager->persist($piecePersonnage);
         $entityManager->flush();

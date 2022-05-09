@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\LocalisationArmureRepository;
+use App\Repository\ArmorTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=LocalisationArmureRepository::class)
+ * @ORM\Entity(repositoryClass=ArmorTypeRepository::class)
  */
-class LocalisationArmure
+class ArmorType
 {
     /**
      * @ORM\Id
@@ -25,21 +25,21 @@ class LocalisationArmure
      *      max=50,
      * )
      */
-    private $nom;
+    private $name;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }

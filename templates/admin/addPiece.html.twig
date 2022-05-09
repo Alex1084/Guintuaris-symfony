@@ -10,9 +10,9 @@
 		{{form_start(pieceForm)}}
 		<div class="row">
 
-			<div class="div-form">{{ form_label(pieceForm.localisation)}}{{form_widget(pieceForm.localisation)}}</div>
+			<div class="div-form">{{ form_label(pieceForm.location)}}{{form_widget(pieceForm.location)}}</div>
 			<div class="div-form">{{ form_label(pieceForm.type)}}{{form_widget(pieceForm.type)}}</div>
-			<div class="div-form">{{ form_label(pieceForm.valeur)}}{{form_widget(pieceForm.valeur)}}</div>
+			<div class="div-form">{{ form_label(pieceForm.value)}}{{form_widget(pieceForm.value)}}</div>
 		</div>
 		<div>
 			<button class="valid-form">Créer</button>
@@ -30,9 +30,9 @@
 			{% for piece in piecesTab %}
 				<tr>
 					<th>{{piece.id}}</th>
-					<th>{{piece.localisation.nom}}</th>
-					<th>{{piece.type.nom}}</th>
-					<th>{{piece.valeur}}</th>
+					<th>{{piece.location.name}}</th>
+					<th>{{piece.type.name}}</th>
+					<th>{{piece.value}}</th>
 				</tr>
 			{% endfor %}
 		</table>

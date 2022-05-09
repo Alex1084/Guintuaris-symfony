@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\ArmorLocation;
+use App\Entity\ArmorPiece;
+use App\Entity\ArmorType;
 use App\Entity\Bestiaire;
 use App\Entity\Competence;
 use App\Entity\Equipe;
-use App\Entity\LocalisationArmure;
 use App\Entity\Personnage;
-use App\Entity\PieceArmure;
-use App\Entity\TypeArmure;
 use App\Entity\TypeBestiaire;
 use App\Entity\Weapon;
+use App\Form\ArmorPieceType;
 use App\Form\BestiaireType;
 use App\Form\CompetenceType;
-use App\Form\PieceArmureType;
 use App\Repository\PersonnageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -66,7 +66,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * permet d'ajouter une nouvel Piece d'armure dans la BDD (table Piece_armure)
+     * permet d'ajouter une nouvel Piece d'armure dans la BDD (table armor_piece)
      * permet aussi d'afficher toute les instance de cette table
      * 
      * @Route("/ajout_piece", name="add_piece")
@@ -77,17 +77,17 @@ class AdminController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $repo = $this->getDoctrine()->getRepository(PieceArmure::class);
+        $repo = $this->getDoctrine()->getRepository(ArmorPiece::class);
         $piecesTab = $repo->findAll();
-        $piece = new PieceArmure();
-        $pieceForm = $this->createForm(PieceArmureType::class, $piece);
+        $piece = new ArmorPiece();
+        $pieceForm = $this->createForm(ArmorPieceType::class, $piece);
 
         $pieceForm->handleRequest($request);
         if ($pieceForm->isSubmitted()) {
             $entityManager->persist($piece);
             $entityManager->flush();
 
-            return $this->redirectToRoute('add_piece');
+            return $this->redirectToRoute('admin_add_piece');
         }
         return $this->render('admin/addPiece.html.twig', [
             "pieceForm" => $pieceForm->createView(),
@@ -219,7 +219,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * permet d'ajouter un nouveau type d'armure dans la base de donné (table type_armure)
+     * permet d'ajouter un nouveau type d'armure dans la base de donné (table armor_type)
      * affiche toute les instance se trouvant dans cette table
      *
      *  @Route("/list_type_armure", name="type_armure_list")
@@ -228,9 +228,9 @@ class AdminController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function addTypeArmure(Request $request, EntityManagerInterface $entityManager): Response
+    public function addArmorType(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $newType = new TypeArmure();
+        $newType = new ArmorType();
         $results = $this->createFormTable($newType, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
             return $this->redirectToRoute('admin_type_armure_list');
@@ -248,9 +248,9 @@ class AdminController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function addLocalisationArmure(Request $request, EntityManagerInterface $entityManager): Response
+    public function addArmorLocation(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $newLoca = new LocalisationArmure();
+        $newLoca = new ArmorLocation();
         $results = $this->createFormTable($newLoca, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
             return $this->redirectToRoute('admin_type_armure_list');

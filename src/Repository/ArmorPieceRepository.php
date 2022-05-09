@@ -2,24 +2,23 @@
 
 namespace App\Repository;
 
-use App\Entity\PieceArmure;
+use App\Entity\ArmorPiece;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method PieceArmure|null find($id, $lockMode = null, $lockVersion = null)
- * @method PieceArmure|null findOneBy(array $criteria, array $orderBy = null)
- * @method PieceArmure[]    findAll()
- * @method PieceArmure[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ArmorPiece|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ArmorPiece|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ArmorPiece[]    findAll()
+ * @method ArmorPiece[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PieceArmureRepository extends ServiceEntityRepository
+class ArmorPieceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PieceArmure::class);
+        parent::__construct($registry, ArmorPiece::class);
     }
-
-    public function getArmurebyTypeEmplacement($typeId, $empla)
+    public function getArmorbyLocation($typeId, $empla)
     {
         $query = $this->createQueryBuilder('a')
             ->where('a.type = :type')

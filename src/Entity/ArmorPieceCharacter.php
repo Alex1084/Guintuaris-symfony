@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\WeaponCharacterRepository;
+use App\Repository\ArmorPieceCharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=WeaponCharacterRepository::class)
+ * @ORM\Entity(repositoryClass=ArmorPieceCharacterRepository::class)
  */
-class WeaponCharacter
+class ArmorPieceCharacter
 {
     /**
      * @ORM\Id
@@ -25,17 +24,13 @@ class WeaponCharacter
     private $charact;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Weapon::class)
+     * @ORM\ManyToOne(targetEntity=ArmorPiece::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $weapon;
+    private $piece;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(
-     *      min=5,
-     *      max=50,
-     * )
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $effect;
 
@@ -43,14 +38,14 @@ class WeaponCharacter
     {
         return $this->id;
     }
-    
+
     public function setId($id): self
     {
         $this->id = $id;
 
         return $this;
     }
-
+    
     public function getCharact(): ?Personnage
     {
         return $this->charact;
@@ -63,14 +58,14 @@ class WeaponCharacter
         return $this;
     }
 
-    public function getWeapon(): ?Weapon
+    public function getPiece(): ?ArmorPiece
     {
-        return $this->weapon;
+        return $this->piece;
     }
 
-    public function setWeapon(?Weapon $weapon): self
+    public function setPiece(?ArmorPiece $piece): self
     {
-        $this->weapon = $weapon;
+        $this->piece = $piece;
 
         return $this;
     }

@@ -8,31 +8,31 @@
 {% block body %}
 	{% if app.user.id == personnage.joueur.id %}
 		<div class="container">
-			{{ form_start(armureForm)}}
+			{{ form_start(armorForm)}}
 
 			<div>
-				<h3 class="title-form">Armure</h3>
+				<h3 class="title-form">armor</h3>
 			</div>
 			<div class="row">
-				<div class="div-form">{{ form_label(armureForm.casque) }}
-					{{ form_widget(armureForm.casque) }}
+				<div class="div-form">{{ form_label(armorForm.casque) }}
+					{{ form_widget(armorForm.casque) }}
 
-					{{ form_label(armureForm.effet_casque) }}
-					{{ form_widget(armureForm.effet_casque) }}
+					{{ form_label(armorForm.effet_casque) }}
+					{{ form_widget(armorForm.effet_casque) }}
 				</div>
 
-				<div class="div-form">{{ form_label(armureForm.plastron) }}
-					{{ form_widget(armureForm.plastron) }}
+				<div class="div-form">{{ form_label(armorForm.plastron) }}
+					{{ form_widget(armorForm.plastron) }}
 
-					{{ form_label(armureForm.effet_plastron) }}
-					{{ form_widget(armureForm.effet_plastron) }}
+					{{ form_label(armorForm.effet_plastron) }}
+					{{ form_widget(armorForm.effet_plastron) }}
 				</div>
 
-				<div class="div-form">{{ form_label(armureForm.jambiere) }}
-					{{ form_widget(armureForm.jambiere) }}
+				<div class="div-form">{{ form_label(armorForm.jambiere) }}
+					{{ form_widget(armorForm.jambiere) }}
 
-					{{ form_label(armureForm.effet_jambiere) }}
-					{{ form_widget(armureForm.effet_jambiere) }}
+					{{ form_label(armorForm.effet_jambiere) }}
+					{{ form_widget(armorForm.effet_jambiere) }}
 				</div>
 			</div>
 			<div>
@@ -40,39 +40,39 @@
 			</div>
 
 			<div class="row">
-				<div class="div-form">{{ form_label(armureForm.anneau) }}
-					{{ form_widget(armureForm.anneau) }}
+				<div class="div-form">{{ form_label(armorForm.anneau) }}
+					{{ form_widget(armorForm.anneau) }}
 
-					{{ form_label(armureForm.effet_anneau) }}
-					{{ form_widget(armureForm.effet_anneau) }}
+					{{ form_label(armorForm.effet_anneau) }}
+					{{ form_widget(armorForm.effet_anneau) }}
 				</div>
 
-				<div class="div-form">{{ form_label(armureForm.amulette) }}
-					{{ form_widget(armureForm.amulette) }}
+				<div class="div-form">{{ form_label(armorForm.amulette) }}
+					{{ form_widget(armorForm.amulette) }}
 
-					{{ form_label(armureForm.effet_amulette) }}
-					{{ form_widget(armureForm.effet_amulette) }}
-				</div>
-
-
-				<div class="div-form">{{ form_label(armureForm.cape) }}
-					{{ form_widget(armureForm.cape) }}
-
-					{{ form_label(armureForm.effet_cape) }}
-					{{ form_widget(armureForm.effet_cape) }}
+					{{ form_label(armorForm.effet_amulette) }}
+					{{ form_widget(armorForm.effet_amulette) }}
 				</div>
 
 
-				<div class="div-form">{{ form_label(armureForm.bouclier) }}
-					{{ form_widget(armureForm.bouclier) }}
+				<div class="div-form">{{ form_label(armorForm.cape) }}
+					{{ form_widget(armorForm.cape) }}
 
-					{{ form_label(armureForm.effet_bouclier) }}
-					{{ form_widget(armureForm.effet_bouclier) }}
+					{{ form_label(armorForm.effet_cape) }}
+					{{ form_widget(armorForm.effet_cape) }}
+				</div>
+
+
+				<div class="div-form">{{ form_label(armorForm.bouclier) }}
+					{{ form_widget(armorForm.bouclier) }}
+
+					{{ form_label(armorForm.effet_bouclier) }}
+					{{ form_widget(armorForm.effet_bouclier) }}
 				</div>
 			</div>
 
 			<button class="valid-form">Modifier !</button>
-			{{ form_end(armureForm)}}
+			{{ form_end(armorForm)}}
 		</div>
 	{% endif %}
 {% endblock %}
