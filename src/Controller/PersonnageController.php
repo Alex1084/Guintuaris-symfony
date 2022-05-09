@@ -4,14 +4,14 @@ namespace App\Controller;
 
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
-use App\Entity\Personnage;
+use App\Entity\Character;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
-use App\Form\PersonnageType;
+use App\Form\CharacterType;
 use App\Repository\ArmorPieceRepository;
+use App\Repository\CharacterRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\FicheRepository;
-use App\Repository\PersonnageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,11 +45,11 @@ class PersonnageController extends AbstractController
      */
     public function list(): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $repo = $this->getDoctrine()->getRepository(Character::class);
         $user = $this->getUser();
-        $personnages = $repo->findBy(array('joueur' => $user->getId()), array('nom' => 'ASC'));
+        $characters = $repo->findBy(['user' => $user->getId()], ['name' => 'ASC']);
         return $this->render('personnage/list.html.twig', [
-            "personnages" => $personnages
+            "characters" => $characters
         ]);
     }
 
@@ -58,11 +58,11 @@ class PersonnageController extends AbstractController
      *
      * @Route("/update", name="update_statut")
      */
-    public function updateStatut(Request $request, PersonnageRepository $personnageRepository, FicheRepository $ficheRepository)
+    public function updateStatut(Request $request, CharacterRepository $characterRepository, FicheRepository $ficheRepository)
     {
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent());
-            $personnageRepository->updateInventaire($data->id, $data->inventaire, $data->po);
+            $characterRepository->updateInventaire($data->id, $data->inventaire, $data->po);
             $ficheRepository->updateStatus($data->id, $data->pv, $data->pc, $data->pm);
             
             return $this->json(
@@ -84,19 +84,18 @@ class PersonnageController extends AbstractController
      * @param CompetenceRepository $compRepo
      * @return Response
      */
-    public function fichePerso(int $id, Request $request, EntityManagerInterface $entityManager, CompetenceRepository $compRepo): Response
+    public function fichePerso(int $id, CompetenceRepository $compRepo): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
-        $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
+        $repo = $this->getDoctrine()->getRepository(Character::class);
+        $character = $repo->find($id);
+        $competences = $compRepo->findByLevel($character->getLevel(), $character->getClass()->getId());
         $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
-        $armor = $repo->findBy(["charact" => $personnage->getId()]);
+        $armor = $repo->findBy(["charact" => $character->getId()]);
         $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
-        $weapons = $repo->findBy(["charact" => $personnage->getId()]);
+        $weapons = $repo->findBy(["charact" => $character->getId()]);
         
         return $this->render('personnage/fichePersonnage.html.twig', [
-            'personnage' => $personnage,
-
+            'character' => $character,
             'competences' => $competences,
             'armor' => $armor,
             'weapons' => $weapons,
@@ -116,9 +115,9 @@ class PersonnageController extends AbstractController
      */
     public function lore(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
-        $loreForm = $this->createFormBuilder($personnage)
+        $repo = $this->getDoctrine()->getRepository(Character::class);
+        $character = $repo->find($id);
+        $loreForm = $this->createFormBuilder($character)
             ->add('lore', TextareaType::class, [
                 'required' => false,
                 'attr' => ['class' => 'area-form']
@@ -128,14 +127,14 @@ class PersonnageController extends AbstractController
         if ($loreForm->isSubmitted()) {
 
             // execution de la requete
-            $entityManager->persist($personnage);
+            $entityManager->persist($character);
             $entityManager->flush();
             //
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
         return $this->render('personnage/lore.html.twig', [
             "loreForm" => $loreForm->createView(),
-            "personnage" => $personnage,
+            "character" =>$character,
         ]);
     }
 
@@ -153,28 +152,24 @@ class PersonnageController extends AbstractController
     public function levulUp(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
-        $personnageForm = $this->createForm(PersonnageType::class, $personnage);
+        $repo = $this->getDoctrine()->getRepository(Characterharacter::class);
+        $character = $repo->find($id);
+        $characterForm = $this->createForm(CharacterType::class, $character);
 
         //annulation affichage champs hors formulaire
-        $personnageForm->remove('nom');
-        $personnageForm->remove('lore');
-        $personnageForm->remove('inventaire');
-        $personnageForm->remove('po');
-        $personnageForm->remove('joueur');
-        $personnageForm->remove('classe');
-        $personnageForm->remove('race');
+        $characterForm->remove('name');
+        $characterForm->remove('class');
+        $characterForm->remove('race');
 
-        $personnageForm->handleRequest($request);
-        if ($personnageForm->isSubmitted()) {
+        $characterForm->handleRequest($request);
+        if ($characterForm->isSubmitted()) {
             // hydratation des champs 
-            $personnage->setPv($personnage->getPvMax());
-            $personnage->setPm($personnage->getPmMax());
-            $personnage->setPc($personnage->getPcMax());
+            $character->setPv($character->getPvMax());
+            $character->setPm($character->getPmMax());
+            $character->setPc($character->getPcMax());
             //
             // execution de la requete
-            $entityManager->persist($personnage);
+            $entityManager->persist($character);
             $entityManager->flush();
             //
 
@@ -182,8 +177,8 @@ class PersonnageController extends AbstractController
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
         return $this->render('personnage/levelup.html.twig', [
-            "personnageForm" => $personnageForm->createView(),
-            "personnage" => $personnage,
+            "characterForm" => $characterForm->createView(),
+            "character" => $character,
         ]);
     }
 
@@ -200,7 +195,7 @@ class PersonnageController extends AbstractController
      */
     public function modifImage(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $personnage = $this->getDoctrine()->getRepository(Personnage::class)->find($id);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
         $imageForm = $this->createFormBuilder()
             ->add('image', FileType::class, [
                 'label' => 'image (jpg)',
@@ -215,7 +210,7 @@ class PersonnageController extends AbstractController
             ->getForm();
         $imageForm->handleRequest($request);
         if ($imageForm->isSubmitted()) {
-            $ancienneImage = $personnage->getImage();
+            $ancienneImage = $character->getImage();
             $photo = $imageForm->get('image')->getData();
 
             if ($ancienneImage != null) {
@@ -224,15 +219,15 @@ class PersonnageController extends AbstractController
             if ($photo) {
                 $fichier = md5(uniqid()) . '.' . $photo->guessExtension();
                 $photo->move($this->getParameter('images_directory'), $fichier);
-                $personnage->setImage($fichier);
-                $entityManager->persist($personnage);
+                $character->setImage($fichier);
+                $entityManager->persist($character);
                 $entityManager->flush();
             }
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
         }
         return $this->render('personnage/changeImage.html.twig', [
             "imageForm" => $imageForm->createView(),
-            "personnage" => $personnage
+            "character" => $character
         ]);
     }
 
@@ -245,10 +240,10 @@ class PersonnageController extends AbstractController
      */
     public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $pr): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
+        $repo = $this->getDoctrine()->getRepository(Character::class);
+        $character = $repo->find($id);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
-        $armor = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $personnage->getId()]);
+        $armor = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
 
         //ce tableau permet de savoir dans la boucle a quel localisation fais reference un champs 
         $pieces = [1 => 'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
@@ -294,7 +289,7 @@ class PersonnageController extends AbstractController
         }
         return $this->render('personnage/equipement.html.twig', [
             'armorForm' => $armorForm->createView(),
-            "personnage" => $personnage,
+            "character" => $character,
         ]);
     }
 
@@ -311,11 +306,11 @@ class PersonnageController extends AbstractController
      */
     public function updateWeapon(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($id);
+        $repo = $this->getDoctrine()->getRepository(Character::class);
+        $character = $repo->find($id);
 
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
-        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(array("charact" => $personnage->getId()));
+        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(array("charact" => $character->getId()));
 
         $weaponForm = $this->createFormBuilder();
 
@@ -357,7 +352,7 @@ class PersonnageController extends AbstractController
         }
         return $this->render('personnage/arme.html.twig', [
             'weaponForm' => $weaponForm->createView(),
-            "personnage" => $personnage,
+            "character" => $character,
         ]);
     }
 

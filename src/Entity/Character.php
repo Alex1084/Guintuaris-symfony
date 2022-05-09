@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\PersonnageRepository;
+use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=PersonnageRepository::class)
+ * @ORM\Entity(repositoryClass=CharacterRepository::class)
+ * @ORM\Table(name="`character`")
  */
-class Personnage extends Fiche
+class Character extends Fiche
 {
+
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
@@ -20,7 +23,7 @@ class Personnage extends Fiche
      * @ORM\ManyToOne(targetEntity=Classe::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $classe;
+    private $class;
 
     /**
      * @ORM\ManyToOne(targetEntity=Race::class)
@@ -32,7 +35,7 @@ class Personnage extends Fiche
      * @ORM\ManyToOne(targetEntity=Equipe::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $equipe;
+    private $team;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -42,111 +45,75 @@ class Personnage extends Fiche
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $inventaire;
+    private $inventory;
 
     /**
      * @ORM\Column(type="integer")
+     *   @Assert\Range( 
+     *      min=0,
+     *      max=999999999,
+     * )
      */
-    private $po;
+    private $gold;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
-    public function getJoueur(): ?User
+    public function getUser(): ?User { return $this->user; }
+    public function setUser(?User $user): self
     {
-        return $this->joueur;
-    }
-
-    public function setJoueur(?User $joueur): self
-    {
-        $this->joueur = $joueur;
-
+        $this->user = $user;
         return $this;
     }
 
-    public function getClasse(): ?Classe
+    public function getClass(): ?Classe { return $this->class; }
+    public function setClass(?Classe $class): self
     {
-        return $this->classe;
-    }
-
-    public function setClasse(?Classe $classe): self
-    {
-        $this->classe = $classe;
-
+        $this->class = $class;
         return $this;
     }
 
-    public function getRace(): ?Race
-    {
-        return $this->race;
-    }
-
+    public function getRace(): ?Race { return $this->race; }
     public function setRace(?Race $race): self
     {
         $this->race = $race;
-
         return $this;
     }
 
-    public function getEquipe(): ?Equipe
+    public function getTeam(): ?Equipe { return $this->team; }
+    public function setTeam(?Equipe $team): self
     {
-        return $this->equipe;
-    }
-
-    public function setEquipe(?Equipe $equipe): self
-    {
-        $this->equipe = $equipe;
-
+        $this->team = $team;
         return $this;
     }
 
-    public function getLore(): ?string
-    {
-        return $this->lore;
-    }
-
+    public function getLore(): ?string { return $this->lore; }
     public function setLore(?string $lore): self
     {
         $this->lore = $lore;
-
         return $this;
     }
 
-    public function getInventaire(): ?string
+    public function getInventory(): ?string { return $this->inventory; }
+    public function setInventory(?string $inventory): self
     {
-        return $this->inventaire;
-    }
-
-    public function setInventaire(?string $inventaire): self
-    {
-        $this->inventaire = $inventaire;
-
+        $this->inventory = $inventory;
         return $this;
     }
 
-    public function getPo(): ?int
+    public function getGold(): ?int { return $this->gold; }
+    public function setGold(int $gold): self
     {
-        return $this->po;
-    }
-
-    public function setPo(int $po): self
-    {
-        $this->po = $po;
-
+        $this->gold = $gold;
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
+    public function getImage(): ?string { return $this->image; }
     public function setImage(?string $image): self
     {
         $this->image = $image;
-
         return $this;
     }
 }

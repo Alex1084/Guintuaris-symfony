@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-	{% if app.user.id == personnage.joueur.id %}
+	{% if app.user.id == character.user.id %}
 		<div class="container">
 			{{ form_start(loreForm)}}
 			<div class="row">

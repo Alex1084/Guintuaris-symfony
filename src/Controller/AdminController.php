@@ -6,15 +6,15 @@ use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorType;
 use App\Entity\Bestiaire;
+use App\Entity\Character;
 use App\Entity\Competence;
 use App\Entity\Equipe;
-use App\Entity\Personnage;
 use App\Entity\TypeBestiaire;
 use App\Entity\Weapon;
 use App\Form\ArmorPieceType;
 use App\Form\BestiaireType;
 use App\Form\CompetenceType;
-use App\Repository\PersonnageRepository;
+use App\Repository\CharacterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,31 +108,31 @@ class AdminController extends AbstractController
      */
     public function addMembreEquipe(int $idEquipe, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $membresEquipe = $this->getDoctrine()->getRepository(Personnage::class)->findBy(['equipe' => $idEquipe]); //list des Memebre apartennant a cette equipe
+        $membresEquipe = $this->getDoctrine()->getRepository(Character::class)->findBy(['equipe' => $idEquipe]); //list des Memebre apartennant a cette equipe
         $equipeJoin = $this->getDoctrine()->getRepository(Equipe::class)->find($idEquipe); //represente la L'equipe sur la quelle des membre vont etre ajouter
-        $membreForm = $this->createFormBuilder()
-            ->add('personnage', EntityType::class, [
-                'class' => Personnage::class,
+        $memberForm = $this->createFormBuilder()
+            ->add('character', EntityType::class, [
+                'class' => Character::class,
                 'choice_label' => 'nom',
-                'query_builder' => function (PersonnageRepository $pr) {
-                    return $pr->createQueryBuilder('p')
-                        ->where('p.equipe = 5') //si l'equipe choisi est 5 (aucune), alors on recherche tout les joueurs apparteant a une Equipe 
-                        ->orderBy('p.nom', 'ASC');
+                'query_builder' => function (CharacterRepository $pr) {
+                    return $pr->createQueryBuilder('c')
+                        ->where('c.team = 5') //si l'equipe choisi est 5 (aucune), alors on recherche tout les joueurs apparteant a une Equipe 
+                        ->orderBy('c.name', 'ASC');
                 }
             ])
             ->getForm();
-        $membreForm->handleRequest($request);
-        if ($membreForm->isSubmitted()) {
-            $personnageSelectionner = $membreForm->get('personnage')->getData();
-            $personnageSelectionner->setEquipe($equipeJoin);
-            dump($personnageSelectionner);
+        $memberForm->handleRequest($request);
+        if ($memberForm->isSubmitted()) {
+            $characterSelectionner = $memberForm->get('personnage')->getData();
+            $characterSelectionner->setEquipe($equipeJoin);
+            dump($characterSelectionner);
 
-            $entityManager->persist($personnageSelectionner);
+            $entityManager->persist($characterSelectionner);
             $entityManager->flush();
             return $this->redirectToRoute('admin_add_membre', ['idEquipe' => $idEquipe]);
         }
         return $this->render('admin/addMembreEquipe.html.twig', [
-            'membreForm' => $membreForm->createView(),
+            'memberForm' => $memberForm->createView(),
             'membresEquipe' => $membresEquipe,
         ]);
     }
@@ -151,16 +151,12 @@ class AdminController extends AbstractController
         $bete = new Bestiaire();
         $beteForm = $this->createForm(BestiaireType::class, $bete);
 
-        $beteForm->remove('pv');
-        $beteForm->remove('pc');
-        $beteForm->remove('pm');
         $beteForm->handleRequest($request);
         if ($beteForm->isSubmitted()) {
-            $bete->setPv($bete->getPvMax());
-            $bete->setPc($bete->getPcMax());
-            $bete->setPm($bete->getPmMax());
+            $bete->setPv($bete->getPvMax())
+                 ->setPc($bete->getPcMax())
+                 ->setPm($bete->getPmMax());
 
-            dump($bete);
             $entityManager->persist($bete);
             $entityManager->flush();
             return $this->redirectToRoute("admin_add_bete");

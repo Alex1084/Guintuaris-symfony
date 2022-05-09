@@ -5,9 +5,9 @@
 {% block body %}
     <h2>Fiches personnages</h2>
     <ul>
-    {% for personnage in personnages %}
+    {% for character in characters %}
         <li>
-            <a href="{{ path("personnage_view", {"id" : personnage.id}) }}">{{ personnage.nom }}</a>
+            <a href="{{ path("personnage_view", {"id" : character.id}) }}">{{ character.name }}</a>
         </li>
     {% endfor %}
     </ul>

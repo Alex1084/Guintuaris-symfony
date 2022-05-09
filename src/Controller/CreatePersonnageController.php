@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\ArmorPieceCharacter;
+use App\Entity\Character;
 use App\Entity\Equipe;
-use App\Entity\Personnage;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
+use App\Form\CharacterType;
 use App\Form\PersonnageType;
 use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,46 +35,42 @@ class CreatePersonnageController extends AbstractController
         $equipe = $repo->find($id);
 
 
-        $personnage = new Personnage();
-        $personnageForm = $this->createForm(PersonnageType::class, $personnage);
+        $character = new Character();
+        $characterForm = $this->createForm(CharacterType::class, $character);
 
         //annulation affichage champs hors formulaire
-        $personnageForm->remove('lore');
-        $personnageForm->remove('inventaire');
-        $personnageForm->remove('po');
-        $personnageForm->remove('joueur');
 
         //
-        $personnageForm->handleRequest($request);
-        if ($personnageForm->isSubmitted()) {
+        $characterForm->handleRequest($request);
+        if ($characterForm->isSubmitted()) {
             // hydratation des champs 
-            $personnage->setPo(0);
-            $personnage->setJoueur($this->getUser());
-            $personnage->setPv($personnage->getPvMax());
-            $personnage->setPm($personnage->getPmMax());
-            $personnage->setPc($personnage->getPcMax());
-            $personnage->setEquipe($equipe);
+            $character->setGold(0)
+                       ->setUser($this->getUser())
+                       ->setTeam($equipe)
+                       ->setPv($character->getPvMax())
+                       ->setPm($character->getPmMax())
+                       ->setPc($character->getPcMax());
             //
 
             // execution de la requete
-            $entityManager->persist($personnage);
+            $entityManager->persist($character);
             $entityManager->flush();
             //
 
             for ($i = 1; $i <= 7; $i++) {
-                $this->insertPiece($personnage, $i, $repoArmorPiece, $entityManager);
+                $this->insertPiece($character, $i, $repoArmorPiece, $entityManager);
             }
 
             for ($i = 1; $i <= 3; $i++) {
-                $this->insertWeapon($personnage, $i, $entityManager);
+                $this->insertWeapon($character, $i, $entityManager);
             }
 
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('personnage_view', ["id" => $personnage->getId()]);
+            return $this->redirectToRoute('personnage_view', ["id" => $character->getId()]);
         }
         return $this->render('personnage/creation.html.twig', [
-            "personnageForm" => $personnageForm->createView()
+            "characterForm" => $characterForm->createView()
         ]);
     }
 
@@ -84,14 +81,14 @@ class CreatePersonnageController extends AbstractController
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
      */
-    private function insertPiece(Personnage $personnage, int $numEmplacement, ArmorPieceRepository $repoArmorPiece, EntityManagerInterface $entityManager)
+    private function insertPiece(Character $character, int $numEmplacement, ArmorPieceRepository $repoArmorPiece, EntityManagerInterface $entityManager)
     {
-        $piecePersonnage = new ArmorPieceCharacter();
-        $piecePersonnage->setCharact($personnage);
-        $piecePersonnage->setId($numEmplacement);
-        $piecePersonnage->setPiece($repoArmorPiece->getArmorbyLocation(12, $numEmplacement)); //  12 : type enlever et $numEmplacement : emplacement (allant de 1 a 7)
+        $pieceCharacter = new ArmorPieceCharacter();
+        $pieceCharacter->setCharact($character)
+                       ->setId($numEmplacement)
+                       ->setPiece($repoArmorPiece->getArmorbyLocation(12, $numEmplacement)); //  12 : type enlever et $numEmplacement : emplacement (allant de 1 a 7)
 
-        $entityManager->persist($piecePersonnage);
+        $entityManager->persist($pieceCharacter);
         $entityManager->flush();
     }
 
@@ -99,19 +96,15 @@ class CreatePersonnageController extends AbstractController
      * cette fonction permet d'inserrer une nouvelle ligne dans la table arme_personnage
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
-     * @param Personnage $personnage
-     * @param integer $id
-     * @param EntityManagerInterface $entityManager
-     * @return void
      */
-    private function insertWeapon(Personnage $personnage, int $id, EntityManagerInterface $entityManager)
+    private function insertWeapon(Character $character, int $id, EntityManagerInterface $entityManager)
     {
-        $weaponPersonnage = new WeaponCharacter();
-        $weaponPersonnage->setId($id);
-        $weaponPersonnage->setCharact($personnage);
-        $weaponPersonnage->setWeapon($this->getDoctrine()->getRepository(Weapon::class)->find(17));
+        $weaponCharacter = new WeaponCharacter();
+        $weaponCharacter->setId($id)
+                        ->setCharact($character)
+                        ->setWeapon($this->getDoctrine()->getRepository(Weapon::class)->find(17));
 
-        $entityManager->persist($weaponPersonnage);
+        $entityManager->persist($weaponCharacter);
         $entityManager->flush();
     }
 }

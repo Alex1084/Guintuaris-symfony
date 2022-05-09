@@ -19,10 +19,10 @@ class BestiaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Bestiaire::class);
     }
 
-    public function findAllNom(int $type)
+    public function findAllName(int $type)
     {
         $entityManager = $this->getEntityManager();
-        $dql = "SELECT b.id, b.nom FROM App\Entity\Bestiaire b WHERE b.type = :type ORDER BY b.nom";
+        $dql = "SELECT b.id, b.name FROM App\Entity\Bestiaire b WHERE b.type = :type ORDER BY b.name";
         $query = $entityManager->createQuery($dql)->setParameter('type', $type);
         return $query->getResult();
     }

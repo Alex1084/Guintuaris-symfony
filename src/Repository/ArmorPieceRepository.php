@@ -23,7 +23,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('a')
             ->where('a.type = :type')
             ->setParameter('type', $typeId)
-            ->andWhere('a.localisation = :empla')
+            ->andWhere('a.location = :empla')
             ->setParameter('empla', $empla)
             ->getQuery();
         return $query->getSingleResult();

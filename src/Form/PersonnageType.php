@@ -17,7 +17,7 @@ class PersonnageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('name')
             ->add('pvMax', IntegerType::class, [
                 "attr" => [
                     "min" => 10,
@@ -39,7 +39,7 @@ class PersonnageType extends AbstractType
                 ],
                 'label' => 'PM'
             ])
-            ->add('niveau', IntegerType::class, [
+            ->add('level', IntegerType::class, [
                 "attr" => [
                     "min" => 1,
                     "max" => 10,
@@ -55,7 +55,7 @@ class PersonnageType extends AbstractType
 
                 ]
             ])
-            ->add('laForce', IntegerType::class, [
+            ->add('strength', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
@@ -64,7 +64,7 @@ class PersonnageType extends AbstractType
                 ],
                 'label' => 'Force'
             ])
-            ->add('dexterite', IntegerType::class, [
+            ->add('dexterity', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
@@ -79,23 +79,20 @@ class PersonnageType extends AbstractType
                     "class" => "input-form",
                 ]
             ])
-            ->add('charisme', IntegerType::class, [
+            ->add('charisma', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
                     "class" => "input-form",
                 ]
             ])
-            ->add('foi', IntegerType::class, [
+            ->add('faith', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
                     "class" => "input-form",
                 ]
             ])
-            ->add('lore')
-            ->add('inventaire')
-            ->add('po')
             ->add('classe', EntityType::class, [
                 'class' => Classe::class,
                 'choice_label' => 'nom'
@@ -103,10 +100,7 @@ class PersonnageType extends AbstractType
             ->add('race', EntityType::class, [
                 'class' => Race::class,
                 'choice_label' => 'nom'
-            ])
-            ->add('joueur')
-            /*
-            ->add('equipe') */;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

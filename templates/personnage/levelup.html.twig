@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-	{% if app.user.id == personnage.joueur.id %}
-		{{ form_start(personnageForm) }}
+	{% if app.user.id == character.joueur.id %}
+		{{ form_start(characterForm) }}
 		<div class="container">
 			<div>
 				<h3 class="title-form">Niveau</h3>
@@ -14,9 +14,9 @@
 
 			<div>
 				<div class="div-form">
-					{{ form_label(personnageForm.niveau) }}
+					{{ form_label(characterForm.level) }}
 
-					{{ form_widget(personnageForm.niveau)}}
+					{{ form_widget(characterForm.level)}}
 				</div>
 			</div>
 
@@ -26,30 +26,30 @@
 
 			<div class="row">
 				<div class="div-form">
-					{{ form_label(personnageForm.pvMax) }}
+					{{ form_label(characterForm.pvMax) }}
 
-					{{ form_widget(personnageForm.pvMax)}}
+					{{ form_widget(characterForm.pvMax)}}
 
 					<div class="note">
 						<p>Dé de niveau :
-							{{personnage.classe.dePv}}</p>
+							{{character.classe.dePv}}</p>
 					</div>
 
 				</div>
 				<div class="div-form">
-					{{ form_label(personnageForm.pcMax) }}
+					{{ form_label(characterForm.pcMax) }}
 
-					{{ form_widget(personnageForm.pcMax)}}
+					{{ form_widget(characterForm.pcMax)}}
 					<div class="note">
-						<p>Dé de niveau :{{personnage.classe.dePc}}</p>
+						<p>Dé de niveau :{{character.classe.dePc}}</p>
 					</div>
 				</div>
 				<div class="div-form">
-					{{ form_label(personnageForm.pmMax) }}
+					{{ form_label(characterForm.pmMax) }}
 
-					{{ form_widget(personnageForm.pmMax)}}
+					{{ form_widget(characterForm.pmMax)}}
 					<div class="note">
-						<p>Dé de niveau :{{personnage.classe.dePm}}</p>
+						<p>Dé de niveau :{{character.classe.dePm}}</p>
 					</div>
 				</div>
 			</div>
@@ -63,36 +63,36 @@
 			</div>
 			<div class="row">
 				<div class="div-form">
-					{{ form_label(personnageForm.constitution) }}
+					{{ form_label(characterForm.constitution) }}
 
-					{{ form_widget(personnageForm.constitution)}}
+					{{ form_widget(characterForm.constitution)}}
 				</div>
 				<div class="div-form">
-					{{ form_label(personnageForm.laForce) }}
+					{{ form_label(characterForm.strength) }}
 
-					{{ form_widget(personnageForm.laForce)}}
+					{{ form_widget(characterForm.strength)}}
 				</div>
 				<div class="div-form">
-					{{ form_label(personnageForm.dexterite) }}
+					{{ form_label(characterForm.dexterity) }}
 
-					{{ form_widget(personnageForm.dexterite)}}
+					{{ form_widget(characterForm.dexterity)}}
 				</div>
 			</div>
 			<div class="row">
 				<div class="div-form">
-					{{ form_label(personnageForm.intelligence) }}
+					{{ form_label(characterForm.intelligence) }}
 
-					{{ form_widget(personnageForm.intelligence)}}
+					{{ form_widget(characterForm.intelligence)}}
 				</div>
 				<div class="div-form">
-					{{ form_label(personnageForm.charisme) }}
+					{{ form_label(characterForm.charisma) }}
 
-					{{ form_widget(personnageForm.charisme)}}
+					{{ form_widget(characterForm.charisma)}}
 				</div>
 				<div class="div-form">
-					{{ form_label(personnageForm.foi) }}
+					{{ form_label(characterForm.faith) }}
 
-					{{ form_widget(personnageForm.foi)}}
+					{{ form_widget(characterForm.faith)}}
 				</div>
 			</div>
 			<div class="note">
@@ -103,6 +103,6 @@
 				<button class="valid-form">Level up !</button>
 			</div>
 		</div>
-		{{ form_end(personnageForm) }}
+		{{ form_end(characterForm) }}
 	{% endif %}
 {% endblock %}

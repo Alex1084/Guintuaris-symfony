@@ -7,26 +7,26 @@
 
 {% block body %}
 	<div class="container">
-		{{ form_start(personnageForm) }}
+		{{ form_start(characterForm) }}
 		<div>
 			<h3 class="title-form">Personnage</h3>
 		</div>
 		<div class="row">
-			<div class="div-form">{{ form_label(personnageForm.nom) }}
+			<div class="div-form">{{ form_label(characterForm.name) }}
 
-				{{ form_widget(personnageForm.nom) }}
+				{{ form_widget(characterForm.name) }}
 			</div>
-			<div class="div-form">{{ form_label(personnageForm.niveau) }}
+			<div class="div-form">{{ form_label(characterForm.level) }}
 
-				{{ form_widget(personnageForm.niveau) }}
+				{{ form_widget(characterForm.level) }}
 			</div>
-			<div class="div-form">{{ form_label(personnageForm.race) }}
+			<div class="div-form">{{ form_label(characterForm.race) }}
 
-				{{ form_widget(personnageForm.race) }}
+				{{ form_widget(characterForm.race) }}
 			</div>
-			<div class="div-form">{{ form_label(personnageForm.classe) }}
+			<div class="div-form">{{ form_label(characterForm.class) }}
 
-				{{ form_widget(personnageForm.classe) }}
+				{{ form_widget(characterForm.class) }}
 			</div>
 		</div>
 		<div>
@@ -35,19 +35,19 @@
 
 		<div class="row">
 			<div class="div-form">
-				{{ form_label(personnageForm.pvMax) }}
+				{{ form_label(characterForm.pvMax) }}
 
-				{{ form_widget(personnageForm.pvMax)}}
+				{{ form_widget(characterForm.pvMax)}}
 			</div>
 			<div class="div-form">
-				{{ form_label(personnageForm.pcMax) }}
+				{{ form_label(characterForm.pcMax) }}
 
-				{{ form_widget(personnageForm.pcMax)}}
+				{{ form_widget(characterForm.pcMax)}}
 			</div>
 			<div class="div-form">
-				{{ form_label(personnageForm.pmMax) }}
+				{{ form_label(characterForm.pmMax) }}
 
-				{{ form_widget(personnageForm.pmMax)}}
+				{{ form_widget(characterForm.pmMax)}}
 			</div>
 		</div>
 
@@ -56,36 +56,36 @@
 		</div>
 		<div class="row">
 			<div class="div-form">
-				{{ form_label(personnageForm.constitution) }}
+				{{ form_label(characterForm.constitution) }}
 
-				{{ form_widget(personnageForm.constitution)}}
+				{{ form_widget(characterForm.constitution)}}
 			</div>
 			<div class="div-form">
-				{{ form_label(personnageForm.laForce) }}
+				{{ form_label(characterForm.strength) }}
 
-				{{ form_widget(personnageForm.laForce)}}
+				{{ form_widget(characterForm.strength)}}
 			</div>
 			<div class="div-form">
-				{{ form_label(personnageForm.dexterite) }}
+				{{ form_label(characterForm.dexterity) }}
 
-				{{ form_widget(personnageForm.dexterite)}}
+				{{ form_widget(characterForm.dexterity)}}
 			</div>
 		</div>
 		<div class="row">
 			<div class="div-form">
-				{{ form_label(personnageForm.intelligence) }}
+				{{ form_label(characterForm.intelligence) }}
 
-				{{ form_widget(personnageForm.intelligence)}}
+				{{ form_widget(characterForm.intelligence)}}
 			</div>
 			<div class="div-form">
-				{{ form_label(personnageForm.charisme) }}
+				{{ form_label(characterForm.charisma) }}
 
-				{{ form_widget(personnageForm.charisme)}}
+				{{ form_widget(characterForm.charisma)}}
 			</div>
 			<div class="div-form">
-				{{ form_label(personnageForm.foi) }}
+				{{ form_label(characterForm.faith) }}
 
-				{{ form_widget(personnageForm.foi)}}
+				{{ form_widget(characterForm.faith)}}
 			</div>
 		</div>
 		<div class="note">
@@ -95,7 +95,7 @@
 			<button class="valid-form">Créer</button>
 		</div>
 
-		{{ form_end(personnageForm) }}
+		{{ form_end(characterForm) }}
 
 	</div>
 {% endblock %}

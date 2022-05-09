@@ -25,7 +25,7 @@
 							<ul>
 								{% for monstre in monstres %}
 									<li>
-										<a href="{{ path('summon', {"id" : monstre.id})}}" class="js-like">{{monstre.nom}}</a>
+										<a href="{{ path('summon', {"id" : monstre.id})}}" class="js-like">{{monstre.name}}</a>
 									</li>
 								{% endfor %}
 							</ul>
@@ -41,7 +41,7 @@
 							<ul>
 								{% for animal in animaux %}
 									<li>
-										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.nom}}</a>
+										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.name}}</a>
 									</li>
 								{% endfor %}
 								{#  #}

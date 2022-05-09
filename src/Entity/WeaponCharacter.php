@@ -19,7 +19,7 @@ class WeaponCharacter
 
     /**
      * @ORM\Id 
-     * @ORM\ManyToOne(targetEntity=Personnage::class)
+     * @ORM\ManyToOne(targetEntity=Character::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $charact;
@@ -51,12 +51,12 @@ class WeaponCharacter
         return $this;
     }
 
-    public function getCharact(): ?Personnage
+    public function getCharact(): ?Character
     {
         return $this->charact;
     }
 
-    public function setCharact(?Personnage $charact): self
+    public function setCharact(?Character $charact): self
     {
         $this->charact = $charact;
 

@@ -28,8 +28,8 @@ class BestiaireController extends AbstractController
      */
     public function index(BestiaireRepository $bRepo): Response
     {
-        $monstres = $bRepo->findAllNom(1);
-        $animaux = $bRepo->findAllNom(2);
+        $monstres = $bRepo->findAllName(1);
+        $animaux = $bRepo->findAllName(2);
         return $this->render('bestiaire/mjboard.html.twig', [
             'monstres' => $monstres,
             'animaux' => $animaux

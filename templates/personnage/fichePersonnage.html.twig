@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	{{personnage.nom}}
+	{{character.name}}
 	|
 	{{parent()}}
 {% endblock %}
@@ -13,32 +13,32 @@
 
 
 {% block body %}
-	{% if app.user.id == personnage.joueur.id %}
+	{% if app.user.id == character.user.id %}
 		<div class="container">
 			<div class="row">
 				<div class="img-div">
 					<div>
-						<img src="{{asset('image_personnage/'~ personnage.image)}}" alt="" height="200">
+						<img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="200">
 					</div>
-					<a href="{{ path("personnage_change_image", {'id' : personnage.id})}}">Changer d'image</a>
+					<a href="{{ path("personnage_change_image", {'id' : character.id})}}">Changer d'image</a>
 				</div>
 				<div class="div-detail-personnage">
 
-					<h1>{{ personnage.nom }}</h1>
-					<h3>{{ personnage.race.nom }}</h3>
-					<h3>{{ personnage.classe.nom }}</h3>
+					<h1>{{ character.name }}</h1>
+					<h3>{{ character.race.nom }}</h3>
+					<h3>{{ character.class.nom }}</h3>
 					<h3>Niveau
-						{{ personnage.niveau }}</h3>
-					<a href="{{ path("equipe_list", {"idEquipe" :personnage.equipe.id})}}">{{personnage.equipe.nom}}</a>
+						{{ character.level }}</h3>
+					<a href="{{ path("equipe_list", {"idEquipe" :character.team.id})}}">{{character.team.nom}}</a>
 				</div>
 				<div class="div-lore">
 					<div class="dropdown">
 						<button class="dropbtn">Lore
 							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
 						<div class=" hidden dropdown-content">
-							<textarea name="" cols="50" readonly>{{ personnage.lore }}</textarea>
+							<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
 						</div>
-						<a href="{{ path("personnage_modif_lore", {"id" :personnage.id}) }}" id="lore-link">Modifier le lore</a>
+						<a href="{{ path("personnage_modif_lore", {"id" :character.id}) }}" id="lore-link">Modifier le lore</a>
 					</div>
 				</div>
 			</div>
@@ -49,56 +49,56 @@
 					<div class="statistique">
 						<p class="label">Intelligence :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.intelligence }}</p>
+							<p>{{ character.intelligence }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Charisme :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.charisme }}</p>
+							<p>{{ character.charisma }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Foi :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.foi }}</p>
+							<p>{{ character.faith }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Constitution:</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.constitution }}</p>
+							<p>{{ character.constitution }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Force :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.laForce }}</p>
+							<p>{{ character.strength }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Dextérite :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.dexterite }}</p>
+							<p>{{ character.dexterity }}</p>
 						</div>
 					</div>
 				</div>
 				<div class="div-statut">
 					<div>
-						<a href="{{path("personnage_level_up", {"id" :personnage.id})}}">Level up !</a>
+						<a href="{{path("personnage_level_up", {"id" :character.id})}}">Level up !</a>
 					</div>
 					<div class="statut">
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
 						<label for="pv" class="label label-statut">
 							PV
 						</label>
-						<input type="number" class="numerique ajax" id="pv" name="pv" value="{{personnage.pv}}" readonly>
+						<input type="number" class="numerique ajax" id="pv" name="pv" value="{{character.pv}}" readonly>
 						<span class="max">/
-							{{personnage.pvMax}}
+							{{character.pvMax}}
 						</span>
 
 						<!-- ~~~~~~ bar de vie ~~~~~~ -->
-						<input type="range" class="bar" id="pv-range" min="0" , max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
+						<input type="range" class="bar" id="pv-range" min="0" , max="{{character.pvMax}}" value="{{character.pv}}" disabled>
 
 						<input type="number" class="input-enabled ajout" placeholder="+">
 						<input type="number" class="input-enabled soustrait" placeholder="-">
@@ -108,13 +108,13 @@
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pm" class="label label-statut">PM</label>
-						<input type="number" class="numerique ajax" id="pm" name="pm" value="{{personnage.pm}}" readonly>
+						<input type="number" class="numerique ajax" id="pm" name="pm" value="{{character.pm}}" readonly>
 
 						<span class="max">/
-							{{personnage.pmMax}}</span>
+							{{character.pmMax}}</span>
 
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
-						<input type="range" class="bar" id="pm-range" min="0" , max="{{personnage.pmMax}}" value="{{personnage.pm}}" disabled>
+						<input type="range" class="bar" id="pm-range" min="0" , max="{{character.pmMax}}" value="{{character.pm}}" disabled>
 
 						<input type="number" class="input-enabled ajout" placeholder="+">
 						<input type="number" class="input-enabled soustrait" placeholder="-">
@@ -124,13 +124,13 @@
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pc" class="label label-statut">PC
 						</label>
-						<input type="number" class="numerique ajax" id="pc" name="pc" value="{{personnage.pc}}" readonly>
+						<input type="number" class="numerique ajax" id="pc" name="pc" value="{{character.pc}}" readonly>
 
 						<span class="max">/
-							{{personnage.pcMax}}</span>
+							{{character.pcMax}}</span>
 
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
-						<input type="range" class="bar" id="pc-range" min="0" , max="{{personnage.pcMax}}" value="{{personnage.pc}}" disabled>
+						<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
 
 						<input type="number" class="input-enabled ajout" placeholder="+">
 						<input type="number" class="input-enabled soustrait" placeholder="-">
@@ -143,14 +143,14 @@
 						<div class="label label-form">
 							<label for="inventaire">Inventaire</label>
 						</div>
-						<textarea class="ajax" name="inventaire" id="inventaire" cols="30" rows="10">{{personnage.inventaire}}</textarea>
+						<textarea class="ajax" name="inventaire" id="inventaire" cols="30" rows="10">{{character.inventory}}</textarea>
 					</div>
 
 					<div class="div-sauvegarde">
 						<div class="label label-form">
 							<label for="">Piece d'or</label>
 						</div>
-						<input class="ajax" type="number" name="po" id="po" value="{{personnage.po}}">
+						<input class="ajax" type="number" name="po" id="po" value="{{character.gold}}">
 					</div>
 				</div>
 			</div>
@@ -158,12 +158,12 @@
 		</div>
 		<div class="container">
 			<select name="" id="select-stat">
-				<option value="{{personnage.constitution}}">Constitution</option>
-				<option value="{{personnage.laForce}}">Force</option>
-				<option value="{{personnage.dexterite}}">Dextérité</option>
-				<option value="{{personnage.intelligence}}">Intelligence</option>
-				<option value="{{personnage.charisme}}">Charisme</option>
-				<option value="{{personnage.foi}}">Foi</option>
+				<option value="{{character.constitution}}">Constitution</option>
+				<option value="{{character.strength}}">Force</option>
+				<option value="{{character.dexterity}}">Dextérité</option>
+				<option value="{{character.intelligence}}">Intelligence</option>
+				<option value="{{character.charisma}}">Charisme</option>
+				<option value="{{character.faith}}">Foi</option>
 			</select>
 
 			<select name="" id="ca">
@@ -186,7 +186,7 @@
 				<div>
 					<div>
 						<div>
-							<a href="{{ path("personnage_modif_armure", {"id" : personnage.id}) }}" class="titre-table">
+							<a href="{{ path("personnage_modif_armure", {"id" : character.id}) }}" class="titre-table">
 								<h2>Armure</h2>
 							</a>
 						</div>
@@ -218,7 +218,7 @@
 
 				<div>
 					<div>
-						<a href="{{ path("personnage_modif_arme", {"id" : personnage.id}) }}" class="titre-table">
+						<a href="{{ path("personnage_modif_arme", {"id" : character.id}) }}" class="titre-table">
 
 							<h2>Arme</h2>
 						</a>

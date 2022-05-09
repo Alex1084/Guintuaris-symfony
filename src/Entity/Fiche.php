@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorMap(
  * {
  *      "fiche" = "Fiche", 
+ *      "character" = "Character",
  *      "personnage" = "Personnage",
  *      "bestiaire" = "Bestiaire"
  * })
@@ -37,7 +38,7 @@ abstract class Fiche
      * )
      * @Groups({"read"})
      */
-    private $nom;
+    private $name;
 
     /**
      * @ORM\Column(type="integer")
@@ -47,7 +48,7 @@ abstract class Fiche
      * )
      * @Groups({"read"})
      */
-    private $niveau;
+    private $level;
 
     /**
      * @ORM\Column(type="integer")
@@ -130,7 +131,7 @@ abstract class Fiche
      * )
      * @Groups({"read"})
      */
-    private $laForce;
+    private $strength;
 
     /**
      * @ORM\Column(type="integer")
@@ -140,7 +141,7 @@ abstract class Fiche
      * )
      * @Groups({"read"})
      */
-    private $dexterite;
+    private $dexterity;
 
     /**
      * @ORM\Column(type="integer")
@@ -160,7 +161,7 @@ abstract class Fiche
      * )
      * @Groups({"read"})
      */
-    private $charisme;
+    private $charisma;
 
     /**
      * @ORM\Column(type="integer")
@@ -170,178 +171,105 @@ abstract class Fiche
      * )
      * @Groups({"read"})
      */
-    private $foi;
+    private $faith;
 
-    public function getId(): ?int
+    public function getId(): ?int { return $this->id; }
+
+    public function getName(): ?string { return $this->name; }
+    public function setName(string $name): self
     {
-        return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
+        $this->name = $name;
         return $this;
     }
 
-    public function getPv(): ?int
-    {
-        return $this->pv;
-    }
-
+    public function getPv(): ?int { return $this->pv; }
     public function setPv(int $pv): self
     {
         $this->pv = $pv;
-
         return $this;
     }
 
-    public function getPvMax(): ?int
-    {
-        return $this->pvMax;
-    }
-
+    public function getPvMax(): ?int { return $this->pvMax; }
     public function setPvMax(int $pvMax): self
     {
         $this->pvMax = $pvMax;
-
         return $this;
     }
 
-    public function getPc(): ?int
-    {
-        return $this->pc;
-    }
-
+    public function getPc(): ?int { return $this->pc; }
     public function setPc(int $pc): self
     {
         $this->pc = $pc;
-
         return $this;
     }
 
-    public function getPcMax(): ?int
-    {
-        return $this->pcMax;
-    }
-
+    public function getPcMax(): ?int { return $this->pcMax; }
     public function setPcMax(int $pcMax): self
     {
         $this->pcMax = $pcMax;
-
         return $this;
     }
 
-    public function getPm(): ?int
-    {
-        return $this->pm;
-    }
-
+    public function getPm(): ?int { return $this->pm; }
     public function setPm(int $pm): self
     {
         $this->pm = $pm;
-
         return $this;
     }
 
-    public function getPmMax(): ?int
-    {
-        return $this->pmMax;
-    }
-
+    public function getPmMax(): ?int { return $this->pmMax; }
     public function setPmMax(int $pmMax): self
     {
         $this->pmMax = $pmMax;
-
         return $this;
     }
 
-    public function getNiveau(): ?int
+    public function getLevel(): ?int { return $this->level; }
+    public function setLevel(int $level): self
     {
-        return $this->niveau;
-    }
-
-    public function setNiveau(int $niveau): self
-    {
-        $this->niveau = $niveau;
-
+        $this->level = $level;
         return $this;
     }
 
-    public function getConstitution(): ?int
-    {
-        return $this->constitution;
-    }
-
+    public function getConstitution(): ?int { return $this->constitution; }
     public function setConstitution(int $constitution): self
     {
         $this->constitution = $constitution;
-
         return $this;
     }
 
-    public function getLaForce(): ?int
-    {
-        return $this->laForce;
-    }
-
-    public function setLaForce(int $laForce): self
-    {
-        $this->laForce = $laForce;
-
+    public function getStrength(): ?int { return $this->strength; } 
+    public function setStrength(int $strength): self 
+    { 
+        $this->strength = $strength;
         return $this;
     }
 
-    public function getDexterite(): ?int
+    public function getDexterity(): ?int { return $this->dexterity; }
+    public function setDexterity(int $dexterity): self
     {
-        return $this->dexterite;
-    }
-
-    public function setDexterite(int $dexterite): self
-    {
-        $this->dexterite = $dexterite;
-
+        $this->dexterity = $dexterity;
         return $this;
     }
 
-    public function getIntelligence(): ?int
-    {
-        return $this->intelligence;
-    }
-
+    public function getIntelligence(): ?int { return $this->intelligence; }
     public function setIntelligence(int $intelligence): self
     {
         $this->intelligence = $intelligence;
-
         return $this;
     }
 
-    public function getCharisme(): ?int
+    public function getCharisma(): ?int { return $this->charisma; }
+    public function setCharisma(int $charisma): self
     {
-        return $this->charisme;
-    }
-
-    public function setCharisme(int $charisme): self
-    {
-        $this->charisme = $charisme;
-
+        $this->charisma = $charisma;
         return $this;
     }
 
-    public function getFoi(): ?int
+    public function getFaith(): ?int { return $this->faith; }
+    public function setFaith(int $faith): self
     {
-        return $this->foi;
-    }
-
-    public function setFoi(int $foi): self
-    {
-        $this->foi = $foi;
-
+        $this->faith = $faith;
         return $this;
     }
 }

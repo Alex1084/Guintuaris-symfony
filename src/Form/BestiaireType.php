@@ -16,7 +16,7 @@ class BestiaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('name')
             ->add('Type', EntityType::class, [
                 "class" => TypeBestiaire::class,
                 "choice_label" => "nom"
@@ -42,13 +42,14 @@ class BestiaireType extends AbstractType
                 ],
                 'label' => 'PM'
             ])
-            ->add('niveau', IntegerType::class, [
+            ->add('level', IntegerType::class, [
                 "attr" => [
                     "min" => 1,
                     "max" => 10,
                     "class" => "input-form",
 
-                ]
+                ],
+                'label' => 'Niveau'
             ])
             ->add('constitution', IntegerType::class, [
                 "attr" => [
@@ -58,7 +59,7 @@ class BestiaireType extends AbstractType
 
                 ]
             ])
-            ->add('laForce', IntegerType::class, [
+            ->add('strength', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
@@ -67,13 +68,14 @@ class BestiaireType extends AbstractType
                 ],
                 'label' => 'Force'
             ])
-            ->add('dexterite', IntegerType::class, [
+            ->add('dexterity', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
                     "class" => "input-form",
 
-                ]
+                ], 
+                'label' => 'Dexterité'
             ])
             ->add('intelligence', IntegerType::class, [
                 "attr" => [
@@ -82,19 +84,21 @@ class BestiaireType extends AbstractType
                     "class" => "input-form",
                 ]
             ])
-            ->add('charisme', IntegerType::class, [
+            ->add('charisma', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
                     "class" => "input-form",
-                ]
+                ], 
+                'label' => 'Charisme'
             ])
-            ->add('foi', IntegerType::class, [
+            ->add('faith', IntegerType::class, [
                 "attr" => [
                     "min" => 0,
                     "max" => 85,
                     "class" => "input-form",
-                ]
+                ], 
+                'label' => 'Foi'
             ])
             ->add("note", TextareaType::class, [
                 'attr' => ['class' => 'area-form']

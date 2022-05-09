@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	{{personnage.nom}}
+	{{character.name}}
 	|
 	{{parent()}}
 {% endblock %}
@@ -13,22 +13,22 @@
 
 
 {% block body %}
-	{% if idEquipe == personnage.equipe.id %}
+	{% if idEquipe == character.team.id %}
 		<div class="container">
 			<div class="row">
 				<div class="img-div">
 					<div>
-						<img src="{{asset('image_personnage/'~ personnage.image)}}" alt="" height="200">
+						<img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="200">
 					</div>
 
 				</div>
 				<div class="div-detail-personnage">
-					<h1>{{ personnage.nom }}</h1>
-					<h3>{{ personnage.race.nom }}</h3>
-					<h3>{{ personnage.classe.nom }}</h3>
+					<h1>{{ character.name }}</h1>
+					<h3>{{ character.race.nom }}</h3>
+					<h3>{{ character.class.nom }}</h3>
 					<h3>Niveau
-						{{ personnage.niveau }}</h3>
-					<h5>{{personnage.equipe.nom}}
+						{{ character.level }}</h3>
+					<h5>{{character.team.nom}}
 					</h5>
 
 				</div>
@@ -38,7 +38,7 @@
 						<button class="dropbtn">Lore
 							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
 						<div class="dropdown-content hidden">
-							<textarea name="" id="lore-content" cols="50" readonly>{{ personnage.lore }}</textarea>
+							<textarea name="" id="lore-content" cols="50" readonly>{{ character.lore }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -50,37 +50,37 @@
 					<div class="statistique">
 						<p class="label">Constitution :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.constitution }}</p>
+							<p>{{ character.constitution }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Force :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.laForce }}</p>
+							<p>{{ character.strength }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Dextérite :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.dexterite }}</p>
+							<p>{{ character.dexterity }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Intelligence :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.intelligence }}</p>
+							<p>{{ character.intelligence }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Charisme :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.charisme }}</p>
+							<p>{{ character.charisma }}</p>
 						</div>
 					</div>
 					<div class="statistique">
 						<p class="label">Foi :</p>
 						<div class="statistique-valeur">
-							<p>{{ personnage.foi }}</p>
+							<p>{{ character.faith }}</p>
 						</div>
 					</div>
 
@@ -93,12 +93,12 @@
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
 						<label for="pv" class="label label-statut">PV
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{personnage.pv}}" readonly>
+						<input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{character.pv}}" readonly>
 						<span class="max">/
-							{{personnage.pvMax}}</span>
+							{{character.pvMax}}</span>
 
 						<!-- ~~~~~~ barre de vie ~~~~~~ -->
-						<input type="range" class="bar" id="pv-range" min="0" , max="{{personnage.pvMax}}" value="{{personnage.pv}}" disabled>
+						<input type="range" class="bar" id="pv-range" min="0" , max="{{character.pvMax}}" value="{{character.pv}}" disabled>
 					</div>
 
 					<div
@@ -106,13 +106,13 @@
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pm" class="label label-statut">PM</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{personnage.pm}}" readonly>
+						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{character.pm}}" readonly>
 
 						<span class="max">/
-							{{personnage.pmMax}}</span>
+							{{character.pmMax}}</span>
 
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
-						<input type="range" class="bar" id="pm-range" min="0" , max="{{personnage.pmMax}}" value="{{personnage.pm}}" disabled>
+						<input type="range" class="bar" id="pm-range" min="0" , max="{{character.pmMax}}" value="{{character.pm}}" disabled>
 					</div>
 					<div
 						class="statut">
@@ -120,13 +120,13 @@
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pc" class="label label-statut">PC
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{personnage.pc}}" readonly>
+						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{character.pc}}" readonly>
 
 						<span class="max">/
-							{{personnage.pcMax}}</span>
+							{{character.pcMax}}</span>
 
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
-						<input type="range" class="bar" id="pc-range" min="0" , max="{{personnage.pcMax}}" value="{{personnage.pc}}" disabled>
+						<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
 					</div>
 					{{ form_end(statForm) }}
 				</div>
@@ -136,23 +136,23 @@
 					<div class="label label-form">
 						<span>Inventaire</span>
 					</div>
-					<textarea readonly>{{personnage.inventaire}}</textarea>
+					<textarea readonly>{{character.inventory}}</textarea>
 					<div class="label label-form">
 						<span>Po</span>
 					</div>
-					<input type="number" value="{{personnage.po}}" readonly>
+					<input type="number" value="{{character.gold}}" readonly>
 
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<select name="" id="stat">
-				<option value="{{personnage.constitution}}">Constitution</option>
-				<option value="{{personnage.laForce}}">Force</option>
-				<option value="{{personnage.dexterite}}">Dextérité</option>
-				<option value="{{personnage.intelligence}}">Intelligence</option>
-				<option value="{{personnage.charisme}}">Charisme</option>
-				<option value="{{personnage.foi}}">Foi</option>
+				<option value="{{character.constitution}}">Constitution</option>
+				<option value="{{character.strength}}">Force</option>
+				<option value="{{character.dexterity}}">Dextérité</option>
+				<option value="{{character.intelligence}}">Intelligence</option>
+				<option value="{{character.charisma}}">Charisme</option>
+				<option value="{{character.faith}}">Foi</option>
 			</select>
 
 			<select name="" id="ca">

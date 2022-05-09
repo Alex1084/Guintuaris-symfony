@@ -62,11 +62,11 @@ function insertFiche(monstre) {
                 </div>
                 <div>
                     <p>Force</p>
-                    <span class="stat">${monstre.laForce}</span>
+                    <span class="stat">${monstre.strength}</span>
                 </div>
                 <div>
                     <p>Dexterité</p>
-                    <span class="stat">${monstre.dexterite}</span>
+                    <span class="stat">${monstre.dexterity}</span>
                 </div>
                 <div>
                     <p>Intelligence</p>
@@ -74,11 +74,11 @@ function insertFiche(monstre) {
                 </div>
                 <div>
                     <p>Charisme</p>
-                    <span class="stat">${monstre.charisme}</span>
+                    <span class="stat">${monstre.charisma}</span>
                 </div>
                 <div>
                     <p>Foi</p>
-                    <span class="stat">${monstre.foi}</span>
+                    <span class="stat">${monstre.faith}</span>
                 </div>
             </div>
 
@@ -114,6 +114,7 @@ function onClickBtnLike(event) {
     event.preventDefault();
     const url = this.href;
     axios.get(url).then(function (response) {
+        console.log(response.data);
         monstre = response.data;
         container.innerHTML += insertFiche(monstre);
 

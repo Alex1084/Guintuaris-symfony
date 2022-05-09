@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ArmorPieceCharacter;
-use App\Entity\Personnage;
+use App\Entity\Character;
 use App\Entity\WeaponCharacter;
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,43 +26,37 @@ class FicheEquipeController extends AbstractController
      * 
      * @Route("/list/{idEquipe}", name="list")
      *
-     * @param int $idEquipe
-     * @return Response
      */
     public function listEquipe(int $idEquipe): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnages = $repo->findBy(array('equipe' => $idEquipe), array('nom' => 'ASC'));
+        $repo = $this->getDoctrine()->getRepository(Character::class);
+        $characters = $repo->findBy(['team' => $idEquipe], ['name' => 'ASC']);
         return $this->render('fiche_equipe/listEquipe.html.twig', [
-            "personnages" => $personnages
+            "characters" => $characters
         ]);
     }
     /**
      * cette page affiche une fiche de personnage qui ne peut pas être editer
      * le membre y on seulement un accee afin de pouvoir voir les fiche des membre de leur equipe
      * 
-     * @Route("/{idEquipe}/fiche/{idPersonnage}", name="fiche_view")
+     * @Route("/{idEquipe}/fiche/{characterId}", name="fiche_view")
      *
-     * @param integer $idEquipe
-     * @param integer $idPersonnage
-     * @param CompetenceRepository $compRepo
-     * @return Response
      */
-    public function fichePerso(int $idEquipe, int $idPersonnage, CompetenceRepository $compRepo): Response
+    public function fichePerso(int $idEquipe, int $characterId, CompetenceRepository $compRepo): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Personnage::class);
-        $personnage = $repo->find($idPersonnage);
+        $repo = $this->getDoctrine()->getRepository(Character::class);
+        $character = $repo->find($characterId);
         //requete pour les competence
-        $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
+        $competences = $compRepo->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
         $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
-        $armor = $repo->findBy(["charact" => $personnage->getId()]);
+        $armor = $repo->findBy(["charact" => $character->getId()]);
         $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
-        $weapons = $repo->findBy(["charact" => $personnage->getId()]);
+        $weapons = $repo->findBy(["charact" => $character->getId()]);
 
         // creation d'un formulaire en readonly pour voir le statut
-        $statForm = $this->get('form.factory')->createNamedBuilder('stat', FormType::class, $personnage)
+        $statForm = $this->get('form.factory')->createNamedBuilder('stat', FormType::class, $character)
             ->add('pv', IntegerType::class)
             ->add('pm', IntegerType::class)
             ->add('pc', IntegerType::class)
@@ -70,7 +64,7 @@ class FicheEquipeController extends AbstractController
 
         return $this->render('fiche_equipe/ficheEquipier.html.twig', [
             'idEquipe' => $idEquipe,
-            'personnage' => $personnage,
+            'character' => $character,
             'statForm' => $statForm->createView(),
             'competences' => $competences,
             'armor' => $armor,
