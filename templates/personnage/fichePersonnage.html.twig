@@ -233,12 +233,12 @@
 								<th>Dé</th>
 								<th>Effet</th>
 							</tr>
-							{% for arme in armes %}
+							{% for weapon in weapons %}
 								<tr>
-									<th>{{ arme.arme.nom }}</th>
-									<th>{{ arme.arme.degats }}</th>
-									<th>{{ arme.arme.de }}</th>
-									<th>{{ arme.effet }}</th>
+									<th>{{ weapon.weapon.name }}</th>
+									<th>{{ weapon.weapon.damage }}</th>
+									<th>{{ weapon.weapon.dice }}</th>
+									<th>{{ weapon.effect }}</th>
 								</tr>
 							{% endfor %}
 						</table>

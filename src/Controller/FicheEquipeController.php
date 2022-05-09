@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\ArmePersonnage;
 use App\Entity\Personnage;
 use App\Entity\PieceArmurePersonnage;
+use App\Entity\WeaponCharacter;
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,9 +57,9 @@ class FicheEquipeController extends AbstractController
 
         //requete pour les armes et armures
         $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
-        $armure = $repo->findBy(array("personnage" => $personnage->getId()));
-        $repo = $this->getDoctrine()->getRepository(ArmePersonnage::class);
-        $armes = $repo->findBy(array("personnage" => $personnage->getId()));
+        $armure = $repo->findBy(["personnage" => $personnage->getId()]);
+        $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
+        $weapons = $repo->findBy(["charact" => $personnage->getId()]);
 
         // creation d'un formulaire en readonly pour voir le statut
         $statForm = $this->get('form.factory')->createNamedBuilder('stat', FormType::class, $personnage)
@@ -74,7 +74,7 @@ class FicheEquipeController extends AbstractController
             'statForm' => $statForm->createView(),
             'competences' => $competences,
             'armure' => $armure,
-            'armes' => $armes
+            'weapons' => $weapons
         ]);
     }
 }

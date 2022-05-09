@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Arme;
-use App\Entity\ArmePersonnage;
 use App\Entity\Equipe;
 use App\Entity\Personnage;
 use App\Entity\PieceArmurePersonnage;
+use App\Entity\Weapon;
+use App\Entity\WeaponCharacter;
 use App\Form\PersonnageType;
 use App\Repository\PieceArmureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,7 +69,7 @@ class CreatePersonnageController extends AbstractController
             }
 
             for ($i = 1; $i <= 3; $i++) {
-                $this->insertArme($personnage, $i, $entityManager);
+                $this->insertWeapon($personnage, $i, $entityManager);
             }
 
 
@@ -113,15 +113,14 @@ class CreatePersonnageController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return void
      */
-    private function insertArme(Personnage $personnage, int $id, EntityManagerInterface $entityManager)
+    private function insertWeapon(Personnage $personnage, int $id, EntityManagerInterface $entityManager)
     {
-        $armePersonnage = new ArmePersonnage();
-        $armePersonnage->setId($id);
-        $armePersonnage->setPersonnage($personnage);
-        $armePersonnage->setArme($this->getDoctrine()->getRepository(Arme::class)->find(17));
+        $weaponPersonnage = new WeaponCharacter();
+        $weaponPersonnage->setId($id);
+        $weaponPersonnage->setCharact($personnage);
+        $weaponPersonnage->setWeapon($this->getDoctrine()->getRepository(Weapon::class)->find(17));
 
-        //dump($armePersonnage);
-        $entityManager->persist($armePersonnage);
+        $entityManager->persist($weaponPersonnage);
         $entityManager->flush();
     }
 }

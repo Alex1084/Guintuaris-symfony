@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Arme;
 use App\Entity\Bestiaire;
 use App\Entity\Competence;
 use App\Entity\Equipe;
@@ -11,6 +10,7 @@ use App\Entity\Personnage;
 use App\Entity\PieceArmure;
 use App\Entity\TypeArmure;
 use App\Entity\TypeBestiaire;
+use App\Entity\Weapon;
 use App\Form\BestiaireType;
 use App\Form\CompetenceType;
 use App\Form\PieceArmureType;
@@ -270,10 +270,10 @@ class AdminController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function addArme(Request $request, EntityManagerInterface $entityManager): Response
+    public function addWeapon(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $newArme = new Arme();
-        $results = $this->createFormTable($newArme, $request, $entityManager);
+        $newWeapon = new Weapon();
+        $results = $this->createFormTable($newWeapon, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
             return $this->redirectToRoute('admin_arme_list');
         }
@@ -295,7 +295,7 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(get_class($objet));
         $findall = $repo->findAll();
         $form = $this->createFormBuilder($objet)
-            ->add('nom', TextType::class)
+            ->add('name', TextType::class)
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted()) {

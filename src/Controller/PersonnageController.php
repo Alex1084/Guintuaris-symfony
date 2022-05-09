@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Arme;
-use App\Entity\ArmePersonnage;
 use App\Entity\Personnage;
 use App\Entity\PieceArmure;
 use App\Entity\PieceArmurePersonnage;
+use App\Entity\Weapon;
+use App\Entity\WeaponCharacter;
 use App\Form\PersonnageType;
 use App\Repository\CompetenceRepository;
 use App\Repository\FicheRepository;
@@ -90,16 +90,16 @@ class PersonnageController extends AbstractController
         $personnage = $repo->find($id);
         $competences = $compRepo->findByLevel($personnage->getNiveau(), $personnage->getClasse()->getId());
         $repo = $this->getDoctrine()->getRepository(PieceArmurePersonnage::class);
-        $armure = $repo->findBy(array("personnage" => $personnage->getId()));
-        $repo = $this->getDoctrine()->getRepository(ArmePersonnage::class);
-        $armes = $repo->findBy(array("personnage" => $personnage->getId()));
+        $armure = $repo->findBy(["personnage" => $personnage->getId()]);
+        $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
+        $weapons = $repo->findBy(["charact" => $personnage->getId()]);
         
         return $this->render('personnage/fichePersonnage.html.twig', [
             'personnage' => $personnage,
 
             'competences' => $competences,
             'armure' => $armure,
-            'armes' => $armes,
+            'weapons' => $weapons,
         ]);
     }
 
@@ -275,7 +275,7 @@ class PersonnageController extends AbstractController
                 //ajout d'un champs string pour metre l'effet de la piece d'armure
                 ->add($str, TextType::class, [
                     'required' => false,
-                    'data' => $armure[$i - 1]->getEffet(),
+                    'data' => $armure[$i - 1]->getEffect(),
                     'label' => 'Effet',
                     'attr' => ['class' => 'input-form']
                 ]);
@@ -288,9 +288,9 @@ class PersonnageController extends AbstractController
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 7; $i++) {
                 $piece = $armureForm->get($pieces[$i])->getData();
-                $effet = $armureForm->get('effet_' . $pieces[$i])->getData();
+                $effect = $armureForm->get('effet_' . $pieces[$i])->getData();
                 $armure[$i - 1]->setPiece($piece);
-                $armure[$i - 1]->setEffet($effet);
+                $armure[$i - 1]->setEffect($effect);
 
                 $entityManager->persist($armure[$i - 1]);
                 $entityManager->flush();
@@ -314,13 +314,13 @@ class PersonnageController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function modifArme(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function updateWeapon(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnage = $repo->find($id);
 
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
-        $armes = $this->getDoctrine()->getRepository(ArmePersonnage::class)->findBy(array("personnage" => $personnage->getId()));
+        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(array("charact" => $personnage->getId()));
 
         $armureForm = $this->createFormBuilder();
 
@@ -330,16 +330,16 @@ class PersonnageController extends AbstractController
             //ajout d'un champs select ayant comme identifiant un numero allant de 1 a 3
             // et ayant comme option la liste de toute les armes
             $armureForm->add('n_' . $i, EntityType::class, [
-                'class' => Arme::class,
-                'choice_label' => 'nom',
-                'data' => $armes[$i - 1]->getArme(),
+                'class' => Weapon::class,
+                'choice_label' => 'name',
+                'data' => $weapons[$i - 1]->getWeapon(),
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Arme N°' . $i
             ])
                 //ajout d'un champs String pour metre l'enchetement de l'arme 
                 ->add($str, TextType::class, [
                     'required' => false,
-                    'data' => $armes[$i - 1]->getEffet(),
+                    'data' => $weapons[$i - 1]->getEffect(),
                     'label' => 'Effet',
                     'attr' => ['class' => 'input-form']
                 ]);
@@ -350,12 +350,12 @@ class PersonnageController extends AbstractController
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 3; $i++) {
-                $arme = $armureForm->get('n_' . $i)->getData();
-                $effet = $armureForm->get('effet_' . $i)->getData();
-                $armes[$i - 1]->setArme($arme);
-                $armes[$i - 1]->setEffet($effet);
+                $weapon = $armureForm->get('n_' . $i)->getData();
+                $effect = $armureForm->get('effet_' . $i)->getData();
+                $weapons[$i - 1]->setWeapon($weapon);
+                $weapons[$i - 1]->setEffect($effect);
 
-                $entityManager->persist($armes[$i - 1]);
+                $entityManager->persist($weapons[$i - 1]);
                 $entityManager->flush();
             }
             return $this->redirectToRoute('personnage_view', ["id" => $id]);
