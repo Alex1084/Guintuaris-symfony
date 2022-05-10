@@ -7,63 +7,63 @@
 
 {% block body %}
 	<div class="container">
-		{{ form_start(competenceForm) }}
+		{{ form_start(skillForm) }}
 		<div>
 			<h3 class="title-form">Géneral</h3>
 			<div class="row">
-				<div class="div-form">{{ form_label(competenceForm.name) }}
+				<div class="div-form">{{ form_label(skillForm.name) }}
 					
-					{{ form_widget(competenceForm.name) }}
+					{{ form_widget(skillForm.name) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.level) }}
+				<div class="div-form">{{ form_label(skillForm.level) }}
 					
-					{{ form_widget(competenceForm.level) }}
+					{{ form_widget(skillForm.level) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.class) }}
+				<div class="div-form">{{ form_label(skillForm.class) }}
 					
-					{{ form_widget(competenceForm.class) }}
+					{{ form_widget(skillForm.class) }}
 				</div>
 			</div>
 		</div>
 		<div>
 			<h3 class="title-form">Précisions</h3>
 			<div class="row">
-				<div class="div-form">{{ form_label(competenceForm.cost) }}
+				<div class="div-form">{{ form_label(skillForm.cost) }}
 					
-					{{ form_widget(competenceForm.cost) }}
+					{{ form_widget(skillForm.cost) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.distance) }}
+				<div class="div-form">{{ form_label(skillForm.distance) }}
 					
-					{{ form_widget(competenceForm.distance) }}
+					{{ form_widget(skillForm.distance) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.damage) }}
+				<div class="div-form">{{ form_label(skillForm.damage) }}
 					
-					{{ form_widget(competenceForm.damage) }}
+					{{ form_widget(skillForm.damage) }}
 				</div>
 			</div>
 			<div id="add-skill-row">
-				<div class="div-form">{{ form_label(competenceForm.duration) }}
+				<div class="div-form">{{ form_label(skillForm.duration) }}
 					
-					{{ form_widget(competenceForm.duration) }}
+					{{ form_widget(skillForm.duration) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.radius) }}
+				<div class="div-form">{{ form_label(skillForm.radius) }}
 					
-					{{ form_widget(competenceForm.radius) }}
+					{{ form_widget(skillForm.radius) }}
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="textarea-form">
 				<h3 class="title-form">
-					{{ form_label(competenceForm.description) }}
+					{{ form_label(skillForm.description) }}
 				</h3>
 				
-				{{ form_widget(competenceForm.description) }}
+				{{ form_widget(skillForm.description) }}
 
 			</div>
 		</div>
 
 		<button class="valid-form">Ajouter !</button>
-		{{form_end(competenceForm)}}
+		{{form_end(skillForm)}}
 	</div>
 {% endblock %}

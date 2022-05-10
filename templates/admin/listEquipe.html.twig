@@ -6,7 +6,7 @@
     <ul>
     {% for team in teams %}
         <li>
-            <a href="{{ path("admin_add_membre", {"teamId" : team.id}) }}">{{ team.name }}</a>
+            <a href="{{ path("admin_add_member", {"teamId" : team.id}) }}">{{ team.name }}</a>
         </li>
     {% endfor %}
     </ul>

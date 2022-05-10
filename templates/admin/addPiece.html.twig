@@ -7,17 +7,17 @@
 
 {% block body %}
 	<div class="container">
-		{{form_start(pieceForm)}}
+		{{form_start(armorPieceForm)}}
 		<div class="row">
 
-			<div class="div-form">{{ form_label(pieceForm.location)}}{{form_widget(pieceForm.location)}}</div>
-			<div class="div-form">{{ form_label(pieceForm.type)}}{{form_widget(pieceForm.type)}}</div>
-			<div class="div-form">{{ form_label(pieceForm.value)}}{{form_widget(pieceForm.value)}}</div>
+			<div class="div-form">{{ form_label(armorPieceForm.location)}}{{form_widget(armorPieceForm.location)}}</div>
+			<div class="div-form">{{ form_label(armorPieceForm.type)}}{{form_widget(armorPieceForm.type)}}</div>
+			<div class="div-form">{{ form_label(armorPieceForm.value)}}{{form_widget(armorPieceForm.value)}}</div>
 		</div>
 		<div>
 			<button class="valid-form">Créer</button>
 		</div>
-		{{form_end(pieceForm)}}
+		{{form_end(armorPieceForm)}}
 	</div>
 	<div class="container">
 		<table class="tableau">
