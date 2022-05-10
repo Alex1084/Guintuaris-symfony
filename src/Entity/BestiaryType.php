@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeBestiaireRepository;
+use App\Repository\BestiaryTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=TypeBestiaireRepository::class)
+ * @ORM\Entity(repositoryClass=BestiaryTypeRepository::class)
  */
-class TypeBestiaire
+class BestiaryType
 {
     /**
      * @ORM\Id
@@ -25,21 +25,21 @@ class TypeBestiaire
      *      max=50,
      * )*/
 
-    private $nom;
+    private $name;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }

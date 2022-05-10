@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\BestiaireRepository;
+use App\Repository\BestiaryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=BestiaireRepository::class)
+ * @ORM\Entity(repositoryClass=BestiaryRepository::class)
  */
-class Bestiaire extends Fiche
+class Bestiary extends Fiche
 {
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -21,7 +21,7 @@ class Bestiaire extends Fiche
     private $note;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeBestiaire::class)
+     * @ORM\ManyToOne(targetEntity=BestiaryType::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
@@ -38,12 +38,12 @@ class Bestiaire extends Fiche
         return $this;
     }
 
-    public function getType(): ?TypeBestiaire
+    public function getType(): ?BestiaryType
     {
         return $this->type;
     }
 
-    public function setType(?TypeBestiaire $type): self
+    public function setType(?BestiaryType $type): self
     {
         $this->type = $type;
 

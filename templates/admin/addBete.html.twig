@@ -7,84 +7,84 @@
 
 {% block body %}
 	<div class="container">
-		{{ form_start(beteForm) }}
+		{{ form_start(creatureForm) }}
 		<div>
 			<h3 class="title-form">Monstre</h3>
 		</div>
 		<div class="row">
-			<div class="div-form">{{ form_label(beteForm.name) }}
+			<div class="div-form">{{ form_label(creatureForm.name) }}
 				
-				{{ form_widget(beteForm.name) }}
+				{{ form_widget(creatureForm.name) }}
 			</div>
 
-			<div class="div-form">{{ form_label(beteForm.level) }}
+			<div class="div-form">{{ form_label(creatureForm.level) }}
 				
-				{{ form_widget(beteForm.level) }}
+				{{ form_widget(creatureForm.level) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.Type) }}
+			<div class="div-form">{{ form_label(creatureForm.type) }}
 				
-				{{ form_widget(beteForm.Type) }}
+				{{ form_widget(creatureForm.type) }}
 			</div>
 		</div>
 		<div>
 			<h3 class="title-form">Statut</h3>
 		</div>
 		<div class="row">
-			<div class="div-form">{{ form_label(beteForm.pvMax) }}
+			<div class="div-form">{{ form_label(creatureForm.pvMax) }}
 				
-				{{ form_widget(beteForm.pvMax) }}
+				{{ form_widget(creatureForm.pvMax) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.pmMax) }}
+			<div class="div-form">{{ form_label(creatureForm.pmMax) }}
 				
-				{{ form_widget(beteForm.pmMax) }}
+				{{ form_widget(creatureForm.pmMax) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.pcMax) }}
+			<div class="div-form">{{ form_label(creatureForm.pcMax) }}
 				
-				{{ form_widget(beteForm.pcMax) }}
+				{{ form_widget(creatureForm.pcMax) }}
 			</div>
 		</div>
 		<div>
 			<h3 class="title-form">Statistiques</h3>
 		</div>
 		<div class="row">
-			<div class="div-form">{{ form_label(beteForm.constitution) }}
+			<div class="div-form">{{ form_label(creatureForm.constitution) }}
 				
-				{{ form_widget(beteForm.constitution) }}
+				{{ form_widget(creatureForm.constitution) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.strength) }}
+			<div class="div-form">{{ form_label(creatureForm.strength) }}
 				
-				{{ form_widget(beteForm.strength) }}
+				{{ form_widget(creatureForm.strength) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.dexterity) }}
+			<div class="div-form">{{ form_label(creatureForm.dexterity) }}
 				
-				{{ form_widget(beteForm.dexterity) }}
+				{{ form_widget(creatureForm.dexterity) }}
 			</div>
 
 		</div>
 		<div class="row">
-			<div class="div-form">{{ form_label(beteForm.intelligence) }}
+			<div class="div-form">{{ form_label(creatureForm.intelligence) }}
 				
-				{{ form_widget(beteForm.intelligence) }}
+				{{ form_widget(creatureForm.intelligence) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.charisma) }}
+			<div class="div-form">{{ form_label(creatureForm.charisma) }}
 				
-				{{ form_widget(beteForm.charisma) }}
+				{{ form_widget(creatureForm.charisma) }}
 			</div>
-			<div class="div-form">{{ form_label(beteForm.faith) }}
+			<div class="div-form">{{ form_label(creatureForm.faith) }}
 				
-				{{ form_widget(beteForm.faith) }}
+				{{ form_widget(creatureForm.faith) }}
 			</div>
 		</div>
 		<div class="row">
 			<div class="textarea-form">
 				<h3 class="title-form">
-					{{ form_label(beteForm.note) }}
+					{{ form_label(creatureForm.note) }}
 				</h3>
 				
-				{{ form_widget(beteForm.note) }}
+				{{ form_widget(creatureForm.note) }}
 			</div>
 		</div>
 		<button class="valid-form">Ajouter !</button>
-		{{form_end(beteForm)}}
+		{{form_end(creatureForm)}}
 	</div>
 {% endblock %}

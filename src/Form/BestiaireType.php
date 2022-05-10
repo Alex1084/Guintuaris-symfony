@@ -17,7 +17,7 @@ class BestiaireType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('Type', EntityType::class, [
+            ->add('type', EntityType::class, [
                 "class" => TypeBestiaire::class,
                 "choice_label" => "nom"
             ])

@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Bestiaire;
-use App\Entity\TypeBestiaire;
-use App\Form\BoardType;
+use App\Entity\Bestiary;
 use App\Repository\BestiaireRepository;
+use App\Repository\BestiaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,10 +22,8 @@ class BestiaireController extends AbstractController
      * @Route("admin/board", name="bestiaire")
      * 
      * 
-     * @param BestiaireRepository $bRepo
-     * @return Response
      */
-    public function index(BestiaireRepository $bRepo): Response
+    public function index(BestiaryRepository $bRepo): Response
     {
         $monstres = $bRepo->findAllName(1);
         $animaux = $bRepo->findAllName(2);
@@ -42,12 +39,10 @@ class BestiaireController extends AbstractController
      * une bete du bestiaire va etre appeler et est interpreter par une requete ajax se trouvant dans le fichier miniFiche.js
      * @Route("admin/summon/{id}", name="summon")
      *
-     * @param integer $id
-     * @return Response
      */
     public function beteToJson(int $id): Response
     {
-        $bete = $this->getDoctrine()->getRepository(Bestiaire::class)->find($id);
+        $bete = $this->getDoctrine()->getRepository(Bestiary::class)->find($id);
         //dd($bete);
         return $this->json(
             $bete,

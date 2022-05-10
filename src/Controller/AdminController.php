@@ -5,14 +5,15 @@ namespace App\Controller;
 use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorType;
-use App\Entity\Bestiaire;
+use App\Entity\Bestiary;
+use App\Entity\BestiaryType;
 use App\Entity\Character;
 use App\Entity\Competence;
 use App\Entity\Equipe;
-use App\Entity\TypeBestiaire;
 use App\Entity\Weapon;
 use App\Form\ArmorPieceType;
 use App\Form\BestiaireType;
+use App\Form\BestiaryFormType;
 use App\Form\CompetenceType;
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,7 +34,6 @@ class AdminController extends AbstractController
      * 
      * @Route("/", name="home")
      * 
-     * @return Response
      */
     public function adminHome(): Response
     {
@@ -46,9 +46,6 @@ class AdminController extends AbstractController
      * 
      * @Route("/add_competence", name="add_competence")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function competence(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -71,9 +68,6 @@ class AdminController extends AbstractController
      * 
      * @Route("/ajout_piece", name="add_piece")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -101,10 +95,6 @@ class AdminController extends AbstractController
      * 
      * @Route("/ajout_membre/{idEquipe}", name="add_membre")
      *
-     * @param int $idEquipe
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function addMembreEquipe(int $idEquipe, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -142,27 +132,24 @@ class AdminController extends AbstractController
      * 
      * @Route("/bestiaire", name="add_bete")
      *
-     * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @return Response
      */
     public function addBete(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $bete = new Bestiaire();
-        $beteForm = $this->createForm(BestiaireType::class, $bete);
+        $creature = new Bestiary();
+        $creatureForm = $this->createForm(BestiaryFormType::class, $creature);
 
-        $beteForm->handleRequest($request);
-        if ($beteForm->isSubmitted()) {
-            $bete->setPv($bete->getPvMax())
-                 ->setPc($bete->getPcMax())
-                 ->setPm($bete->getPmMax());
+        $creatureForm->handleRequest($request);
+        if ($creatureForm->isSubmitted()) {
+            $creature->setPv($creature->getPvMax())
+                 ->setPc($creature->getPcMax())
+                 ->setPm($creature->getPmMax());
 
-            $entityManager->persist($bete);
+            $entityManager->persist($creature);
             $entityManager->flush();
             return $this->redirectToRoute("admin_add_bete");
         }
         return $this->render('admin/addBete.html.twig', [
-            "beteForm" => $beteForm->createView(),
+            "creatureForm" => $creatureForm->createView(),
         ]);
     }
     /**
@@ -171,13 +158,10 @@ class AdminController extends AbstractController
      * 
      * @Route("/list_type_bestiaire", name="type_bestiaire_list")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function addTypeBestiaire(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $newType = new TypeBestiaire();
+        $newType = new BestiaryType();
 
         $results = $this->createFormTable($newType, $request, $entityManager);
 
@@ -198,9 +182,6 @@ class AdminController extends AbstractController
      *
      *  @Route("/equipe", name="equipe_list")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -220,9 +201,6 @@ class AdminController extends AbstractController
      *
      *  @Route("/list_type_armure", name="type_armure_list")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function addArmorType(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -240,9 +218,6 @@ class AdminController extends AbstractController
      *
      *  @Route("/list_localisation_armure", name="localisation_armure_list")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function addArmorLocation(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -262,9 +237,6 @@ class AdminController extends AbstractController
      * 
      * @Route("/list_arme", name="arme_list")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function addWeapon(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -283,8 +255,6 @@ class AdminController extends AbstractController
     /**
      * Undocumented function
      *
-     * @param Object $objet
-     * @param string $class
      */
     private function createFormTable(Object $objet, Request $request, EntityManagerInterface $entityManager)
     {
