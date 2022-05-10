@@ -50,7 +50,7 @@
 			<button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">compte</button>
 			<div class="drop-nav-content">
 				<ul>
-					<li class="nav-item"><a href="{{ path('profil', {'id':app.user.id}) }}">Mon compte ({{ app.user.nom }})</a></li>
+					<li class="nav-item"><a href="{{ path('profil', {'id':app.user.id}) }}">Mon compte ({{ app.user.name }})</a></li>
 					<li class="nav-item"><a href="{{ path('app_logout')}}">Déconexion</a></li>
 				</ul>
 			</div>
