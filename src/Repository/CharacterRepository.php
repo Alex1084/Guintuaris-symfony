@@ -22,12 +22,12 @@ class CharacterRepository extends ServiceEntityRepository
     public function updateInventaire($id, $inventory, $gold)
     {
         $this->createQueryBuilder('c')
-        ->update(Personnage::class, 'c')
-        ->set('c.inventory', ':inventaire')
-        ->set('c.gold', ':po')
+        ->update(Character::class, 'c')
+        ->set('c.inventory', ':inventory')
+        ->set('c.gold', ':gold')
         ->where('c.id = :id')
-        ->setParameter('inventaire', $inventory)
-        ->setParameter('po', $gold)
+        ->setParameter('inventory', $inventory)
+        ->setParameter('gold', $gold)
         ->setParameter('id', $id)
         ->getQuery()->execute();
     }

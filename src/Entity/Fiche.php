@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * {
  *      "fiche" = "Fiche", 
  *      "character" = "Character",
- *      "personnage" = "Personnage",
  *      "bestiaire" = "Bestiaire"
  * })
  */

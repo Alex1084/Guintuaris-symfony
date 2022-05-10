@@ -1,7 +1,6 @@
 const inputs = document.querySelectorAll(".ajax");
 const arrayUrl = document.URL.split('/');
 const getId = arrayUrl[arrayUrl.length-1]
-console.log(inputs);
 
 inputs.forEach(input => {
     input.addEventListener('change', ajax)
@@ -21,6 +20,6 @@ function ajax() {
     console.log(values);
     axios.post('/personnage/update',  values,   
      'Content-Type: multipart/form-data' )
-    .then(response => console.log(response))
-    .catch(error => console.log(error.response.data))
+    .then()
+    .catch(error => console.error(error.response.data));
 }
