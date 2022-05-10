@@ -16,8 +16,7 @@ class RaceController extends AbstractController
      */
     public function race(int $id): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Race::class);
-        $race = $repo->find($id);
+        $race = $this->getDoctrine()->getRepository(Race::class)->find($id);
         return $this->render('race/race.html.twig', [
             'race' => $race
         ]);
@@ -27,11 +26,9 @@ class RaceController extends AbstractController
      */
     public function classe(int $id): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Classes::class);
-        $class = $repo->find($id);
+        $class = $this->getDoctrine()->getRepository(Classes::class)->find($id);
 
-        $repo = $this->getDoctrine()->getRepository(Skill::class);
-        $skills = $repo->findBy(array("class" => $class));
+        $skills = $this->getDoctrine()->getRepository(Skill::class)->findBy(array("class" => $class));
         return $this->render('race/classe.html.twig', [
             'classe' => $class,
             'skills' => $skills

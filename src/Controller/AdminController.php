@@ -14,6 +14,7 @@ use App\Entity\Weapon;
 use App\Form\ArmorPieceType;
 use App\Form\BestiaryFormType;
 use App\Form\SkillFormType;
+use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -68,10 +69,9 @@ class AdminController extends AbstractController
      * @Route("/ajout-piece-d-armure", name="add_armor_piece")
      *
      */
-    public function addArmorPiece(Request $request, EntityManagerInterface $entityManager): Response
+    public function addArmorPiece(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
     {
-        $repo = $this->getDoctrine()->getRepository(ArmorPiece::class);
-        $piecesTab = $repo->findAll();
+        $piecesTab = $armorPieceRepository->selectAllNamesValue();
         $armorPiece = new ArmorPiece();
         $armorPieceForm = $this->createForm(ArmorPieceType::class, $armorPiece);
 
@@ -96,9 +96,9 @@ class AdminController extends AbstractController
      * @Route("/ajout-membre/{teamId}", name="add_member")
      *
      */
-    public function addTeamMember(int $teamId, Request $request, EntityManagerInterface $entityManager): Response
+    public function addTeamMember(int $teamId, Request $request, EntityManagerInterface $entityManager, CharacterRepository $characterRepository): Response
     {
-        $teamMembers = $this->getDoctrine()->getRepository(Character::class)->findBy(['team' => $teamId]); //list des Memebre apartennant a cette equipe
+        $teamMembers = $characterRepository->findNameByTeam($teamId); //list des Memebre apartennant a cette equipe
         $team = $this->getDoctrine()->getRepository(Team::class)->find($teamId); //represente la L'equipe sur la quelle des membre vont etre ajouter
         $memberForm = $this->createFormBuilder()
             ->add('character', EntityType::class, [
@@ -113,7 +113,7 @@ class AdminController extends AbstractController
             ->getForm();
         $memberForm->handleRequest($request);
         if ($memberForm->isSubmitted()) {
-            $characterSelectionner = $memberForm->get('personnage')->getData();
+            $characterSelectionner = $memberForm->get('character')->getData();
             $characterSelectionner->setTeam($team);
             dump($characterSelectionner);
 
@@ -123,6 +123,7 @@ class AdminController extends AbstractController
         }
         return $this->render('admin/addMembreEquipe.html.twig', [
             'memberForm' => $memberForm->createView(),
+            'teamId' => $teamId,
             'teamMembers' => $teamMembers,
         ]);
     }

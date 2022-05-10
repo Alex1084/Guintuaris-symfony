@@ -40,11 +40,10 @@ class PersonnageController extends AbstractController
      * @Route("/list", name="list")
      *
      */
-    public function list(): Response
+    public function list(CharacterRepository $characterRepository): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
         $user = $this->getUser();
-        $characters = $repo->findBy(['user' => $user->getId()], ['name' => 'ASC']);
+        $characters = $characterRepository->listByUser($user->getId());
         return $this->render('personnage/list.html.twig', [
             "characters" => $characters
         ]);
@@ -78,13 +77,10 @@ class PersonnageController extends AbstractController
      */
     public function fichePerso(int $id, SkillRepository $skillRepository): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $character = $repo->find($id);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
-        $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
-        $armor = $repo->findBy(["charact" => $character->getId()]);
-        $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
-        $weapons = $repo->findBy(["charact" => $character->getId()]);
+        $armor = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
+        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
         
         return $this->render('personnage/fichePersonnage.html.twig', [
             'character' => $character,
@@ -136,8 +132,7 @@ class PersonnageController extends AbstractController
     public function levulUp(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $character = $repo->find($id);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
         $characterForm = $this->createForm(CharacterType::class, $character);
 
         //annulation affichage champs hors formulaire
@@ -220,8 +215,7 @@ class PersonnageController extends AbstractController
      */
     public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $character = $repo->find($id);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
         $armor = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
 
@@ -238,7 +232,7 @@ class PersonnageController extends AbstractController
             $armorForm->add($pieces[$i], EntityType::class, [
                 'class' => ArmorPiece::class,
                 'choice_label' => 'type.name',
-                'query_builder' => $this->optionType($i, $armorPieceRepository),
+                'query_builder' => $armorPieceRepository->optionType($i),
                 'data' => $armor[$i - 1]->getPiece(),
                 'attr' => ['class' => 'input-form']
             ])
@@ -282,11 +276,10 @@ class PersonnageController extends AbstractController
      */
     public function updateWeapon(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $character = $repo->find($id);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
 
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
-        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(array("charact" => $character->getId()));
+        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
 
         $weaponForm = $this->createFormBuilder();
 
@@ -336,12 +329,7 @@ class PersonnageController extends AbstractController
      * cette fonction a pour but de retouver toute les piece d'armure ayant comme localisation l'identifient placer en parametre
      *
      */
-    private function optionType(int $id, ArmorPieceRepository $armorPieceRepository)
-    {
-        return $armorPieceRepository->createQueryBuilder('p')
-            ->where('p.location = :id')
-            ->setParameter("id", $id);
-    }
+
 
     /**
      *  cette fonctrion permet de suprimmer l'encienne image de profil d'un personnage lorsque l'utilisateur la change

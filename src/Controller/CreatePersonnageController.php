@@ -84,7 +84,7 @@ class CreatePersonnageController extends AbstractController
         $armorPieceCharacter = new ArmorPieceCharacter();
         $armorPieceCharacter->setCharact($character)
                        ->setId($locationNumber)
-                       ->setPiece($repoArmorPiece->getArmorbyLocation(12, $locationNumber)); //  12 : type enlever et $locationNumber : emplacement (allant de 1 a 7)
+                       ->setPiece($repoArmorPiece->getArmorbyLocation($locationNumber)); // $locationNumber : emplacement (allant de 1 a 7)
 
         $entityManager->persist($armorPieceCharacter);
         $entityManager->flush();
@@ -100,7 +100,7 @@ class CreatePersonnageController extends AbstractController
         $weaponCharacter = new WeaponCharacter();
         $weaponCharacter->setId($id)
                         ->setCharact($character)
-                        ->setWeapon($this->getDoctrine()->getRepository(Weapon::class)->find(17));
+                        ->setWeapon($this->getDoctrine()->getRepository(Weapon::class)->findOneBy(['name' => 'Vide']));
 
         $entityManager->persist($weaponCharacter);
         $entityManager->flush();

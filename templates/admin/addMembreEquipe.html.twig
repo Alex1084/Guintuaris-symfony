@@ -14,7 +14,7 @@
 		<ul>
 			{% for member in teamMembers %}
 				<li>
-					<a href="{{ path("equipe_fiche_view", {"teamId" : member.team.id, "characterId" : member.id}) }}">{{ member.name }}</a>
+					<a href="{{ path("equipe_fiche_view", {"teamId" : teamId, "characterId" : member.id}) }}">{{ member.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>

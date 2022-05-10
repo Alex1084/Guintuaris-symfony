@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
 use App\Entity\WeaponCharacter;
+use App\Repository\CharacterRepository;
 use App\Repository\SkillRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +28,9 @@ class FicheEquipeController extends AbstractController
      * @Route("/list/{teamId}", name="list")
      *
      */
-    public function teamMembersList(int $teamId): Response
+    public function teamMembersList(int $teamId, CharacterRepository $characterRepository): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $characters = $repo->findBy(['team' => $teamId], ['name' => 'ASC']);
+        $characters = $characterRepository->findNameByTeam($teamId);
         return $this->render('fiche_equipe/listEquipe.html.twig', [
             "characters" => $characters
         ]);
@@ -44,16 +44,13 @@ class FicheEquipeController extends AbstractController
      */
     public function fichePerso(int $teamId, int $characterId, SkillRepository $skillRepository): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $character = $repo->find($characterId);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
         //requete pour les competence
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
-        $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
-        $armor = $repo->findBy(["charact" => $character->getId()]);
-        $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
-        $weapons = $repo->findBy(["charact" => $character->getId()]);
+        $armor = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
+        $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
 
         // creation d'un formulaire en readonly pour voir le statut
         $statForm = $this->get('form.factory')->createNamedBuilder('stat', FormType::class, $character)
