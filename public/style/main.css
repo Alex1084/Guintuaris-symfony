@@ -258,6 +258,10 @@ select:hover{
     width: 90vw;
     height: 150px;
 }
+#add-skill-row{
+    display: flex;
+    justify-content: space-around;
+}
 /**************tableau**************/
 
 .titre-table{
@@ -291,6 +295,9 @@ footer{
     }
     .row {
         width: 90vw;
+        flex-direction: column;
+    }
+    #add-skill-row{
         flex-direction: column;
     }
 }

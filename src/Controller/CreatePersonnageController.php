@@ -50,12 +50,10 @@ class CreatePersonnageController extends AbstractController
                        ->setPv($character->getPvMax())
                        ->setPm($character->getPmMax())
                        ->setPc($character->getPcMax());
-            //
-
+            
             // execution de la requete
             $entityManager->persist($character);
             $entityManager->flush();
-            //
 
             for ($i = 1; $i <= 7; $i++) {
                 $this->insertPiece($character, $i, $repoArmorPiece, $entityManager);

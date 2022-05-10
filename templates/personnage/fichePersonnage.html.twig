@@ -26,7 +26,7 @@
 
 					<h1>{{ character.name }}</h1>
 					<h3>{{ character.race.nom }}</h3>
-					<h3>{{ character.class.nom }}</h3>
+					<h3>{{ character.class.name }}</h3>
 					<h3>Niveau
 						{{ character.level }}</h3>
 					<a href="{{ path("equipe_list", {"idEquipe" :character.team.id})}}">{{character.team.nom}}</a>
@@ -253,16 +253,16 @@
 		</div>
 		<div class="container">
 			<div class="div-competence">
-				{% for competence in competences %}
+				{% for skill in skills %}
 					<div class="competence">
 						<div class="dropdown">
 							<button class="dropbtn">
-								{{competence.nom}}
+								{{skill.name}}
 								,
-								{{competence.cout}}
+								{{skill.cost}}
 								<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
 							<div class="hidden dropdown-content">
-								<textarea readonly>{{ competence.description }}</textarea>
+								<textarea readonly>{{ skill.description }}</textarea>
 								{# <p class="content"></p> #}
 							</div>
 						</div>

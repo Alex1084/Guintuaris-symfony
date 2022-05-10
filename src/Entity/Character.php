@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
  * @ORM\Table(name="`character`")
  */
-class Character extends Fiche
+class Character extends Sheet
 {
 
     /**
@@ -20,7 +20,7 @@ class Character extends Fiche
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Classe::class)
+     * @ORM\ManyToOne(targetEntity=Classes::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $class;
@@ -68,8 +68,8 @@ class Character extends Fiche
         return $this;
     }
 
-    public function getClass(): ?Classe { return $this->class; }
-    public function setClass(?Classe $class): self
+    public function getClass(): ?Classes { return $this->class; }
+    public function setClass(?Classes $class): self
     {
         $this->class = $class;
         return $this;

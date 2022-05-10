@@ -3,23 +3,23 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\FicheRepository;
+use App\Repository\SheetRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity(repositoryClass=FicheRepository::class)
+ * @ORM\Entity(repositoryClass=SheetRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap(
  * {
- *      "fiche" = "Fiche", 
+ *      "sheet" = "Sheet", 
  *      "character" = "Character",
  *      "bestiary" = "Bestiary"
  * })
  */
-abstract class Fiche
+abstract class Sheet
 {
     /**
      * @ORM\Id

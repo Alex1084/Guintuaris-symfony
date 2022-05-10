@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Classe;
-use App\Entity\Competence;
+use App\Entity\Classes;
 use App\Entity\Race;
+use App\Entity\Skill;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,14 +27,14 @@ class RaceController extends AbstractController
      */
     public function classe($id): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Classe::class);
-        $classe = $repo->find($id);
+        $repo = $this->getDoctrine()->getRepository(Classes::class);
+        $class = $repo->find($id);
 
-        $repo = $this->getDoctrine()->getRepository(Competence::class);
-        $competences = $repo->findBy(array("classe" => $classe));
+        $repo = $this->getDoctrine()->getRepository(Skill::class);
+        $skills = $repo->findBy(array("class" => $class));
         return $this->render('race/classe.html.twig', [
-            'classe' => $classe,
-            'competences' => $competences
+            'classe' => $class,
+            'skills' => $skills
         ]);
     }
 }

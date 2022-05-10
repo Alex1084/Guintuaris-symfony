@@ -10,8 +10,8 @@ use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
 use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
-use App\Repository\CompetenceRepository;
-use App\Repository\FicheRepository;
+use App\Repository\SheetRepository;
+use App\Repository\SkillRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +41,6 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/list", name="list")
      *
-     * @return Response
      */
     public function list(): Response
     {
@@ -58,12 +57,12 @@ class PersonnageController extends AbstractController
      *
      * @Route("/update", name="update_statut")
      */
-    public function updateStatut(Request $request, CharacterRepository $characterRepository, FicheRepository $ficheRepository)
+    public function updateStatut(Request $request, CharacterRepository $characterRepository, SheetRepository $sheetRepository)
     {
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent());
             $characterRepository->updateInventaire($data->id, $data->inventaire, $data->po);
-            $ficheRepository->updateStatus($data->id, $data->pv, $data->pc, $data->pm);
+            $sheetRepository->updateStatus($data->id, $data->pv, $data->pc, $data->pm);
             
             return $this->json(
                 "result", 200
@@ -78,17 +77,12 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/{id}", name="view")
      *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param CompetenceRepository $compRepo
-     * @return Response
      */
-    public function fichePerso(int $id, CompetenceRepository $compRepo): Response
+    public function fichePerso(int $id, SkillRepository $skillRepository): Response
     {
         $repo = $this->getDoctrine()->getRepository(Character::class);
         $character = $repo->find($id);
-        $competences = $compRepo->findByLevel($character->getLevel(), $character->getClass()->getId());
+        $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
         $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
         $armor = $repo->findBy(["charact" => $character->getId()]);
         $repo = $this->getDoctrine()->getRepository(WeaponCharacter::class);
@@ -96,7 +90,7 @@ class PersonnageController extends AbstractController
         
         return $this->render('personnage/fichePersonnage.html.twig', [
             'character' => $character,
-            'competences' => $competences,
+            'skills' => $skills,
             'armor' => $armor,
             'weapons' => $weapons,
         ]);
@@ -108,10 +102,6 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/{id}/lore", name="modif_lore")
      *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function lore(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -144,15 +134,11 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/{id}/level_up", name="level_up")
      *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function levulUp(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $repo = $this->getDoctrine()->getRepository(Characterharacter::class);
+        $repo = $this->getDoctrine()->getRepository(Character::class);
         $character = $repo->find($id);
         $characterForm = $this->createForm(CharacterType::class, $character);
 
@@ -188,10 +174,6 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/{id}/image", name="change_image")
      *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function modifImage(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -299,10 +281,6 @@ class PersonnageController extends AbstractController
      * 
      * @Route("/{id}/arme", name="modif_arme")
      *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     public function updateWeapon(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -370,8 +348,6 @@ class PersonnageController extends AbstractController
     /**
      *  cette fonctrion permet de suprimmer l'encienne image de profil d'un personnage lorsque l'utilisateur la change
      *
-     * @param string $file
-     * @return void
      */
     public function removeFile(string $file)
     {

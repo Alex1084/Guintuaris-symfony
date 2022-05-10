@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	{% if app.user.id == character.joueur.id %}
+	{% if app.user.id == character.user.id %}
 		{{ form_start(characterForm) }}
 		<div class="container">
 			<div>
@@ -32,7 +32,7 @@
 
 					<div class="note">
 						<p>Dé de niveau :
-							{{character.classe.dePv}}</p>
+							{{character.class.dicePv}}</p>
 					</div>
 
 				</div>
@@ -41,7 +41,7 @@
 
 					{{ form_widget(characterForm.pcMax)}}
 					<div class="note">
-						<p>Dé de niveau :{{character.classe.dePc}}</p>
+						<p>Dé de niveau :{{character.class.dicePc}}</p>
 					</div>
 				</div>
 				<div class="div-form">
@@ -49,7 +49,7 @@
 
 					{{ form_widget(characterForm.pmMax)}}
 					<div class="note">
-						<p>Dé de niveau :{{character.classe.dePm}}</p>
+						<p>Dé de niveau :{{character.class.dicePm}}</p>
 					</div>
 				</div>
 			</div>

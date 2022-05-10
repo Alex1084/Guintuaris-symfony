@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=BestiaryRepository::class)
  */
-class Bestiary extends Fiche
+class Bestiary extends Sheet
 {
     /**
      * @ORM\Column(type="text", nullable=true)

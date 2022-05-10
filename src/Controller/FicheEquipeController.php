@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
 use App\Entity\WeaponCharacter;
-use App\Repository\CompetenceRepository;
+use App\Repository\SkillRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -42,12 +42,12 @@ class FicheEquipeController extends AbstractController
      * @Route("/{idEquipe}/fiche/{characterId}", name="fiche_view")
      *
      */
-    public function fichePerso(int $idEquipe, int $characterId, CompetenceRepository $compRepo): Response
+    public function fichePerso(int $idEquipe, int $characterId, SkillRepository $skillRepository): Response
     {
         $repo = $this->getDoctrine()->getRepository(Character::class);
         $character = $repo->find($characterId);
         //requete pour les competence
-        $competences = $compRepo->findByLevel($character->getLevel(), $character->getClass()->getId());
+        $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
         $repo = $this->getDoctrine()->getRepository(ArmorPieceCharacter::class);
@@ -66,7 +66,7 @@ class FicheEquipeController extends AbstractController
             'idEquipe' => $idEquipe,
             'character' => $character,
             'statForm' => $statForm->createView(),
-            'competences' => $competences,
+            'skills' => $skills,
             'armor' => $armor,
             'weapons' => $weapons
         ]);

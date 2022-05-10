@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Character;
-use App\Entity\Classe;
+use App\Entity\Classes;
 use App\Entity\Race;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -94,8 +94,8 @@ class CharacterType extends AbstractType
             ]
         ])
         ->add('class', EntityType::class, [
-            'class' => Classe::class,
-            'choice_label' => 'nom'
+            'class' => Classes::class,
+            'choice_label' => 'name'
         ])
         ->add('race', EntityType::class, [
             'class' => Race::class,

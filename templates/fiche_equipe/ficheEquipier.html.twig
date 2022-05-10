@@ -25,7 +25,7 @@
 				<div class="div-detail-personnage">
 					<h1>{{ character.name }}</h1>
 					<h3>{{ character.race.nom }}</h3>
-					<h3>{{ character.class.nom }}</h3>
+					<h3>{{ character.class.name }}</h3>
 					<h3>Niveau
 						{{ character.level }}</h3>
 					<h5>{{character.team.nom}}
@@ -232,16 +232,16 @@
 		</div>
 		<div class="container">
 			<div class="div-competence">
-				{% for competence in competences %}
+				{% for skill in skills %}
 					<div class="competence">
 						<div class="dropdown">
 							<button class="dropbtn">
-								{{competence.nom}}
+								{{skill.name}}
 								,
-								{{competence.cout}}
+								{{skill.cost}}
 								<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
 							<div class="dropdown-content hidden">
-								<textarea readonly>{{ competence.description }}</textarea>
+								<textarea readonly>{{ skill.description }}</textarea>
 							</div>
 						</div>
 					</div>

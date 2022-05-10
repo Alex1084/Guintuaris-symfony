@@ -8,13 +8,12 @@ use App\Entity\ArmorType;
 use App\Entity\Bestiary;
 use App\Entity\BestiaryType;
 use App\Entity\Character;
-use App\Entity\Competence;
 use App\Entity\Equipe;
+use App\Entity\Skill;
 use App\Entity\Weapon;
 use App\Form\ArmorPieceType;
-use App\Form\BestiaireType;
 use App\Form\BestiaryFormType;
-use App\Form\CompetenceType;
+use App\Form\SkillFormType;
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -49,8 +48,8 @@ class AdminController extends AbstractController
      */
     public function competence(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $competence = new Competence();
-        $competenceForm = $this->createForm(CompetenceType::class, $competence);
+        $competence = new Skill();
+        $competenceForm = $this->createForm(SkillFormType::class, $competence);
 
         $competenceForm->handleRequest($request);
         if ($competenceForm->isSubmitted()) {

@@ -11,34 +11,44 @@
 		<div>
 			<h3 class="title-form">Géneral</h3>
 			<div class="row">
-				<div class="div-form">{{ form_label(competenceForm.nom) }}
+				<div class="div-form">{{ form_label(competenceForm.name) }}
 					
-					{{ form_widget(competenceForm.nom) }}
+					{{ form_widget(competenceForm.name) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.niveau) }}
+				<div class="div-form">{{ form_label(competenceForm.level) }}
 					
-					{{ form_widget(competenceForm.niveau) }}
+					{{ form_widget(competenceForm.level) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.classe) }}
+				<div class="div-form">{{ form_label(competenceForm.class) }}
 					
-					{{ form_widget(competenceForm.classe) }}
+					{{ form_widget(competenceForm.class) }}
 				</div>
 			</div>
 		</div>
 		<div>
 			<h3 class="title-form">Précisions</h3>
 			<div class="row">
-				<div class="div-form">{{ form_label(competenceForm.cout) }}
+				<div class="div-form">{{ form_label(competenceForm.cost) }}
 					
-					{{ form_widget(competenceForm.cout) }}
+					{{ form_widget(competenceForm.cost) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.portee) }}
+				<div class="div-form">{{ form_label(competenceForm.distance) }}
 					
-					{{ form_widget(competenceForm.portee) }}
+					{{ form_widget(competenceForm.distance) }}
 				</div>
-				<div class="div-form">{{ form_label(competenceForm.degat) }}
+				<div class="div-form">{{ form_label(competenceForm.damage) }}
 					
-					{{ form_widget(competenceForm.degat) }}
+					{{ form_widget(competenceForm.damage) }}
+				</div>
+			</div>
+			<div id="add-skill-row">
+				<div class="div-form">{{ form_label(competenceForm.duration) }}
+					
+					{{ form_widget(competenceForm.duration) }}
+				</div>
+				<div class="div-form">{{ form_label(competenceForm.radius) }}
+					
+					{{ form_widget(competenceForm.radius) }}
 				</div>
 			</div>
 		</div>
