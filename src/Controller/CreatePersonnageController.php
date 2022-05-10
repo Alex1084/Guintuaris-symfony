@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
-use App\Entity\Equipe;
+use App\Entity\Team;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
@@ -31,7 +31,7 @@ class CreatePersonnageController extends AbstractController
     {
         // requete pour recuperer l'equipe n°5  nom -> aucune
         $id = 5;
-        $repo = $this->getDoctrine()->getRepository(Equipe::class);
+        $repo = $this->getDoctrine()->getRepository(Team::class);
         $equipe = $repo->find($id);
 
 

@@ -4,15 +4,15 @@
 {% block body %}
     <h2>Fiches personnages</h2>
     <ul>
-    {% for equipe in equipes %}
+    {% for team in teams %}
         <li>
-            <a href="{{ path("admin_add_membre", {"idEquipe" : equipe.id}) }}">{{ equipe.nom }}</a>
+            <a href="{{ path("admin_add_membre", {"teamId" : team.id}) }}">{{ team.name }}</a>
         </li>
     {% endfor %}
     </ul>
 
-{{form_start(addEquipeForm) }}
-{{form_widget(addEquipeForm) }}
+{{form_start(addTeamForm) }}
+{{form_widget(addTeamForm) }}
 <button>Créer</button>
-{{form_end(addEquipeForm) }}
+{{form_end(addTeamForm) }}
 {% endblock %}

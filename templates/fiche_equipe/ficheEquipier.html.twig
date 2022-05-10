@@ -13,7 +13,7 @@
 
 
 {% block body %}
-	{% if idEquipe == character.team.id %}
+	{% if teamId == character.team.id %}
 		<div class="container">
 			<div class="row">
 				<div class="img-div">
@@ -24,11 +24,11 @@
 				</div>
 				<div class="div-detail-personnage">
 					<h1>{{ character.name }}</h1>
-					<h3>{{ character.race.nom }}</h3>
+					<h3>{{ character.race.name }}</h3>
 					<h3>{{ character.class.name }}</h3>
 					<h3>Niveau
 						{{ character.level }}</h3>
-					<h5>{{character.team.nom}}
+					<h5>{{character.team.name}}
 					</h5>
 
 				</div>

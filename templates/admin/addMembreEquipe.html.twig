@@ -12,9 +12,9 @@
 		<button>Ajouter !</button>
 		{{form_end(memberForm)}}
 		<ul>
-			{% for membre in membresEquipe %}
+			{% for member in teamMembers %}
 				<li>
-					<a href="{{ path("equipe_fiche_view", {"idEquipe" : membre.equipe.id, "idPersonnage" : membre.id}) }}">{{ membre.nom }}</a>
+					<a href="{{ path("equipe_fiche_view", {"teamId" : member.team.id, "characterId" : member.id}) }}">{{ member.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>

@@ -8,8 +8,8 @@ use App\Entity\ArmorType;
 use App\Entity\Bestiary;
 use App\Entity\BestiaryType;
 use App\Entity\Character;
-use App\Entity\Equipe;
 use App\Entity\Skill;
+use App\Entity\Team;
 use App\Entity\Weapon;
 use App\Form\ArmorPieceType;
 use App\Form\BestiaryFormType;
@@ -39,7 +39,6 @@ class AdminController extends AbstractController
         return $this->render('admin/admin.html.twig', []);
     }
 
-
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      * 
@@ -61,6 +60,7 @@ class AdminController extends AbstractController
             "competenceForm" => $competenceForm->createView()
         ]);
     }
+
     /**
      * permet d'ajouter une nouvel Piece d'armure dans la BDD (table armor_piece)
      * permet aussi d'afficher toute les instance de cette table
@@ -87,22 +87,23 @@ class AdminController extends AbstractController
             "piecesTab" => $piecesTab
         ]);
     }
+
     /**
      * affiche dans un select tout les personnage present dans l'equipe aucune
      * lorsque le formulaire est valider le persnnage selectioner changer d'equipe et a pour equipe celle selectionner dans la page admin_equipe_list
      * de plus la page affiche le nom de tout les personnage apartenent a l'equipe (les nom emmenent ensuite vers leur fiche)
      * 
-     * @Route("/ajout_membre/{idEquipe}", name="add_membre")
+     * @Route("/ajout_membre/{teamId}", name="add_membre")
      *
      */
-    public function addMembreEquipe(int $idEquipe, Request $request, EntityManagerInterface $entityManager): Response
+    public function addTeamMember(int $teamId, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $membresEquipe = $this->getDoctrine()->getRepository(Character::class)->findBy(['equipe' => $idEquipe]); //list des Memebre apartennant a cette equipe
-        $equipeJoin = $this->getDoctrine()->getRepository(Equipe::class)->find($idEquipe); //represente la L'equipe sur la quelle des membre vont etre ajouter
+        $teamMembers = $this->getDoctrine()->getRepository(Character::class)->findBy(['team' => $teamId]); //list des Memebre apartennant a cette equipe
+        $equipeJoin = $this->getDoctrine()->getRepository(Team::class)->find($teamId); //represente la L'equipe sur la quelle des membre vont etre ajouter
         $memberForm = $this->createFormBuilder()
             ->add('character', EntityType::class, [
                 'class' => Character::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'name',
                 'query_builder' => function (CharacterRepository $pr) {
                     return $pr->createQueryBuilder('c')
                         ->where('c.team = 5') //si l'equipe choisi est 5 (aucune), alors on recherche tout les joueurs apparteant a une Equipe 
@@ -113,16 +114,16 @@ class AdminController extends AbstractController
         $memberForm->handleRequest($request);
         if ($memberForm->isSubmitted()) {
             $characterSelectionner = $memberForm->get('personnage')->getData();
-            $characterSelectionner->setEquipe($equipeJoin);
+            $characterSelectionner->setTeam($equipeJoin);
             dump($characterSelectionner);
 
             $entityManager->persist($characterSelectionner);
             $entityManager->flush();
-            return $this->redirectToRoute('admin_add_membre', ['idEquipe' => $idEquipe]);
+            return $this->redirectToRoute('admin_add_membre', ['teamId' => $teamId]);
         }
         return $this->render('admin/addMembreEquipe.html.twig', [
             'memberForm' => $memberForm->createView(),
-            'membresEquipe' => $membresEquipe,
+            'teamMembers' => $teamMembers,
         ]);
     }
 
@@ -151,6 +152,7 @@ class AdminController extends AbstractController
             "creatureForm" => $creatureForm->createView(),
         ]);
     }
+
     /**
      * permet d'ajouter un nouveau type de bete dans la base de donné (table type_bestiaire)
      * affiche toute les instance se trouvant dans cette table
@@ -174,7 +176,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     /**
      * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
      * de plus un formulaire permet de créer une nouvelle equipe
@@ -182,18 +183,19 @@ class AdminController extends AbstractController
      *  @Route("/equipe", name="equipe_list")
      *
      */
-    public function listEquipeAdmin(Request $request, EntityManagerInterface $entityManager): Response
+    public function teamListAdmin(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $newEquipe = new Equipe();
-        $results = $this->createFormTable($newEquipe, $request, $entityManager);
+        $newTeam = new Team();
+        $results = $this->createFormTable($newTeam, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute("admin_add_membre", ['idEquipe' => $newEquipe->getId()]);
+            return $this->redirectToRoute("admin_add_membre", ['teamId' => $newTeam->getId()]);
         }
         return $this->render('admin/listEquipe.html.twig', [
-            'equipes' => $results['dataList'],
-            'addEquipeForm' => $results['formulaire']->createView()
+            'teams' => $results['dataList'],
+            'addTeamForm' => $results['formulaire']->createView()
         ]);
     }
+
     /**
      * permet d'ajouter un nouveau type d'armure dans la base de donné (table armor_type)
      * affiche toute les instance se trouvant dans cette table
@@ -213,6 +215,7 @@ class AdminController extends AbstractController
             'form' => $results['formulaire']->createView()
         ]);
     }
+
     /**
      *
      *  @Route("/list_localisation_armure", name="localisation_armure_list")
@@ -231,7 +234,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     /**
      * 
      * @Route("/list_arme", name="arme_list")
@@ -249,7 +251,6 @@ class AdminController extends AbstractController
             'form' => $results['formulaire']->createView()
         ]);
     }
-
 
     /**
      * Undocumented function

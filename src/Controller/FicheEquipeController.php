@@ -24,13 +24,13 @@ class FicheEquipeController extends AbstractController
      * cette page affiche la list des membre apartenent à l'equipe qui se trouve en parametre
      * l'objectif serais qu'un joueur qui n'a pas de personnage dans une equipe ne puisse pas y acceder par l'url
      * 
-     * @Route("/list/{idEquipe}", name="list")
+     * @Route("/list/{teamId}", name="list")
      *
      */
-    public function listEquipe(int $idEquipe): Response
+    public function teamMembersList(int $teamId): Response
     {
         $repo = $this->getDoctrine()->getRepository(Character::class);
-        $characters = $repo->findBy(['team' => $idEquipe], ['name' => 'ASC']);
+        $characters = $repo->findBy(['team' => $teamId], ['name' => 'ASC']);
         return $this->render('fiche_equipe/listEquipe.html.twig', [
             "characters" => $characters
         ]);
@@ -39,10 +39,10 @@ class FicheEquipeController extends AbstractController
      * cette page affiche une fiche de personnage qui ne peut pas être editer
      * le membre y on seulement un accee afin de pouvoir voir les fiche des membre de leur equipe
      * 
-     * @Route("/{idEquipe}/fiche/{characterId}", name="fiche_view")
+     * @Route("/{teamId}/fiche/{characterId}", name="fiche_view")
      *
      */
-    public function fichePerso(int $idEquipe, int $characterId, SkillRepository $skillRepository): Response
+    public function fichePerso(int $teamId, int $characterId, SkillRepository $skillRepository): Response
     {
         $repo = $this->getDoctrine()->getRepository(Character::class);
         $character = $repo->find($characterId);
@@ -63,7 +63,7 @@ class FicheEquipeController extends AbstractController
             ->getForm();
 
         return $this->render('fiche_equipe/ficheEquipier.html.twig', [
-            'idEquipe' => $idEquipe,
+            'teamId' => $teamId,
             'character' => $character,
             'statForm' => $statForm->createView(),
             'skills' => $skills,

@@ -32,7 +32,7 @@ class Character extends Sheet
     private $race;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Equipe::class)
+     * @ORM\ManyToOne(targetEntity=Team::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $team;
@@ -82,8 +82,8 @@ class Character extends Sheet
         return $this;
     }
 
-    public function getTeam(): ?Equipe { return $this->team; }
-    public function setTeam(?Equipe $team): self
+    public function getTeam(): ?Team { return $this->team; }
+    public function setTeam(?Team $team): self
     {
         $this->team = $team;
         return $this;

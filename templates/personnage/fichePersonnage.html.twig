@@ -25,11 +25,11 @@
 				<div class="div-detail-personnage">
 
 					<h1>{{ character.name }}</h1>
-					<h3>{{ character.race.nom }}</h3>
+					<h3>{{ character.race.name }}</h3>
 					<h3>{{ character.class.name }}</h3>
 					<h3>Niveau
 						{{ character.level }}</h3>
-					<a href="{{ path("equipe_list", {"idEquipe" :character.team.id})}}">{{character.team.nom}}</a>
+					<a href="{{ path("equipe_list", {"teamId" :character.team.id})}}">{{character.team.name}}</a>
 				</div>
 				<div class="div-lore">
 					<div class="dropdown">

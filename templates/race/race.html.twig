@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{race.nom}}
+	{{race.name}}
 	|
 	{{parent()}}
 {% endblock %}
@@ -9,14 +9,14 @@
 {% block body %}
 	<div class="container">
 		<h1 class="title">
-			{{race.nom}}
+			{{race.name}}
 		</h1>
 
 		<h2 class="sub-title">Description</h2>
 		<p class="content">{{ race.description}}</p>
 
 		<h2 class="sub-title">Aptitude</h2>
-		<p class="content">{{ race.aptitude}}</p>
+		<p class="content">{{ race.ability}}</p>
 
 		<h2 class="sub-title">Bonus</h2>
 		<p class="content">{{ race.bonus}}</p>

@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\EquipeRepository;
+use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=EquipeRepository::class)
+ * @ORM\Entity(repositoryClass=TeamRepository::class)
  */
-class Equipe
+class Team
 {
     /**
      * @ORM\Id
@@ -27,23 +27,15 @@ class Equipe
      *      max=50,
      * )
      */
-    private $nom;
+    private $name;
 
 
-    public function getId(): ?int
+    public function getId(): ?int { return $this->id; }
+
+    public function getName(): ?string { return $this->name; }
+    public function setName(string $name): self
     {
-        return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
+        $this->name = $name;
         return $this;
     }
 }

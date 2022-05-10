@@ -22,7 +22,7 @@ class Race
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $nom;
+    private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -32,7 +32,7 @@ class Race
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $aptitude;
+    private $ability;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -40,57 +40,33 @@ class Race
     private $bonus;
 
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function getNom(): ?string
+    public function getName(): ?string { return $this->name; }
+    public function setName(string $name): self
     {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
+        $this->name = $name;
         return $this;
     }
 
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
+    public function getDescription(): ?string { return $this->description; }
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
         return $this;
     }
 
-    public function getAptitude(): ?string
+    public function getAbility(): ?string { return $this->ability; }
+    public function setAbility(?string $ability): self
     {
-        return $this->aptitude;
-    }
-
-    public function setAptitude(?string $aptitude): self
-    {
-        $this->aptitude = $aptitude;
-
+        $this->ability = $ability;
         return $this;
     }
 
-    public function getBonus(): ?string
-    {
-        return $this->bonus;
-    }
-
+    public function getBonus(): ?string { return $this->bonus; }
     public function setBonus(?string $bonus): self
     {
         $this->bonus = $bonus;
-
         return $this;
     }
 }

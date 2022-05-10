@@ -99,7 +99,7 @@ class CharacterType extends AbstractType
         ])
         ->add('race', EntityType::class, [
             'class' => Race::class,
-            'choice_label' => 'nom'
+            'choice_label' => 'name'
         ]);
         ;
     }
