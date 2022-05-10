@@ -16,8 +16,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +28,7 @@ use Symfony\Component\Validator\Constraints\Image;
  * chacun des controller son lié au joueur qui possede le personnage 
  * donc toute les page ayant un id dans l'url ne doivent pas etre accessible par un joueur qui ne possede pas un personnage 
  * 
- * @Route("/personnage", name="personnage_")
+ * @Route("/personnage", name="character_")
  */
 class PersonnageController extends AbstractController
 {
@@ -100,10 +98,10 @@ class PersonnageController extends AbstractController
      * permet d'editer le champ lore du personnage passer en id 
      * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
      * 
-     * @Route("/{id}/lore", name="modif_lore")
+     * @Route("/{id}/lore", name="update_lore")
      *
      */
-    public function lore(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function Updatelore(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $repo = $this->getDoctrine()->getRepository(Character::class);
         $character = $repo->find($id);
@@ -132,7 +130,7 @@ class PersonnageController extends AbstractController
      * permet d'editer les statistique du personnage, son statut au max et son niveau
      * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
      * 
-     * @Route("/{id}/level_up", name="level_up")
+     * @Route("/{id}/level-up", name="level_up")
      *
      */
     public function levulUp(int $id, Request $request, EntityManagerInterface $entityManager): Response
@@ -192,16 +190,16 @@ class PersonnageController extends AbstractController
             ->getForm();
         $imageForm->handleRequest($request);
         if ($imageForm->isSubmitted()) {
-            $ancienneImage = $character->getImage();
-            $photo = $imageForm->get('image')->getData();
+            $oldImage = $character->getImage();
+            $newImage = $imageForm->get('image')->getData();
 
-            if ($ancienneImage != null) {
-                $this->removeFile($ancienneImage);
+            if ($oldImage != null) {
+                $this->removeFile($oldImage);
             }
-            if ($photo) {
-                $fichier = md5(uniqid()) . '.' . $photo->guessExtension();
-                $photo->move($this->getParameter('images_directory'), $fichier);
-                $character->setImage($fichier);
+            if ($newImage) {
+                $fileName = md5(uniqid()) . '.' . $newImage->guessExtension();
+                $newImage->move($this->getParameter('images_directory'), $fileName);
+                $character->setImage($fileName);
                 $entityManager->persist($character);
                 $entityManager->flush();
             }
@@ -217,10 +215,10 @@ class PersonnageController extends AbstractController
      * permet de creer un formulaire servant a modifier l'equipement d'un personnage
      * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
      * 
-     * @Route("/{id}/armure", name="modif_armure")
+     * @Route("/{id}/armure", name="update_armor")
      *
      */
-    public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $pr): Response
+    public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
     {
         $repo = $this->getDoctrine()->getRepository(Character::class);
         $character = $repo->find($id);
@@ -240,7 +238,7 @@ class PersonnageController extends AbstractController
             $armorForm->add($pieces[$i], EntityType::class, [
                 'class' => ArmorPiece::class,
                 'choice_label' => 'type.name',
-                'query_builder' => $this->optionType($i, $pr),
+                'query_builder' => $this->optionType($i, $armorPieceRepository),
                 'data' => $armor[$i - 1]->getPiece(),
                 'attr' => ['class' => 'input-form']
             ])
@@ -279,7 +277,7 @@ class PersonnageController extends AbstractController
      * permet de modifier les arme equiper par un personnage
      * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
      * 
-     * @Route("/{id}/arme", name="modif_arme")
+     * @Route("/{id}/arme", name="update_weapon")
      *
      */
     public function updateWeapon(int $id, Request $request, EntityManagerInterface $entityManager): Response
@@ -338,9 +336,9 @@ class PersonnageController extends AbstractController
      * cette fonction a pour but de retouver toute les piece d'armure ayant comme localisation l'identifient placer en parametre
      *
      */
-    private function optionType(int $id, ArmorPieceRepository $pr)
+    private function optionType(int $id, ArmorPieceRepository $armorPieceRepository)
     {
-        return $pr->createQueryBuilder('p')
+        return $armorPieceRepository->createQueryBuilder('p')
             ->where('p.location = :id')
             ->setParameter("id", $id);
     }

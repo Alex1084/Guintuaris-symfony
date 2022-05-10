@@ -14,7 +14,7 @@ class RaceController extends AbstractController
     /**
      * @Route("/race/{id}", name="race")
      */
-    public function race($id): Response
+    public function race(int $id): Response
     {
         $repo = $this->getDoctrine()->getRepository(Race::class);
         $race = $repo->find($id);
@@ -23,9 +23,9 @@ class RaceController extends AbstractController
         ]);
     }
      /**
-     * @Route("/classe/{id}", name="classe")
+     * @Route("/classe/{id}", name="class")
      */
-    public function classe($id): Response
+    public function classe(int $id): Response
     {
         $repo = $this->getDoctrine()->getRepository(Classes::class);
         $class = $repo->find($id);

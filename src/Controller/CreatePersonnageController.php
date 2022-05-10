@@ -24,15 +24,15 @@ class CreatePersonnageController extends AbstractController
      * avec comme idantifiant le personnage et un nombre allant de 1 à 7
      * et trois ligne sont créer pour les arme_personnage
      * 
-     * @Route("/personnage/creation", name="personnage_create")
+     * @Route("/personnage/creation", name="create_character")
      * 
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $repoArmorPiece): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
     {
         // requete pour recuperer l'equipe n°5  nom -> aucune
         $id = 5;
         $repo = $this->getDoctrine()->getRepository(Team::class);
-        $equipe = $repo->find($id);
+        $team = $repo->find($id);
 
 
         $character = new Character();
@@ -46,7 +46,7 @@ class CreatePersonnageController extends AbstractController
             // hydratation des champs 
             $character->setGold(0)
                        ->setUser($this->getUser())
-                       ->setTeam($equipe)
+                       ->setTeam($team)
                        ->setPv($character->getPvMax())
                        ->setPm($character->getPmMax())
                        ->setPc($character->getPcMax());
@@ -56,7 +56,7 @@ class CreatePersonnageController extends AbstractController
             $entityManager->flush();
 
             for ($i = 1; $i <= 7; $i++) {
-                $this->insertPiece($character, $i, $repoArmorPiece, $entityManager);
+                $this->insertPiece($character, $i, $armorPieceRepository, $entityManager);
             }
 
             for ($i = 1; $i <= 3; $i++) {
@@ -75,18 +75,18 @@ class CreatePersonnageController extends AbstractController
 
     /**
      * cette fonction permet d'inserrer une nouvelle ligne dans la table armor_piece_character
-     * le numEmplacement est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
+     * le locationNumber est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
      */
-    private function insertPiece(Character $character, int $numEmplacement, ArmorPieceRepository $repoArmorPiece, EntityManagerInterface $entityManager)
+    private function insertPiece(Character $character, int $locationNumber, ArmorPieceRepository $repoArmorPiece, EntityManagerInterface $entityManager)
     {
-        $pieceCharacter = new ArmorPieceCharacter();
-        $pieceCharacter->setCharact($character)
-                       ->setId($numEmplacement)
-                       ->setPiece($repoArmorPiece->getArmorbyLocation(12, $numEmplacement)); //  12 : type enlever et $numEmplacement : emplacement (allant de 1 a 7)
+        $armorPieceCharacter = new ArmorPieceCharacter();
+        $armorPieceCharacter->setCharact($character)
+                       ->setId($locationNumber)
+                       ->setPiece($repoArmorPiece->getArmorbyLocation(12, $locationNumber)); //  12 : type enlever et $locationNumber : emplacement (allant de 1 a 7)
 
-        $entityManager->persist($pieceCharacter);
+        $entityManager->persist($armorPieceCharacter);
         $entityManager->flush();
     }
 

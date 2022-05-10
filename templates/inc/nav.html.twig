@@ -20,19 +20,19 @@
 			<li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Classes</button></li>
 			<div class="drop-nav-content">
 				<ul>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 1 } )}}">Guerrier</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 2 } )}}">Clerc</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 3 } )}}">Assassin</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 4 } )}}">Herboriste</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 5 } )}}">Mage</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 6 } )}}">Rodeur</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 7 } )}}">Pretre</a></li>
-					<li class="nav-item"><a href="{{ path('classe', {'id' : 8 } )}}">Ingenieur</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 1 } )}}">Guerrier</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 2 } )}}">Clerc</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 3 } )}}">Assassin</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 4 } )}}">Herboriste</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 5 } )}}">Mage</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 6 } )}}">Rodeur</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 7 } )}}">Pretre</a></li>
+					<li class="nav-item"><a href="{{ path('class', {'id' : 8 } )}}">Ingenieur</a></li>
 				</ul>
 			</div>
 		</div>
 		{% if app.user %}
-			<li class="nav-item"><a href="{{path('personnage_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a></li>
+			<li class="nav-item"><a href="{{path('character_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a></li>
 
 			{% if is_granted("ROLE_ADMIN") %}
 				<li class="nav-item"><a href="{{path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Admin</a></li>

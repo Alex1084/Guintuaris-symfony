@@ -23,9 +23,9 @@
 						<button class="dropbtn nav-btn">Monstres</button>
 						<div class="dropdown-content hidden">
 							<ul>
-								{% for monstre in monstres %}
+								{% for creatures in creatures %}
 									<li>
-										<a href="{{ path('summon', {"id" : monstre.id})}}" class="js-like">{{monstre.name}}</a>
+										<a href="{{ path('summon', {"id" : creature.id})}}" class="js-like">{{creature.name}}</a>
 									</li>
 								{% endfor %}
 							</ul>
@@ -39,7 +39,7 @@
 						</button>
 						<div class="dropdown-content hidden">
 							<ul>
-								{% for animal in animaux %}
+								{% for animal in animals %}
 									<li>
 										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.name}}</a>
 									</li>

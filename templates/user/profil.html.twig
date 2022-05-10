@@ -14,8 +14,8 @@
         <p>Nom: {{ user.nom }}</p>
 
         <h3>Mes personnages: </h3>
-        <a href="{{ path("personnage_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a>
-    {% else%}
+        <a href="{{ path("character_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a>
+    {% else %}
         <p>Infos filtrés</p>
     {% endif %}
 

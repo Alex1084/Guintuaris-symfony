@@ -20,7 +20,7 @@
 					<div>
 						<img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="200">
 					</div>
-					<a href="{{ path("personnage_change_image", {'id' : character.id})}}">Changer d'image</a>
+					<a href="{{ path("character_change_image", {'id' : character.id})}}">Changer d'image</a>
 				</div>
 				<div class="div-detail-personnage">
 
@@ -38,7 +38,7 @@
 						<div class=" hidden dropdown-content">
 							<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
 						</div>
-						<a href="{{ path("personnage_modif_lore", {"id" :character.id}) }}" id="lore-link">Modifier le lore</a>
+						<a href="{{ path("character_update_lore", {"id" :character.id}) }}" id="lore-link">Modifier le lore</a>
 					</div>
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 				</div>
 				<div class="div-statut">
 					<div>
-						<a href="{{path("personnage_level_up", {"id" :character.id})}}">Level up !</a>
+						<a href="{{path("character_level_up", {"id" :character.id})}}">Level up !</a>
 					</div>
 					<div class="statut">
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
@@ -186,7 +186,7 @@
 				<div>
 					<div>
 						<div>
-							<a href="{{ path("personnage_modif_armure", {"id" : character.id}) }}" class="titre-table">
+							<a href="{{ path("character_update_armor", {"id" : character.id}) }}" class="titre-table">
 								<h2>Armure</h2>
 							</a>
 						</div>
@@ -218,7 +218,7 @@
 
 				<div>
 					<div>
-						<a href="{{ path("personnage_modif_arme", {"id" : character.id}) }}" class="titre-table">
+						<a href="{{ path("character_update_weapon", {"id" : character.id}) }}" class="titre-table">
 
 							<h2>Arme</h2>
 						</a>

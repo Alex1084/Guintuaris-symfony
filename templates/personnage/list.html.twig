@@ -7,11 +7,11 @@
     <ul>
     {% for character in characters %}
         <li>
-            <a href="{{ path("personnage_view", {"id" : character.id}) }}">{{ character.name }}</a>
+            <a href="{{ path("character_view", {"id" : character.id}) }}">{{ character.name }}</a>
         </li>
     {% endfor %}
     </ul>
         <hr/>
-        <a href="{{ path("personnage_create")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Nouveau personnage</a>
+        <a href="{{ path("create_character")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Nouveau personnage</a>
 
 {% endblock %}

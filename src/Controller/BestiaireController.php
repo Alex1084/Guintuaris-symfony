@@ -19,17 +19,17 @@ class BestiaireController extends AbstractController
      * affiche un page qui permet d'afficher des carte de bete se trouvant dans le bestiaire
      * cette page est utile au mj uniquement durant des partie
      * 
-     * @Route("admin/board", name="bestiaire")
+     * @Route("admin/board", name="board")
      * 
      * 
      */
-    public function index(BestiaryRepository $bRepo): Response
+    public function index(BestiaryRepository $bestiaryRepository): Response
     {
-        $monstres = $bRepo->findAllName(1);
-        $animaux = $bRepo->findAllName(2);
+        $creatures = $bestiaryRepository->findAllName(1);
+        $animals = $bestiaryRepository->findAllName(2);
         return $this->render('bestiaire/mjboard.html.twig', [
-            'monstres' => $monstres,
-            'animaux' => $animaux
+            'creatures' => $creatures,
+            'animals' => $animals
         ]);
     }
 
@@ -42,10 +42,10 @@ class BestiaireController extends AbstractController
      */
     public function beteToJson(int $id): Response
     {
-        $bete = $this->getDoctrine()->getRepository(Bestiary::class)->find($id);
+        $creature = $this->getDoctrine()->getRepository(Bestiary::class)->find($id);
         //dd($bete);
         return $this->json(
-            $bete,
+            $creature,
             200,
             /* [],
             ['groups' => ["read", "note"]] */
