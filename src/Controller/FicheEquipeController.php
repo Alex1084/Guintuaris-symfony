@@ -7,12 +7,7 @@ use App\Entity\Character;
 use App\Entity\WeaponCharacter;
 use App\Repository\CharacterRepository;
 use App\Repository\SkillRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,7 +27,8 @@ class FicheEquipeController extends AbstractController
     {
         $characters = $characterRepository->findNameByTeam($teamId);
         return $this->render('fiche_equipe/listEquipe.html.twig', [
-            "characters" => $characters
+            "characters" => $characters,
+            "teamId" => $teamId,
         ]);
     }
     /**
@@ -53,16 +49,10 @@ class FicheEquipeController extends AbstractController
         $weapons = $this->getDoctrine()->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
 
         // creation d'un formulaire en readonly pour voir le statut
-        $statForm = $this->get('form.factory')->createNamedBuilder('stat', FormType::class, $character)
-            ->add('pv', IntegerType::class)
-            ->add('pm', IntegerType::class)
-            ->add('pc', IntegerType::class)
-            ->getForm();
 
         return $this->render('fiche_equipe/ficheEquipier.html.twig', [
             'teamId' => $teamId,
             'character' => $character,
-            'statForm' => $statForm->createView(),
             'skills' => $skills,
             'armor' => $armor,
             'weapons' => $weapons

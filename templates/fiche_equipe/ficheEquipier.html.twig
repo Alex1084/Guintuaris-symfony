@@ -86,14 +86,13 @@
 
 				</div>
 				<div class="div-statut">
-					{{ form_start(statForm) }}
 					<div
 						class="statut">
 
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
 						<label for="pv" class="label label-statut">PV
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pv) }}" name="{{ field_name(statForm.pv) }}" value="{{character.pv}}" readonly>
+						<input type="number" class="numerique" id="" name="number" value="{{character.pv}}" readonly>
 						<span class="max">/
 							{{character.pvMax}}</span>
 
@@ -106,7 +105,7 @@
 
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pm" class="label label-statut">PM</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pm) }}" name="{{ field_name(statForm.pm) }}" value="{{character.pm}}" readonly>
+						<input type="number" class="numerique" id="" name="" value="{{character.pm}}" readonly>
 
 						<span class="max">/
 							{{character.pmMax}}</span>
@@ -120,7 +119,7 @@
 						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 						<label for="pc" class="label label-statut">PC
 						</label>
-						<input type="integer" class="numerique" id="{{ field_name(statForm.pc) }}" name="{{ field_name(statForm.pc) }}" value="{{character.pc}}" readonly>
+						<input type="number" class="numerique" id="" name="" value="{{character.pc}}" readonly>
 
 						<span class="max">/
 							{{character.pcMax}}</span>
@@ -128,7 +127,6 @@
 						<!-- ~~~~~~ bar de mana ~~~~~~ -->
 						<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
 					</div>
-					{{ form_end(statForm) }}
 				</div>
 			</div>
 			<div class="row">
@@ -146,7 +144,7 @@
 			</div>
 		</div>
 		<div class="container">
-			<select name="" id="stat">
+			<select name="" id="select-stat">
 				<option value="{{character.constitution}}">Constitution</option>
 				<option value="{{character.strength}}">Force</option>
 				<option value="{{character.dexterity}}">Dextérité</option>
@@ -255,6 +253,5 @@
 {% endblock %}
 {% block script %}
 	<script src="{{asset('script/dropdown.js')}}"></script>
-	<script src="{{asset('script/bar.js')}}"></script>
 	<script src="{{asset('script/de.js')}}"></script>
 {% endblock %}
