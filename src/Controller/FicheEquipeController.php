@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/equipe", name="equipe_")
+ * @Route("/equipe", name="team_")
  */
 class FicheEquipeController extends AbstractController
 {
@@ -35,7 +35,7 @@ class FicheEquipeController extends AbstractController
      * cette page affiche une fiche de personnage qui ne peut pas être editer
      * le membre y on seulement un accee afin de pouvoir voir les fiche des membre de leur equipe
      * 
-     * @Route("/{teamId}/fiche/{characterId}", name="fiche_view")
+     * @Route("/{teamId}/fiche/{characterId}", name="sheet_view")
      *
      */
     public function fichePerso(int $teamId, int $characterId, SkillRepository $skillRepository): Response

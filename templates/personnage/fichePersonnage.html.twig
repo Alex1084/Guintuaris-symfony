@@ -27,9 +27,10 @@
 					<h1>{{ character.name }}</h1>
 					<h3>{{ character.race.name }}</h3>
 					<h3>{{ character.class.name }}</h3>
-					<h3>Niveau
-						{{ character.level }}</h3>
-					<a href="{{ path("equipe_list", {"teamId" :character.team.id})}}">{{character.team.name}}</a>
+					<h3>Niveau {{ character.level }}</h3>
+					{% if character.team %}
+						<a href="{{ path("team_list", {"teamId" :character.team.id})}}">{{character.team.name}}</a>
+					{% endif %}
 				</div>
 				<div class="div-lore">
 					<div class="dropdown">

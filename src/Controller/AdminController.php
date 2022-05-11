@@ -105,7 +105,7 @@ class AdminController extends AbstractController
                 'choice_label' => 'name',
                 'query_builder' => function (CharacterRepository $pr) {
                     return $pr->createQueryBuilder('c')
-                        ->where('c.team = 5') //si l'equipe choisi est 5 (aucune), alors on recherche tout les joueurs apparteant a une Equipe 
+                        ->where('c.team IS NULL')
                         ->orderBy('c.name', 'ASC');
                 }
             ])

@@ -92,7 +92,7 @@ class PersonnageController extends AbstractController
 
     /**
      * permet d'editer le champ lore du personnage passer en id 
-     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * une fois le formulaire valider on redirige l'utilisateur vers character_view
      * 
      * @Route("/{id}/lore", name="update_lore")
      *
@@ -114,7 +114,7 @@ class PersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
             //
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["id" => $id]);
         }
         return $this->render('personnage/lore.html.twig', [
             "loreForm" => $loreForm->createView(),
@@ -124,7 +124,7 @@ class PersonnageController extends AbstractController
 
     /**
      * permet d'editer les statistique du personnage, son statut au max et son niveau
-     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * une fois le formulaire valider on redirige l'utilisateur vers character_view
      * 
      * @Route("/{id}/level-up", name="level_up")
      *
@@ -153,7 +153,7 @@ class PersonnageController extends AbstractController
             //
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["id" => $id]);
         }
         return $this->render('personnage/levelup.html.twig', [
             "characterForm" => $characterForm->createView(),
@@ -163,7 +163,7 @@ class PersonnageController extends AbstractController
 
     /**
      * permet d'editer la photo de "profil" du personnage
-     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * une fois le formulaire valider on redirige l'utilisateur vers character_view
      * 
      * @Route("/{id}/image", name="change_image")
      *
@@ -198,7 +198,7 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($character);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["id" => $id]);
         }
         return $this->render('personnage/changeImage.html.twig', [
             "imageForm" => $imageForm->createView(),
@@ -208,7 +208,7 @@ class PersonnageController extends AbstractController
 
     /**
      * permet de creer un formulaire servant a modifier l'equipement d'un personnage
-     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * une fois le formulaire valider on redirige l'utilisateur vers character_view
      * 
      * @Route("/{id}/armure", name="update_armor")
      *
@@ -259,7 +259,7 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($armor[$i - 1]);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["id" => $id]);
         }
         return $this->render('personnage/equipement.html.twig', [
             'armorForm' => $armorForm->createView(),
@@ -269,7 +269,7 @@ class PersonnageController extends AbstractController
 
     /**
      * permet de modifier les arme equiper par un personnage
-     * une fois le formulaire valider on redirige l'utilisateur vers personnage_view
+     * une fois le formulaire valider on redirige l'utilisateur vers character_view
      * 
      * @Route("/{id}/arme", name="update_weapon")
      *
@@ -317,7 +317,7 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($weapons[$i - 1]);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('personnage_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["id" => $id]);
         }
         return $this->render('personnage/arme.html.twig', [
             'weaponForm' => $weaponForm->createView(),

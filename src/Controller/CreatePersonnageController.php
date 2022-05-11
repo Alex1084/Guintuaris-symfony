@@ -29,12 +29,6 @@ class CreatePersonnageController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
     {
-        // requete pour recuperer l'equipe n°5  nom -> aucune
-        $id = 5;
-        $repo = $this->getDoctrine()->getRepository(Team::class);
-        $team = $repo->find($id);
-
-
         $character = new Character();
         $characterForm = $this->createForm(CharacterType::class, $character);
 
@@ -46,7 +40,6 @@ class CreatePersonnageController extends AbstractController
             // hydratation des champs 
             $character->setGold(0)
                        ->setUser($this->getUser())
-                       ->setTeam($team)
                        ->setPv($character->getPvMax())
                        ->setPm($character->getPmMax())
                        ->setPc($character->getPcMax());
@@ -65,7 +58,7 @@ class CreatePersonnageController extends AbstractController
 
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('personnage_view', ["id" => $character->getId()]);
+            return $this->redirectToRoute('character_view', ["id" => $character->getId()]);
         }
         return $this->render('personnage/creation.html.twig', [
             "characterForm" => $characterForm->createView()

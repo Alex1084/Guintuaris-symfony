@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\AdminCRUD;
 
 use App\Entity\ArmorLocation;
 use App\Entity\ArmorType;
@@ -28,6 +28,8 @@ class AdminTableController extends AbstractController
      */
     public function addBestiaryType(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $restict = true;
+        $pathDeleteName = "admin_delete_bestiary_type";
         $newType = new BestiaryType();
 
         $results = $this->createFormTable($newType, $request, $entityManager);
@@ -38,7 +40,8 @@ class AdminTableController extends AbstractController
         //dd($results['formulaire']);
         return $this->render('admin/listTable.html.twig', [
             'list' => $results['dataList'],
-            'form' => $results['formulaire']->createView()
+            'form' => $results['formulaire']->createView(),
+            'pathDeleteName' => $pathDeleteName
         ]);
     }
     /**
@@ -50,6 +53,7 @@ class AdminTableController extends AbstractController
      */
     public function teamListAdmin(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $pathDeleteName = "admin_delete_team";
         $newTeam = new Team();
         $results = $this->createFormTable($newTeam, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
@@ -57,7 +61,8 @@ class AdminTableController extends AbstractController
         }
         return $this->render('admin/listEquipe.html.twig', [
             'teams' => $results['dataList'],
-            'addTeamForm' => $results['formulaire']->createView()
+            'addTeamForm' => $results['formulaire']->createView(),
+            'pathDeleteName' => $pathDeleteName
         ]);
     }
 
@@ -70,6 +75,7 @@ class AdminTableController extends AbstractController
      */
     public function addArmorType(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $restrict = true;
         $newType = new ArmorType();
         $results = $this->createFormTable($newType, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
@@ -77,7 +83,8 @@ class AdminTableController extends AbstractController
         }
         return $this->render('admin/listTable.html.twig', [
             'list' => $results['dataList'],
-            'form' => $results['formulaire']->createView()
+            'form' => $results['formulaire']->createView(),
+            'restrict' => $restrict
         ]);
     }
 
@@ -88,6 +95,7 @@ class AdminTableController extends AbstractController
      */
     public function addArmorLocation(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $restrict = true;
         $newLoca = new ArmorLocation();
         $results = $this->createFormTable($newLoca, $request, $entityManager);
         if ($results['formulaire']->isSubmitted()) {
@@ -95,7 +103,8 @@ class AdminTableController extends AbstractController
         }
         return $this->render('admin/listTable.html.twig', [
             'list' => $results['dataList'],
-            'form' => $results['formulaire']->createView()
+            'form' => $results['formulaire']->createView(),
+            'restrict' => $restrict
         ]);
     }
 

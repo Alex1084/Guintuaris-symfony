@@ -6,17 +6,34 @@
 
 {% block body %}
 	<h2>Fiches personnages</h2>
-	<ul>
-		{% for element in list %}
+	<div class="container">
+		<table class="tableau">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+			</tr>
+			{% for element in list %}
 
-			<li>
-				{{ element.name }}
-			</li>
-		{% endfor %}
-	</ul>
-
+				<tr>
+					<th> {{element.id}} </th>
+					<th> {{ element.name }} </th>
+					{% if restrict is not defined %}
+						<th>
+								<a class="ajax-delete-link alert" href="{{ path(pathDeleteName,  { "id": element.id}) }}">Supprimer</a>
+						</th>
+					{% endif %}
+				</tr>
+					
+			{% endfor %}
+		</table>
+	</div>
 	{{form_start(form) }}
 	{{form_widget(form) }}
 	<button>Créer</button>
 	{{form_end(form) }}
+{% endblock %}
+
+{% block script %}
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="{{ asset("script/delete.js")}}"></script>
 {% endblock %}

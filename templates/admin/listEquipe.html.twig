@@ -7,6 +7,7 @@
     {% for team in teams %}
         <li>
             <a href="{{ path("admin_add_member", {"teamId" : team.id}) }}">{{ team.name }}</a>
+            <a class="ajax-delete-link" href="{{ path(pathDeleteName,  { "id": team.id}) }}">Supprimer</a>
         </li>
     {% endfor %}
     </ul>
@@ -15,4 +16,9 @@
 {{form_widget(addTeamForm) }}
 <button>Créer</button>
 {{form_end(addTeamForm) }}
+{% endblock %}
+
+{% block script %}
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="{{ asset("script/delete.js")}}"></script>
 {% endblock %}

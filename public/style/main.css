@@ -132,6 +132,9 @@ a:hover{
     color: white;
 }
 
+.ajax-delete-link{
+    color: #aa0000;
+}
 .container{
     margin: 1% 5%;
 }

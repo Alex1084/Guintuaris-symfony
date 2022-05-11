@@ -33,7 +33,7 @@ class Character extends Sheet
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $team;
 

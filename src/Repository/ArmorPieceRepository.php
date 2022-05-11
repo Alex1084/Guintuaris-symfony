@@ -28,7 +28,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
             ->innerJoin(ArmorType::class, 'at', Join::WITH, 'ap.type = at.id')
             ->where('at.name = :name')
             ->setParameter('name', $typeName)
-            ->andWhere('a.location = :empla')
+            ->andWhere('ap.location = :empla')
             ->setParameter('empla', $locationId)
             ->getQuery();
         return $query->getSingleResult();
@@ -44,7 +44,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-    private function optionType(int $id)
+    public function optionType(int $id)
     {
         return $this->createQueryBuilder('p')
             ->where('p.location = :id')
