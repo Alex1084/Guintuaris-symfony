@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Ajouter une compétence |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(weaponForm) }}
+		<div>
+			<h3 class="title-form">Arme</h3>
+			<div class="row">
+				<div class="div-form">{{ form_label(weaponForm.name) }}
+					
+					{{ form_widget(weaponForm.name) }}
+				</div>
+				<div class="div-form">{{ form_label(weaponForm.damage) }}
+					
+					{{ form_widget(weaponForm.damage) }}
+				</div>
+				<div class="div-form">{{ form_label(weaponForm.dice) }}
+					
+					{{ form_widget(weaponForm.dice) }}
+				</div>
+			</div>
+		</div>
+
+		<button class="valid-form">Valider !</button>
+		{{form_end(weaponForm)}}
+	</div>
+{% endblock %}

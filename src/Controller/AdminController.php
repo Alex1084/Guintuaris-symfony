@@ -130,22 +130,4 @@ class AdminController extends AbstractController
             "creatureForm" => $creatureForm->createView(),
         ]);
     }
-
-    /**
-     * 
-     * @Route("/liste-armes", name="weapon_list")
-     *
-     */
-    public function addWeapon(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $newWeapon = new Weapon();
-        $results = null;
-        if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute('admin_arme_list');
-        }
-        return $this->render('admin/listTable.html.twig', [
-            'list' => $results['dataList'],
-            'form' => $results['formulaire']->createView()
-        ]);
-    }
 }

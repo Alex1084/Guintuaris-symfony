@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin", name="admin_")
  */
-class AdminSkillController extends AbstractController
+class SkillController extends AbstractController
 {
 
      /**

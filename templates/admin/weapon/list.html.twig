@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Les équipes |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<h2>Fiches personnages</h2>
+	<div class="container">
+    <div class="">
+        <a href="{{ path("admin_add_weapon")}}">Creer une Nouvelle Competence</a>
+    </div>
+		<table class="tableau">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+                <th>Dégats</th>
+                <th>Dé</th>
+                <th></th>
+                <th></th>
+			</tr>
+			{% for weapon in weapons %}
+
+				<tr>
+					<th> {{weapon.id}} </th>
+					<th> {{ weapon.name }} </th>
+					<th> {{ weapon.damage }} </th>
+					<th> {{ weapon.dice }} </th>
+                    <th>
+                        <a href="{{ path("admin_update_weapon", {'weaponId' : weapon.id}) }}">Modifier</a>
+                    </th>
+                    <th>
+                        <a class="ajax-delete-link alert" href="{{ path("admin_delete_weapon", {'weaponId' : weapon.id}) }}">Supprimer</a>
+                    </th>
+				</tr>
+					
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
+
+
+{% block script %}
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="{{ asset("script/delete.js")}}"></script>
+{% endblock %}
