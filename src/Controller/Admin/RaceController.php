@@ -19,7 +19,7 @@ class RaceController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      * 
-     * @Route("/ajouter-competence", name="add_race")
+     * @Route("/ajouter-race", name="add_race")
      *
      */
     public function addRace(Request $request, EntityManagerInterface $entityManager): Response
@@ -42,7 +42,7 @@ class RaceController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      * 
-     * @Route("/competence-list", name="race_list")
+     * @Route("/race-list", name="race_list")
      *
      */
     public function raceList(RaceRepository $raceRepository): Response
@@ -56,7 +56,7 @@ class RaceController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      * 
-     * @Route("/modifier-competence/{raceId}", name="update_race")
+     * @Route("/modifier-race/{raceId}", name="update_race")
      *
      */
     public function updateRace(int $raceId, Request $request, EntityManagerInterface $entityManager): Response

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Ajouter une compétence |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(skillForm) }}
+		<div>
+			<h3 class="title-form">Géneral</h3>
+			<div class="row">
+				<div class="div-form">{{ form_label(skillForm.name) }}
+					
+					{{ form_widget(skillForm.name) }}
+				</div>
+				<div class="div-form">{{ form_label(skillForm.level) }}
+					
+					{{ form_widget(skillForm.level) }}
+				</div>
+				<div class="div-form">{{ form_label(skillForm.class) }}
+					
+					{{ form_widget(skillForm.class) }}
+				</div>
+			</div>
+		</div>
+		<div>
+			<h3 class="title-form">Précisions</h3>
+			<div class="row">
+				<div class="div-form">{{ form_label(skillForm.cost) }}
+					
+					{{ form_widget(skillForm.cost) }}
+				</div>
+				<div class="div-form">{{ form_label(skillForm.distance) }}
+					
+					{{ form_widget(skillForm.distance) }}
+				</div>
+				<div class="div-form">{{ form_label(skillForm.damage) }}
+					
+					{{ form_widget(skillForm.damage) }}
+				</div>
+			</div>
+			<div id="add-skill-row">
+				<div class="div-form">{{ form_label(skillForm.duration) }}
+					
+					{{ form_widget(skillForm.duration) }}
+				</div>
+				<div class="div-form">{{ form_label(skillForm.radius) }}
+					
+					{{ form_widget(skillForm.radius) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="textarea-form">
+				<h3 class="title-form">
+					{{ form_label(skillForm.description) }}
+				</h3>
+				
+				{{ form_widget(skillForm.description) }}
+
+			</div>
+		</div>
+
+		<button class="valid-form">Valider !</button>
+		{{form_end(skillForm)}}
+	</div>
+{% endblock %}

@@ -18,4 +18,12 @@ class ClassesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Classes::class);
     }
+
+
+    public function classList()
+    {
+        return $this->createQueryBuilder('c')
+        ->select('c.name, c.id')
+        ->getQuery()->getResult();
+    }
 }

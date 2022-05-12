@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Ajouter une compétence |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(classForm) }}
+			<div>
+				<h3 class="title-form">Géneral</h3>
+				<div>
+					<div class="div-form">{{ form_label(classForm.name) }}
+						
+						{{ form_widget(classForm.name) }}
+					</div>
+				</div>
+			</div>
+
+		<div class="row">	
+			<div class="div-form">{{ form_label(classForm.dicePv) }}
+				
+				{{ form_widget(classForm.dicePv) }}
+			</div>
+
+			<div class="div-form">{{ form_label(classForm.dicePm) }}
+				
+				{{ form_widget(classForm.dicePm) }}
+			</div>
+			<div class="div-form">{{ form_label(classForm.dicePc) }}
+				
+				{{ form_widget(classForm.dicePc) }}
+			</div>
+		</div>
+
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(classForm.description) }}
+					</h3>
+					
+					{{ form_widget(classForm.description) }}
+
+				</div>
+			</div>
+
+		<button class="valid-form">Valider !</button>
+		{{form_end(classForm)}}
+	</div>
+{% endblock %}
