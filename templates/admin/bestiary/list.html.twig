@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Les équipes |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<h2>Fiches personnages</h2>
+	<div class="container">
+    <div class="">
+        <a href="{{ path("admin_add_bestiary")}}">Creer une Nouvelle Competence</a>
+    </div>
+		<table class="tableau">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+                <th>Niveau</th>
+                <th>Type</th>
+                <th></th>
+                <th></th>
+			</tr>
+			{% for creature in creatures %}
+
+				<tr>
+					<th> {{creature.id}} </th>
+					<th> {{ creature.name }} </th>
+					<th> {{ creature.typeName }} </th>
+					<th> {{ creature.level }} </th>
+                    <th>
+                        <a href="{{ path("admin_update_bestiary", {'bestiaryId' : creature.id}) }}">Modifier</a>
+                    </th>
+                    <th>
+                        <a class="ajax-delete-link alert" href="{{ path("admin_delete_bestiary", {'bestiaryId' : creature.id}) }}">Supprimer</a>
+                    </th>
+				</tr>
+					
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
+
+
+{% block script %}
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="{{ asset("script/delete.js")}}"></script>
+{% endblock %}

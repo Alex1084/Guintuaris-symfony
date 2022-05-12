@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Bestiary;
+use App\Entity\BestiaryType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,5 +27,15 @@ class BestiaryRepository extends ServiceEntityRepository
         $dql = "SELECT b.id, b.name FROM App\Entity\Bestiary b WHERE b.type = :type ORDER BY b.name";
         $query = $entityManager->createQuery($dql)->setParameter('type', $type);
         return $query->getResult();
+    }
+
+    public function bestiaryList(string $search = null)
+    {
+        $query = $this->createQueryBuilder('b')
+        ->select('b.id, b.name, b.level, bt.name AS typeName')
+        ->innerJoin(BestiaryType::class, 'bt', Join::WITH, 'bt.id = b.type')
+        ->where('b.name LIKE :search')
+        ->setParameter('search', '%'.$search.'%');
+        return $query->getQuery()->getResult();
     }
 }
