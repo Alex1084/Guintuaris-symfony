@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Ajouter une compétence |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(raceForm) }}
+			<div>
+				<h3 class="title-form">Géneral</h3>
+				<div>
+					<div class="div-form">{{ form_label(raceForm.name) }}
+						
+						{{ form_widget(raceForm.name) }}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(raceForm.description) }}
+					</h3>
+					
+					{{ form_widget(raceForm.description) }}
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(raceForm.ability) }}
+					</h3>
+					
+					{{ form_widget(raceForm.ability) }}
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(raceForm.bonus) }}
+					</h3>
+					
+					{{ form_widget(raceForm.bonus) }}
+
+				</div>
+			</div>
+
+		<button class="valid-form">Valider !</button>
+		{{form_end(raceForm)}}
+	</div>
+{% endblock %}

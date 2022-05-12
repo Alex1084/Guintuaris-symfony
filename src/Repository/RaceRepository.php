@@ -18,4 +18,12 @@ class RaceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Race::class);
     }
+
+
+    public function raceList()
+    {
+        return $query = $this->createQueryBuilder('r')
+            ->select('r.id, r.name')
+            ->getQuery()->getResult();
+    }
 }
