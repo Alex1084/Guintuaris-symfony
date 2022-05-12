@@ -20,13 +20,13 @@ class WeaponCharacter
     /**
      * @ORM\Id 
      * @ORM\ManyToOne(targetEntity=Character::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $charact;
 
     /**
      * @ORM\ManyToOne(targetEntity=Weapon::class)
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $weapon;
 

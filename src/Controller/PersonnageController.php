@@ -99,8 +99,7 @@ class PersonnageController extends AbstractController
      */
     public function Updatelore(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Character::class);
-        $character = $repo->find($id);
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
         $loreForm = $this->createFormBuilder($character)
             ->add('lore', TextareaType::class, [
                 'required' => false,

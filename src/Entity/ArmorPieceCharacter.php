@@ -19,7 +19,7 @@ class ArmorPieceCharacter
     /**
      * @ORM\Id 
      * @ORM\ManyToOne(targetEntity=Character::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $charact;
 
