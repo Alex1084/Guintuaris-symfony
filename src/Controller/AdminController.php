@@ -40,28 +40,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/add-competence", name="add_skill")
-     *
-     */
-    public function addSkill(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $skill = new Skill();
-        $skillForm = $this->createForm(SkillFormType::class, $skill);
-
-        $skillForm->handleRequest($request);
-        if ($skillForm->isSubmitted()) {
-
-            $entityManager->persist($skill);
-            $entityManager->flush();
-        }
-        return $this->render('admin/addcompetence.html.twig', [
-            "skillForm" => $skillForm->createView()
-        ]);
-    }
-
-    /**
      * permet d'ajouter une nouvel Piece d'armure dans la BDD (table armor_piece)
      * permet aussi d'afficher toute les instance de cette table
      * 

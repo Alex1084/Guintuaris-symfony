@@ -274,7 +274,7 @@ select:hover{
 
 .tableau{
     margin: auto;
-    width: 30vw;
+    width: 100%;
     background-color: rgba(238, 212, 177, 0.50);
 }
 

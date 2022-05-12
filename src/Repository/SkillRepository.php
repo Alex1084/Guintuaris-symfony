@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Classes;
 use App\Entity\Skill;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,6 +30,16 @@ class SkillRepository extends ServiceEntityRepository
         ->setParameter('class', $class)
         ->setParameter('level', $level);
 
+        return $query->getQuery()->getResult();
+    }
+
+    public function skillList(string $search = null)
+    {
+        $query = $this->createQueryBuilder('s')
+        ->select('s.id, s.name, s.cost, s.level, c.name AS className')
+        ->innerJoin(Classes::class, 'c', Join::WITH, 'c.id = s.class')
+        ->where('s.name LIKE :search')
+        ->setParameter('search', '%'.$search.'%');
         return $query->getQuery()->getResult();
     }
 }
