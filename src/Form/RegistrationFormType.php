@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => ['class' => 'log']
             ])
-            ->add('nom', TextType::class, [
+            ->add('name', TextType::class, [
                 'attr' => ['class' => 'log']
             ])
             ->add('plainPassword', PasswordType::class, [

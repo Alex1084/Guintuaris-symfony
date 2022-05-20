@@ -4,24 +4,20 @@ namespace App\Controller\Admin;
 
 use App\Entity\Weapon;
 use App\Form\WeaponFormType;
-use App\Repository\WeaponRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin", name="admin_")
- */
+#[Route('/admin', name: 'admin_')]
 class WeaponController extends AbstractController
 {    
     /**
     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-    * 
-    * @Route("/ajouter-arme", name="add_weapon")
-    *
     */
+    #[Route("/ajouter-arme", name:"add_weapon")]
    public function addWeapon(Request $request, EntityManagerInterface $entityManager): Response
    {
        $weapon = new Weapon();
@@ -41,13 +37,11 @@ class WeaponController extends AbstractController
    }
    /**
     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-    * 
-    * @Route("/arme-list", name="weapon_list")
-    *
     */
-   public function weaponList(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route("/arme-list", name:"weapon_list")]
+   public function weaponList(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
    {
-       $weapons = $this->getDoctrine()->getRepository(Weapon::class)->findAll();
+       $weapons = $doctrine->getRepository(Weapon::class)->findAll();
        return $this->render('admin/weapon/list.html.twig', [
            'weapons' => $weapons
        ]);
@@ -55,21 +49,19 @@ class WeaponController extends AbstractController
 
    /**
     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-    * 
-    * @Route("/modifier-arme/{weaponId}", name="update_weapon")
-    *
     */
-   public function updateWeapon(int $weaponId, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route("/modifier-arme/{weaponId}", name:"update_weapon")]
+   public function updateWeapon(int $weaponId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
    {
-       $weapon = $this->getDoctrine()->getRepository(Weapon::class)->find($weaponId);
+       $weapon = $doctrine->getRepository(Weapon::class)->find($weaponId);
        $weaponForm = $this->createForm(WeaponFormType::class, $weapon);
 
        $weaponForm->handleRequest($request);
        if ($weaponForm->isSubmitted()) {
 
            $entityManager->persist($weapon);
-           $entityManager->flush();
            return $this->redirectToRoute("admin_weapon_list");
+           $entityManager->flush();
        }
        return $this->render('admin/weapon/form.html.twig', [
            "weaponForm" => $weaponForm->createView()
@@ -78,11 +70,11 @@ class WeaponController extends AbstractController
 
    /**
     * Undocumented function
-    * @Route("/supprimer-arme/{weaponId}", name="delete_weapon")
     */
-   public function deleteWeapon(int $weaponId, EntityManagerInterface $entityManager)
+    #[Route("/supprimer-arme/{weaponId}", name:"delete_weapon")]
+   public function deleteWeapon(int $weaponId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
    {
-       $weapon = $this->getDoctrine()->getRepository(Weapon::class)->find($weaponId);
+       $weapon = $doctrine->getRepository(Weapon::class)->find($weaponId);
            $entityManager->remove($weapon);
            $entityManager->flush();
            return $this->json("delete Succes");

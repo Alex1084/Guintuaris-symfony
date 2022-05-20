@@ -8,22 +8,23 @@ use App\Entity\BestiaryType;
 use App\Entity\Character;
 use App\Entity\Team;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin", name="admin_")
  */
+#[Route("/admin", name:"admin_")]
 class AdminDeleteController extends AbstractController
 {
 
     /**
      * Undocumented function
-     * @Route("/retire-membre/{characterId}", name="delete_team_member")
      */
-    public function deleteTeamMember(int $characterId, EntityManagerInterface $entityManager)
+    #[Route("/retire-membre/{characterId}", name:"delete_team_member")]
+    public function deleteTeamMember(int $characterId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
-        $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
+        $character = $doctrine->getRepository(Character::class)->find($characterId);
         // if ($this->getUser()->getRoles() === "ROLE_ADMIN") {
             $character->setTeam(null);
             $entityManager->persist($character);
@@ -36,11 +37,11 @@ class AdminDeleteController extends AbstractController
 
     /**
      * Undocumented function
-     * @Route("/supprimer-equipe/{id}", name="delete_team")
      */
-    public function deleteTeam(int $id, EntityManagerInterface $entityManager)
+    #[Route("/supprimer-equipe/{id}", name:"delete_team")]
+    public function deleteTeam(int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
-        $team = $this->getDoctrine()->getRepository(Team::class)->find($id);
+        $team = $doctrine->getRepository(Team::class)->find($id);
             $entityManager->remove($team);
             $entityManager->flush();
             return $this->json("delete Succes");

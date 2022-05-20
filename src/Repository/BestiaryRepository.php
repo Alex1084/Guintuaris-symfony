@@ -3,12 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Bestiary;
-use App\Entity\BestiaryType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<Bestiary>
+ *
  * @method Bestiary|null find($id, $lockMode = null, $lockVersion = null)
  * @method Bestiary|null findOneBy(array $criteria, array $orderBy = null)
  * @method Bestiary[]    findAll()
@@ -21,12 +22,22 @@ class BestiaryRepository extends ServiceEntityRepository
         parent::__construct($registry, Bestiary::class);
     }
 
-    public function findAllName(int $type)
+    public function add(Bestiary $entity, bool $flush = false): void
     {
-        $entityManager = $this->getEntityManager();
-        $dql = "SELECT b.id, b.name FROM App\Entity\Bestiary b WHERE b.type = :type ORDER BY b.name";
-        $query = $entityManager->createQuery($dql)->setParameter('type', $type);
-        return $query->getResult();
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Bestiary $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function bestiaryList(string $search = null)

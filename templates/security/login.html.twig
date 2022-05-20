@@ -5,19 +5,19 @@
 {% endblock %}
 
 {% block body %}
-	<form method="post">
-		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-		{% endif %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-		{% if app.user %}
+        {% if app.user %}
 			<div class="mb-3">
 				Vous êtes connectée avec le compte
 				{{ app.user.username }}.
 			</div>
 			<a href="{{ path('app_logout') }}">Déconexion</a>
 		{% else %}
-			<h1 class="title-form">Connexion</h1>
+            <h1 class="title-form">Connexion</h1>
 			<div class="container">
 				<div class="row">
 					<div class="div-form">
@@ -36,21 +36,21 @@
 				</div>
 			</div>
 
-			<input
-			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input 
+            type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-			{#
-															Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-															See https://symfony.com/doc/current/security/remember_me.html
-															
-															<div class="checkbox mb-3">
-															<label>
-																<input type="checkbox" name="_remember_me"> Remember me
-															</label>
-															</div>
-														#}
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
 
-			<button class="valid-form" type="submit">Sign in</button>
-		</form>
-	{% endif %}
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+            <button class="valid-form" type="submit">Sign in</button>
+        </form>
+		{% endif %}
 {% endblock %}

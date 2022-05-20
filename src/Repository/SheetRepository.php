@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<Sheet>
+ *
  * @method Sheet|null find($id, $lockMode = null, $lockVersion = null)
  * @method Sheet|null findOneBy(array $criteria, array $orderBy = null)
  * @method Sheet[]    findAll()
@@ -17,6 +19,24 @@ class SheetRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sheet::class);
+    }
+
+    public function add(Sheet $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Sheet $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function updateStatus($id, $pv, $pc, $pm)

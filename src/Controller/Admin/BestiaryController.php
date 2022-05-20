@@ -6,22 +6,19 @@ use App\Entity\Bestiary;
 use App\Form\BestiaryFormType;
 use App\Repository\BestiaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin", name="admin_")
- */
+#[Route('/admin', name: 'admin_')]
 class BestiaryController extends AbstractController
 {
      /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/ajouter-creature", name="add_bestiary")
-     *
      */
+    #[Route('/ajouter-creature', name: 'add_bestiary')]
     public function addBestiary(Request $request, EntityManagerInterface $entityManager): Response
     {
         $bestiary = new Bestiary();
@@ -43,11 +40,9 @@ class BestiaryController extends AbstractController
     }
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/creature-list", name="bestiary_list")
-     *
      */
-    public function bestiaryList(Request $request, EntityManagerInterface $entityManager, BestiaryRepository $bestiaryRepository): Response
+    #[Route('/creature-list', name: 'bestiary_list')]
+    public function bestiaryList(BestiaryRepository $bestiaryRepository): Response
     {
         $creatures = $bestiaryRepository->bestiaryList();
         return $this->render('admin/bestiary/list.html.twig', [
@@ -57,13 +52,11 @@ class BestiaryController extends AbstractController
 
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/modifier-creature/{bestiaryId}", name="update_bestiary")
-     *
      */
-    public function updateBestiary(int $bestiaryId, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/modifier-creature/{bestiaryId}', name: 'update_bestiary')]
+    public function updateBestiary(int $bestiaryId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $bestiary = $this->getDoctrine()->getRepository(Bestiary::class)->find($bestiaryId);
+        $bestiary = $doctrine->getRepository(Bestiary::class)->find($bestiaryId);
         $creatureForm = $this->createForm(BestiaryFormType::class, $bestiary);
 
         $creatureForm->handleRequest($request);
@@ -81,12 +74,12 @@ class BestiaryController extends AbstractController
     }
 
     /**
-     * Undocumented function
-     * @Route("/supprimer-creature/{bestiaryId}", name="delete_bestiary")
+     * 
      */
-    public function deleteBestiary(int $bestiaryId, EntityManagerInterface $entityManager)
+    #[Route('/supprimer-creature/{bestiaryId}', name: 'delete_bestiary')]
+    public function deleteBestiary(int $bestiaryId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
-        $bestiary = $this->getDoctrine()->getRepository(Bestiary::class)->find($bestiaryId);
+        $bestiary = $doctrine->getRepository(Bestiary::class)->find($bestiaryId);
             $entityManager->remove($bestiary);
             $entityManager->flush();
             return $this->json("delete Succes");

@@ -1,5 +1,4 @@
-/.idea
->>>>>>> 3aee786809b8619dd7b98a900b38b64558ce5221
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

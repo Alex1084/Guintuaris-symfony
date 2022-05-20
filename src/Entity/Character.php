@@ -6,59 +6,38 @@ use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=CharacterRepository::class)
- * @ORM\Table(name="`character`")
- */
+#[ORM\Entity(repositoryClass: CharacterRepository::class)]
+#[ORM\Table(name: '`character`')]
 class Character extends Sheet
 {
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Classes::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Classes::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $class;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Race::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Race::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $race;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Team::class)
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: Team::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL" )]
     private $team;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $lore;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $inventory;
 
-    /**
-     * @ORM\Column(type="integer")
-     *   @Assert\Range( 
-     *      min=0,
-     *      max=999999999,
-     * )
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Assert\Range(min:0,max:999999999,)]
     private $gold;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
     public function getUser(): ?User { return $this->user; }

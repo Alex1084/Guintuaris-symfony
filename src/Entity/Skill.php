@@ -4,62 +4,48 @@ namespace App\Entity;
 
 use App\Repository\SkillRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=SkillRepository::class)
- */
+#[ORM\Entity(repositoryClass: SkillRepository::class)]
 class Skill
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
+    #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\Length(min:5,max:100, )]
     private $name;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:1,max:10,)]
     private $level;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 10)]
+    #[Assert\Length(min:5,max:10, )]
     private $cost;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $distance;
 
-    /**
-     * @ORM\Column(type="string", length=15, nullable=true)
-     */
+    
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $damage;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Classes::class)
-     */
+    #[ORM\ManyToOne(targetEntity: Classes::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $class;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[Assert\Length(min:5,max:10, )]
     private $radius;
 
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[Assert\Length(min:5,max:10, )]
     private $duration;
 
     public function getId(): ?int { return $this->id; }

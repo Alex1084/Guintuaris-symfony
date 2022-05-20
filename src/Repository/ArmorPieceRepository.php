@@ -2,14 +2,14 @@
 
 namespace App\Repository;
 
-use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
-use App\Entity\ArmorType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\Query\Expr\Join as Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<ArmorPiece>
+ *
  * @method ArmorPiece|null find($id, $lockMode = null, $lockVersion = null)
  * @method ArmorPiece|null findOneBy(array $criteria, array $orderBy = null)
  * @method ArmorPiece[]    findAll()
@@ -20,6 +20,24 @@ class ArmorPieceRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ArmorPiece::class);
+    }
+
+    public function add(ArmorPiece $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(ArmorPiece $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
     public function getArmorbyLocation($locationId)
     {

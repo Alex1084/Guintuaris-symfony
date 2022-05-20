@@ -2,174 +2,75 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SheetRepository;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-/**
- * @ORM\Entity(repositoryClass=SheetRepository::class)
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap(
- * {
- *      "sheet" = "Sheet", 
- *      "character" = "Character",
- *      "bestiary" = "Bestiary"
- * })
- */
+#[ORM\Entity(repositoryClass: SheetRepository::class)]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name:'discr', type:'string')]
+#[ORM\DiscriminatorMap(["sheet" => "Sheet", "character" => "Character","bestiary" => "Bestiary" ])]
 abstract class Sheet
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\Length(
-     *      min=3,
-     *      max=50,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\Length(min:3,max:50,)]
     private $name;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=1,
-     *      max=10,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:1,max:10,)]
     private $level;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=10,
-     *      max=500,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:10,max:500,)]
     private $pv;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=10,
-     *      max=500,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:10,max:500,)]
     private $pvMax;
 
-    /**
-     * @ORM\Column(type="integer")
-     
-     * @Assert\Range(
-     *      min=0,
-     *      max=500,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:10,max:500,)]
     private $pc;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=500,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:10,max:500,)]
     private $pcMax;
 
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=500,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:10,max:500,)]
     private $pm;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=500,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:10,max:500,)]
     private $pmMax;
 
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=85,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0,max:85,)]
     private $constitution;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=85,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0,max:85,)]
     private $strength;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=85,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0,max:85,)]
     private $dexterity;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=85,
-     * )
-     * @Groups("read")
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0,max:85,)]
     private $intelligence;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=85,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0,max:85,)]
     private $charisma;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min=0,
-     *      max=85,
-     * )
-     * @Groups({"read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0,max:85,)]
     private $faith;
 
     public function getId(): ?int { return $this->id; }

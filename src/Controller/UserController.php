@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,11 +10,13 @@ class UserController extends AbstractController
 {
     /**
      * permet de voir les information de son profil
-     * @Route("/profil/{id}", name="profil")
+     *
+     * @return Response
      */
-    public function profilUser(int $id, UserRepository $userRepository): Response
+    #[Route("/profil", name:"profil")]
+    public function profilUser(): Response
     {
-        $user = $userRepository->find($id);
+        $user = $this->getUser();
 
         return $this->render('user/profil.html.twig', [
             'user' => $user

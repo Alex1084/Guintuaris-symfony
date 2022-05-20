@@ -4,34 +4,25 @@ namespace App\Entity;
 
 use App\Repository\ArmorPieceCharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=ArmorPieceCharacterRepository::class)
- */
+#[ORM\Entity(repositoryClass: ArmorPieceCharacterRepository::class)]
 class ArmorPieceCharacter
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Id 
-     * @ORM\ManyToOne(targetEntity=Character::class)
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: Character::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE" )]
     private $charact;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=ArmorPiece::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: ArmorPiece::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $piece;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[Assert\Length(min:5,max:50, )]
     private $effect;
 
     public function getId(): ?int

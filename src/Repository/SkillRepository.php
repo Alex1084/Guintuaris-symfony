@@ -2,13 +2,14 @@
 
 namespace App\Repository;
 
-use App\Entity\Classes;
 use App\Entity\Skill;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<Skill>
+ *
  * @method Skill|null find($id, $lockMode = null, $lockVersion = null)
  * @method Skill|null findOneBy(array $criteria, array $orderBy = null)
  * @method Skill[]    findAll()
@@ -21,6 +22,23 @@ class SkillRepository extends ServiceEntityRepository
         parent::__construct($registry, Skill::class);
     }
 
+    public function add(Skill $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Skill $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 
     public function findByLevel(int $level, int $class)
     {

@@ -4,13 +4,12 @@ namespace App\Controller;
 
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
-use App\Entity\Team;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
-use App\Form\PersonnageType;
 use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,16 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreatePersonnageController extends AbstractController
 {
+    #[Route('/personnage/creation', name: 'create_character')]
     /**
      * cette page permet de creer pour un utilisateur un nouveau personnage$
      * lors de la creation 7 nouvelle ligne sont créer dans la table armor_piece_character
      * avec comme idantifiant le personnage et un nombre allant de 1 à 7
      * et trois ligne sont créer pour les arme_personnage
-     * 
-     * @Route("/personnage/creation", name="create_character")
-     * 
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ArmorPieceRepository $armorPieceRepository
+     * @param ManagerRegistry $doctrine
+     * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository, ManagerRegistry $doctrine): Response
     {
         $character = new Character();
         $characterForm = $this->createForm(CharacterType::class, $character);
@@ -53,7 +56,7 @@ class CreatePersonnageController extends AbstractController
             }
 
             for ($i = 1; $i <= 3; $i++) {
-                $this->insertWeapon($character, $i, $entityManager);
+                $this->insertWeapon($character, $i, $entityManager, $doctrine);
             }
 
 
@@ -64,9 +67,7 @@ class CreatePersonnageController extends AbstractController
             "characterForm" => $characterForm->createView()
         ]);
     }
-
-
-    /**
+     /**
      * cette fonction permet d'inserrer une nouvelle ligne dans la table armor_piece_character
      * le locationNumber est un nombre compris entre 1 et 7 (donnée par la boucle) il represente en meme temps la localisation de l'armure.
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
@@ -88,12 +89,12 @@ class CreatePersonnageController extends AbstractController
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
      */
-    private function insertWeapon(Character $character, int $id, EntityManagerInterface $entityManager)
+    private function insertWeapon(Character $character, int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
         $weaponCharacter = new WeaponCharacter();
         $weaponCharacter->setId($id)
                         ->setCharact($character)
-                        ->setWeapon($this->getDoctrine()->getRepository(Weapon::class)->findOneBy(['name' => 'Vide']));
+                        ->setWeapon($doctrine->getRepository(Weapon::class)->findOneBy(['name' => 'Vide']));
 
         $entityManager->persist($weaponCharacter);
         $entityManager->flush();

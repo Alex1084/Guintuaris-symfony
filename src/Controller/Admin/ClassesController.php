@@ -6,22 +6,19 @@ use App\Entity\Classes;
 use App\Form\ClassesFormType;
 use App\Repository\ClassesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin", name="admin_")
- */
+#[Route('/admin', name: 'admin_')]
 class ClassesController extends AbstractController
 {
      /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/ajouter-classe", name="add_class")
-     *
      */
+    #[Route("/ajouter-classe", name:"add_class")]
     public function addClass(Request $request, EntityManagerInterface $entityManager): Response
     {
         $class = new Classes();
@@ -41,10 +38,8 @@ class ClassesController extends AbstractController
     }
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/classe-list", name="class_list")
-     *
      */
+    #[Route("/classe-list", name:"class_list")]
     public function classList(ClassesRepository $classRepository): Response
     {
         $classs = $classRepository->classList();
@@ -55,13 +50,11 @@ class ClassesController extends AbstractController
 
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
-     * 
-     * @Route("/modifier-classe/{classId}", name="update_class")
-     *
      */
-    public function updateClass(int $classId, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route("/modifier-classe/{classId}", name:"update_class")]
+    public function updateClass(int $classId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $class = $this->getDoctrine()->getRepository(Classes::class)->find($classId);
+        $class = $doctrine->getRepository(Classes::class)->find($classId);
         $classForm = $this->createForm(ClassesFormType::class, $class);
 
         $classForm->handleRequest($request);
