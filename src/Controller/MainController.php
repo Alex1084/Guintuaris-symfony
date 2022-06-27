@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Classes;
+use App\Entity\Race;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,6 +22,18 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig');
     }
 
+    #[Route('/init-nav-bar', name: 'init_nav_bar')]
+    public function init(ManagerRegistry $doctrine): Response
+    {
+        $classes = $doctrine->getRepository(Classes::class)->classList();
+        $races = $doctrine->getRepository(Race::class)->raceList();
+
+        return $this->json([
+            "classes" => $classes,
+            "races" => $races
+        ]);
+        
+    }
     /**
      * cette page afiche juste l'easter egg cacher dans le site
      *

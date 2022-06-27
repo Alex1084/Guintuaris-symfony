@@ -18,7 +18,49 @@
 				<img src="{{asset('img/logo2.png')}}" alt="logo_guituaris">
 			</div>
 			<div class="nav-div">
-				{% include("inc/nav.html.twig") %}
+				<nav>
+					<ul class="nav-list">
+						<li class="nav-item"><a href="{{ path('main_home') }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Accueil</a></li>
+						<div class="drop-nav">
+							<li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Races</button></li>
+							<div class="drop-nav-content">
+								<ul id="race-list">
+								</ul>
+							</div>
+						</div>
+						<div class="drop-nav">
+							<li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Classes</button></li>
+							<div class="drop-nav-content">
+								<ul id="class-list">
+								</ul>
+							</div>
+						</div>
+						{% if app.user %}
+							<li class="nav-item"><a href="{{path('character_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a></li>
+
+							{% if is_granted("ROLE_ADMIN") %}
+								<li class="nav-item"><a href="{{path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Admin</a></li>
+							{% endif %}
+						{% else %}
+							<li class="nav-item"><a href="{{ path('app_login')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Connexion</a></li>
+							<li class="nav-item"><a href="{{ path('app_register')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">S'inscrire</a></li>
+
+						{% endif %}
+
+					</ul>
+
+					{% if app.user %}
+						<div class="drop-nav" id="account">
+							<button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">compte</button>
+							<div class="drop-nav-content">
+								<ul>
+									<li class="nav-item"><a href="{{ path('profil', {'id':app.user.id}) }}">Mon compte ({{ app.user.name }})</a></li>
+									<li class="nav-item"><a href="{{ path('app_logout')}}">Déconexion</a></li>
+								</ul>
+							</div>
+						</div>
+					{% endif %}
+				</nav>
 			</div>
 		</header>
 
@@ -26,7 +68,6 @@
 			{% block body %}{% endblock %}
 		</main>
 
-		{% block script %}{% endblock %}
 		<footer>
 			<p>©
 				<span id="titre">Guintuaris</span>
@@ -35,5 +76,8 @@
 				<a href="{{ path("main_egg") }}">.</a>
 			</p>
 		</footer>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="{{asset("script/nav.js")}}"></script>
+		{% block script %}{% endblock %}
 	</body>
 </html>
