@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Classes;
+use App\Entity\Race;
+use App\Entity\Skill;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

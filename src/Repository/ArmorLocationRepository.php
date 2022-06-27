@@ -39,6 +39,12 @@ class ArmorLocationRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllName()
+    {
+        return $this->createQueryBuilder("al")
+        ->select("al.name")->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return ArmorLocation[] Returns an array of ArmorLocation objects
 //     */

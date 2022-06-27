@@ -32,7 +32,8 @@ class ClassesFormType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'attr' => ['class' => 'area-form'],
-                'label' => 'Description'
+                'label' => 'Description',
+                "required" => false
             ])
         ;
     }

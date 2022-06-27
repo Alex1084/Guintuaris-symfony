@@ -43,6 +43,9 @@
 					</div>
 				</div>
 			</div>
+			<div>
+				<a href="{{ path('character_setting', {"id" : character.id}) }}">option</a>
+			</div>
 		</div>
 		<div class="container">
 			<div class="row">
@@ -201,6 +204,8 @@
 							<th>Effet</th>
 						</tr>
 						{% for armorPiece in armor %}
+						{% if armorPiece.piece != null %}
+						
 							{% set ca = ca + armorPiece.piece.value %}
 							<tr>
 								<th>{{ armorPiece.piece.location.name }}</th>
@@ -208,6 +213,7 @@
 								<th>{{ armorPiece.piece.value }}</th>
 								<th>{{ armorPiece.effect }}</th>
 							</tr>
+						{% endif %}
 						{% endfor %}
 						<tr>
 							<th>Total :</th>
@@ -236,10 +242,17 @@
 							</tr>
 							{% for weapon in weapons %}
 								<tr>
+								{% if weapon.weapon != null %}
 									<th>{{ weapon.weapon.name }}</th>
 									<th>{{ weapon.weapon.damage }}</th>
 									<th>{{ weapon.weapon.dice }}</th>
 									<th>{{ weapon.effect }}</th>
+								{% else %}
+									<th> Vide </th>
+									<th>0</th>
+									<th>0</th>
+									<th></th>
+								{% endif %}
 								</tr>
 							{% endfor %}
 						</table>

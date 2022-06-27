@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Option |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	{% if app.user.id == character.user.id %}
+		<div class="container">
+			<ul>
+                <li><a href="{{ path("character_delete", {'id' : character.id})}}">supprimer mon personnage</a></li>
+                <li><a href="{{ path("main_home")}}">supprimmer mon image</a></li>
+                <li><a href="{{ path("main_home")}}">modifier mon personnage</a></li>
+                {# <li><a href="{{ path("main_home")}}"></a></li> #}
+            </ul>
+		</div>
+	{% endif %}
+{% endblock %}

@@ -33,7 +33,7 @@ class FicheEquipeController extends AbstractController
         ]);
     }
 
-    #[Route('/list/{teamId}', name: 'list')]
+    #[Route('/{teamId}/{characterId}', name: 'sheet_view')]
     /**
      * cette page affiche une fiche de personnage qui ne peut pas être editer
      * le membre y on seulement un accee afin de pouvoir voir les fiche des membre de leur equipe

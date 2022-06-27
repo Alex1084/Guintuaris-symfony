@@ -74,7 +74,7 @@ class AdminTableController extends AbstractController
         $newType = new ArmorType();
         $results = $this->createFormTable($newType, $request, $entityManager, $doctrine);
         if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute('admin_type_armure_list');
+            return $this->redirectToRoute('admin_armor_type_list');
         }
         return $this->render('admin/listTable.html.twig', [
             'list' => $results['dataList'],
@@ -93,7 +93,7 @@ class AdminTableController extends AbstractController
         $newLoca = new ArmorLocation();
         $results = $this->createFormTable($newLoca, $request, $entityManager, $doctrine);
         if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute('admin_type_armure_list');
+            return $this->redirectToRoute('admin_armor_type_list');
         }
         return $this->render('admin/listTable.html.twig', [
             'list' => $results['dataList'],

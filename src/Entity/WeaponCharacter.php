@@ -13,12 +13,13 @@ class WeaponCharacter
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Character::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private $charact;
 
     #[ORM\ManyToOne(targetEntity: Weapon::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $weapon;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]

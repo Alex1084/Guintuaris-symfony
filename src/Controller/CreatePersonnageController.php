@@ -7,6 +7,7 @@ use App\Entity\Character;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
+use App\Repository\ArmorLocationRepository;
 use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,7 +31,7 @@ class CreatePersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository, ManagerRegistry $doctrine): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, ArmorLocationRepository $armorLocationRepository, ManagerRegistry $doctrine): Response
     {
         $character = new Character();
         $characterForm = $this->createForm(CharacterType::class, $character);
@@ -51,13 +52,10 @@ class CreatePersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
 
-            for ($i = 1; $i <= 7; $i++) {
-                $this->insertPiece($character, $i, $armorPieceRepository, $entityManager);
-            }
-
-            for ($i = 1; $i <= 3; $i++) {
-                $this->insertWeapon($character, $i, $entityManager, $doctrine);
-            }
+/* 
+                $this->insertPiece($character, $armorLocationRepository, $entityManager);
+*/
+                $this->insertWeapon($character, $entityManager, $doctrine);
 
 
             $this->addFlash('success', 'ton perso a été créer');
@@ -73,15 +71,17 @@ class CreatePersonnageController extends AbstractController
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
      */
-    private function insertPiece(Character $character, int $locationNumber, ArmorPieceRepository $repoArmorPiece, EntityManagerInterface $entityManager)
+    private function insertPiece(Character $character, ArmorLocationRepository $armorLocationRepository, EntityManagerInterface $entityManager)
     {
-        $armorPieceCharacter = new ArmorPieceCharacter();
-        $armorPieceCharacter->setCharact($character)
-                       ->setId($locationNumber)
-                       ->setPiece($repoArmorPiece->getArmorbyLocation($locationNumber)); // $locationNumber : emplacement (allant de 1 a 7)
-
-        $entityManager->persist($armorPieceCharacter);
-        $entityManager->flush();
+        $locations = $armorLocationRepository->findAll();
+        foreach ($locations as $location) {
+            $armorPieceCharacter = new ArmorPieceCharacter();
+            $armorPieceCharacter->setCharact($character)
+            ->setId($location->getId());
+            
+            $entityManager->persist($armorPieceCharacter);
+            $entityManager->flush();
+        }
     }
 
     /**
@@ -89,14 +89,14 @@ class CreatePersonnageController extends AbstractController
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
      */
-    private function insertWeapon(Character $character, int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    private function insertWeapon(Character $character, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
-        $weaponCharacter = new WeaponCharacter();
-        $weaponCharacter->setId($id)
-                        ->setCharact($character)
-                        ->setWeapon($doctrine->getRepository(Weapon::class)->findOneBy(['name' => 'Vide']));
-
-        $entityManager->persist($weaponCharacter);
-        $entityManager->flush();
+        for ($i=1; $i <=3; $i++) { 
+            $weaponCharacter = new WeaponCharacter();
+            $weaponCharacter->setId($i)
+            ->setCharact($character);
+            $entityManager->persist($weaponCharacter);
+            $entityManager->flush();
+        }
     }
 }

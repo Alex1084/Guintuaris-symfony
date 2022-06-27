@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
+use App\Entity\ArmorType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join as Join;
 use Doctrine\Persistence\ManagerRegistry;

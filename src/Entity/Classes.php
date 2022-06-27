@@ -30,7 +30,7 @@ class Classes
     #[Assert\Length(min:5,max:30, )]
     private $dicePc;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable:true)]
     private $description;
 
 

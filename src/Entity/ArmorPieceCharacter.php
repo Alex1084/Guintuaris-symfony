@@ -14,11 +14,12 @@ class ArmorPieceCharacter
     private $id;
 
     #[ORM\ManyToOne(targetEntity: Character::class)]
+    #[ORM\Id]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE" )]
     private $charact;
 
     #[ORM\ManyToOne(targetEntity: ArmorPiece::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $piece;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]

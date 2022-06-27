@@ -2,13 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\ArmorLocation;
+use App\Entity\ArmorPiece;
+use App\Entity\ArmorPieceCharacter;
+use App\Entity\Character;
+use App\Entity\Weapon;
+use App\Entity\WeaponCharacter;
 use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\SheetRepository;
 use App\Repository\SkillRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -83,6 +92,25 @@ class PersonnageController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/option', name:'setting')]
+    public function setting(int $id, ManagerRegistry $doctrine)
+    {
+        $character = $doctrine->getRepository(Character::class)->find($id);
+
+        return $this->render('personnage/setting.html.twig', ['character' => $character]);
+    }
+    #[Route('/{id}/delete', name:'delete')]
+    public function delete(int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager)
+    {
+        $character = $doctrine->getRepository(Character::class)->find($id);
+
+        if ($character && $character->getUser() === $this->getUser()) {
+            $entityManager->remove($character);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute("character_list");
+
+    }
     /**
      * permet d'editer le champ lore du personnage passer en id 
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
@@ -209,6 +237,20 @@ class PersonnageController extends AbstractController
         ]);
     }
 
+    #[Route("/{id}/image/delete", name:'delete_image')]
+    public function deleteImage(int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    {
+        $character = $doctrine->getRepository(Character::class)->find($id);
+        $oldImage = $character->getImage();
+        if ($oldImage != null) {
+            $this->removeFile($oldImage);
+            $character->setImage(null);
+            $entityManager->persist($character);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('character_view');
+    }
+
     /**
      * permet de creer un formulaire servant a modifier l'equipement d'un personnage
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
@@ -224,33 +266,44 @@ class PersonnageController extends AbstractController
     public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository, ManagerRegistry $doctrine): Response
     {
         $character = $doctrine->getRepository(Character::class)->find($id);
+        $locations = $doctrine->getRepository(ArmorLocation::class)->findAll();
+        // dd($locations);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
-
-        //ce tableau permet de savoir dans la boucle a quel localisation fais reference un champs 
-        $pieces = [1 => 'casque', 'plastron', 'jambiere', 'anneau', 'amulette', 'cape', 'bouclier'];
-
+        if (count($armor) < count($locations)) {
+            foreach ($locations as $location) {
+                $index = $this->findObjectById($location->getId(), $armor);
+                if ($index === false) {
+                    $piece = new ArmorPieceCharacter();
+                    $piece->setId($location->getId())
+                    ->setCharact($character);
+                    array_push($armor, $piece);
+                }
+            }
+        }
+        // dd($armor);
         $armorForm = $this->createFormBuilder();
 
         //ajout des champs dans le formulmaire
-        for ($i = 1; $i <= 7; $i++) {
-            $str = 'effet_' . $pieces[$i];
+        foreach ($locations as $location) {
+            $name = strtolower($location->getName());
+            $str = 'effet_' . $name;
 
             //ajout d'un Select avec en option les piece d'armure apartenent a la localisation $i
-            $armorForm->add($pieces[$i], EntityType::class, [
+            $armorForm->add($name, EntityType::class, [
                 'class' => ArmorPiece::class,
                 'choice_label' => 'type.name',
-                'query_builder' => $armorPieceRepository->optionType($i),
-                'data' => $armor[$i - 1]->getPiece(),
+                'query_builder' => $armorPieceRepository->optionType($location->getId()),
+                'data' => $armor[$location->getId() - 1]->getPiece(),
                 'attr' => ['class' => 'input-form']
             ])
-                //ajout d'un champs string pour metre l'effet de la piece d'armure
-                ->add($str, TextType::class, [
-                    'required' => false,
-                    'data' => $armor[$i - 1]->getEffect(),
-                    'label' => 'Effet',
-                    'attr' => ['class' => 'input-form']
-                ]);
+            //ajout d'un champs string pour metre l'effet de la piece d'armure
+            ->add($str, TextType::class, [
+                'required' => false,
+                'data' => $armor[$location->getId() - 1]->getEffect(),
+                'label' => 'Effet',
+                'attr' => ['class' => 'input-form']
+            ]);
         }
 
         $armorForm = $armorForm->getForm();
@@ -258,20 +311,22 @@ class PersonnageController extends AbstractController
         if ($armorForm->isSubmitted()) {
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
-            for ($i = 1; $i <= 7; $i++) {
-                $piece = $armorForm->get($pieces[$i])->getData();
-                $effect = $armorForm->get('effet_' . $pieces[$i])->getData();
-                $armor[$i - 1]->setPiece($piece);
-                $armor[$i - 1]->setEffect($effect);
+            foreach ($locations as $location) {
+                $name = strtolower($location->getName());
+                $piece = $armorForm->get($name)->getData();
+                $effect = $armorForm->get('effet_' . $name)->getData();
+                $armor[$location->getId() - 1]->setPiece($piece);
+                $armor[$location->getId() - 1]->setEffect($effect);
 
-                $entityManager->persist($armor[$i - 1]);
+                $entityManager->persist($armor[$location->getId()  - 1]);
                 $entityManager->flush();
             }
             return $this->redirectToRoute('character_view', ["id" => $id]);
         }
         return $this->render('personnage/equipement.html.twig', [
-            'armorForm' => $armorForm->createView(),
+            "armorForm" => $armorForm->createView(),
             "character" => $character,
+            "locations" => $locations
         ]);
     }
 
@@ -347,5 +402,15 @@ class PersonnageController extends AbstractController
     {
         $file_path = $this->getParameter('images_directory') . '/' . $file;
         if (file_exists($file_path)) unlink($file_path);
+    }
+
+
+    private function findObjectById($id, $array){
+        foreach ( $array as $element ) {
+            if ( $id == $element->getId()) {
+                return $element;
+            }
+        }
+        return false;
     }
 }
