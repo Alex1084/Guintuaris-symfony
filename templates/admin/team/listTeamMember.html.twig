@@ -7,18 +7,22 @@
 
 {% block body %}
 	<div class="container">
-		{{form_start(memberForm)}}
-		{{form_widget(memberForm)}}
-		<button>Ajouter !</button>
-		{{form_end(memberForm)}}
+		<h1 class="title">{{team.name}}</h1>
+		<a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a>
 		<ul>
 			{% for member in teamMembers %}
 				<li>
-					<a href="{{ path("team_sheet_view", {"teamId" : teamId, "characterId" : member.id}) }}">{{ member.name }}</a>
+					<a href="{{ path("team_sheet_view", {"teamId" : team.id, "characterId" : member.id}) }}">{{ member.name }}</a>
 					<a class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : member.id}) }}">Supprimmer</a>
 				</li>
 			{% endfor %}
 		</ul>
+
+		{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}
+		{{form_widget(memberForm) }}
+		<button>Ajouter !</button>
+		{{form_end(memberForm)}}
+		<a id="show-form">Ajouter un Menbre</a>
 	</div>
 
 

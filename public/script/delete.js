@@ -22,3 +22,18 @@ function axiosLink(linkElement) {
     }).catch(error => console.error(error.response.data));
     
 }
+
+const showForm = document.getElementById("show-form");
+const form = document.querySelector("form.hidden");
+console.log(showForm);
+
+showForm.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (form.classList.contains("hidden")) {
+        form.classList.replace("hidden", "show");
+        showForm.innerText = "Masquer le formulaire";
+    } else {
+        form.classList.replace("show", "hidden");
+        showForm.innerText = "Ajouter un membre";
+    }
+})

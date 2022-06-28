@@ -266,6 +266,14 @@ select:hover{
     display: flex;
     justify-content: space-around;
 }
+
+form.hidden {
+    display: none;
+}
+
+form .show {
+    display: block;
+}
 /**************tableau**************/
 
 .titre-table{
@@ -277,12 +285,20 @@ select:hover{
     margin: auto;
     width: 100%;
     background-color: rgba(238, 212, 177, 0.50);
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
 }
 
 table, th, tr {
     border: 1px solid black;
     text-align: center;
     border-collapse: collapse;
+}
+
+.list {
+    text-align: center;
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
 }
 /**************footer**************/
 footer{

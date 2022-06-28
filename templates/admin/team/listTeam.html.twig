@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %} Les équipes | {{parent()}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Les des Equipe</h1>
+        <table class="tableau">
+			<tr>
+				<th>Name</th>
+                <th></th>
+                <th></th>
+			</tr>
+			{% for team in teams %}
+
+				<tr>
+					<th>  <a href="{{ path("admin_add_member", {"teamId" : team.id}) }}">{{ team.name }}</a> </th>
+                    <th>
+                        <a href="{{ path("admin_team_rename", {'teamId' : team.id}) }}">Renomer</a>
+                    </th>
+                    <th>
+                        <a class="ajax-delete-link" href="{{ path("admin_delete_team",  { "id": team.id}) }}">Supprimer</a>
+                    </th>
+				</tr>
+					
+			{% endfor %}
+		</table>
+        {{form_start(addTeamForm, {'attr': {'class': 'hidden'} }) }}
+        <div class="div-form">
+			{{ form_label(addTeamForm.name) }}
+			{{ form_widget(addTeamForm.name) }}
+		</div>
+        <button class="valid-form">Créer</button>
+        {{form_end(addTeamForm) }}
+        <a id="show-form">Ajouter un Menbre</a>
+    </div>
+{% endblock %}
+
+{% block script %}
+	<script src="{{ asset("script/delete.js")}}"></script>
+{% endblock %}

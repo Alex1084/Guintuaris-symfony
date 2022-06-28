@@ -43,25 +43,6 @@ class AdminTableController extends AbstractController
             'pathDeleteName' => $pathDeleteName
         ]);
     }
-    /**
-     * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
-     * de plus un formulaire permet de créer une nouvelle equipe
-     */
-    #[Route("/equipe", name:"team_list")]
-    public function teamListAdmin(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
-    {
-        $pathDeleteName = "admin_delete_team";
-        $newTeam = new Team();
-        $results = $this->createFormTable($newTeam, $request, $entityManager, $doctrine);
-        if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute("admin_add_member", ['teamId' => $newTeam->getId()]);
-        }
-        return $this->render('admin/listEquipe.html.twig', [
-            'teams' => $results['dataList'],
-            'addTeamForm' => $results['formulaire']->createView(),
-            'pathDeleteName' => $pathDeleteName
-        ]);
-    }
 
     /**
      * permet d'ajouter un nouveau type d'armure dans la base de donné (table armor_type)

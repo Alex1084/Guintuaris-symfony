@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Les équipes |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+    <h1 class="title"> {{team.name}}</h1>
+	<div class="container">
+        {{form_start(form) }}
+        <div class="div-form">
+			{{ form_label(form.name) }}
+			{{ form_widget(form.name) }}
+		</div>
+        <button class="valid-form">Créer</button>
+        {{form_end(form) }}
+	</div>
+{% endblock %}
