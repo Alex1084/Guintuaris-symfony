@@ -46,21 +46,17 @@ class TeamController extends AbstractController
     #[Route("/equipe-update/{teamId}", name:"team_rename")]
     public function teamRename(int $teamId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $team = $doctrine->getRepository(Team::class)->find($teamId);
-        $form = $this->createFormBuilder($team)
-            ->add('name', TextType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($request->isMethod('post')) {
+            $newName = $request->request->get("value");
+            if (strlen($newName) <= 3) {
+                return $this->redirectToRoute("admin_team_list");
+            }
+            $team = $doctrine->getRepository(Team::class)->find($teamId);
+            $team->setName($newName);
             $entityManager->persist($team);
             $entityManager->flush();
-            return $this->redirectToRoute("admin_add_member", ['teamId' => $team->getId()]);
         }
-        return $this->render('admin/team/rename.html.twig', [
-            'team' => $team,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute("admin_team_list");
     }
 
     #[Route("/supprimer-equipe/{id}", name:"delete_team")]

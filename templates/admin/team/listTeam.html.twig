@@ -15,7 +15,7 @@
 				<tr>
 					<th>  <a href="{{ path("admin_add_member", {"teamId" : team.id}) }}">{{ team.name }}</a> </th>
                     <th>
-                        <a href="{{ path("admin_team_rename", {'teamId' : team.id}) }}">Renomer</a>
+                        <a href="{{ path("admin_team_rename", {'teamId' : team.id}) }}" class="update-link">Renomer</a>
                     </th>
                     <th>
                         <a class="ajax-delete-link" href="{{ path("admin_delete_team",  { "id": team.id}) }}">Supprimer</a>
