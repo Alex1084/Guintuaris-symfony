@@ -30,33 +30,4 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/admin.html.twig', []);
     }
-
-    /**
-     * permet d'ajouter une nouvel Piece d'armure dans la BDD (table armor_piece)
-     * permet aussi d'afficher toute les instance de cette table
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ArmorPieceRepository $armorPieceRepository
-     * @return Response
-     */
-    #[Route('/ajout-piece-d-armure', name: 'add_armor_piece')]
-    public function addArmorPiece(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
-    {
-        $piecesTab = $armorPieceRepository->selectAllNamesValue();
-        $armorPiece = new ArmorPiece();
-        $armorPieceForm = $this->createForm(ArmorPieceType::class, $armorPiece);
-
-        $armorPieceForm->handleRequest($request);
-        if ($armorPieceForm->isSubmitted()) {
-            $entityManager->persist($armorPiece);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_add_armor_piece');
-        }
-        return $this->render('admin/addPiece.html.twig', [
-            "armorPieceForm" => $armorPieceForm->createView(),
-            "piecesTab" => $piecesTab
-        ]);
-    }
 }

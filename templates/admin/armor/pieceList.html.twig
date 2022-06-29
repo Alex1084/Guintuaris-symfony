@@ -7,7 +7,8 @@
 
 {% block body %}
 	<div class="container">
-		{{form_start(armorPieceForm)}}
+		<a id="show-form">Ajouter un Menbre</a>
+		{{form_start(armorPieceForm, { "attr" : {"class" : "hidden"} }) }}
 		<div class="row">
 
 			<div class="div-form">{{ form_label(armorPieceForm.location)}}{{form_widget(armorPieceForm.location)}}</div>
@@ -26,6 +27,7 @@
 				<th>Emplacement</th>
 				<th>Type</th>
 				<th>Valeur</th>
+				<th></th>
 			</tr>
 			{% for piece in piecesTab %}
 				<tr>
@@ -33,8 +35,14 @@
 					<th>{{piece.locationName}}</th>
 					<th>{{piece.typeName}}</th>
 					<th>{{piece.value}}</th>
+					<th>
+                        <a href="{{path("admin_update_armor_piece", {pieceId : piece.id})}}" class="update-link">modifier</a>
+					</th>
 				</tr>
 			{% endfor %}
 		</table>
 	</div>
+{% endblock %}
+{% block script %}
+	<script src="{{ asset("script/delete.js")}}"></script>
 {% endblock %}

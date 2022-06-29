@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Les équipes |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<h2>Fiches personnages</h2>
+	<div class="container">
+		<table class="tableau">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+                <th></th>
+			</tr>
+			{% for element in list %}
+
+				<tr>
+					<th> {{element.id}} </th>
+					<th> {{ element.name }} </th>
+                    <th>
+                        <a href="{{path("admin_armor_location_update", {locationId : element.id})}}" class="update-link">modifier</a>
+                    </th>
+				</tr>
+					
+			{% endfor %}
+		</table>
+	</div>
+	{{form_start(form), { "attr" : { "class" : "hidden"}}) }}
+	{{form_widget(form) }}
+	<button>Créer</button>
+	{{form_end(form) }}
+	<a id="show-form">Ajouter un Menbre</a>
+{% endblock %}
+
+{% block script %}
+	<script src="{{ asset("script/delete.js")}}"></script>
+{% endblock %}

@@ -45,45 +45,6 @@ class AdminTableController extends AbstractController
     }
 
     /**
-     * permet d'ajouter un nouveau type d'armure dans la base de donné (table armor_type)
-     * affiche toute les instance se trouvant dans cette table
-     */
-    #[Route("/list-type-armure", name:"armor_type_list")]
-    public function addArmorType(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
-    {
-        $restrict = true;
-        $newType = new ArmorType();
-        $results = $this->createFormTable($newType, $request, $entityManager, $doctrine);
-        if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute('admin_armor_type_list');
-        }
-        return $this->render('admin/listTable.html.twig', [
-            'list' => $results['dataList'],
-            'form' => $results['formulaire']->createView(),
-            'restrict' => $restrict
-        ]);
-    }
-
-    /**
-     * Undocumented function
-     */
-    #[Route("/list-localisation-armure", name:"armor_location_list")]
-    public function addArmorLocation(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
-    {
-        $restrict = true;
-        $newLoca = new ArmorLocation();
-        $results = $this->createFormTable($newLoca, $request, $entityManager, $doctrine);
-        if ($results['formulaire']->isSubmitted()) {
-            return $this->redirectToRoute('admin_armor_type_list');
-        }
-        return $this->render('admin/listTable.html.twig', [
-            'list' => $results['dataList'],
-            'form' => $results['formulaire']->createView(),
-            'restrict' => $restrict
-        ]);
-    }
-
-    /**
      * Undocumented function
      *
      */
