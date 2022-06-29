@@ -11,23 +11,23 @@
 			<tr>
 				<th>Id</th>
 				<th>Name</th>
+				<th></th>
 			</tr>
 			{% for element in list %}
 
 				<tr>
 					<th> {{element.id}} </th>
 					<th> {{ element.name }} </th>
-					{% if restrict is not defined %}
-						<th>
-								<a class="ajax-delete-link alert" href="">Supprimer</a>
-						</th>
-					{% endif %}
+					<th>
+                        <a href="{{path("admin_bestiary_type_rename", {typeId : element.id})}}" class="update-link">modifier</a>
+					</th>
 				</tr>
 					
 			{% endfor %}
 		</table>
 	</div>
-	{{form_start(form) }}
+	<a id="show-form">Ajouter un Menbre</a>
+	{{form_start(form, { "attr" : {"class" : "hidden"}}) }}
 	{{form_widget(form) }}
 	<button>Créer</button>
 	{{form_end(form) }}

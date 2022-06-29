@@ -3,11 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Bestiary;
+use App\Entity\BestiaryType;
 use App\Form\BestiaryFormType;
 use App\Repository\BestiaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -83,5 +85,45 @@ class BestiaryController extends AbstractController
             $entityManager->remove($bestiary);
             $entityManager->flush();
             return $this->json("delete Succes");
+    }
+
+    /**
+     * permet d'ajouter un nouveau type de bete dans la base de donné (table type_bestiaire)
+     * affiche toute les instance se trouvant dans cette table
+     */
+    #[Route("/list-type-bestiaire", name:"bestiary_type_list")]
+    public function addBestiaryType(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    {
+        $newType = new BestiaryType();
+
+        $findall = $doctrine->getRepository(BestiaryType::class)->findAll();
+        $form = $this->createFormBuilder($newType)
+            ->add('name', TextType::class)
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $entityManager->persist($newType);
+            $entityManager->flush();
+            return $this->redirectToRoute('admin_bestiary_type_list');
+        }
+        return $this->render('admin/listTable.html.twig', [
+            'list' => $findall,
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route("/update-type-bestiaire/{typeId}", name:"bestiary_type_rename")]
+    public function teamRename(int $typeId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    {
+        if ($request->isMethod('post')) {
+            $newName = $request->request->get("value");
+            if (strlen($newName) <= 3) {
+                return $this->redirectToRoute("admin_bestiary_type_list");
+            }
+            $team = $doctrine->getRepository(BestiaryType::class)->find($typeId);
+            $team->setName($newName);
+            $entityManager->persist($team);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute("admin_bestiary_type_list");
     }
 }
