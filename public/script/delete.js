@@ -17,8 +17,7 @@ document.querySelectorAll(".ajax-delete-link").forEach(link =>{
 function axiosLink(linkElement) {
 
     axios.get(linkElement.href).then(response =>{
-        console.log(response);
-        linkElement.parentElement.remove();
+        linkElement.parentElement.parentElement.remove();
     }).catch(error => console.error(error.response.data));
     
 }

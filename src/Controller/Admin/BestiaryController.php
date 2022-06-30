@@ -27,7 +27,7 @@ class BestiaryController extends AbstractController
         $creatureForm = $this->createForm(BestiaryFormType::class, $bestiary);
 
         $creatureForm->handleRequest($request);
-        if ($creatureForm->isSubmitted()) {
+        if ($creatureForm->isSubmitted() && $creatureForm->isValid()) {
             $bestiary->setPv($bestiary->getPvMax())
                 ->setPc($bestiary->getPcMax())
                 ->setPm($bestiary->getPmMax());
@@ -62,7 +62,7 @@ class BestiaryController extends AbstractController
         $creatureForm = $this->createForm(BestiaryFormType::class, $bestiary);
 
         $creatureForm->handleRequest($request);
-        if ($creatureForm->isSubmitted()) {
+        if ($creatureForm->isSubmitted() && $creatureForm->isValid()) {
             $bestiary->setPv($bestiary->getPvMax())
                  ->setPc($bestiary->getPcMax())
                  ->setPm($bestiary->getPmMax());
