@@ -13,20 +13,32 @@
 		</div>
 		<div class="row">
 			<div class="div-form">{{ form_label(characterForm.name) }}
-
 				{{ form_widget(characterForm.name) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.name)}}
+				</div>
 			</div>
 			<div class="div-form">{{ form_label(characterForm.level) }}
 
 				{{ form_widget(characterForm.level) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.level)}}
+				</div>
+
 			</div>
 			<div class="div-form">{{ form_label(characterForm.race) }}
 
 				{{ form_widget(characterForm.race) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.race)}}
+				</div>
 			</div>
 			<div class="div-form">{{ form_label(characterForm.class) }}
 
 				{{ form_widget(characterForm.class) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.class)}}
+				</div>
 			</div>
 		</div>
 		<div>
@@ -38,16 +50,25 @@
 				{{ form_label(characterForm.pvMax) }}
 
 				{{ form_widget(characterForm.pvMax)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.pvMax)}}
+				</div>
 			</div>
 			<div class="div-form">
 				{{ form_label(characterForm.pcMax) }}
 
 				{{ form_widget(characterForm.pcMax)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.pcMax)}}
+				</div>
 			</div>
 			<div class="div-form">
 				{{ form_label(characterForm.pmMax) }}
 
 				{{ form_widget(characterForm.pmMax)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.pmMax)}}
+				</div>
 			</div>
 		</div>
 
@@ -59,16 +80,25 @@
 				{{ form_label(characterForm.constitution) }}
 
 				{{ form_widget(characterForm.constitution)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.constitution)}}
+				</div>
 			</div>
 			<div class="div-form">
 				{{ form_label(characterForm.strength) }}
 
 				{{ form_widget(characterForm.strength)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.strength)}}
+				</div>
 			</div>
 			<div class="div-form">
 				{{ form_label(characterForm.dexterity) }}
 
 				{{ form_widget(characterForm.dexterity)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.dexterity)}}
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -76,16 +106,25 @@
 				{{ form_label(characterForm.intelligence) }}
 
 				{{ form_widget(characterForm.intelligence)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.intelligence)}}
+				</div>
 			</div>
 			<div class="div-form">
 				{{ form_label(characterForm.charisma) }}
 
 				{{ form_widget(characterForm.charisma)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.charisma)}}
+				</div>
 			</div>
 			<div class="div-form">
 				{{ form_label(characterForm.faith) }}
 
 				{{ form_widget(characterForm.faith)}}
+				<div class="div-errors">
+					{{ form_errors(characterForm.faith)}}
+				</div>
 			</div>
 		</div>
 		<div class="note">

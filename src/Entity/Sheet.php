@@ -18,59 +18,140 @@ abstract class Sheet
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Assert\Length(min:3,max:50,)]
+    #[Assert\Length(
+        min:3,
+        max:50,
+        maxMessage: "le nom doit faire 50 caractère maximum",
+        minMessage: "le nom doit faire 3 caractère minimum"
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
     private $name;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:1,max:10,)]
+    #[Assert\Range(
+        min:1,
+        max:10, 
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 10", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 10" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 1 et 10")]
     private $level;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:10,max:500,)]
+    #[Assert\Range(
+        min:1,
+        max:500,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500" 
+    )]
     private $pv;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:10,max:500,)]
+    #[Assert\Range(
+        min:1,
+        max:500,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 1 et 500")]
     private $pvMax;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:10,max:500,)]
+    #[Assert\Range(
+        min:0,
+        max:500,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500" 
+    )]
     private $pc;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:10,max:500,)]
+    #[Assert\Range(
+        min:0,
+        max:500,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 500")]
     private $pcMax;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:10,max:500,)]
+    #[Assert\Range(
+        min:0,
+        max:500,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500" 
+    )]
     private $pm;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:10,max:500,)]
+    #[Assert\Range(
+        min:0,
+        max:500,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 500")]
     private $pmMax;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:85,)]
+    #[Assert\Range(
+        min:0,
+        max:85,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $constitution;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:85,)]
+    #[Assert\Range(
+        min:0,
+        max:85,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $strength;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:85,)]
+    #[Assert\Range(
+        min:0,
+        max:85,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $dexterity;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:85,)]
+    #[Assert\Range(
+        min:0,
+        max:85,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $intelligence;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:85,)]
+    #[Assert\Range(
+        min:0,
+        max:85,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $charisma;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:85,)]
+    #[Assert\Range(
+        min:0,
+        max:85,
+        invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85", 
+        notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 85" 
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $faith;
 
     public function getId(): ?int { return $this->id; }

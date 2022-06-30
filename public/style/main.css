@@ -253,6 +253,13 @@ select:hover{
     -moz-box-align: center;
     box-align: center;
 }
+.div-errors {
+    color: #aa0000;
+    max-width: 202px;
+}
+.div-errors ul{
+    list-style-type: none;
+}
 .log{
     width: 90vw;
     height: 39px;

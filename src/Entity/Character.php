@@ -17,6 +17,11 @@ class Character extends Sheet
 
     #[ORM\ManyToOne(targetEntity: Classes::class)]
     #[ORM\JoinColumn(nullable: false)]
+/*     #[Assert\Choice(
+        callback: [Classes::class, "getName"], //Classes::class,
+        message: "erreur, la valeur selectionné n'est pas valide"
+    )] */
+    // #[Assert\Callback([Classes::class, "getName"])]
     private $class;
 
     #[ORM\ManyToOne(targetEntity: Race::class)]

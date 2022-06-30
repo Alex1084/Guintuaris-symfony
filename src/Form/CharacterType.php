@@ -8,6 +8,7 @@ use App\Entity\Race;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,10 +18,11 @@ class CharacterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name')
+        ->add('name', TextType::class, [
+        ])
         ->add('pvMax', IntegerType::class, [
             "attr" => [
-                "min" => 10,
+                "min" => 1,
                 "class" => "input-form",
             ],
             'label' => 'PV'
@@ -44,7 +46,6 @@ class CharacterType extends AbstractType
                 "min" => 1,
                 "max" => 10,
                 "class" => "input-form",
-
             ]
         ])
         ->add('constitution', IntegerType::class, [
@@ -52,7 +53,6 @@ class CharacterType extends AbstractType
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-
             ]
         ])
         ->add('strength', IntegerType::class, [
@@ -60,7 +60,6 @@ class CharacterType extends AbstractType
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-
             ],
             'label' => 'Force'
         ])
@@ -69,7 +68,6 @@ class CharacterType extends AbstractType
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-
             ]
         ])
         ->add('intelligence', IntegerType::class, [
@@ -95,7 +93,8 @@ class CharacterType extends AbstractType
         ])
         ->add('class', EntityType::class, [
             'class' => Classes::class,
-            'choice_label' => 'name'
+            'choice_label' => 'name',
+            'invalid_message' => "erreur, la valeur selectionné n'est pas valide"
         ])
         ->add('race', EntityType::class, [
             'class' => Race::class,

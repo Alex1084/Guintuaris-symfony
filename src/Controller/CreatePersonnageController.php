@@ -40,7 +40,7 @@ class CreatePersonnageController extends AbstractController
 
         //
         $characterForm->handleRequest($request);
-        if ($characterForm->isSubmitted()) {
+        if ($characterForm->isSubmitted() && $characterForm->isValid()) {
             // hydratation des champs 
             $character->setGold(0)
                        ->setUser($this->getUser())
@@ -51,11 +51,7 @@ class CreatePersonnageController extends AbstractController
             // execution de la requete
             $entityManager->persist($character);
             $entityManager->flush();
-
-/* 
-                $this->insertPiece($character, $armorLocationRepository, $entityManager);
-*/
-                $this->insertWeapon($character, $entityManager, $doctrine);
+            $this->insertWeapon($character, $entityManager, $doctrine);
 
 
             $this->addFlash('success', 'ton perso a été créer');
