@@ -7,18 +7,38 @@
 
 {% block body %}
 	<div class="container">
-		<a id="show-form">Ajouter un Menbre</a>
-		{{form_start(armorPieceForm, { "attr" : {"class" : "hidden"} }) }}
-		<div class="row">
+		<div class="div-form-hidden">
+			<a id="show-form">Ajouter un Menbre</a>
+			{{form_start(armorPieceForm, { "attr" : {"class" : "hidden"} }) }}
+			<div class="row">
 
-			<div class="div-form">{{ form_label(armorPieceForm.location)}}{{form_widget(armorPieceForm.location)}}</div>
-			<div class="div-form">{{ form_label(armorPieceForm.type)}}{{form_widget(armorPieceForm.type)}}</div>
-			<div class="div-form">{{ form_label(armorPieceForm.value)}}{{form_widget(armorPieceForm.value)}}</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.location)}}
+					{{form_widget(armorPieceForm.location)}}
+					<div class="div-errors">
+					{{ form_errors(armorPieceForm.location)}}
+				</div>
+				</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.type)}}
+					{{form_widget(armorPieceForm.type)}}
+					<div class="div-errors">
+					{{ form_errors(armorPieceForm.type)}}
+				</div>
+				</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.value)}}
+					{{form_widget(armorPieceForm.value)}}
+					<div class="div-errors">
+					{{ form_errors(armorPieceForm.value)}}
+				</div>
+				</div>
+			</div>
+			<div>
+				<button class="valid-form">Créer</button>
+			</div>
+			{{form_end(armorPieceForm)}}
 		</div>
-		<div>
-			<button class="valid-form">Créer</button>
-		</div>
-		{{form_end(armorPieceForm)}}
 	</div>
 	<div class="container">
 		<table class="tableau">

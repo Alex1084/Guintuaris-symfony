@@ -26,11 +26,19 @@
 			{% endfor %}
 		</table>
 	</div>
-	<a id="show-form">Ajouter un Menbre</a>
-	{{form_start(form, { "attr" : {"class" : "hidden"}}) }}
-	{{form_widget(form) }}
-	<button>Créer</button>
-	{{form_end(form) }}
+	<div class="div-form-hidden">
+		<a id="show-form">Ajouter un Menbre</a>
+		{{form_start(form, { "attr" : { "class" : "hidden"}}) }}
+			<h3 class="title-form"> {{ form_label(form.name) }} </h3>
+			<div class="div-form">
+				{{ form_widget(form.name) }}
+				<div class="div-errors">
+					{{ form_errors(form.name)}}
+				</div>
+			</div>
+			<button class="valid-form">Créer</button>
+		{{form_end(form) }}
+	</div>
 {% endblock %}
 
 {% block script %}

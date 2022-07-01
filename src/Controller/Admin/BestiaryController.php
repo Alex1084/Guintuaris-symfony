@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Bestiary;
 use App\Entity\BestiaryType;
 use App\Form\BestiaryFormType;
+use App\Form\NameFormType;
 use App\Repository\BestiaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -97,11 +98,9 @@ class BestiaryController extends AbstractController
         $newType = new BestiaryType();
 
         $findall = $doctrine->getRepository(BestiaryType::class)->findAll();
-        $form = $this->createFormBuilder($newType)
-            ->add('name', TextType::class)
-            ->getForm();
+        $form = $this->createForm(NameFormType::class, $newType);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($newType);
             $entityManager->flush();
             return $this->redirectToRoute('admin_bestiary_type_list');
@@ -116,7 +115,7 @@ class BestiaryController extends AbstractController
     {
         if ($request->isMethod('post')) {
             $newName = $request->request->get("value");
-            if (strlen($newName) <= 3) {
+            if (strlen($newName) <= 3 || strlen($newName) > 50 ) {
                 return $this->redirectToRoute("admin_bestiary_type_list");
             }
             $team = $doctrine->getRepository(BestiaryType::class)->find($typeId);

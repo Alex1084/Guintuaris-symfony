@@ -277,7 +277,17 @@ select:hover{
 form.hidden {
     display: none;
 }
-
+.div-form-hidden {
+    text-align: center;
+}
+.div-form-hidden a#show-form {
+    color: #aa0000;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+.div-form-hidden a#show-form:hover {
+    color: #fff;
+}
 form .show {
     display: block;
 }

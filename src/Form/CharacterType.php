@@ -100,7 +100,6 @@ class CharacterType extends AbstractType
             'class' => Race::class,
             'choice_label' => 'name'
         ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

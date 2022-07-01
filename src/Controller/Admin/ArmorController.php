@@ -6,6 +6,7 @@ use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorType;
 use App\Form\ArmorPieceType;
+use App\Form\NameFormType;
 use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,15 +27,11 @@ class ArmorController extends AbstractController
     {
         $newLoca = new ArmorLocation();
         $findall = $doctrine->getRepository(ArmorLocation::class)->findAll();
-        $form = $this->createFormBuilder($newLoca)
-            ->add('name', TextType::class)
-            ->getForm();
+        $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($newLoca);
             $entityManager->flush();
-        }
-        if ($form->isSubmitted()) {
             return $this->redirectToRoute('admin_armor_location_list');
         }
         return $this->render('admin/armor/locationList.html.twig', [
@@ -48,7 +45,7 @@ class ArmorController extends AbstractController
     {
         if ($request->isMethod('post')) {
             $newName = $request->request->get('value');
-            if (strlen($newName) <= 2) {
+            if (strlen($newName) <= 2 || strlen($newName) > 50) {
                 return $this->redirectToRoute('admin_armor_location_list');
             }
             $location = $doctrine->getRepository(ArmorLocation::class)->find($locationId);
@@ -64,15 +61,11 @@ class ArmorController extends AbstractController
     {
         $newLoca = new ArmorType();
         $findall = $doctrine->getRepository(ArmorType::class)->findAll();
-        $form = $this->createFormBuilder($newLoca)
-            ->add('name', TextType::class)
-            ->getForm();
+        $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($newLoca);
             $entityManager->flush();
-        }
-        if ($form->isSubmitted()) {
             return $this->redirectToRoute('admin_armor_type_list');
         }
         return $this->render('admin/armor/typeList.html.twig', [
@@ -86,7 +79,7 @@ class ArmorController extends AbstractController
     {
         if ($request->isMethod('post')) {
             $newName = $request->request->get('value');
-            if (strlen($newName) <= 2) {
+            if (strlen($newName) <= 2 || strlen($newName) > 50 ) {
                 return $this->redirectToRoute('admin_armor_type_list');
             }
             $type = $doctrine->getRepository(ArmorType::class)->find($typeId);
@@ -114,7 +107,7 @@ class ArmorController extends AbstractController
         $armorPieceForm = $this->createForm(ArmorPieceType::class, $armorPiece);
 
         $armorPieceForm->handleRequest($request);
-        if ($armorPieceForm->isSubmitted()) {
+        if ($armorPieceForm->isSubmitted() && $armorPieceForm->isValid()) {
             $entityManager->persist($armorPiece);
             $entityManager->flush();
 

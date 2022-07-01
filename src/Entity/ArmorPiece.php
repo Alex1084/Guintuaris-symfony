@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArmorPieceRepository::class)]
+#[UniqueEntity(fields:["location", "type"], message: "erreur: cette combinaison d'amure existe déjà")]
+#[ORM\UniqueConstraint(name : "location_type", columns: ["location_id", "type_id"] )]
 class ArmorPiece
 {
     #[ORM\Id]
@@ -23,7 +26,7 @@ class ArmorPiece
     private $type;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:1,max:10,)]
+    #[Assert\Range(min:0,max:10, notInRangeMessage: "la valeur doit etre entre 1 10")]
     private $value;
 
     public function getId(): ?int { return $this->id; }
