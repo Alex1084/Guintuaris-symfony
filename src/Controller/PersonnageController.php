@@ -8,6 +8,7 @@ use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
+use App\Form\CharacterType;
 use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\SheetRepository;

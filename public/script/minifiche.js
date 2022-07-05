@@ -54,7 +54,7 @@ function insertFiche(monstre) {
     }
     str += `  <div class="fiche ">
             <img src="../img/barre_mort.png" alt="" class="barre">
-            <h3 class="title">${monstre.nom}</h3> <img src="../img/mort.png" alt="" class="icon mort"> <img src="../img/croix.png" alt="" class="icon croix">
+            <h3 class="title">${monstre.name}</h3> <img src="../img/mort.png" alt="" class="icon mort"> <img src="../img/croix.png" alt="" class="icon croix">
             <div class="div-statistique">
                 <div>
                     <p>Constitution</p>

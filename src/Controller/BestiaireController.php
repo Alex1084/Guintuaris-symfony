@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Bestiary;
 use App\Repository\BestiaryRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,11 +21,9 @@ class BestiaireController extends AbstractController
     #[Route('/admin/board', name: 'board')]
     public function index(BestiaryRepository $bestiaryRepository): Response
     {
-        $creatures = $bestiaryRepository->findAllName(1);
-        $animals = $bestiaryRepository->findAllName(2);
+        $bestiaryList = $bestiaryRepository->findAll();
         return $this->render('bestiaire/mjboard.html.twig', [
-            'creatures' => $creatures,
-            'animals' => $animals
+            "bestiaryList" => $bestiaryList
         ]);
     }
 
