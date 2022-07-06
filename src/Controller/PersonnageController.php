@@ -134,7 +134,7 @@ class PersonnageController extends AbstractController
             ])
             ->getForm();
         $loreForm->handleRequest($request);
-        if ($loreForm->isSubmitted()) {
+        if ($loreForm->isSubmitted() && $loreForm->isValid()) {
 
             // execution de la requete
             $entityManager->persist($character);
@@ -217,7 +217,7 @@ class PersonnageController extends AbstractController
             ])
             ->getForm();
         $imageForm->handleRequest($request);
-        if ($imageForm->isSubmitted()) {
+        if ($imageForm->isSubmitted() && $imageForm->isValid()) {
             $oldImage = $character->getImage();
             $newImage = $imageForm->get('image')->getData();
 
