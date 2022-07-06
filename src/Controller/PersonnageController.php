@@ -23,8 +23,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
 
-#[Route('/personnnage', name: 'character_')]
+#[Route('/personnage', name: 'character_')]
 class PersonnageController extends AbstractController
 {
     #[Route('/list', name: 'list')]
@@ -52,7 +53,7 @@ class PersonnageController extends AbstractController
      * @param SheetRepository $sheetRepository
      * @return void
      */
-    #[Route('/updtae', name: 'update_statut')]
+    #[Route('/update', name: 'update_statut')]
     public function updateStatut(Request $request, CharacterRepository $characterRepository, SheetRepository $sheetRepository)
     {
         if ($request->isMethod('post')) {
@@ -169,7 +170,7 @@ class PersonnageController extends AbstractController
         $characterForm->remove('race');
 
         $characterForm->handleRequest($request);
-        if ($characterForm->isSubmitted()) {
+        if ($characterForm->isSubmitted() && $characterForm->isValid()) {
             // hydratation des champs 
             $character->setPv($character->getPvMax());
             $character->setPm($character->getPmMax());
@@ -303,13 +304,21 @@ class PersonnageController extends AbstractController
                 'required' => false,
                 'data' => $armor[$location->getId() - 1]->getEffect(),
                 'label' => 'Effet',
-                'attr' => ['class' => 'input-form']
+                'attr' => ['class' => 'input-form'],
+                'constraints' => [
+                    new Length([
+                        "min" => 5,
+                        "max" => 50,
+                        "maxMessage" =>  "le nom doit faire 50 caractère maximum",
+                        "minMessage" =>  "le nom doit faire 5 caractère minimum"
+                    ]),
+                ]
             ]);
         }
 
         $armorForm = $armorForm->getForm();
         $armorForm->handleRequest($request);
-        if ($armorForm->isSubmitted()) {
+        if ($armorForm->isSubmitted() && $armorForm->isValid()) {
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             foreach ($locations as $location) {
@@ -368,12 +377,20 @@ class PersonnageController extends AbstractController
                     'required' => false,
                     'data' => $weapons[$i - 1]->getEffect(),
                     'label' => 'Effet',
-                    'attr' => ['class' => 'input-form']
+                    'attr' => ['class' => 'input-form'],
+                    'constraints' => [
+                        new Length([
+                            "min" => 5,
+                            "max" => 50,
+                            "maxMessage" =>  "le nom doit faire 50 caractère maximum",
+                            "minMessage" =>  "le nom doit faire 5 caractère minimum"
+                        ]),
+                    ]
                 ]);
         }
         $weaponForm = $weaponForm->getForm();
         $weaponForm->handleRequest($request);
-        if ($weaponForm->isSubmitted()) {
+        if ($weaponForm->isSubmitted() && $weaponForm->isValid()) {
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             for ($i = 1; $i <= 3; $i++) {

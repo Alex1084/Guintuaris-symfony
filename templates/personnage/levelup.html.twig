@@ -17,6 +17,9 @@
 					{{ form_label(characterForm.level) }}
 
 					{{ form_widget(characterForm.level)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.level)}}
+					</div>
 				</div>
 			</div>
 
@@ -29,7 +32,9 @@
 					{{ form_label(characterForm.pvMax) }}
 
 					{{ form_widget(characterForm.pvMax)}}
-
+					<div class="div-errors">
+						{{ form_errors(characterForm.pvMax)}}
+					</div>
 					<div class="note">
 						<p>Dé de niveau :
 							{{character.class.dicePv}}</p>
@@ -40,6 +45,9 @@
 					{{ form_label(characterForm.pcMax) }}
 
 					{{ form_widget(characterForm.pcMax)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.pcMax)}}
+					</div>
 					<div class="note">
 						<p>Dé de niveau :{{character.class.dicePc}}</p>
 					</div>
@@ -48,6 +56,9 @@
 					{{ form_label(characterForm.pmMax) }}
 
 					{{ form_widget(characterForm.pmMax)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.pmMax)}}
+					</div>
 					<div class="note">
 						<p>Dé de niveau :{{character.class.dicePm}}</p>
 					</div>
@@ -66,16 +77,25 @@
 					{{ form_label(characterForm.constitution) }}
 
 					{{ form_widget(characterForm.constitution)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.constitution)}}
+					</div>	
 				</div>
 				<div class="div-form">
 					{{ form_label(characterForm.strength) }}
 
 					{{ form_widget(characterForm.strength)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.strength)}}
+					</div>
 				</div>
 				<div class="div-form">
 					{{ form_label(characterForm.dexterity) }}
 
 					{{ form_widget(characterForm.dexterity)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.dexterity)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -83,16 +103,25 @@
 					{{ form_label(characterForm.intelligence) }}
 
 					{{ form_widget(characterForm.intelligence)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.intelligence)}}
+					</div>
 				</div>
 				<div class="div-form">
 					{{ form_label(characterForm.charisma) }}
 
 					{{ form_widget(characterForm.charisma)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.charisma)}}
+					</div>
 				</div>
 				<div class="div-form">
 					{{ form_label(characterForm.faith) }}
 
 					{{ form_widget(characterForm.faith)}}
+					<div class="div-errors">
+						{{ form_errors(characterForm.faith)}}
+					</div>
 				</div>
 			</div>
 			<div class="note">

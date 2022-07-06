@@ -19,9 +19,15 @@
 					<div class="div-form">
 						{{ form_label(attribute(armorForm, location.name|lower)) }}
 						{{ form_widget(attribute(armorForm, location.name|lower)) }}
-
+						<div class="div-errors">
+							{{ form_errors(attribute(armorForm, location.name|lower))}}
+						</div>
 						{{ form_label(attribute(armorForm, "effet_" ~ location.name|lower)) }}
 						{{ form_widget(attribute(armorForm, "effet_" ~ location.name|lower)) }}
+
+						<div class="div-errors">
+							{{ form_errors(attribute(armorForm, "effet_" ~ location.name|lower))}}
+						</div>
 					</div>
 				{% endfor %}
 			</div>

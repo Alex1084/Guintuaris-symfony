@@ -15,7 +15,10 @@ class Weapon
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Assert\Length(min:5,max:50, )]
+    #[Assert\Length( min:2,
+    max:50,
+    maxMessage: "le nom doit faire 50 caractère maximum",
+    minMessage: "le nom doit faire 2 caractère minimum")]
     private $name;
 
     #[ORM\Column(type: 'integer')]
