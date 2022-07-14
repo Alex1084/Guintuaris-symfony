@@ -14,14 +14,23 @@
 				<div class="div-form">{{ form_label(weaponForm.name) }}
 					
 					{{ form_widget(weaponForm.name) }}
+					<div class="div-errors">
+						{{ form_errors(weaponForm.name)}}
+					</div>
 				</div>
 				<div class="div-form">{{ form_label(weaponForm.damage) }}
 					
 					{{ form_widget(weaponForm.damage) }}
+					<div class="div-errors">
+						{{ form_errors(weaponForm.damage)}}
+					</div>
 				</div>
 				<div class="div-form">{{ form_label(weaponForm.dice) }}
 					
 					{{ form_widget(weaponForm.dice) }}
+					<div class="div-errors">
+						{{ form_errors(weaponForm.dice)}}
+					</div>
 				</div>
 			</div>
 		</div>

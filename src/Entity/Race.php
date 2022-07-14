@@ -15,7 +15,13 @@ class Race
     private $id;
 
     #[ORM\Column(type: 'string', length: 30)]
-    #[Assert\Length(min:5,max:30, )]
+    #[Assert\Length(
+        min:3,
+        max:30,
+        maxMessage: "le nom doit faire 50 caractère maximum",
+        minMessage: "le nom doit faire 3 caractère minimum"
+    )]
+    #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
     private $name;
 
     #[ORM\Column(type: 'text')]

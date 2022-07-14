@@ -14,6 +14,9 @@
 					<div class="div-form">{{ form_label(classForm.name) }}
 						
 						{{ form_widget(classForm.name) }}
+						<div class="div-errors">
+							{{form_errors(classForm.name)}}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -22,15 +25,24 @@
 			<div class="div-form">{{ form_label(classForm.dicePv) }}
 				
 				{{ form_widget(classForm.dicePv) }}
+				<div class="div-errors">
+					{{form_errors(classForm.dicePv)}}
+				</div>
 			</div>
 
 			<div class="div-form">{{ form_label(classForm.dicePm) }}
 				
 				{{ form_widget(classForm.dicePm) }}
+				<div class="div-errors">
+					{{form_errors(classForm.dicePm)}}
+				</div>
 			</div>
 			<div class="div-form">{{ form_label(classForm.dicePc) }}
 				
 				{{ form_widget(classForm.dicePc) }}
+				<div class="div-errors">
+					{{form_errors(classForm.dicePc)}}
+				</div>
 			</div>
 		</div>
 
@@ -41,6 +53,9 @@
 					</h3>
 					
 					{{ form_widget(classForm.description) }}
+					<div class="div-errors">
+						{{form_errors(classForm.description)}}
+					</div>
 
 				</div>
 			</div>

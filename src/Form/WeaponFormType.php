@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Weapon;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +18,7 @@ class WeaponFormType extends AbstractType
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Nom'
             ])
-            ->add('damage', TextType::class, [
+            ->add('damage', IntegerType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Dégats'
             ])

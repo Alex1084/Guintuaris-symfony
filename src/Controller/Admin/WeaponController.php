@@ -24,7 +24,7 @@ class WeaponController extends AbstractController
        $weaponForm = $this->createForm(WeaponFormType::class, $weapon);
 
        $weaponForm->handleRequest($request);
-       if ($weaponForm->isSubmitted()) {
+       if ($weaponForm->isSubmitted() && $weaponForm->isValid()) {
 
            $entityManager->persist($weapon);
            $entityManager->flush();
@@ -57,7 +57,7 @@ class WeaponController extends AbstractController
        $weaponForm = $this->createForm(WeaponFormType::class, $weapon);
 
        $weaponForm->handleRequest($request);
-       if ($weaponForm->isSubmitted()) {
+       if ($weaponForm->isSubmitted() && $weaponForm->isValid()) {
 
            $entityManager->persist($weapon);
            return $this->redirectToRoute("admin_weapon_list");

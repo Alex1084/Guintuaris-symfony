@@ -14,6 +14,9 @@
 					<div class="div-form">{{ form_label(raceForm.name) }}
 						
 						{{ form_widget(raceForm.name) }}
+						<div class="div-errors">
+							{{form_errors(raceForm.name)}}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -24,7 +27,9 @@
 					</h3>
 					
 					{{ form_widget(raceForm.description) }}
-
+					<div class="div-errors">
+						{{form_errors(raceForm.description)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -34,7 +39,9 @@
 					</h3>
 					
 					{{ form_widget(raceForm.ability) }}
-
+					<div class="div-errors">
+						{{form_errors(raceForm.ability)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -44,7 +51,9 @@
 					</h3>
 					
 					{{ form_widget(raceForm.bonus) }}
-
+					<div class="div-errors">
+						{{form_errors(raceForm.bonus)}}
+					</div>
 				</div>
 			</div>
 

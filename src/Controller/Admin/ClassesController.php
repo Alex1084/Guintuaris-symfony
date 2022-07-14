@@ -25,7 +25,7 @@ class ClassesController extends AbstractController
         $classForm = $this->createForm(ClassesFormType::class, $class);
 
         $classForm->handleRequest($request);
-        if ($classForm->isSubmitted()) {
+        if ($classForm->isSubmitted() && $classForm->isValid()) {
 
             $entityManager->persist($class);
             $entityManager->flush();
@@ -58,7 +58,7 @@ class ClassesController extends AbstractController
         $classForm = $this->createForm(ClassesFormType::class, $class);
 
         $classForm->handleRequest($request);
-        if ($classForm->isSubmitted()) {
+        if ($classForm->isSubmitted() && $classForm->isValid()) {
 
             $entityManager->persist($class);
             $entityManager->flush();
