@@ -10,8 +10,8 @@
 		<div class="container">
 			<ul>
                 <li><a href="{{ path("character_delete", {'id' : character.id})}}">supprimer mon personnage</a></li>
-                <li><a href="{{ path("main_home")}}">supprimmer mon image</a></li>
-                <li><a href="{{ path("main_home")}}">modifier mon personnage</a></li>
+                <li><a href="{{ path("character_delete_image", {'id' : character.id})}}">supprimmer mon image</a></li>
+                <li><a href="{{ path("character_update", {'id' : character.id})}}">modifier mon personnage</a></li>
                 {# <li><a href="{{ path("main_home")}}"></a></li> #}
             </ul>
 		</div>

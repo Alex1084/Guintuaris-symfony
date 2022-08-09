@@ -39,7 +39,7 @@ abstract class Sheet
 
     #[ORM\Column(type: 'integer')]
     #[Assert\Range(
-        min:1,
+        min:-500,
         max:500,
         invalidMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500", 
         notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500" 
@@ -48,7 +48,7 @@ abstract class Sheet
 
     #[ORM\Column(type: 'integer')]
     #[Assert\Range(
-        min:1,
+        min:0,
         max:500,
         invalidMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500", 
         notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 1 et 500" 
@@ -58,7 +58,7 @@ abstract class Sheet
 
     #[ORM\Column(type: 'integer')]
     #[Assert\Range(
-        min:0,
+        min:-500,
         max:500,
         invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500", 
         notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500" 
@@ -77,7 +77,7 @@ abstract class Sheet
 
     #[ORM\Column(type: 'integer')]
     #[Assert\Range(
-        min:0,
+        min:-500,
         max:500,
         invalidMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500", 
         notInRangeMessage: "valeur incorect, veuillez entré un nombre compris en 0 et 500" 

@@ -113,6 +113,35 @@ class PersonnageController extends AbstractController
         return $this->redirectToRoute("character_list");
 
     }
+    #[Route("/{id}/update", name: "update")]
+    public function updateCharact($id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request)
+    {
+        $character = $doctrine->getRepository(Character::class)->find($id);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
+
+        $characterForm = $this->createForm(CharacterType::class, $character);
+        $characterForm->remove("pvMax")
+                    ->remove("pcMax")
+                    ->remove("pmMax")
+                    ->remove("level")
+                    ->remove("constitution")
+                    ->remove("strength")
+                    ->remove("dexterity")
+                    ->remove("intelligence")
+                    ->remove("charisma")
+                    ->remove("faith");
+        $characterForm->handleRequest($request);
+        if ($characterForm->isSubmitted() && $characterForm->isValid()) {
+            $entityManager->persist($character);
+            $entityManager->flush();
+            return $this->redirectToRoute("character_view", ["id" => $id]);
+        }
+        return $this->render("/personnage/updateCharacter.html.twig", [
+            "characterForm" => $characterForm->createView()
+        ]);
+    }
     /**
      * permet d'editer le champ lore du personnage passer en id 
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
@@ -250,7 +279,7 @@ class PersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('character_view');
+        return $this->redirectToRoute('character_view', ["id" => $id]);
     }
 
     /**
@@ -274,7 +303,7 @@ class PersonnageController extends AbstractController
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
         if (count($armor) < count($locations)) {
             foreach ($locations as $location) {
-                $index = $this->findObjectById($location->getId(), $armor);
+                $index = array_search($location->getId(), array_column($armor, "id"));
                 if ($index === false) {
                     $piece = new ArmorPieceCharacter();
                     $piece->setId($location->getId())
@@ -357,9 +386,20 @@ class PersonnageController extends AbstractController
 
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
-
+        if (count($weapons) <= 3) {
+            for ($i=0; $i <= 3; $i++)  {
+                // array_search($id, )
+                $index = array_search($i, array_column($weapons, "id"));
+                if ($index === false) {
+                    $weapon= new WeaponCharacter();
+                    $weapon->setId($i)
+                    ->setCharact($character);
+                    array_push($weapons, $weapon);
+                }
+            }
+        }
         $weaponForm = $this->createFormBuilder();
-
+        
         //ajout des champs dans le formulmaire
         for ($i = 1; $i <= 3; $i++) {
             $str = 'effet_' . $i;
@@ -420,15 +460,5 @@ class PersonnageController extends AbstractController
     {
         $file_path = $this->getParameter('images_directory') . '/' . $file;
         if (file_exists($file_path)) unlink($file_path);
-    }
-
-
-    private function findObjectById($id, $array){
-        foreach ( $array as $element ) {
-            if ( $id == $element->getId()) {
-                return $element;
-            }
-        }
-        return false;
     }
 }

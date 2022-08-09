@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Création |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(characterForm) }}
+		<div>
+			<h3 class="title-form">Personnage</h3>
+		</div>
+		<div class="row">
+			<div class="div-form">{{ form_label(characterForm.name) }}
+				{{ form_widget(characterForm.name) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.name)}}
+				</div>
+			</div>
+			<div class="div-form">{{ form_label(characterForm.race) }}
+
+				{{ form_widget(characterForm.race) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.race)}}
+				</div>
+			</div>
+			<div class="div-form">{{ form_label(characterForm.class) }}
+
+				{{ form_widget(characterForm.class) }}
+				<div class="div-errors">
+					{{ form_errors(characterForm.class)}}
+				</div>
+			</div>
+		</div>
+		<div>
+			<button class="valid-form">Créer</button>
+		</div>
+
+		{{ form_end(characterForm) }}
+
+	</div>
+{% endblock %}
