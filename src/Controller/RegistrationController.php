@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\AppAuthenticator;
+use App\Security\AppAuthenticator;  
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, 
     UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator,
-    EntityManagerInterface $entityManager): Response
+    EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -42,11 +43,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $content = $this->renderView('mails/welcome.html.twig', [
+                "username" => $user->getName()
+            ]);
+            $mailerService->sendEmail($user->getEmail(), $content);   
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
