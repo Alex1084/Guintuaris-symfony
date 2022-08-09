@@ -6,7 +6,7 @@
 
 {% block body %}
 	{% if app.user %}
-		<div class="mb-3">
+		<div>
 			Vous êtes connectée avec le compte
 			{{ app.user.username }}.
 		</div>
@@ -33,9 +33,16 @@
 			</div>
 			<div class="row">
 				<div class="div-form">
-					{{ form_label(registrationForm.plainPassword) }}
+					{{ form_label(registrationForm.plainPassword.first) }}
 
-					{{ form_widget(registrationForm.plainPassword) }}
+					{{ form_widget(registrationForm.plainPassword.first) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="div-form">
+					{{ form_label(registrationForm.plainPassword.second) }}
+
+					{{ form_widget(registrationForm.plainPassword.second) }}
 				</div>
 			</div>
 

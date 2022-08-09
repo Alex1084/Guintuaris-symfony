@@ -3,20 +3,15 @@
 {% block title %} Profil | {{parent()}}{% endblock %}
 
 {% block body %}
-    <h1>Profil: {{ user.nom }}</h1>
+    <h1>Profil: {{ user.name }}</h1>
     
 
 
-    {% if app.user.id == user.id %}
         <h3>Mes infos: </h3>
-        <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
-        <p>Nom: {{ user.nom }}</p>
+        <p>Nom: {{ user.name }}</p>
 
+        <a href="{{path("profil_update_password")}}">change password</a>
         <h3>Mes personnages: </h3>
         <a href="{{ path("character_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a>
-    {% else %}
-        <p>Infos filtrés</p>
-    {% endif %}
-
 {% endblock %}

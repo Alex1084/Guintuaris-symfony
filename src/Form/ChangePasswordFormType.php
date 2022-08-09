@@ -15,10 +15,8 @@ class ChangePasswordFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
+            ->add('ancientPassword', PasswordType::class, [
+                    'attr' => ['autocomplete' => 'new-password', "class" => "log"],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -30,13 +28,30 @@ class ChangePasswordFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'New password',
+                    'label' => 'anciens Mot de Passe',
+            ])
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'attr' => ['autocomplete' => 'new-password', "class" => "log"],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Veuillez entré un mot de passe',
+                        ]),
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit faire en minimum {{ limit }} caractère s',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                    ],
+                    'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'label' => 'Repeat Password',
+                    'attr' => ['autocomplete' => 'new-password', "class" => "log"],
+                    'label' => 'confirmez le nouveau mot de passe',
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les mot de passe doivent correspondre',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,

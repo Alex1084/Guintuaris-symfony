@@ -257,12 +257,15 @@ select:hover{
     color: #aa0000;
     max-width: 202px;
 }
-.div-errors ul{
+.div-errors ul, .div-errors-log ul{
     list-style-type: none;
 }
-.log{
+.div-form .log{
     width: 90vw;
     height: 39px;
+}
+.div-form .div-errors-log {
+    color: #aa0000;
 }
 
 .area-form{
