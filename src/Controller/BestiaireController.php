@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bestiary;
+use App\Entity\BestiaryType;
 use App\Repository\BestiaryRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,11 +20,29 @@ class BestiaireController extends AbstractController
      * @return Response
      */
     #[Route('/admin/board', name: 'board')]
-    public function index(BestiaryRepository $bestiaryRepository): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        $bestiaryList = $bestiaryRepository->findAll();
+        $bestiaryType = $doctrine->getRepository(BestiaryType::class)->findAll();
+        $bestiaryList = $doctrine->getRepository(Bestiary::class)->bestiaryBoard();
+        $ids = array_map(function ($type)
+        {
+
+            return $type->getId();
+        }, $bestiaryType);
+        $list = [];
+        foreach ($bestiaryType as $key => $type) {
+            $list[$key]["beasts"] = [];
+            $list[$key]["typeName"] = $type->getName();
+            $list[$key]["typeID"] = $type->getId();
+        }
+        foreach ($bestiaryList as $beast) {
+            $index = array_search($beast["typeID"], $ids);
+            if ($index !== false) {
+                array_push($list[$index]["beasts"], $beast);
+            }
+        }
         return $this->render('bestiaire/mjboard.html.twig', [
-            "bestiaryList" => $bestiaryList
+            "list" => $list,
         ]);
     }
 

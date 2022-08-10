@@ -50,4 +50,13 @@ class BestiaryRepository extends ServiceEntityRepository
         ->setParameter('search', '%'.$search.'%');
         return $query->getQuery()->getResult();
     }
+
+    public function bestiaryBoard()
+    {
+        $query = $this->createQueryBuilder('b')
+        ->select("bt.id as typeID, b.id, b.name")
+        ->innerJoin(BestiaryType::class, 'bt', Join::WITH, 'bt.id = b.type');
+
+        return $query->getQuery()->getResult();
+    }
 }

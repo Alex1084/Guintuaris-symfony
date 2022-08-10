@@ -302,8 +302,12 @@ class PersonnageController extends AbstractController
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
         if (count($armor) < count($locations)) {
+            $ids = array_map(function ($armorPieceCharacter)
+            {
+                return $armorPieceCharacter->getId();
+            }, $armor);
             foreach ($locations as $location) {
-                $index = array_search($location->getId(), array_column($armor, "id"));
+                $index = array_search($location->getId(), $ids);
                 if ($index === false) {
                     $piece = new ArmorPieceCharacter();
                     $piece->setId($location->getId())
@@ -312,7 +316,6 @@ class PersonnageController extends AbstractController
                 }
             }
         }
-        // dd($armor);
         $armorForm = $this->createFormBuilder();
 
         //ajout des champs dans le formulmaire
@@ -387,9 +390,12 @@ class PersonnageController extends AbstractController
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
         if (count($weapons) <= 3) {
-            for ($i=0; $i <= 3; $i++)  {
-                // array_search($id, )
-                $index = array_search($i, array_column($weapons, "id"));
+            $ids = array_map(function ($weaponCharacter)
+            {
+                return $weaponCharacter->getId();
+            }, $weapons);
+            for ($i=1; $i <= 3; $i++)  {
+                $index = array_search($i, $ids);
                 if ($index === false) {
                     $weapon= new WeaponCharacter();
                     $weapon->setId($i)

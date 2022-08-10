@@ -18,51 +18,22 @@
 		</div>
 		<div class="sidebar-wrapper">
 			<ul class="sidebar-nav">
+			{% for bestiaryType in list %}
 				<li>
 					<div class="dropdown">
-						<button class="dropbtn nav-btn">Monstres</button>
+						<button class="dropbtn nav-btn">{{bestiaryType.typeName}}</button>
 						<div class="dropdown-content hidden">
 							<ul>
-								{% for creature in bestiaryList %}
+								{% for beast in bestiaryType.beasts %}
 									<li>
-										<a href="{{ path('summon', {"id" : creature.id})}}" class="js-like">{{creature.name}}</a>
+										<a href="{{ path('summon', {"id" : beast.id})}}" class="js-like">{{beast.name}}</a>
 									</li>
 								{% endfor %}
 							</ul>
 						</div>
 					</div>
 				</li>
-				<li>
-					<div class="dropdown">
-
-						<button class="dropbtn nav-btn">Animaux
-						</button>
-						<div class="dropdown-content hidden">
-							<ul>
-								{# {% for animal in animals %}
-									<li>
-										<a href="{{ path('summon', {"id" : animal.id})}}" class="js-like">{{animal.name}}</a>
-									</li>
-								{% endfor %} #}
-								{#  #}
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div {# class="dropdown" #}>
-						<button {# class="dropbtn nav-btn" #}>Humanoïde
-						</button>
-						<ul>
-							<li>Lorem, ipsum.</li>
-							<li>Lorem, ipsum.</li>
-							<li>Lorem, ipsum.</li>
-							<li>Lorem, ipsum.</li>
-							<li>Lorem, ipsum.</li>
-						</ul>
-						<div {# class="dropdown-content" #}></div>
-					</div>
-				</li>
+			{% endfor %}
 			</ul>
 		</div>
 	</div>
