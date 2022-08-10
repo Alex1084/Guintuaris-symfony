@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\ChangePasswordFormType;
+use App\Form\UpdateUserFormType;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +38,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         if (!$user) {
-            return $this->redirectToRoute('main_home');
+            return $this->redirectToRoute('app_login');
         }
         $form = $this->createForm(ChangePasswordFormType::class);
         $form->handleRequest($request);
@@ -59,5 +61,47 @@ class UserController extends AbstractController
         return $this->render("user/changePassword.html.twig", [
             "form" => $form->createView(),
         ]);
+    }
+
+    #[Route("profil/update", name:"profil_update_account")]
+    public function updateUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $user = $this->getUser();
+        if (!$user){
+            return $this->redirectToRoute("app_login");
+        }
+        $userForm = $this->createForm(UpdateUserFormType::class, $user);
+        
+        $userForm->handleRequest($request);
+        // dd($request);
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+
+            if (password_verify($request->get("pass"), $this->getUser()->getPassword())) {
+                    
+                // dd($user);
+                $user->setUpdatedAt(new DateTimeImmutable());
+                $entityManager->persist($this->getUser());
+                $entityManager->flush();
+                return $this->redirectToRoute("profil");
+
+            }
+            // dd("error");
+        }
+
+        return $this->render("user/update.html.twig", [
+            "userForm" => $userForm->createView()
+        ]);
+    }
+
+    #[Route("profil/delete", name: "profile_delete")]
+    public function deleteProfil(EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+        if (!$user){
+            return $this->redirectToRoute("app_login");
+        }
+        $entityManager->remove($user);
+        $entityManager->flush();
+        return $this->redirectToRoute("main_home");
     }
 }

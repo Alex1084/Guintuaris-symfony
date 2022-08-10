@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription |
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+		<div class="container">
+			<h1 class="title-form">Update</h1>
+
+			{{ form_start(userForm) }}
+
+			<div class="row">
+				<div class="div-form">
+					{{ form_label(userForm.email) }}
+
+					{{ form_widget(userForm.email) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="div-form">
+					{{ form_label(userForm.name) }}
+
+					{{ form_widget(userForm.name) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="div-form">
+                    <label for="pass">Mot de passe</label>
+
+					<input type="password" name="pass" id="pass" class="log">
+				</div>
+			</div>
+
+
+			<button type="submit" class="valid-form">Créer mon compte</button>
+			{{ form_end(userForm) }}
+		</div>
+{% endblock %}

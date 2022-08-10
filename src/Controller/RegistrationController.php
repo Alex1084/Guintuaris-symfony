@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;  
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\MailerService;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,8 +38,9 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-            $userPasswordHasher->hashPassword(
+            $user->setCreatedAt(new DateTimeImmutable())
+                 ->setPassword(
+                    $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
