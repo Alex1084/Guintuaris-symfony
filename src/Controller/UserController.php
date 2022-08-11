@@ -104,4 +104,15 @@ class UserController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute("main_home");
     }
+
+    #[Route("deactivate", name: "deactivate")]
+    public function deactivate()
+    {
+        if ($this->isGranted("ROLE_DEACTIVATE")) {
+            return $this->render("user/deactivate.html.twig", [
+                "name" => $this->getUser()->getName()
+            ]);
+        }
+        return $this->redirectToRoute("main_home");
+    }
 }
