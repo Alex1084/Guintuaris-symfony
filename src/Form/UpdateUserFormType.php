@@ -23,7 +23,7 @@ class UpdateUserFormType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => ['class' => 'log']
             ])
-            /* ->add('password', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 'attr' => ["class" => "log"],
                     'constraints' => [
                         new NotBlank([
@@ -37,7 +37,8 @@ class UpdateUserFormType extends AbstractType
                         ]),
                     ],
                     'label' => 'mot de passe',
-            ] ) */
+                    'mapped' => false
+            ] )
         ;
     }
 

@@ -15,6 +15,9 @@
 					{{ form_label(userForm.email) }}
 
 					{{ form_widget(userForm.email) }}
+					<div class="div-errors-log">
+						{{ form_errors(userForm.email)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -22,13 +25,19 @@
 					{{ form_label(userForm.name) }}
 
 					{{ form_widget(userForm.name) }}
+					<div class="div-errors-log">
+						{{ form_errors(userForm.name)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="div-form">
-                    <label for="pass">Mot de passe</label>
+					{{ form_label(userForm.password) }}
 
-					<input type="password" name="pass" id="pass" class="log">
+					{{ form_widget(userForm.password) }}
+					<div class="div-errors-log">
+						{{ form_errors(userForm.password)}}
+					</div>
 				</div>
 			</div>
 

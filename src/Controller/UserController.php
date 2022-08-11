@@ -75,11 +75,9 @@ class UserController extends AbstractController
         $userForm->handleRequest($request);
         // dd($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-
-            if (password_verify($request->get("pass"), $this->getUser()->getPassword())) {
+            if (password_verify($userForm->get("password")->getData(), $this->getUser()->getPassword())) {
                     
-                // dd($user);
-                $user->setUpdatedAt(new DateTimeImmutable());
+                // $user->setUpdatedAt(new DateTimeImmutable());
                 $entityManager->persist($this->getUser());
                 $entityManager->flush();
                 return $this->redirectToRoute("profil");
