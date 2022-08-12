@@ -144,7 +144,9 @@ a:hover{
     justify-content: space-between;
 }
 
-
+.swal-height {
+    height: 637px;
+  }
 
 /*********** le texte***********/
 p{
@@ -201,7 +203,7 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-form button, #de{
+form button, #de, .swal-button{
     border:outset rgba(65, 57, 47, 0.502);
     background-color: rgba(238, 211, 176, 1);
     box-shadow: 10px 5px 5px rgba(183, 155, 118, 0.58);

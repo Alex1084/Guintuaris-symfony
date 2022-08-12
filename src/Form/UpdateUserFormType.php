@@ -37,7 +37,7 @@ class UpdateUserFormType extends AbstractType
                         ]),
                     ],
                     'label' => 'mot de passe',
-                    'mapped' => false
+                    'mapped' => false //besion du mapped = false sinon ecrase la valeur password du user
             ] )
         ;
     }

@@ -51,7 +51,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        if ($token->getUser()->getRoles()=== ["ROLE_DEACTIVATE"]) {
+        if ($token->getUser()->getRoles() === ["ROLE_DEACTIVATE"]) {
             return new RedirectResponse($this->urlGenerator->generate('deactivate'));
         }
         // For example:

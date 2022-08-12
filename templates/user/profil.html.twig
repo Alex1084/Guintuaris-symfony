@@ -13,7 +13,11 @@
 
         <a href="{{path("profil_update_password")}}">change password</a>
         <a href="{{path("profil_update_account")}}">update user</a>
-        <a href="{{path("profile_delete")}}" class="notes">Supprimmer mon Compte</a>
+        <a href="{{path("profile_delete")}}" class="notes" id="delete-account">Supprimmer mon Compte</a>
         <h3>Mes personnages: </h3>
         <a href="{{ path("character_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a>
+{% endblock %}
+
+{% block script %}
+    <script src="{{asset("script/delete.js")}}"></script>
 {% endblock %}

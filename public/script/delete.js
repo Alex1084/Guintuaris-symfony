@@ -1,16 +1,57 @@
+const board = document.querySelector(".tableau");
+let titleAlert = "";
+let contentAlert = "";
+
+if (board !== null) {
+    const boardId = board.id;
+    console.log(board);
+    console.log(boardId);       
+    switch (boardId) {
+        case "skill":
+            titleAlert = "Etes vous sure de vouloir supprimer cette competance ?";
+            contentAlert = "";
+            break;
+        case "bestiary" : 
+            titleAlert = "Etes vous sure de vouloir supprimer cet element du bestiaire ?";
+            contentAlert = "";
+            break;
+        case "weapon" :
+            titleAlert = "Etes vous sure de vouloir supprimer cette arme ?";
+            contentAlert = "";
+            break;
+        default:
+            titleAlert = "test";
+            contentAlert = "";
+            break;
+    }
+}
+
 document.querySelectorAll(".ajax-delete-link").forEach(link =>{
     
     link.addEventListener('click', (e) =>{
-        e.preventDefault();
-        if (link.classList.contains("alert")) {   
-            if (confirm("Etes vous sur de vouloir supprimmer ces donné")) {
+        e.preventDefault(); 
+        Swal.fire({
+            title:titleAlert,
+            text: contentAlert,
+            showCancelButton: true,
+            // confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            buttonsStyling : false,
+            confirmButtonText: 'Yes, delete it!', 
+            background : 'url(../img/scroll-2.png)',
+            width : 479,
+            heightAuto : false,
+            padding : "2.5%",
+            customClass : {
+                popup : "swal-height",
+                confirmButton : "swal-button",
+                cancelButton : "swal-button"
+            }
+        }).then((result) => {
+            if(result.isConfirmed){
                 axiosLink(link);
             }
-        }
-        else{
-            axiosLink(link);
-        }
-        
+          })
     })
 })
 
@@ -52,3 +93,30 @@ updateLinks.forEach(link => {
                           </form>`
     })
 })
+
+const deleteAccount = document.getElementById("delete-account");
+
+if (deleteAccount !== null) {
+    
+    deleteAccount.addEventListener('click', e => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Etes vous sure de vouloir supprimer votre compte ?',
+            text: "en cas de suppression tout les personnage crée sur ce coompte seron supprimmer",    
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!', 
+            background : 'url(../img/scroll-2.png)',
+            width : 479,
+            heightAuto : false,
+            customClass: 'swal-height',
+            padding : "2.5%"
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = deleteAccount.href;
+            }
+          })
+
+    })
+}
