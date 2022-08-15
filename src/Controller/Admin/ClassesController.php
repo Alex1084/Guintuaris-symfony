@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use Cocur\Slugify\Slugify;
 use App\Entity\Classes;
 use App\Form\ClassesFormType;
 use App\Repository\ClassesRepository;
@@ -26,7 +27,9 @@ class ClassesController extends AbstractController
 
         $classForm->handleRequest($request);
         if ($classForm->isSubmitted() && $classForm->isValid()) {
-
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($class->getName());
+            $class->setSlug($slug);
             $entityManager->persist($class);
             $entityManager->flush();
 
@@ -51,15 +54,17 @@ class ClassesController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/modifier-classe/{classId}", name:"update_class")]
-    public function updateClass(int $classId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    #[Route("/modifier-classe/{slug}", name:"update_class")]
+    public function updateClass(string $slug, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $class = $doctrine->getRepository(Classes::class)->find($classId);
+        $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);
         $classForm = $this->createForm(ClassesFormType::class, $class);
 
         $classForm->handleRequest($request);
         if ($classForm->isSubmitted() && $classForm->isValid()) {
-
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($class->getName());
+            $class->setSlug($slug);
             $entityManager->persist($class);
             $entityManager->flush();
             return $this->redirectToRoute("admin_class_list");

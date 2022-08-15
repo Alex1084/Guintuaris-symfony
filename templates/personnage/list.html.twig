@@ -7,7 +7,7 @@
     <ul>
     {% for character in characters %}
         <li>
-            <a href="{{ path("character_view", {"id" : character.id}) }}">{{ character.name }}</a>
+            <a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">{{ character.name }}</a>
         </li>
     {% endfor %}
     </ul>

@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ClassesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClassesRepository::class)]
+#[UniqueEntity(fields:["name"], message: "erreur: cette combinaison d'amure existe déjà")]
+#[UniqueEntity(fields:["slug"], message: "erreur: cette combinaison d'amure existe déjà")]
 class Classes
 {
     #[ORM\Id]
@@ -57,6 +60,9 @@ class Classes
     #[ORM\Column(type: 'text', nullable:true)]
     private $description;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
+
 
     public function getId(): ?int { return $this->id; }
     
@@ -92,6 +98,13 @@ class Classes
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getSlug(): ?string { return $this->slug; }
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
         return $this;
     }
 }

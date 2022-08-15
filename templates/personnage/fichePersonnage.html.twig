@@ -20,7 +20,7 @@
 					<div>
 						<img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="200">
 					</div>
-					<a href="{{ path("character_change_image", {'id' : character.id})}}">Changer d'image</a>
+					<a href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a>
 				</div>
 				<div class="div-detail-personnage">
 
@@ -29,7 +29,7 @@
 					<h3>{{ character.class.name }}</h3>
 					<h3>Niveau {{ character.level }}</h3>
 					{% if character.team %}
-						<a href="{{ path("team_list", {"teamId" :character.team.id})}}">{{character.team.name}}</a>
+						<a href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
 					{% endif %}
 				</div>
 				<div class="div-lore">
@@ -39,12 +39,12 @@
 						<div class=" hidden dropdown-content">
 							<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
 						</div>
-						<a href="{{ path("character_update_lore", {"id" :character.id}) }}" id="lore-link">Modifier le lore</a>
+						<a href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier le lore</a>
 					</div>
 				</div>
 			</div>
 			<div>
-				<a href="{{ path('character_setting', {"id" : character.id}) }}">option</a>
+				<a href="{{ path('character_setting', {"slug" : character.slug, "id" : character.id}) }}">option</a>
 			</div>
 		</div>
 		<div class="container">
@@ -89,7 +89,7 @@
 				</div>
 				<div class="div-statut">
 					<div>
-						<a href="{{path("character_level_up", {"id" :character.id})}}">Level up !</a>
+						<a href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Level up !</a>
 					</div>
 					<div class="statut">
 						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
@@ -190,7 +190,7 @@
 				<div>
 					<div>
 						<div>
-							<a href="{{ path("character_update_armor", {"id" : character.id}) }}" class="titre-table">
+							<a href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
 								<h2>Armure</h2>
 							</a>
 						</div>
@@ -225,7 +225,7 @@
 
 				<div>
 					<div>
-						<a href="{{ path("character_update_weapon", {"id" : character.id}) }}" class="titre-table">
+						<a href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
 
 							<h2>Arme</h2>
 						</a>

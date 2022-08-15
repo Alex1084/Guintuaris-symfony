@@ -23,17 +23,18 @@ class FicheEquipeController extends AbstractController
      * @param CharacterRepository $characterRepository
      * @return Response
      */
-    #[Route('/list/{teamId}', name: 'list')]
-    public function teamMembersList(int $teamId, CharacterRepository $characterRepository): Response
+    #[Route('/list/{teamSlug}/{teamId}', name: 'list')]
+    public function teamMembersList(string $teamSlug, int $teamId, CharacterRepository $characterRepository): Response
     {
         $characters = $characterRepository->findNameByTeam($teamId);
         return $this->render('fiche_equipe/listEquipe.html.twig', [
             "characters" => $characters,
             "teamId" => $teamId,
+            "teamSlug" => $teamSlug
         ]);
     }
 
-    #[Route('/{teamId}/{characterId}', name: 'sheet_view')]
+    #[Route('/{teamSlug}/{teamId}/{characterSlug}/{characterId}', name: 'sheet_view')]
     /**
      * cette page affiche une fiche de personnage qui ne peut pas être editer
      * le membre y on seulement un accee afin de pouvoir voir les fiche des membre de leur equipe
@@ -44,10 +45,13 @@ class FicheEquipeController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    public function fichePerso(int $teamId, int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
+    public function fichePerso(string $teamSlug, int $teamId,string $characterSlug,  int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($characterId);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $teamId]);
         //requete pour les competence
+        if (!$character) {
+            return $this->redirectToRoute("character_list");
+        }
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures

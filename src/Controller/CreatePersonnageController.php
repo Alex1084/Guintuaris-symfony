@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Cocur\Slugify\Slugify;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
 use App\Entity\Weapon;
@@ -41,12 +42,15 @@ class CreatePersonnageController extends AbstractController
         //
         $characterForm->handleRequest($request);
         if ($characterForm->isSubmitted() && $characterForm->isValid()) {
-            // hydratation des champs 
-            $character->setGold(0)
-                       ->setUser($this->getUser())
-                       ->setPv($character->getPvMax())
-                       ->setPm($character->getPmMax())
-                       ->setPc($character->getPcMax());
+            // hydratation des champs
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($character->getName());
+            $character->setSlug($slug)
+                      ->setGold(0)
+                      ->setUser($this->getUser())
+                      ->setPv($character->getPvMax())
+                      ->setPm($character->getPmMax())
+                      ->setPc($character->getPcMax());
             
             // execution de la requete
             $entityManager->persist($character);

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use Cocur\Slugify\Slugify;
 use App\Entity\Character;
 use App\Entity\Team;
 use App\Repository\CharacterRepository;
@@ -33,6 +34,9 @@ class TeamController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($newTeam->getName());
+            $newTeam->setSlug($slug);
             $entityManager->persist($newTeam);
             $entityManager->flush();
             return $this->redirectToRoute("admin_add_member", ['teamId' => $newTeam->getId()]);
@@ -52,7 +56,10 @@ class TeamController extends AbstractController
                 return $this->redirectToRoute("admin_team_list");
             }
             $team = $doctrine->getRepository(Team::class)->find($teamId);
-            $team->setName($newName);
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($newName);
+            $team->setSlug($slug)
+                    ->setName($newName);
             $entityManager->persist($team);
             $entityManager->flush();
         }
@@ -81,11 +88,14 @@ class TeamController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/ajout-membre/{teamId}', name: 'add_member')]
-    public function addTeamMember(int $teamId, Request $request, EntityManagerInterface $entityManager, CharacterRepository $characterRepository, ManagerRegistry $doctrine): Response
+    #[Route('/ajout-membre/{slug}/{teamId}', name: 'add_member')]
+    public function addTeamMember(string $slug, int $teamId, Request $request, EntityManagerInterface $entityManager, CharacterRepository $characterRepository, ManagerRegistry $doctrine): Response
     {
+        $team = $doctrine->getRepository(Team::class)->findOneBy(["slug" => $slug, "id" => $teamId]); //represente la L'equipe sur la quelle des membre vont etre ajouter
+        if (!$team) {
+            return $this->redirectToRoute("admin_team_list");
+        }
         $teamMembers = $characterRepository->findNameByTeam($teamId); //list des Memebre apartennant a cette equipe
-        $team = $doctrine->getRepository(Team::class)->find($teamId); //represente la L'equipe sur la quelle des membre vont etre ajouter
         $memberForm = $this->createFormBuilder()
             ->add('character', EntityType::class, [
                 'class' => Character::class,

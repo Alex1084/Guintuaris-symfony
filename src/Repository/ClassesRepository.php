@@ -42,7 +42,7 @@ class ClassesRepository extends ServiceEntityRepository
     public function classList()
     {
         return $this->createQueryBuilder('c')
-        ->select('c.name, c.id')
+        ->select('c.name, c.slug, c.id')
         ->getQuery()->getResult();
     }
 }

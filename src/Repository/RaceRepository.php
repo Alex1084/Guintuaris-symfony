@@ -43,7 +43,7 @@ class RaceRepository extends ServiceEntityRepository
     public function raceList()
     {
         return $query = $this->createQueryBuilder('r')
-            ->select('r.id, r.name')
+            ->select('r.id, r.slug, r.name')
             ->getQuery()->getResult();
     }
 }

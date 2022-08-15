@@ -45,6 +45,9 @@ class Character extends Sheet
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
+
     public function getUser(): ?User { return $this->user; }
     public function setUser(?User $user): self
     {
@@ -98,6 +101,13 @@ class Character extends Sheet
     public function setImage(?string $image): self
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getSlug(): ?string { return $this->slug; }
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
         return $this;
     }
 }

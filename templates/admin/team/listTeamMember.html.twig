@@ -12,7 +12,7 @@
 		<ul>
 			{% for member in teamMembers %}
 				<li>
-					<a href="{{ path("team_sheet_view", {"teamId" : team.id, "characterId" : member.id}) }}">{{ member.name }}</a>
+					<a href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": member.slug, "characterId" : member.id}) }}">{{ member.name }}</a>
 					<a class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : member.id}) }}">Supprimmer</a>
 				</li>
 			{% endfor %}

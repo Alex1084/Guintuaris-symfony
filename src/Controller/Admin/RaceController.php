@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use Cocur\Slugify\Slugify;
 use App\Entity\Race;
 use App\Form\RaceFormType;
 use App\Repository\RaceRepository;
@@ -26,7 +27,9 @@ class RaceController extends AbstractController
 
         $raceForm->handleRequest($request);
         if ($raceForm->isSubmitted()) {
-
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($race->getName());
+            $race->setSlug($slug);
             $entityManager->persist($race);
             $entityManager->flush();
 
@@ -51,15 +54,17 @@ class RaceController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/modifier-race/{raceId}", name:"update_race")]
-    public function updateRace(int $raceId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    #[Route("/modifier-race/{slug}", name:"update_race")]
+    public function updateRace(string $slug, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $race = $doctrine->getRepository(Race::class)->find($raceId);
+        $race = $doctrine->getRepository(Race::class)->findOneBy(["slug" => $slug]);
         $raceForm = $this->createForm(RaceFormType::class, $race);
 
         $raceForm->handleRequest($request);
         if ($raceForm->isSubmitted()) {
-
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($race->getName());
+            $race->setSlug($slug);
             $entityManager->persist($race);
             $entityManager->flush();
             return $this->redirectToRoute("admin_race_list");

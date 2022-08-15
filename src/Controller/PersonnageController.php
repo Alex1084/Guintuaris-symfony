@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Cocur\Slugify\Slugify;
 use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
@@ -79,10 +80,13 @@ class PersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{id}', name: 'view')]
-    public function fichePerso(int $id, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
+    #[Route('/{slug}/{id}', name: 'view')]
+    public function fichePerso(string $slug, int $id, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
@@ -95,11 +99,13 @@ class PersonnageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/option', name:'setting')]
-    public function setting(int $id, ManagerRegistry $doctrine)
+    #[Route('/{slug}/{id}/option', name:'setting')]
+    public function setting(string $slug, int $id, ManagerRegistry $doctrine)
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
-
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         return $this->render('personnage/setting.html.twig', ['character' => $character]);
     }
     #[Route('/{id}/delete', name:'delete')]
@@ -114,10 +120,10 @@ class PersonnageController extends AbstractController
         return $this->redirectToRoute("character_list");
 
     }
-    #[Route("/{id}/update", name: "update")]
-    public function updateCharact($id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request)
+    #[Route("/{slug}/{id}/update", name: "update")]
+    public function updateCharact(string $slug, int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request)
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -135,9 +141,12 @@ class PersonnageController extends AbstractController
                     ->remove("faith");
         $characterForm->handleRequest($request);
         if ($characterForm->isSubmitted() && $characterForm->isValid()) {
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($character->getName());
+            $character->setSlug($slug);
             $entityManager->persist($character);
             $entityManager->flush();
-            return $this->redirectToRoute("character_view", ["id" => $id]);
+            return $this->redirectToRoute("character_view", ["slug" => $slug, "id" => $id]);
         }
         return $this->render("/personnage/updateCharacter.html.twig", [
             "characterForm" => $characterForm->createView()
@@ -153,10 +162,13 @@ class PersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{id}/lore', name: 'update_lore')]
-    public function Updatelore(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    #[Route('/{slug}/{id}/lore', name: 'update_lore')]
+    public function Updatelore(string $slug, int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         $loreForm = $this->createFormBuilder($character)
             ->add('lore', TextareaType::class, [
                 'required' => false,
@@ -170,7 +182,7 @@ class PersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
             //
-            return $this->redirectToRoute('character_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/lore.html.twig', [
             "loreForm" => $loreForm->createView(),
@@ -188,10 +200,13 @@ class PersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{id}/level-up', name: 'level_up')]
-    public function levulUp(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    #[Route('/{slug}/{id}/level-up', name: 'level_up')]
+    public function levulUp(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         $characterForm = $this->createForm(CharacterType::class, $character);
 
         //annulation affichage champs hors formulaire
@@ -212,7 +227,7 @@ class PersonnageController extends AbstractController
             //
 
             $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('character_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/levelup.html.twig', [
             "characterForm" => $characterForm->createView(),
@@ -230,10 +245,13 @@ class PersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{id}/image', name: 'change_image')]
-    public function modifImage(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    #[Route('/{slug}/{id}/image', name: 'change_image')]
+    public function modifImage(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         $imageForm = $this->createFormBuilder()
             ->add('image', FileType::class, [
                 'label' => 'image (jpg)',
@@ -261,7 +279,7 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($character);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('character_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/changeImage.html.twig', [
             "imageForm" => $imageForm->createView(),
@@ -269,10 +287,13 @@ class PersonnageController extends AbstractController
         ]);
     }
 
-    #[Route("/{id}/image/delete", name:'delete_image')]
-    public function deleteImage(int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    #[Route("/{slug}/{id}/image/delete", name:'delete_image')]
+    public function deleteImage(string $slug,int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         $oldImage = $character->getImage();
         if ($oldImage != null) {
             $this->removeFile($oldImage);
@@ -280,7 +301,7 @@ class PersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('character_view', ["id" => $id]);
+        return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
     }
 
     /**
@@ -294,10 +315,13 @@ class PersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{id}/armure', name: 'update_armor')]
-    public function updateArmor(int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository, ManagerRegistry $doctrine): Response
+    #[Route('/{slug}/{id}/armure', name: 'update_armor')]
+    public function updateArmor(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         $locations = $doctrine->getRepository(ArmorLocation::class)->findAll();
         // dd($locations);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
@@ -364,7 +388,7 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($armor[$location->getId()  - 1]);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('character_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/equipement.html.twig', [
             "armorForm" => $armorForm->createView(),
@@ -383,11 +407,13 @@ class PersonnageController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{id}/arme', name: 'update_weapon')]
-    public function updateWeapon(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    #[Route('/{slug}/{id}/arme', name: 'update_weapon')]
+    public function updateWeapon(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
-
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        if (!$character || $character->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute("character_list");
+        }
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
         if (count($weapons) <= 3) {
@@ -449,7 +475,7 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($weapons[$i - 1]);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('character_view', ["id" => $id]);
+            return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/arme.html.twig', [
             'weaponForm' => $weaponForm->createView(),

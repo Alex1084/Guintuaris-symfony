@@ -15,7 +15,7 @@
 
 				<tr>
                     <th class="data-id">{{team.id}}</th>
-					<th class="data-name">  <a href="{{ path("admin_add_member", {"teamId" : team.id}) }}">{{ team.name }}</a> </th>
+					<th class="data-name">  <a href="{{ path("admin_add_member", {'slug' : team.slug, "teamId" : team.id}) }}">{{ team.name }}</a> </th>
                     <th>
                         <a href="{{ path("admin_team_rename", {'teamId' : team.id}) }}" class="update-link">Renomer</a>
                     </th>

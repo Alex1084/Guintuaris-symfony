@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\RaceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
+#[UniqueEntity(fields:["name"], message: "erreur: cette combinaison d'amure existe déjà")]
+#[UniqueEntity(fields:["slug"], message: "erreur: cette combinaison d'amure existe déjà")]
 class Race
 {
     #[ORM\Id]
@@ -32,6 +35,9 @@ class Race
 
     #[ORM\Column(type: 'text')]
     private $bonus;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     public function getId(): ?int { return $this->id; }
 
@@ -60,6 +66,13 @@ class Race
     public function setBonus(?string $bonus): self
     {
         $this->bonus = $bonus;
+        return $this;
+    }
+
+    public function getSlug(): ?string { return $this->slug; }
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
         return $this;
     }
 }
