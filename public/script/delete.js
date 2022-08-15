@@ -8,20 +8,24 @@ if (board !== null) {
     console.log(boardId);       
     switch (boardId) {
         case "skill":
-            titleAlert = "Etes vous sure de vouloir supprimer cette competance ?";
-            contentAlert = "";
+            titleAlert = "Etes vous sûr de vouloir supprimer cette competence ?";
+            contentAlert = "<p>si vous comfirmez cette competence sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
         case "bestiary" : 
-            titleAlert = "Etes vous sure de vouloir supprimer cet element du bestiaire ?";
-            contentAlert = "";
+            titleAlert = "Etes vous sûr de vouloir supprimer cet element du bestiaire ?";
+            contentAlert = "<p>si vous comfirmez cette element du bestiaire sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
         case "weapon" :
-            titleAlert = "Etes vous sure de vouloir supprimer cette arme ?";
-            contentAlert = "";
+            titleAlert = "Etes vous sûr de vouloir supprimer cette arme ?";
+            contentAlert = "<p>si vous comfirmez cette arme sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            break;
+        case "team" :
+            titleAlert = "Etes vous sûr de vouloir supprimer cette equipe ?";
+            contentAlert = "<p>si vous comfirmez cette equipe sera definitivement supprimmé, aucunne restauration ne sera possible.</p> <p>les personnages ne seront pas supprimer mais les joueur n'oront plus accées au fiche de leurs equipié";
             break;
         default:
-            titleAlert = "test";
-            contentAlert = "";
+            titleAlert = "Etes vous sûr de vouloir supprimer cette donnèe ?";
+            contentAlert = "<p>si vous comfirmez cette donnée sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
     }
 }
@@ -29,23 +33,26 @@ if (board !== null) {
 document.querySelectorAll(".ajax-delete-link").forEach(link =>{
     
     link.addEventListener('click', (e) =>{
-        e.preventDefault(); 
+        e.preventDefault();
+        row = link.parentElement.parentElement;
+        dataId = row.querySelector(".data-id").textContent
+        dataName = row.querySelector(".data-name").textContent
+        contentAlert += "<p>Id : "+ dataId +"</p><p> nom : "+dataName +"</p>"
         Swal.fire({
             title:titleAlert,
-            text: contentAlert,
+            html: contentAlert,
             showCancelButton: true,
-            // confirmButtonColor: '#3085d6',
-            // cancelButtonColor: '#d33',
             buttonsStyling : false,
-            confirmButtonText: 'Yes, delete it!', 
+            confirmButtonText: 'Oui, supprimer!', 
+            cancelButtonText : 'Annuler',
             background : 'url(../img/scroll-2.png)',
             width : 479,
             heightAuto : false,
             padding : "2.5%",
             customClass : {
                 popup : "swal-height",
-                confirmButton : "swal-button",
-                cancelButton : "swal-button"
+                confirmButton : "swal-button swal-comfirm",
+                cancelButton : "swal-button swal-cancel"
             }
         }).then((result) => {
             if(result.isConfirmed){

@@ -8,7 +8,7 @@
 {% block body %}
 	<div class="container">
 		<h1 class="title">{{team.name}}</h1>
-		<a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a>
+		{# <a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a> #}
 		<ul>
 			{% for member in teamMembers %}
 				<li>
@@ -18,11 +18,16 @@
 			{% endfor %}
 		</ul>
 
-		{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}
-		{{form_widget(memberForm) }}
-		<button>Ajouter !</button>
-		{{form_end(memberForm)}}
-		<a id="show-form">Ajouter un Menbre</a>
+		<div class="div-form-hidden">
+			{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}
+			<div class="div-form">
+				{{ form_label(memberForm.character) }}
+                {{ form_widget(memberForm.character) }}
+			</div>
+			<button class="valid-form">Ajouter !</button>
+			{{form_end(memberForm)}}
+			<a id="show-form">Ajouter un Menbre</a>
+		</div>
 	</div>
 
 

@@ -211,7 +211,18 @@ form button, #de, .swal-button{
     font-size: 1rem;
     font-weight: 700;
 }
-form button:active, #de:active{
+.swal-button {
+    margin: 5px;
+    padding: 3px;
+    font-size: 1.25rem;
+}
+.swal-comfirm {
+    color: #060;
+}
+.swal-cancel {
+    color: #a00;
+}
+form button:active, #de:active, .swal-button:active{
     transform: translateY(4px);
     scale: 0.95;
 }

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Les équipes |
+	Competence admin|
 	{{parent()}}
 {% endblock %}
 
 {% block body %}
-	<h2>Fiches personnages</h2>
+	<h2>Competences</h2>
 	<div class="container">
     <div class="">
         <a href="{{ path("admin_add_skill")}}">Creer une Nouvelle Competence</a>
@@ -21,10 +21,9 @@
                 <th></th>
 			</tr>
 			{% for skill in skills %}
-
 				<tr>
-					<th> {{skill.id}} </th>
-					<th> {{ skill.name }} </th>
+					<th class="data-id"> {{skill.id}} </th>
+					<th class="data-name"> {{ skill.name }} </th>
 					<th> {{ skill.className }} </th>
 					<th> {{ skill.level }} </th>
 					<th> {{ skill.cost }} </th>
@@ -35,7 +34,6 @@
                         <a class="ajax-delete-link alert" href="{{ path("admin_delete_skill", {'skillId' : skill.id}) }}">Supprimer</a>
                     </th>
 				</tr>
-					
 			{% endfor %}
 		</table>
 	</div>

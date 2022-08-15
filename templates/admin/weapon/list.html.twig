@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Les équipes |
+	Armes admin|
 	{{parent()}}
 {% endblock %}
 
 {% block body %}
-	<h2>Fiches personnages</h2>
+	<h2>Armes</h2>
 	<div class="container">
     <div class="">
-        <a href="{{ path("admin_add_weapon")}}">Creer une Nouvelle Competence</a>
+        <a href="{{ path("admin_add_weapon")}}">Creer une Nouvelle arme</a>
     </div>
 		<table class="tableau" id="weapon">
 			<tr>
@@ -20,10 +20,9 @@
                 <th></th>
 			</tr>
 			{% for weapon in weapons %}
-
 				<tr>
-					<th> {{weapon.id}} </th>
-					<th> {{ weapon.name }} </th>
+					<th class="data-id"> {{weapon.id}} </th>
+					<th class="data-name"> {{ weapon.name }} </th>
 					<th> {{ weapon.damage }} </th>
 					<th> {{ weapon.dice }} </th>
                     <th>
@@ -32,8 +31,7 @@
                     <th>
                         <a class="ajax-delete-link alert" href="{{ path("admin_delete_weapon", {'weaponId' : weapon.id}) }}">Supprimer</a>
                     </th>
-				</tr>
-					
+				</tr>	
 			{% endfor %}
 		</table>
 	</div>
