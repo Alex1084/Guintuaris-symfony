@@ -39,7 +39,7 @@ class TeamController extends AbstractController
             $newTeam->setSlug($slug);
             $entityManager->persist($newTeam);
             $entityManager->flush();
-            return $this->redirectToRoute("admin_add_member", ['teamId' => $newTeam->getId()]);
+            return $this->redirectToRoute("admin_add_member", ['teamId' => $newTeam->getId(), "slug" => $newTeam->getSlug()]);
         }
         return $this->render('admin/team/listTeam.html.twig', [
             'teams' => $allTeam,
@@ -113,7 +113,7 @@ class TeamController extends AbstractController
             $selectedCharacter->setTeam($team);
             $entityManager->persist($selectedCharacter);
             $entityManager->flush();
-            return $this->redirectToRoute('admin_add_member', ['teamId' => $teamId]);
+            return $this->redirectToRoute('admin_add_member', ['teamId' => $teamId, "slug" => $slug]);
         }
         return $this->render('admin/team/listTeamMember.html.twig', [
             'memberForm' => $memberForm->createView(),

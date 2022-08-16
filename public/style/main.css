@@ -172,6 +172,10 @@ p{
 .content:hover{
     background: rgba(238, 212, 177, 0.507);
 }
+
+.toast-custom{
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.25);
+}
 /***********les input***********/
 
 textarea, input, select {

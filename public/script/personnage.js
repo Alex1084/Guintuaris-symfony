@@ -20,6 +20,21 @@ function ajax() {
     console.log(values);
     axios.post('/personnage/update',  values,   
      'Content-Type: multipart/form-data' )
-    .then()
+    .then(
+        Swal.fire({
+            position: 'top-end',
+            // icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500,
+            // backdrop : false,  
+            background : 'url(../../img/toast.png)',
+            customClass : {
+                popup : "toast-custom",
+                title : "swal-comfirm"
+            },  
+            toast : true
+          })
+    )
     .catch(error => console.error(error.response.data));
 }
