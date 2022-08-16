@@ -174,7 +174,18 @@ p{
 }
 
 .toast-custom{
-    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.25) !important; /* important obligatoire pour les toast de sweet alert */
+}
+.flash {
+    margin: 2vh 0;
+    text-align: center;
+    padding: 1rem;
+}
+.flash.success {
+    background-color: rgba(0, 102, 0, 0.5);
+}
+.flash.error {
+    background-color: rgba(170, 0, 0, 0.5);
 }
 /***********les input***********/
 

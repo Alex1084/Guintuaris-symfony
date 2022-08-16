@@ -1,12 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Les équipes |
+	Type de bête |
 	{{parent()}}
 {% endblock %}
 
 {% block body %}
-	<h2>Fiches personnages</h2>
+	<h2>Type de Bête</h2>
 	<div class="container">
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
 		<table class="tableau">
 			<tr>
 				<th>Id</th>

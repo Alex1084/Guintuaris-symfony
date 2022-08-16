@@ -3,6 +3,11 @@
 {% block title %} Profil | {{parent()}}{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="flash success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h1>Profil: {{ user.name }}</h1>
     
 

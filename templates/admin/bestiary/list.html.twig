@@ -7,6 +7,16 @@
 {% block body %}
 	<h2>Liste du bestiaire</h2>
 	<div class="container">
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
     <div class="">
         <a href="{{ path("admin_add_bestiary")}}">Creer une bête</a>
     </div>

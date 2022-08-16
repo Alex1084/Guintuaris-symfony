@@ -7,8 +7,18 @@
 
 {% block body %}
 	<div class="container">
+			{% for message in app.flashes('success') %}
+				<div class="flash success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('error') %}
+				<div class="flash error">
+					{{ message }}
+				</div>
+			{% endfor %}
 		<div class="div-form-hidden">
-			<a id="show-form">Ajouter un Menbre</a>
+			<a id="show-form">Piece d'armure</a>
 			{{form_start(armorPieceForm, { "attr" : {"class" : "hidden"} }) }}
 			<div class="row">
 

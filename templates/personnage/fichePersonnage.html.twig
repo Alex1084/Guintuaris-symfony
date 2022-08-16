@@ -15,6 +15,11 @@
 {% block body %}
 	{% if app.user.id == character.user.id %}
 		<div class="container">
+			{% for message in app.flashes('success') %}
+				<div class="flash success">
+					{{ message }}
+				</div>
+			{% endfor %}
 			<div class="row">
 				<div class="img-div">
 					<div>

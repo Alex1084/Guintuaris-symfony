@@ -34,7 +34,7 @@ class BestiaryController extends AbstractController
                 ->setPm($bestiary->getPmMax());
             $entityManager->persist($bestiary);
             $entityManager->flush();
-
+            $this->addFlash("success", "la bete a été enregistré dans le bestaire");
             return $this->redirectToRoute("admin_bestiary_list");
         }
         return $this->render('admin/bestiary/form.html.twig', [
@@ -69,6 +69,7 @@ class BestiaryController extends AbstractController
                  ->setPm($bestiary->getPmMax());
             $entityManager->persist($bestiary);
             $entityManager->flush();
+            $this->addFlash("success", "La creature a été modifé avec succés");
             return $this->redirectToRoute("admin_bestiary_list");
         }
         return $this->render('admin/bestiary/form.html.twig', [
@@ -103,9 +104,10 @@ class BestiaryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($newType);
             $entityManager->flush();
+            $this->addFlash("success", "le type ".$newType->getName()."à été enregistré");
             return $this->redirectToRoute('admin_bestiary_type_list');
         }
-        return $this->render('admin/listTable.html.twig', [
+        return $this->render('admin/bestiary/TypeList.html.twig', [
             'list' => $findall,
             'form' => $form->createView(),
         ]);
@@ -122,6 +124,7 @@ class BestiaryController extends AbstractController
             $team->setName($newName);
             $entityManager->persist($team);
             $entityManager->flush();
+            $this->addFlash("success", "le type de bete & été renommé avec succés");
         }
         return $this->redirectToRoute("admin_bestiary_type_list");
     }

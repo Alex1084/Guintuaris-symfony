@@ -39,6 +39,7 @@ class TeamController extends AbstractController
             $newTeam->setSlug($slug);
             $entityManager->persist($newTeam);
             $entityManager->flush();
+            $this->addFlash("success", "l'equipe ".$newTeam->getName()." a été créé avec succés");
             return $this->redirectToRoute("admin_add_member", ['teamId' => $newTeam->getId(), "slug" => $newTeam->getSlug()]);
         }
         return $this->render('admin/team/listTeam.html.twig', [
@@ -53,15 +54,18 @@ class TeamController extends AbstractController
         if ($request->isMethod('post')) {
             $newName = $request->request->get("value");
             if (strlen($newName) <= 3) {
+                $this->addFlash("error", "nom invalie, le nom de l'quipe doit faire entre 3 et 50 caractère ");
                 return $this->redirectToRoute("admin_team_list");
             }
             $team = $doctrine->getRepository(Team::class)->find($teamId);
             $slugify = new Slugify();
             $slug = $slugify->slugify($newName);
+            $oldName = $team->getName();
             $team->setSlug($slug)
                     ->setName($newName);
             $entityManager->persist($team);
             $entityManager->flush();
+            $this->addFlash("success", "l'equipe ".$oldName." a été renommé en ".$newName);
         }
         return $this->redirectToRoute("admin_team_list");
     }
@@ -113,6 +117,7 @@ class TeamController extends AbstractController
             $selectedCharacter->setTeam($team);
             $entityManager->persist($selectedCharacter);
             $entityManager->flush();
+            $this->addFlash("success", "le nouveau membre a été ajouté avec succés");
             return $this->redirectToRoute('admin_add_member', ['teamId' => $teamId, "slug" => $slug]);
         }
         return $this->render('admin/team/listTeamMember.html.twig', [

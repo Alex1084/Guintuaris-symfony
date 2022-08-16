@@ -116,7 +116,9 @@ class PersonnageController extends AbstractController
         if ($character && $character->getUser() === $this->getUser()) {
             $entityManager->remove($character);
             $entityManager->flush();
+            $this->addFlash("success", "Au revoir ".$character->getName()."! nous vous souhaiton bon vent!");
         }
+
         return $this->redirectToRoute("character_list");
 
     }
@@ -146,6 +148,7 @@ class PersonnageController extends AbstractController
             $character->setSlug($slug);
             $entityManager->persist($character);
             $entityManager->flush();
+            $this->addFlash("success", "Les modification de ton personnage ont été sauvegarder");
             return $this->redirectToRoute("character_view", ["slug" => $slug, "id" => $id]);
         }
         return $this->render("/personnage/updateCharacter.html.twig", [
@@ -182,6 +185,7 @@ class PersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
             //
+            $this->addFlash("success", "très intéréssant! nous somme ravi d'en savoir plus sur vous ".$character->getName().".");
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/lore.html.twig', [
@@ -203,7 +207,9 @@ class PersonnageController extends AbstractController
     #[Route('/{slug}/{id}/level-up', name: 'level_up')]
     public function levulUp(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
+        $message = "tes nouvelle statistique ont été enregistrée";
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $currentLevel = $character->getLevel();
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -216,7 +222,7 @@ class PersonnageController extends AbstractController
 
         $characterForm->handleRequest($request);
         if ($characterForm->isSubmitted() && $characterForm->isValid()) {
-            // hydratation des champs 
+            // hydratation des champs
             $character->setPv($character->getPvMax());
             $character->setPm($character->getPmMax());
             $character->setPc($character->getPcMax());
@@ -225,8 +231,10 @@ class PersonnageController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
             //
-
-            $this->addFlash('success', 'ton perso a été créer');
+            if ($character->getLevel() > $currentLevel) {
+                $message = "fellicitation ! vous etes desormais niveau ".$character->getLevel();
+            }
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/levelup.html.twig', [
@@ -278,6 +286,7 @@ class PersonnageController extends AbstractController
                 $character->setImage($fileName);
                 $entityManager->persist($character);
                 $entityManager->flush();
+                $this->addFlash("success", "c'est toujours agreable de mettre un visage sur un nom! ");
             }
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
@@ -300,6 +309,7 @@ class PersonnageController extends AbstractController
             $character->setImage(null);
             $entityManager->persist($character);
             $entityManager->flush();
+            $this->addFlash("success", "c'est donc ça un sans visage ?");
         }
         return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
     }
@@ -387,6 +397,7 @@ class PersonnageController extends AbstractController
 
                 $entityManager->persist($armor[$location->getId()  - 1]);
                 $entityManager->flush();
+                $this->addFlash("success", "vous voila equiper et prêt au combat");
             }
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
@@ -475,7 +486,8 @@ class PersonnageController extends AbstractController
                 $entityManager->persist($weapons[$i - 1]);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
+                $this->addFlash("success", "vous voilà equiper pour pourfandre vos ennemis");
+                return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('personnage/arme.html.twig', [
             'weaponForm' => $weaponForm->createView(),

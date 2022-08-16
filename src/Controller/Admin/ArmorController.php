@@ -29,10 +29,16 @@ class ArmorController extends AbstractController
         $findall = $doctrine->getRepository(ArmorLocation::class)->findAll();
         $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($newLoca);
-            $entityManager->flush();
-            return $this->redirectToRoute('admin_armor_location_list');
+        if ($request->isMethod("post")) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($newLoca);
+                $entityManager->flush();
+                $this->addFlash("success", "la localisation d'armure a été ajouter. Pour le moment aucune piece d'armure ne sont associer a cette localisation, pensez à crée des pieces.");
+                return $this->redirectToRoute('admin_armor_location_list');
+            }
+            else {
+                $this->addFlash("error", "le formulaire n'as pas été rempli correctement, affichez le formulaire");
+            }
         }
         return $this->render('admin/armor/locationList.html.twig', [
             'list' => $findall,
@@ -46,12 +52,15 @@ class ArmorController extends AbstractController
         if ($request->isMethod('post')) {
             $newName = $request->request->get('value');
             if (strlen($newName) <= 2 || strlen($newName) > 50) {
+                $this->addFlash("error", "le nom entré n'est pas valide, il doit faire entre 2 et 50 caractère");
                 return $this->redirectToRoute('admin_armor_location_list');
             }
             $location = $doctrine->getRepository(ArmorLocation::class)->find($locationId);
+            $oldName = $location->getName();
             $location->setName($newName);
             $entityManager->persist($location);
             $entityManager->flush();
+            $this->addFlash("success", "la localisation ". $oldName." a été renommé ". $newName);
         }
         return $this->redirectToRoute('admin_armor_location_list');
     }
@@ -63,10 +72,16 @@ class ArmorController extends AbstractController
         $findall = $doctrine->getRepository(ArmorType::class)->findAll();
         $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($newLoca);
-            $entityManager->flush();
-            return $this->redirectToRoute('admin_armor_type_list');
+        if ($request->isMethod("post")) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($newLoca);
+                $entityManager->flush();
+                $this->addFlash("success", "le type d'armure a été ajouter. Pour le moment aucune piece d'armure ne sont associer a ce type, pensez à crée des pieces.");
+                return $this->redirectToRoute('admin_armor_type_list');
+            }
+            else {
+                $this->addFlash("error", "le formulaire n'as pas été rempli correctement, affichez le formulaire");
+            }
         }
         return $this->render('admin/armor/typeList.html.twig', [
             'list' => $findall,
@@ -80,12 +95,15 @@ class ArmorController extends AbstractController
         if ($request->isMethod('post')) {
             $newName = $request->request->get('value');
             if (strlen($newName) <= 2 || strlen($newName) > 50 ) {
+                $this->addFlash("error", "le nom entré n'est pas valide, il doit faire entre 2 et 50 caractère");
                 return $this->redirectToRoute('admin_armor_type_list');
             }
             $type = $doctrine->getRepository(ArmorType::class)->find($typeId);
+            $oldName = $type->getName();
             $type->setName($newName);
             $entityManager->persist($type);
             $entityManager->flush();
+            $this->addFlash("success", "la localisation ". $oldName." a été renommé ". $newName);
         }
         return $this->redirectToRoute('admin_armor_type_list');
     }
@@ -107,11 +125,16 @@ class ArmorController extends AbstractController
         $armorPieceForm = $this->createForm(ArmorPieceType::class, $armorPiece);
 
         $armorPieceForm->handleRequest($request);
-        if ($armorPieceForm->isSubmitted() && $armorPieceForm->isValid()) {
-            $entityManager->persist($armorPiece);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_add_armor_piece');
+        if ($request->isMethod("post")) {
+            if ($armorPieceForm->isSubmitted() && $armorPieceForm->isValid()) {
+                $entityManager->persist($armorPiece);
+                $entityManager->flush();
+                $this->addFlash("success", "la novelle piece d'armure a été enregistrée");
+                return $this->redirectToRoute('admin_add_armor_piece');
+            }
+            else {
+                $this->addFlash("error", "le formulaire n'as pas été rempli correctement, affichez le formulaire");
+            }
         }
         return $this->render('admin/armor/pieceList.html.twig', [
             "armorPieceForm" => $armorPieceForm->createView(),
@@ -124,13 +147,15 @@ class ArmorController extends AbstractController
     {
         if ($request->isMethod('post')) {
             $newValue = $request->request->get('value');
-            if (gettype($newValue) === "integer") {
+            if (gettype($newValue) === "integer" && $newValue >= 0 && $newValue <= 10) {
+                $this->addFlash("error", "veuillez entré un nombre entier entre 1 et 10");
                 return $this->redirectToRoute('admin_add_armor_piece');
             }
             $piece = $doctrine->getRepository(ArmorPiece::class)->find($pieceId);
             $piece->setValue($newValue);
             $entityManager->persist($piece);
             $entityManager->flush();
+            $this->addFlash("success", "la piece d'armure a été mise a jour");
         }
         return $this->redirectToRoute('admin_add_armor_piece');
     }

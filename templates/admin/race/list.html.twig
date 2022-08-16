@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Les équipes |
+	Race |
 	{{parent()}}
 {% endblock %}
 
 {% block body %}
-	<h2>Fiches personnages</h2>
+	<h2>Races</h2>
 	<div class="container">
-    <div class="">
-        <a href="{{ path("admin_add_race")}}">Creer une Nouvelle Competence</a>
-    </div>
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="">
+			<a href="{{ path("admin_add_race")}}">Creer une Race</a>
+		</div>
 		<table class="tableau">
 			<tr>
 				<th>Id</th>

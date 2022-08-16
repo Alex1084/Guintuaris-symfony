@@ -7,6 +7,11 @@
 {% block body %}
 	<h2>Armes</h2>
 	<div class="container">
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
     <div class="">
         <a href="{{ path("admin_add_weapon")}}">Creer une Nouvelle arme</a>
     </div>

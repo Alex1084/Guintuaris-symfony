@@ -1,12 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Les équipes |
+	Types d'armure |
 	{{parent()}}
 {% endblock %}
 
 {% block body %}
-	<h2>Fiches personnages</h2>
 	<div class="container">
+		<h2>Types d'armure</h2>
+			{% for message in app.flashes('success') %}
+				<div class="flash success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('error') %}
+				<div class="flash error">
+					{{ message }}
+				</div>
+			{% endfor %}
 		<table class="tableau">
 			<tr>
 				<th>Id</th>
@@ -27,7 +37,7 @@
 		</table>
 	</div>
 	<div class="div-form-hidden">
-		<a id="show-form">Ajouter un Menbre</a>
+		<a id="show-form">Ajouter un type d'armure</a>
 		{{form_start(form, { "attr" : { "class" : "hidden"}}) }}
 			<h3 class="title-form"> {{ form_label(form.name) }} </h3>
 			<div class="div-form">

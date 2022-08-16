@@ -58,8 +58,8 @@ class CreatePersonnageController extends AbstractController
             $this->insertWeapon($character, $entityManager, $doctrine);
 
 
-            $this->addFlash('success', 'ton perso a été créer');
-            return $this->redirectToRoute('character_view', ["id" => $character->getId()]);
+            $this->addFlash('success', 'ton personnage a été créer');
+            return $this->redirectToRoute('character_view', ["id" => $character->getId(), "slug" => $character->getSlug()]);
         }
         return $this->render('personnage/creation.html.twig', [
             "characterForm" => $characterForm->createView()

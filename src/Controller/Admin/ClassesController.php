@@ -32,7 +32,7 @@ class ClassesController extends AbstractController
             $class->setSlug($slug);
             $entityManager->persist($class);
             $entityManager->flush();
-
+            $this->addFlash("success", "la classe ".$class->getName()." a été crée avec succée, les joueur peuvent peuvent désormer céer des personnage avec cette classe");
             return $this->redirectToRoute("admin_class_list");
         }
         return $this->render('admin/class/form.html.twig', [
@@ -59,14 +59,19 @@ class ClassesController extends AbstractController
     {
         $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);
         $classForm = $this->createForm(ClassesFormType::class, $class);
-
+        $oldName = $class->getName();
         $classForm->handleRequest($request);
         if ($classForm->isSubmitted() && $classForm->isValid()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($class->getName());
-            $class->setSlug($slug);
+            if ($oldName !== $class->getName()) {
+                
+                $slugify = new Slugify();
+                $slug = $slugify->slugify($class->getName());
+                $class->setSlug($slug);
+                $this->addFlash("success", "la classe ".$oldName." à été renommé en ".$class->getName());
+            }
             $entityManager->persist($class);
             $entityManager->flush();
+            $this->addFlash("success", "la classe a été mis a jour avec succés");
             return $this->redirectToRoute("admin_class_list");
         }
         return $this->render('admin/class/form.html.twig', [

@@ -4,6 +4,16 @@
 {% block body %}
     <div class="container">
         <h1>Les des Equipe</h1>
+        {% for message in app.flashes('success') %}
+            <div class="flash success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="flash error">
+                {{ message }}
+            </div>
+        {% endfor %}
         <table class="tableau" id="team">
 			<tr>
 				<th>Id</th>

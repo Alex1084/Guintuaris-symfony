@@ -8,6 +8,11 @@
 {% block body %}
 	<div class="container">
 		<h1 class="title">{{team.name}}</h1>
+			{% for message in app.flashes('success') %}
+				<div class="flash success">
+					{{ message }}
+				</div>
+			{% endfor %}
 		{# <a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a> #}
 		<ul>
 			{% for member in teamMembers %}

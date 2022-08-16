@@ -1,6 +1,6 @@
 const board = document.querySelector(".tableau");
 let titleAlert = "";
-let contentAlert = "";
+let message = "";
 
 if (board !== null) {
     const boardId = board.id;
@@ -9,23 +9,23 @@ if (board !== null) {
     switch (boardId) {
         case "skill":
             titleAlert = "Etes vous sûr de vouloir supprimer cette competence ?";
-            contentAlert = "<p>si vous comfirmez cette competence sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            message = "<p>si vous comfirmez cette competence sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
         case "bestiary" : 
             titleAlert = "Etes vous sûr de vouloir supprimer cet element du bestiaire ?";
-            contentAlert = "<p>si vous comfirmez cette element du bestiaire sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            message = "<p>si vous comfirmez cette element du bestiaire sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
         case "weapon" :
             titleAlert = "Etes vous sûr de vouloir supprimer cette arme ?";
-            contentAlert = "<p>si vous comfirmez cette arme sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            message = "<p>si vous comfirmez cette arme sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
         case "team" :
             titleAlert = "Etes vous sûr de vouloir supprimer cette equipe ?";
-            contentAlert = "<p>si vous comfirmez cette equipe sera definitivement supprimmé, aucunne restauration ne sera possible.</p> <p>les personnages ne seront pas supprimer mais les joueur n'oront plus accées au fiche de leurs equipié";
+            message = "<p>si vous comfirmez cette equipe sera definitivement supprimmé, aucunne restauration ne sera possible.</p> <p>les personnages ne seront pas supprimer mais les joueur n'oront plus accées au fiche de leurs equipié";
             break;
         default:
             titleAlert = "Etes vous sûr de vouloir supprimer cette donnèe ?";
-            contentAlert = "<p>si vous comfirmez cette donnée sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            message = "<p>si vous comfirmez cette donnée sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
             break;
     }
 }
@@ -37,7 +37,7 @@ document.querySelectorAll(".ajax-delete-link").forEach(link =>{
         row = link.parentElement.parentElement;
         dataId = row.querySelector(".data-id").textContent
         dataName = row.querySelector(".data-name").textContent
-        contentAlert += "<p>Id : "+ dataId +"</p><p> nom : "+dataName +"</p>"
+        let contentAlert = message + "<p>Id : "+ dataId +"</p><p> nom : "+dataName +"</p>"
         Swal.fire({
             title:titleAlert,
             html: contentAlert,
