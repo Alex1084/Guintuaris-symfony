@@ -343,7 +343,7 @@ form .show {
     margin-bottom: 2.5vw;
 }
 
-table, th, tr {
+table, tr,  th, td {
     border: 1px solid black;
     text-align: center;
     border-collapse: collapse;

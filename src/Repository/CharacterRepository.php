@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Character;
+use App\Entity\Team;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -65,7 +67,8 @@ class CharacterRepository extends ServiceEntityRepository
     public function listByUser(int $userId)
     {
         return $this->createQueryBuilder('c')
-            ->select('c.id, c.name, c.image, c.slug')
+            ->select('c.id, c.name, c.image, c.slug, c.level, t.name as teamName, t.id as teamId, t.slug as teamSlug')
+            ->leftJoin(Team::class, 't', Join::WITH, "t.id = c.team")
             ->where('c.user = :userId')
             ->setParameter('userId', $userId)
             ->orderBy('c.name', 'ASC')

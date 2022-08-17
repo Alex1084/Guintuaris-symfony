@@ -3,15 +3,38 @@
 {% block title %} Mes Personnages | {{parent()}}{% endblock %}
 
 {% block body %}
-    <h2>Fiches personnages</h2>
-    <ul>
-    {% for character in characters %}
-        <li>
-            <a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">{{ character.name }}</a>
-        </li>
-    {% endfor %}
-    </ul>
-        <hr/>
+    <div class="container">
+        <h2 class="titre-table">Fiches personnages</h2>
         <a href="{{ path("create_character")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Nouveau personnage</a>
-
+        <table class="tableau">
+            <thead>
+                <tr>
+                    <th scope="col">image</th>
+                    <th scope="col">nom</th>
+                    <th>niveau</th>
+                    <th>equipe</th>
+                    <th scope="col">action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in characters %}
+                    <tr>
+                        <td>
+                            <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
+                        </td>
+                        <td>
+                            <a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">{{ character.name }}</a>
+                        </td>
+                        <td>{{character.level}}</td>
+                        <td>
+                            <a href="{{path("team_list", {"teamSlug" : character.teamSlug,"teamId" :character.teamId})}}">{{character.teamName}}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path("character_setting", {"slug" : character.slug, "id" : character.id})}}">Paramètres</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

@@ -22,6 +22,10 @@ class Team
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $master;
+
 
     public function getId(): ?int { return $this->id; }
 
@@ -36,6 +40,18 @@ class Team
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+        return $this;
+    }
+
+    public function getMaster(): ?User
+    {
+        return $this->master;
+    }
+
+    public function setMaster(?User $master): self
+    {
+        $this->master = $master;
+
         return $this;
     }
 }

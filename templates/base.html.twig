@@ -36,11 +36,11 @@
 							</div>
 						</div>
 						{% if app.user %}
-							{% if is_granted("ROLE_USER") %}						
-							<li class="nav-item"><a href="{{path('character_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a></li>
-							{% endif %}
 							{% if is_granted("ROLE_MASTER") %}
-							<li class="nav-item"><a href="{{path('board')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mon Tableau de maitre du jeu</a></li>
+								<li class="nav-item"><a href="{{path('master_list_character_team')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages & mes Equipes</a></li>
+								<li class="nav-item"><a href="{{path('board')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mon Tableau de maitre du jeu</a></li>
+							{% elseif is_granted("ROLE_USER") %}
+								<li class="nav-item"><a href="{{path('character_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a></li>
 							{% endif %}
 							{% if is_granted("ROLE_ADMIN") %}
 								<li class="nav-item"><a href="{{path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Admin</a></li>
