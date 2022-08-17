@@ -202,29 +202,37 @@
 					</div>
 					{% set ca = 0 %}
 					<table class="tableau">
-						<tr>
-							<th>Pièce</th>
-							<th>Type</th>
-							<th>CA</th>
-							<th>Effet</th>
-						</tr>
-						{% for armorPiece in armor %}
-						{% if armorPiece.piece != null %}
-						
-							{% set ca = ca + armorPiece.piece.value %}
+						<thead>
 							<tr>
-								<th>{{ armorPiece.piece.location.name }}</th>
-								<th>{{ armorPiece.piece.type.name }}</th>
-								<th>{{ armorPiece.piece.value }}</th>
-								<th>{{ armorPiece.effect }}</th>
+								<th>Pièce</th>
+								<th>Type</th>
+								<th>CA</th>
+								<th>Effet</th>
 							</tr>
+						</thead>
+						{% if armorPiece|length > 0 %}
+							<tbody>
+								{% for armorPiece in armor %}
+									{% if armorPiece.piece != null %}
+									
+										{% set ca = ca + armorPiece.piece.value %}
+										<tr>
+											<td>{{ armorPiece.piece.location.name }}</td>
+											<td>{{ armorPiece.piece.type.name }}</td>
+											<td>{{ armorPiece.piece.value }}</td>
+											<td>{{ armorPiece.effect }}</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</tbody>
 						{% endif %}
-						{% endfor %}
-						<tr>
-							<th>Total :</th>
-							<th></th>
-							<th>{{ca}}</th>
-						</tr>
+						<tfoot>
+							<tr>
+								<th>Total :</th>
+								<td></td>
+								<td>{{ca}}</td>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 
@@ -238,28 +246,31 @@
 
 					<div>
 						<table class="tableau">
-
-							<tr>
-								<th>Arme</th>
-								<th>Dégats</th>
-								<th>Dé</th>
-								<th>Effet</th>
-							</tr>
-							{% for weapon in weapons %}
+							<thead>
 								<tr>
-								{% if weapon.weapon != null %}
-									<th>{{ weapon.weapon.name }}</th>
-									<th>{{ weapon.weapon.damage }}</th>
-									<th>{{ weapon.weapon.dice }}</th>
-									<th>{{ weapon.effect }}</th>
-								{% else %}
-									<th> Vide </th>
-									<th>0</th>
-									<th>0</th>
-									<th></th>
-								{% endif %}
+									<th>Arme</th>
+									<th>Dégats</th>
+									<th>Dé</th>
+									<th>Effet</th>
 								</tr>
-							{% endfor %}
+							</thead>
+							<tbody>
+								{% for weapon in weapons %}
+									<tr>
+									{% if weapon.weapon != null %}
+										<td>{{ weapon.weapon.name }}</td>
+										<td>{{ weapon.weapon.damage }}</td>
+										<td>{{ weapon.weapon.dice }}</td>
+										<td>{{ weapon.effect }}</td>
+									{% else %}
+										<td> Vide </td>
+										<td>0</td>
+										<td>0</td>
+										<td></td>
+									{% endif %}
+									</tr>
+								{% endfor %}
+							</tbody>
 						</table>
 					</div>
 				</div>

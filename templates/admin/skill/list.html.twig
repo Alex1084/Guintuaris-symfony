@@ -16,30 +16,34 @@
         <a href="{{ path("admin_add_skill")}}">Creer une Nouvelle Competence</a>
     </div>
 		<table class="tableau" id="skill">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th>Classe</th>
-                <th>Niveau</th>
-                <th>Coût</th>
-                <th></th>
-                <th></th>
-			</tr>
-			{% for skill in skills %}
+			<thead>
 				<tr>
-					<th class="data-id"> {{skill.id}} </th>
-					<th class="data-name"> {{ skill.name }} </th>
-					<th> {{ skill.className }} </th>
-					<th> {{ skill.level }} </th>
-					<th> {{ skill.cost }} </th>
-                    <th>
-                        <a href="{{ path("admin_update_skill", {'skillId' : skill.id}) }}">Modifier</a>
-                    </th>
-                    <th>
-                        <a class="ajax-delete-link alert" href="{{ path("admin_delete_skill", {'skillId' : skill.id}) }}">Supprimer</a>
-                    </th>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Classe</th>
+					<th>Niveau</th>
+					<th>Coût</th>
+					<th></th>
+					<th></th>
 				</tr>
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for skill in skills %}
+					<tr>
+						<td class="data-id"> {{skill.id}} </td>
+						<td class="data-name"> {{ skill.name }} </td>
+						<td> {{ skill.className }} </td>
+						<td> {{ skill.level }} </td>
+						<td> {{ skill.cost }} </td>
+						<td>
+							<a href="{{ path("admin_update_skill", {'skillId' : skill.id}) }}">Modifier</a>
+						</td>
+						<td>
+							<a class="ajax-delete-link alert" href="{{ path("admin_delete_skill", {'skillId' : skill.id}) }}">Supprimer</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock %}

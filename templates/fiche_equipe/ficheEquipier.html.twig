@@ -176,25 +176,37 @@
 					</div>
 					{% set ca = 0 %}
 					<table class="tableau">
-						<tr>
-							<th>Pièce</th>
-							<th>Type</th>
-							<th>CA</th>
-							<th>Effet</th>
-						</tr>
-						{% for armorPiece in armor %}
-							{% set ca = ca + armorPiece.piece.value %}
+						<thead>
 							<tr>
-								<th>{{ armorPiece.piece.location.name }}</th>
-								<th>{{ armorPiece.piece.type.name }}</th>
-								<th>{{ armorPiece.piece.value }}</th>
-								<th>{{ armorPiece.effect }}</th>
+								<th>Pièce</th>
+								<th>Type</th>
+								<th>CA</th>
+								<th>Effet</th>
 							</tr>
-						{% endfor %}
-						<tr>
-							<th>Total :</th>
-							<th>{{ca}}</th>
-						</tr>
+						</thead>
+						{% if armorPiece is defined %}
+							<tbody>
+								{% for armorPiece in armor %}
+									{% set ca = ca + armorPiece.piece.value %}
+									<tr>
+										<td>{{ armorPiece.piece.location.name }}</td>
+										<td>{{ armorPiece.piece.type.name }}</td>
+										<td>{{ armorPiece.piece.value }}</td>
+										<td>{{ armorPiece.effect }}</td>
+									</tr>
+						
+						
+						
+								{% endfor %}
+							</tbody>
+						{% endif %}
+						<tfoot>
+							<tr>
+								<th>Total :</th>
+								<td></td>
+								<td>{{ca}}</td>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 				<div class="row">
@@ -203,21 +215,31 @@
 							<h2 class="titre-table">Arme</h2>
 						</div>
 						<table class="tableau">
-
-							<tr>
-								<th>Arme</th>
-								<th>Dégats</th>
-								<th>Dé</th>
-								<th>Effet</th>
-							</tr>
-							{% for weapon in weapons %}
+							<thead>
 								<tr>
-									<th>{{ weapon.weapon.name }}</th>
-									<th>{{ weapon.weapon.damage }}</th>
-									<th>{{ weapon.weapon.dice }}</th>
-									<th>{{ weapon.effect }}</th>
+									<th>Arme</th>
+									<th>Dégats</th>
+									<th>Dé</th>
+									<th>Effet</th>
 								</tr>
-							{% endfor %}
+							</thead>
+							<tbody>
+								{% for weapon in weapons %}
+									<tr>
+									{% if weapon.weapon != null %}
+										<td>{{ weapon.weapon.name }}</td>
+										<td>{{ weapon.weapon.damage }}</td>
+										<td>{{ weapon.weapon.dice }}</td>
+										<td>{{ weapon.effect }}</td>
+									{% else %}
+										<td> Vide </td>
+										<td>0</td>
+										<td>0</td>
+										<td></td>
+									{% endif %}
+									</tr>
+								{% endfor %}
+							</tbody>
 						</table>
 					</div>
 				</div>

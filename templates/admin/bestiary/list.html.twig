@@ -21,28 +21,32 @@
         <a href="{{ path("admin_add_bestiary")}}">Creer une bête</a>
     </div>
 		<table class="tableau" id="bestiary">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th>Niveau</th>
-                <th>Type</th>
-                <th></th>
-                <th></th>
-			</tr>
-			{% for creature in creatures %}
+			<thead>
 				<tr>
-					<th class="data-id"> {{creature.id}} </th>
-					<th class="data-name"> {{ creature.name }} </th>
-					<th> {{ creature.typeName }} </th>
-					<th> {{ creature.level }} </th>
-                    <th>
-                        <a href="{{ path("admin_update_bestiary", {'bestiaryId' : creature.id}) }}">Modifier</a>
-                    </th>
-                    <th>
-                        <a class="ajax-delete-link alert" href="{{ path("admin_delete_bestiary", {'bestiaryId' : creature.id}) }}">Supprimer</a>
-                    </th>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Niveau</th>
+					<th>Type</th>
+					<th></th>
+					<th></th>
 				</tr>
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for creature in creatures %}
+					<tr>
+						<td class="data-id"> {{creature.id}} <td>
+						<td class="data-name"> {{ creature.name }} <td>
+						<td> {{ creature.typeName }} <td>
+						<td> {{ creature.level }} <td>
+						<td>
+							<a href="{{ path("admin_update_bestiary", {'bestiaryId' : creature.id}) }}">Modifier</a>
+						<td>
+						<td>
+							<a class="ajax-delete-link alert" href="{{ path("admin_delete_bestiary", {'bestiaryId' : creature.id}) }}">Supprimer</a>
+						<td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock %}

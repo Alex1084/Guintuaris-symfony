@@ -15,26 +15,28 @@
             </div>
         {% endfor %}
         <table class="tableau" id="team">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th></th>
-                <th></th>
-			</tr>
-			{% for team in teams %}
-
-				<tr>
-                    <th class="data-id">{{team.id}}</th>
-					<th class="data-name">  <a href="{{ path("admin_add_member", {'slug' : team.slug, "teamId" : team.id}) }}">{{ team.name }}</a> </th>
-                    <th>
-                        <a href="{{ path("admin_team_rename", {'teamId' : team.id}) }}" class="update-link">Renomer</a>
-                    </th>
-                    <th>
-                        <a class="ajax-delete-link" href="{{ path("admin_delete_team",  { "id": team.id}) }}">Supprimer</a>
-                    </th>
-				</tr>
-					
-			{% endfor %}
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td class="data-id">{{team.id}}</td>
+                        <td class="data-name">  <a href="{{ path("admin_add_member", {'slug' : team.slug, "teamId" : team.id}) }}">{{ team.name }}</a> </td>
+                        <td>
+                            <a href="{{ path("admin_team_rename", {'teamId' : team.id}) }}" class="update-link">Renomer</a>
+                        </td>
+                        <td>
+                            <a class="ajax-delete-link" href="{{ path("admin_delete_team",  { "id": team.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>		
+                {% endfor %}
+            </tbody>
 		</table>
         <div class="div-form-hidden">
             {{form_start(addTeamForm, {'attr': {'class': 'hidden'} }) }}

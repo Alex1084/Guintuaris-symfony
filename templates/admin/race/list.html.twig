@@ -16,22 +16,26 @@
 			<a href="{{ path("admin_add_race")}}">Creer une Race</a>
 		</div>
 		<table class="tableau">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th></th>
-			</tr>
-			{% for race in races %}
-
+			<thead>
 				<tr>
-					<th> {{race.id}} </th>
-					<th> {{ race.name }} </th>
-                    <th>
-                        <a href="{{ path("admin_update_race", {'slug' : race.slug}) }}">Modifier</a>
-                    </th>
+					<th>Id</th>
+					<th>Name</th>
+					<th></th>
 				</tr>
-					
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for race in races %}
+
+					<tr>
+						<td> {{race.id}} </td>
+						<td> {{ race.name }} </td>
+						<td>
+							<a href="{{ path("admin_update_race", {'slug' : race.slug}) }}">Modifier</a>
+						</td>
+					</tr>
+						
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock %}

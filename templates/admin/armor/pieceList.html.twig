@@ -52,24 +52,28 @@
 	</div>
 	<div class="container">
 		<table class="tableau">
-			<tr>
-				<th>Id</th>
-				<th>Emplacement</th>
-				<th>Type</th>
-				<th>Valeur</th>
-				<th></th>
-			</tr>
-			{% for piece in piecesTab %}
+			<thead>
 				<tr>
-					<th>{{piece.id}}</th>
-					<th>{{piece.locationName}}</th>
-					<th>{{piece.typeName}}</th>
-					<th>{{piece.value}}</th>
-					<th>
-                        <a href="{{path("admin_update_armor_piece", {pieceId : piece.id})}}" class="update-link">modifier</a>
-					</th>
+					<th>Id</th>
+					<th>Emplacement</th>
+					<th>Type</th>
+					<th>Valeur</th>
+					<th></th>
 				</tr>
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for piece in piecesTab %}
+					<tr>
+						<td>{{piece.id}}</td>
+						<td>{{piece.locationName}}</td>
+						<td>{{piece.typeName}}</td>
+						<td>{{piece.value}}</td>
+						<td>
+							<a href="{{path("admin_update_armor_piece", {pieceId : piece.id})}}" class="update-link">modifier</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock %}

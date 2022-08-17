@@ -16,28 +16,32 @@
         <a href="{{ path("admin_add_weapon")}}">Creer une Nouvelle arme</a>
     </div>
 		<table class="tableau" id="weapon">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th>Dégats</th>
-                <th>Dé</th>
-                <th></th>
-                <th></th>
-			</tr>
-			{% for weapon in weapons %}
+			<thead>
 				<tr>
-					<th class="data-id"> {{weapon.id}} </th>
-					<th class="data-name"> {{ weapon.name }} </th>
-					<th> {{ weapon.damage }} </th>
-					<th> {{ weapon.dice }} </th>
-                    <th>
-                        <a href="{{ path("admin_update_weapon", {'weaponId' : weapon.id}) }}">Modifier</a>
-                    </th>
-                    <th>
-                        <a class="ajax-delete-link alert" href="{{ path("admin_delete_weapon", {'weaponId' : weapon.id}) }}">Supprimer</a>
-                    </th>
-				</tr>	
-			{% endfor %}
+					<th>Id</th>
+					<th>Name</th>
+					<th>Dégats</th>
+					<th>Dé</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for weapon in weapons %}
+					<tr>
+						<td class="data-id"> {{weapon.id}} </td>
+						<td class="data-name"> {{ weapon.name }} </td>
+						<td> {{ weapon.damage }} </td>
+						<td> {{ weapon.dice }} </td>
+						<td>
+							<a href="{{ path("admin_update_weapon", {'weaponId' : weapon.id}) }}">Modifier</a>
+						</td>
+						<td>
+							<a class="ajax-delete-link alert" href="{{ path("admin_delete_weapon", {'weaponId' : weapon.id}) }}">Supprimer</a>
+						</td>
+					</tr>	
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock %}

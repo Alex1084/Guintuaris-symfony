@@ -27,7 +27,9 @@
                         </td>
                         <td>{{character.level}}</td>
                         <td>
-                            <a href="{{path("team_list", {"teamSlug" : character.teamSlug,"teamId" :character.teamId})}}">{{character.teamName}}</a>
+                            {% if character.teamId != null %}
+                                <a href="{{path("team_list", {"teamSlug" : character.teamSlug,"teamId" :character.teamId})}}">{{character.teamName}}</a>
+                            {% endif %}
                         </td>
                         <td>
                             <a href="{{ path("character_setting", {"slug" : character.slug, "id" : character.id})}}">Paramètres</a>

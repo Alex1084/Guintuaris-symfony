@@ -10,22 +10,26 @@
             </div>
         {% endfor %}
         <table class="tableau">
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th></th>
-            </tr>
-            {% for user in users %}
+            <thead>
                 <tr>
-                    <th>{{user.id}}</th>
-                    <th>{{user.name}}</th>
-                    <th>{{user.email}}</th>
-                    <th>{{user.roles[0]}}</th>
-                    <th><a href="{{path("admin_user_gestion", {"id" : user.id})}}">Modifier</a></th>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.roles[0]}}</td>
+                        <td><a href="{{path("admin_user_gestion", {"id" : user.id})}}">Modifier</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 {% endblock %}

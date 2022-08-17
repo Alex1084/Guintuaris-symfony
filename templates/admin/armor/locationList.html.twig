@@ -18,22 +18,25 @@
 				</div>
 			{% endfor %}
 		<table class="tableau">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th></th>
-			</tr>
-			{% for element in list %}
-
+			<thead>
 				<tr>
-					<th> {{element.id}} </th>
-					<th> {{ element.name }} </th>
-                    <th>
-                        <a href="{{path("admin_armor_location_update", {locationId : element.id})}}" class="update-link">modifier</a>
-                    </th>
+					<th>Id</th>
+					<th>Name</th>
+					<th></th>
 				</tr>
-					
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for element in list %}
+
+					<tr>
+						<td> {{element.id}} </td>
+						<td> {{ element.name }} </td>
+						<td>
+							<a href="{{path("admin_armor_location_update", {locationId : element.id})}}" class="update-link">modifier</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 	<div class="div-form-hidden">

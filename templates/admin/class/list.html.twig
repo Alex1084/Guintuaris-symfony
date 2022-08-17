@@ -12,22 +12,26 @@
         <a href="{{ path("admin_add_class")}}">Creer une Nouvelle Competence</a>
     </div>
 		<table class="tableau">
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th></th>
-			</tr>
-			{% for class in classs %}
-
+			<thead>
 				<tr>
-					<th> {{class.id}} </th>
-					<th> {{ class.name }} </th>
-                    <th>
-                        <a href="{{ path("admin_update_class", {'slug' : class.slug}) }}">Modifier</a>
-                    </th>
+					<th>Id</th>
+					<th>Name</th>
+					<th></th>
 				</tr>
-					
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for class in classs %}
+
+					<tr>
+						<td> {{class.id}} </td>
+						<td> {{ class.name }} </td>
+						<td>
+							<a href="{{ path("admin_update_class", {'slug' : class.slug}) }}">Modifier</a>
+						</td>
+					</tr>
+						
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 {% endblock %}
