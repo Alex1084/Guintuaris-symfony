@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste utilisateur | {{parent()}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="flash success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+		{# <div class="row"> #}
+			{{ form_start(userForm) }}
+				<div class="row">
+					<div class="div-form">
+						{{ form_label(userForm.email) }}
+
+						{{ form_widget(userForm.email) }}
+						<div class="div-errors-log">
+							{{ form_errors(userForm.email)}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="div-form">
+						{{ form_label(userForm.name) }}
+
+						{{ form_widget(userForm.name) }}
+						<div class="div-errors-log">
+							{{ form_errors(userForm.name)}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="div-form">
+						{{ form_label(userForm.roles) }}
+
+						{{ form_widget(userForm.roles) }}
+						<div class="div-errors-log">
+							{{ form_errors(userForm.roles)}}
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="valid-form">Créer mon compte</button>
+			{{ form_end(userForm) }}
+
+			{{ form_start(passwordForm) }}
+				<div class="div-form">
+					{{form_label(passwordForm.plainPassword.first)}}
+					{{form_widget(passwordForm.plainPassword.first)}}
+					<div class="div-errors-log">
+						{{form_errors(passwordForm.plainPassword.first)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(passwordForm.plainPassword.second)}}
+					{{form_widget(passwordForm.plainPassword.second)}}
+					<div class="div-errors-log">
+						{{form_errors(passwordForm.plainPassword.second)}}
+					</div>
+				</div>
+				<button class="valid-form">Reset password</button>
+			{{ form_end(passwordForm) }}
+		{# </div> #}
+    </div>
+{% endblock %}

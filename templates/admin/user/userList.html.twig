@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste utilisateur | {{parent()}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="flash success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="tableau">
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <th>{{user.id}}</th>
+                    <th>{{user.name}}</th>
+                    <th>{{user.email}}</th>
+                    <th>{{user.roles[0]}}</th>
+                    <th><a href="{{path("admin_user_gestion", {"id" : user.id})}}">Modifier</a></th>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
