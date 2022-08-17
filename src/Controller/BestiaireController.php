@@ -19,7 +19,7 @@ class BestiaireController extends AbstractController
      * @param BestiaryRepository $bestiaryRepository
      * @return Response
      */
-    #[Route('/admin/board', name: 'board')]
+    #[Route('/maitre-du-jeu/tableau', name: 'board')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $bestiaryType = $doctrine->getRepository(BestiaryType::class)->findAll();
@@ -55,7 +55,7 @@ class BestiaireController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/admin/summon/{id}', name: 'summon')]
+    #[Route('/maitre-du-jeu/invoquation/{id}', name: 'summon')]
     public function beteToJson(int $id, ManagerRegistry $doctrine): Response
     {
         $creature = $doctrine->getRepository(Bestiary::class)->find($id);
