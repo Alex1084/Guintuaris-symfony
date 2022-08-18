@@ -6,6 +6,13 @@ inputs.forEach(input => {
     input.addEventListener('change', ajax)
 });
 
+document.getElementById("po").addEventListener("keydown", e => {
+    re = new RegExp("[0-9]")
+    if (!re.test(e.key)) {
+        e.preventDefault();
+    }
+})
+
 
 function ajax() {
     let values = {
@@ -24,7 +31,7 @@ function ajax() {
         Swal.fire({
             position: 'top-end',
             // icon: 'success',
-            title: 'Your work has been saved',
+            title: "Modification enregistré",
             showConfirmButton: false,
             timer: 1500,
             // backdrop : false,  

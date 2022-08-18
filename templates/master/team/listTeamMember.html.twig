@@ -14,14 +14,34 @@
 				</div>
 			{% endfor %}
 		{# <a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a> #}
-		<ul>
-			{% for member in teamMembers %}
-				<li>
-					<a href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": member.slug, "characterId" : member.id}) }}">{{ member.name }}</a>
-					<a class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : member.id}) }}">Supprimmer</a>
-				</li>
-			{% endfor %}
-		</ul>
+		<table class="tableau">
+            <thead>
+                <tr>
+					<th>Id</th>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Level</th>
+					<th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in teamMembers %}
+                    <tr>
+                        <td class="data-id">{{character.id}}</td>
+                        <td>
+                            <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
+                        </td>
+                        <td class="data-name">
+                            <a href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
+                        </td>
+                        <td> {{character.level}} </td>
+						<td>
+							<a class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : character.id}) }}">Supprimmer</a>						
+						</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
 		<div class="div-form-hidden">
 			{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}

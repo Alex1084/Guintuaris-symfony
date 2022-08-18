@@ -210,7 +210,6 @@
 								<th>Effet</th>
 							</tr>
 						</thead>
-						{% if armorPiece|length > 0 %}
 							<tbody>
 								{% for armorPiece in armor %}
 									{% if armorPiece.piece != null %}
@@ -225,7 +224,6 @@
 									{% endif %}
 								{% endfor %}
 							</tbody>
-						{% endif %}
 						<tfoot>
 							<tr>
 								<th>Total :</th>

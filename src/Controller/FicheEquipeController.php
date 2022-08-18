@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
+use App\Entity\Team;
 use App\Entity\WeaponCharacter;
 use App\Repository\CharacterRepository;
 use App\Repository\SkillRepository;
@@ -24,13 +25,17 @@ class FicheEquipeController extends AbstractController
      * @return Response
      */
     #[Route('/list/{teamSlug}/{teamId}', name: 'list')]
-    public function teamMembersList(string $teamSlug, int $teamId, CharacterRepository $characterRepository): Response
+    public function teamMembersList(string $teamSlug, int $teamId, ManagerRegistry $doctrine): Response
     {
-        $characters = $characterRepository->findNameByTeam($teamId);
+        $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId, "slug" => $teamSlug]);
+        $characterUser = $doctrine->getRepository(Character::class)->findOneBy(["user" => $this->getUser(), "team" => $team]);
+        if (!$characterUser || $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
+            return $this->redirectToRoute("character_list");
+        }
+        $characters = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId());
         return $this->render('fiche_equipe/listEquipe.html.twig', [
             "characters" => $characters,
-            "teamId" => $teamId,
-            "teamSlug" => $teamSlug
+            "team" => $team,
         ]);
     }
 
@@ -47,7 +52,12 @@ class FicheEquipeController extends AbstractController
      */
     public function fichePerso(string $teamSlug, int $teamId,string $characterSlug,  int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $teamId]);
+        $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId,"slug"=>$teamSlug]);
+        $characterUser = $doctrine->getRepository(Character::class)->findOneBy(["user" => $this->getUser(), "team" => $team]);
+        if (!$characterUser || $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
+            return $this->redirectToRoute("character_list");
+        }
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $team]);
         //requete pour les competence
         if (!$character) {
             return $this->redirectToRoute("character_list");

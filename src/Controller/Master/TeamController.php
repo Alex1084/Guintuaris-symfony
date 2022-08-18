@@ -166,7 +166,8 @@ class TeamController extends AbstractController
         if ($form->isSubmitted()) {
             $slugify = new Slugify();
             $slug = $slugify->slugify($newTeam->getName());
-            $newTeam->setSlug($slug);
+            $newTeam->setSlug($slug)
+                    ->setMaster($this->getUser());
             $entityManager->persist($newTeam);
             $entityManager->flush();
             $this->addFlash("success", "l'equipe ".$newTeam->getName()." a été créé avec succés");

@@ -3,13 +3,30 @@
 {% block title %} Mon équipe | {{parent()}}{% endblock %}
 
 {% block body %}
-    <h2>Fiches personnages</h2>
-    <ul>
-    {% for character in characters %}
-        <li>
-            <a href="{{ path("team_sheet_view", {"teamSlug" : teamSlug, "teamId" : teamId, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
-        </li>
-    {% endfor %}
-    </ul>
-        <hr/>
+    <div class="container">
+        <h2 class="titre-table">{{team.name}}</h2>
+        <table class="tableau">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in characters %}
+                    <tr>
+                        <td>
+                            <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
+                        </td>
+                        <td>
+                            <a href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
+                        </td>
+                        <td> {{character.level}} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
 {% endblock %}

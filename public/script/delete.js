@@ -45,7 +45,7 @@ document.querySelectorAll(".ajax-delete-link").forEach(link =>{
             buttonsStyling : false,
             confirmButtonText: 'Oui, supprimer!', 
             cancelButtonText : 'Annuler',
-            background : 'url(../img/scroll-2.png)',
+            background : 'url(../../../img/scroll-2.png)',
             width : 479,
             heightAuto : false,
             padding : "2.5%",
