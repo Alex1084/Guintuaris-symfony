@@ -5,18 +5,31 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Localisation d'amure</h2>
 	<div class="container">
-			{% for message in app.flashes('success') %}
-				<div class="flash success">
-					{{ message }}
+		<h2 class="titre-table">Localisation d'amure</h2>
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash error">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="div-form-hidden">
+			<a id="show-form">Ajouter une localisation d'armure</a>
+			{{form_start(form, { "attr" : { "class" : "hidden"}}) }}
+				<h3 class="title-form"> {{ form_label(form.name) }} </h3>
+				<div class="div-form">
+					{{ form_widget(form.name) }}
+					<div class="div-errors">
+						{{ form_errors(form.name)}}
+					</div>
 				</div>
-			{% endfor %}
-			{% for message in app.flashes('error') %}
-				<div class="flash error">
-					{{ message }}
-				</div>
-			{% endfor %}
+				<button class="valid-form">Créer</button>
+			{{form_end(form) }}
+		</div>
 		<table class="tableau">
 			<thead>
 				<tr>
@@ -39,18 +52,16 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="div-form-hidden">
-		<a id="show-form">Ajouter une localisation d'armure</a>
-		{{form_start(form, { "attr" : { "class" : "hidden"}}) }}
-			<h3 class="title-form"> {{ form_label(form.name) }} </h3>
-			<div class="div-form">
-				{{ form_widget(form.name) }}
-				<div class="div-errors">
-					{{ form_errors(form.name)}}
-				</div>
-			</div>
-			<button class="valid-form">Créer</button>
-		{{form_end(form) }}
+	<div class="navside-container">
+		<div class="div-show-navside  show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a href="{{ path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retour</a>
+			<a href="{{ path('admin_weapon_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Arme</a>
+			<a href="{{ path('admin_armor_type_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter un Type aux armures</a>
+			<a href="{{ path('admin_add_armor_piece')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une pièce d'armure</a>
+		</div>
 	</div>
 {% endblock %}
 

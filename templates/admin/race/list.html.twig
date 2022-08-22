@@ -5,16 +5,13 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Races</h2>
+	<h2 class="titre-table">Races</h2>
 	<div class="container">
 		{% for message in app.flashes('success') %}
 			<div class="flash success">
 				{{ message }}
 			</div>
 		{% endfor %}
-		<div class="">
-			<a href="{{ path("admin_add_race")}}">Creer une Race</a>
-		</div>
 		<table class="tableau">
 			<thead>
 				<tr>
@@ -37,6 +34,18 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a href="{{ path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retour</a>
+			<a href="{{ path("admin_add_race")}}">Creer une Race</a>
+			<a href="{{ path('admin_class_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">classes</a>
+			<a href="{{ path('admin_skill_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">compétence</a>
+
+		</div>
 	</div>
 {% endblock %}
 

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Liste du bestiaire</h2>
 	<div class="container">
+		<h2 class="titre-table">Liste du bestiaire</h2>
 		{% for message in app.flashes('success') %}
 			<div class="flash success">
 				{{ message }}
@@ -17,9 +17,6 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-    <div class="">
-        <a href="{{ path("admin_add_bestiary")}}">Creer une bête</a>
-    </div>
 		<table class="tableau" id="bestiary">
 			<thead>
 				<tr>
@@ -34,23 +31,32 @@
 			<tbody>
 				{% for creature in creatures %}
 					<tr>
-						<td class="data-id"> {{creature.id}} <td>
-						<td class="data-name"> {{ creature.name }} <td>
-						<td> {{ creature.typeName }} <td>
-						<td> {{ creature.level }} <td>
+						<td class="data-id"> {{creature.id}} </td>
+						<td class="data-name"> {{ creature.name }} </td>
+						<td> {{ creature.typeName }} </td>
+						<td> {{ creature.level }} </td>
 						<td>
 							<a href="{{ path("admin_update_bestiary", {'bestiaryId' : creature.id}) }}">Modifier</a>
-						<td>
+						</td>
 						<td>
 							<a class="ajax-delete-link alert" href="{{ path("admin_delete_bestiary", {'bestiaryId' : creature.id}) }}">Supprimer</a>
-						<td>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a href="{{ path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retour</a>
+			<a href="{{ path("admin_add_bestiary")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Creer une bête</a>
+			<a href="{{ path('admin_bestiary_type_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter un Type au bestiaire</a>
+		</div>
+	</div>
 {% endblock %}
-
 
 {% block script %}
 	<script src="{{ asset("script/delete.js")}}"></script>

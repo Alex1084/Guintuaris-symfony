@@ -13,265 +13,272 @@
 
 
 {% block body %}
-	{% if teamId == character.team.id %}
-		<div class="container">
-			<div class="row">
-				<div class="img-div">
-					<div>
-						<img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="200">
-					</div>
-
+	<div class="container">
+		<div class="row">
+			<div class="img-div">
+				<div>
+					<img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="200">
 				</div>
-				<div class="div-detail-personnage">
-					<h1>{{ character.name }}</h1>
-					<h3>{{ character.race.name }}</h3>
-					<h3>{{ character.class.name }}</h3>
-					<h3>Niveau
-						{{ character.level }}</h3>
-					<h5>{{character.team.name}}
-					</h5>
 
-				</div>
-				<div class="div-lore">
+			</div>
+			<div class="div-detail-personnage">
+				<h1>{{ character.name }}</h1>
+				<h3>{{ character.race.name }}</h3>
+				<h3>{{ character.class.name }}</h3>
+				<h3>Niveau
+					{{ character.level }}</h3>
+				<h5>{{character.team.name}}
+				</h5>
 
-					<div class="dropdown" id="lore">
-						<button class="dropbtn">Lore
-							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
-						<div class="dropdown-content hidden">
-							<textarea name="" id="lore-content" cols="50" readonly>{{ character.lore }}</textarea>
-						</div>
+			</div>
+			<div class="div-lore">
+
+				<div class="dropdown" id="lore">
+					<button class="dropbtn">Lore
+						<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+					<div class="dropdown-content hidden">
+						<textarea name="" id="lore-content" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<div class="row">
-				<div class="div-statistique">
-					<div class="statistique">
-						<p class="label">Constitution :</p>
-						<div class="statistique-valeur">
-							<p>{{ character.constitution }}</p>
-						</div>
-					</div>
-					<div class="statistique">
-						<p class="label">Force :</p>
-						<div class="statistique-valeur">
-							<p>{{ character.strength }}</p>
-						</div>
-					</div>
-					<div class="statistique">
-						<p class="label">Dextérite :</p>
-						<div class="statistique-valeur">
-							<p>{{ character.dexterity }}</p>
-						</div>
-					</div>
-					<div class="statistique">
-						<p class="label">Intelligence :</p>
-						<div class="statistique-valeur">
-							<p>{{ character.intelligence }}</p>
-						</div>
-					</div>
-					<div class="statistique">
-						<p class="label">Charisme :</p>
-						<div class="statistique-valeur">
-							<p>{{ character.charisma }}</p>
-						</div>
-					</div>
-					<div class="statistique">
-						<p class="label">Foi :</p>
-						<div class="statistique-valeur">
-							<p>{{ character.faith }}</p>
-						</div>
-					</div>
-
-				</div>
-				<div class="div-statut">
-					<div
-						class="statut">
-
-						<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
-						<label for="pv" class="label label-statut">PV
-						</label>
-						<input type="number" class="numerique" id="" name="number" value="{{character.pv}}" readonly>
-						<span class="max">/
-							{{character.pvMax}}</span>
-
-						<!-- ~~~~~~ barre de vie ~~~~~~ -->
-						<input type="range" class="bar" id="pv-range" min="0" , max="{{character.pvMax}}" value="{{character.pv}}" disabled>
-					</div>
-
-					<div
-						class="statut">
-
-						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-						<label for="pm" class="label label-statut">PM</label>
-						<input type="number" class="numerique" id="" name="" value="{{character.pm}}" readonly>
-
-						<span class="max">/
-							{{character.pmMax}}</span>
-
-						<!-- ~~~~~~ bar de mana ~~~~~~ -->
-						<input type="range" class="bar" id="pm-range" min="0" , max="{{character.pmMax}}" value="{{character.pm}}" disabled>
-					</div>
-					<div
-						class="statut">
-
-						<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
-						<label for="pc" class="label label-statut">PC
-						</label>
-						<input type="number" class="numerique" id="" name="" value="{{character.pc}}" readonly>
-
-						<span class="max">/
-							{{character.pcMax}}</span>
-
-						<!-- ~~~~~~ bar de mana ~~~~~~ -->
-						<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="div-statistique">
+				<div class="statistique">
+					<p class="label">Constitution :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.constitution }}</p>
 					</div>
 				</div>
+				<div class="statistique">
+					<p class="label">Force :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.strength }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Dextérite :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.dexterity }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Intelligence :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.intelligence }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Charisme :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.charisma }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Foi :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.faith }}</p>
+					</div>
+				</div>
+
 			</div>
-			<div class="row">
-				<div class="inventaire-form">
-					<div class="label label-form">
-						<span>Inventaire</span>
-					</div>
-					<textarea readonly>{{character.inventory}}</textarea>
-					<div class="label label-form">
-						<span>Po</span>
-					</div>
-					<input type="number" value="{{character.gold}}" readonly>
+			<div class="div-statut">
+				<div
+					class="statut">
 
+					<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
+					<label for="pv" class="label label-statut">PV
+					</label>
+					<input type="number" class="numerique" id="" name="number" value="{{character.pv}}" readonly>
+					<span class="max">/
+						{{character.pvMax}}</span>
+
+					<!-- ~~~~~~ barre de vie ~~~~~~ -->
+					<input type="range" class="bar" id="pv-range" min="0" , max="{{character.pvMax}}" value="{{character.pv}}" disabled>
+				</div>
+
+				<div
+					class="statut">
+
+					<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+					<label for="pm" class="label label-statut">PM</label>
+					<input type="number" class="numerique" id="" name="" value="{{character.pm}}" readonly>
+
+					<span class="max">/
+						{{character.pmMax}}</span>
+
+					<!-- ~~~~~~ bar de mana ~~~~~~ -->
+					<input type="range" class="bar" id="pm-range" min="0" , max="{{character.pmMax}}" value="{{character.pm}}" disabled>
+				</div>
+				<div
+					class="statut">
+
+					<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+					<label for="pc" class="label label-statut">PC
+					</label>
+					<input type="number" class="numerique" id="" name="" value="{{character.pc}}" readonly>
+
+					<span class="max">/
+						{{character.pcMax}}</span>
+
+					<!-- ~~~~~~ bar de mana ~~~~~~ -->
+					<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<select name="" id="select-stat">
-				<option value="{{character.constitution}}">Constitution</option>
-				<option value="{{character.strength}}">Force</option>
-				<option value="{{character.dexterity}}">Dextérité</option>
-				<option value="{{character.intelligence}}">Intelligence</option>
-				<option value="{{character.charisma}}">Charisme</option>
-				<option value="{{character.faith}}">Foi</option>
-			</select>
+		<div class="row">
+			<div class="inventaire-form">
+				<div class="label label-form">
+					<span>Inventaire</span>
+				</div>
+				<textarea readonly>{{character.inventory}}</textarea>
+				<div class="label label-form">
+					<span>Po</span>
+				</div>
+				<input type="number" value="{{character.gold}}" readonly>
 
-			<select name="" id="ca">
-				<option value="0">0</option>
-				<option value="5">3 (-5)</option>
-				<option value="10">5 (-10)</option>
-				<option value="15">7 (-15)</option>
-				<option value="20">10 (-20)</option>
-				<option value="25">12 (-25)</option>
-				<option value="30">15 (-30)</option>
-				<option value="35">17 (-35)</option>
-				<option value="50">17+ (-50)</option>
-			</select>
-			<button id="de">Test !</button>
-			<div id="result"></div>
+			</div>
 		</div>
+	</div>
+	<div class="container">
+		<select name="" id="select-stat">
+			<option value="{{character.constitution}}">Constitution</option>
+			<option value="{{character.strength}}">Force</option>
+			<option value="{{character.dexterity}}">Dextérité</option>
+			<option value="{{character.intelligence}}">Intelligence</option>
+			<option value="{{character.charisma}}">Charisme</option>
+			<option value="{{character.faith}}">Foi</option>
+		</select>
 
-		<div class="container">
+		<select name="" id="ca">
+			<option value="0">0</option>
+			<option value="5">3 (-5)</option>
+			<option value="10">5 (-10)</option>
+			<option value="15">7 (-15)</option>
+			<option value="20">10 (-20)</option>
+			<option value="25">12 (-25)</option>
+			<option value="30">15 (-30)</option>
+			<option value="35">17 (-35)</option>
+			<option value="50">17+ (-50)</option>
+		</select>
+		<button id="de">Test !</button>
+		<div id="result"></div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div>
+				<div>
+					<h2 class="titre-table">Armure</h2>
+				</div>
+				{% set ca = 0 %}
+				<table class="tableau">
+					<thead>
+						<tr>
+							<th>Pièce</th>
+							<th>Type</th>
+							<th>CA</th>
+							<th>Effet</th>
+						</tr>
+					</thead>
+					{% if armorPiece is defined %}
+						<tbody>
+							{% for armorPiece in armor %}
+								{% set ca = ca + armorPiece.piece.value %}
+								<tr>
+									<td>{{ armorPiece.piece.location.name }}</td>
+									<td>{{ armorPiece.piece.type.name }}</td>
+									<td>{{ armorPiece.piece.value }}</td>
+									<td>{{ armorPiece.effect }}</td>
+								</tr>
+					
+					
+					
+							{% endfor %}
+						</tbody>
+					{% endif %}
+					<tfoot>
+						<tr>
+							<th>Total :</th>
+							<td></td>
+							<td>{{ca}}</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 			<div class="row">
 				<div>
 					<div>
-						<h2 class="titre-table">Armure</h2>
+						<h2 class="titre-table">Arme</h2>
 					</div>
-					{% set ca = 0 %}
 					<table class="tableau">
 						<thead>
 							<tr>
-								<th>Pièce</th>
-								<th>Type</th>
-								<th>CA</th>
+								<th>Arme</th>
+								<th>Dégats</th>
+								<th>Dé</th>
 								<th>Effet</th>
 							</tr>
 						</thead>
-						{% if armorPiece is defined %}
-							<tbody>
-								{% for armorPiece in armor %}
-									{% set ca = ca + armorPiece.piece.value %}
-									<tr>
-										<td>{{ armorPiece.piece.location.name }}</td>
-										<td>{{ armorPiece.piece.type.name }}</td>
-										<td>{{ armorPiece.piece.value }}</td>
-										<td>{{ armorPiece.effect }}</td>
-									</tr>
-						
-						
-						
-								{% endfor %}
-							</tbody>
-						{% endif %}
-						<tfoot>
-							<tr>
-								<th>Total :</th>
-								<td></td>
-								<td>{{ca}}</td>
-							</tr>
-						</tfoot>
+						<tbody>
+							{% for weapon in weapons %}
+								<tr>
+								{% if weapon.weapon != null %}
+									<td>{{ weapon.weapon.name }}</td>
+									<td>{{ weapon.weapon.damage }}</td>
+									<td>{{ weapon.weapon.dice }}</td>
+									<td>{{ weapon.effect }}</td>
+								{% else %}
+									<td> Vide </td>
+									<td>0</td>
+									<td>0</td>
+									<td></td>
+								{% endif %}
+								</tr>
+							{% endfor %}
+						</tbody>
 					</table>
 				</div>
-				<div class="row">
-					<div>
-						<div>
-							<h2 class="titre-table">Arme</h2>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h2 id="title">Compétences</h2>
+	</div>
+	<div class="container">
+		<div class="div-competence">
+			{% for skill in skills %}
+				<div class="competence">
+					<div class="dropdown">
+						<button class="dropbtn">
+							{{skill.name}}
+							,
+							{{skill.cost}}
+							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+						<div class="dropdown-content hidden">
+							<textarea readonly>{{ skill.description }}</textarea>
 						</div>
-						<table class="tableau">
-							<thead>
-								<tr>
-									<th>Arme</th>
-									<th>Dégats</th>
-									<th>Dé</th>
-									<th>Effet</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for weapon in weapons %}
-									<tr>
-									{% if weapon.weapon != null %}
-										<td>{{ weapon.weapon.name }}</td>
-										<td>{{ weapon.weapon.damage }}</td>
-										<td>{{ weapon.weapon.dice }}</td>
-										<td>{{ weapon.effect }}</td>
-									{% else %}
-										<td> Vide </td>
-										<td>0</td>
-										<td>0</td>
-										<td></td>
-									{% endif %}
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
 					</div>
 				</div>
-			</div>
+			{% endfor %}
 		</div>
-
-
-		<div class="container">
-			<h2 id="title">Compétences</h2>
+	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
 		</div>
-		<div class="container">
-			<div class="div-competence">
-				{% for skill in skills %}
-					<div class="competence">
-						<div class="dropdown">
-							<button class="dropbtn">
-								{{skill.name}}
-								,
-								{{skill.cost}}
-								<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
-							<div class="dropdown-content hidden">
-								<textarea readonly>{{ skill.description }}</textarea>
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
+		<div class="navside navside-hidden">
+			{% for character in charactersUser %}
+				<a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
+			{% endfor %}
+			{% for teammate in teammates %}
+				<a href="{{path("team_sheet_view", {"teamId" : team.id, "teamSlug" : team.slug, "characterId" : teammate.id, "characterSlug" : teammate.slug})}}">{{teammate.name}}</a>
+			{% endfor %}
+			{# <a href="">Retour </a> #}
 		</div>
-
-	{% else %}
-		<h2>Désolé, ce personnage n'appartient pas à cette équipe</h2>
-	{% endif %}
+	</div>
 {% endblock %}
 {% block script %}
 	<script src="{{asset('script/dropdown.js')}}"></script>

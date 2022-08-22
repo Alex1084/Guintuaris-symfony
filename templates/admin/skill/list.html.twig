@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Competences</h2>
+	<h2 class="titre-table">Competences</h2>
 	<div class="container">
 		{% for message in app.flashes('success') %}
 			<div class="flash success">
@@ -13,7 +13,6 @@
 			</div>
 		{% endfor %}
     <div class="">
-        <a href="{{ path("admin_add_skill")}}">Creer une Nouvelle Competence</a>
     </div>
 		<table class="tableau" id="skill">
 			<thead>
@@ -45,6 +44,18 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a href="{{ path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retour</a>
+        	<a href="{{ path("admin_add_skill")}}">Creer une Nouvelle Competence</a>
+			<a href="{{ path('admin_race_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Race</a>
+			<a href="{{ path('admin_class_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">classes</a>
+
+		</div>
 	</div>
 {% endblock %}
 

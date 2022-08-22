@@ -5,16 +5,13 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Armes</h2>
 	<div class="container">
+		<h2 class="titre-table">Armes</h2>
 		{% for message in app.flashes('success') %}
 			<div class="flash success">
 				{{ message }}
 			</div>
 		{% endfor %}
-    <div class="">
-        <a href="{{ path("admin_add_weapon")}}">Creer une Nouvelle arme</a>
-    </div>
 		<table class="tableau" id="weapon">
 			<thead>
 				<tr>
@@ -43,6 +40,18 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a href="{{ path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retour</a>
+        	<a href="{{ path("admin_add_weapon")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Creer une Nouvelle arme</a>
+			<a href="{{ path('admin_armor_type_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter un Type aux armures</a>
+			<a href="{{ path('admin_add_armor_piece')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une pièce d'armure</a>
+			<a href="{{ path('admin_armor_location_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une localisation au armure</a>
+		</div>
 	</div>
 {% endblock %}
 

@@ -28,14 +28,15 @@ class FicheEquipeController extends AbstractController
     public function teamMembersList(string $teamSlug, int $teamId, ManagerRegistry $doctrine): Response
     {
         $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId, "slug" => $teamSlug]);
-        $characterUser = $doctrine->getRepository(Character::class)->findOneBy(["user" => $this->getUser(), "team" => $team]);
-        if (!$characterUser || $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
+        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team]);
+        if (!$charactersUser && $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
             return $this->redirectToRoute("character_list");
         }
         $characters = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId());
         return $this->render('fiche_equipe/listEquipe.html.twig', [
             "characters" => $characters,
             "team" => $team,
+            "charactersUser" => $charactersUser
         ]);
     }
 
@@ -53,8 +54,8 @@ class FicheEquipeController extends AbstractController
     public function fichePerso(string $teamSlug, int $teamId,string $characterSlug,  int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
     {
         $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId,"slug"=>$teamSlug]);
-        $characterUser = $doctrine->getRepository(Character::class)->findOneBy(["user" => $this->getUser(), "team" => $team]);
-        if (!$characterUser || $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
+        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team]);
+        if (!$charactersUser && $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
             return $this->redirectToRoute("character_list");
         }
         $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $team]);
@@ -62,6 +63,7 @@ class FicheEquipeController extends AbstractController
         if (!$character) {
             return $this->redirectToRoute("character_list");
         }
+        $teammates = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId(), $character->getId());
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
@@ -71,8 +73,10 @@ class FicheEquipeController extends AbstractController
         // creation d'un formulaire en readonly pour voir le statut
 
         return $this->render('fiche_equipe/ficheEquipier.html.twig', [
-            'teamId' => $teamId,
+            'team' => $team,
             'character' => $character,
+            'charactersUser' => $charactersUser,
+            "teammates" => $teammates,
             'skills' => $skills,
             'armor' => $armor,
             'weapons' => $weapons

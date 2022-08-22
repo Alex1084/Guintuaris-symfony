@@ -9,4 +9,24 @@ window.addEventListener("DOMContentLoaded", (event) => {
             raceList.innerHTML += '<li class="nav-item"><a href="/race/'+race.slug+'">'+race.name+'</a></li>'
         });
     });
-  });
+});
+
+const shownavside = document.getElementById("show-navside");
+const navside = document.querySelector(".navside")
+shownavside.addEventListener("click", e => {
+    e.preventDefault();
+    if (navside.classList.contains("navside-show")) {
+        navside.classList.replace("navside-show","navside-hidden");
+            shownavside.parentElement.classList.add("show")
+            setTimeout(() =>{
+            navside.style.width = 0;
+        }, 600);
+    }
+    else {
+        navside.style.width = "20vw";
+        shownavside.parentElement.classList.remove("show")
+        setTimeout(() =>{
+            navside.classList.replace("navside-hidden","navside-show");
+        }, 300);
+    }
+})

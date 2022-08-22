@@ -21,6 +21,9 @@ body{
     border-bottom: 1px black solid ;
     background-color: rgba(183, 155, 118, 0.50);
 }
+main{
+    position: relative;
+}
 
 
 @font-face {
@@ -124,6 +127,52 @@ body{
     right: 5vw;
 }
 
+/***********navside***********/
+.navside-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	/* border: solid 1px black; */
+	width: fit-content;
+    transition: 600ms;
+}
+.div-show-navside {
+	border: 1px solid black;
+	background: rgba(183, 155, 118, 0.50);
+	width: 20vw;
+	padding: 2px 10px;
+    position: sticky;
+    top: 0%;
+    left: 0%;
+}
+.show {
+    width: fit-content;
+}
+.navside {
+	border: 1px solid black;
+	position: sticky;
+	top: 1.5rem;
+	left: 100%;
+	width: 20vw;
+	background: rgba(183, 155, 118, 1);
+    /* display: none; */
+    transition: opacity 600ms, transform 600ms, height 600ms, width 300ms;
+	padding: 2px 10px;
+}
+.navside-show{
+    opacity: 1;
+}
+.navside-hidden{
+    opacity: 0;
+    height: 0;
+    transform: translateY(-50%) scaleY(0);
+    width: 0;
+}
+.navside a {
+    display: block;
+    text-align: left;
+}
 /***********general***********/
 a{
     text-align: center;
@@ -146,7 +195,7 @@ a:hover{
 
 .swal-height {
     height: 637px;
-  }
+}
 
 /*********** le texte***********/
 p{
@@ -182,10 +231,10 @@ p{
     padding: 1rem;
 }
 .flash.success {
-    background-color: rgba(0, 102, 0, 0.5);
+    background-color: rgba(0, 102, 0, 0.5) o !important;
 }
 .flash.error {
-    background-color: rgba(170, 0, 0, 0.5);
+    background-color: rgba(170, 0, 0, 0.5) !important;
 }
 /***********les input***********/
 

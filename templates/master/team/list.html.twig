@@ -2,9 +2,12 @@
 
 {% block title %}Mes personnage & Mes equipe | Guintuaris{% endblock %}
 
+{% block link %}
+    {{parent()}}
+    <a href="{{path("character_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Voir les personnages</a>
+    <a href="{{path("master_team_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Voir les equipes</a>
+{% endblock %}
 {% block body %}
-        <a href="{{path("character_list")}}">Voir les personnages</a>
-    <a href="{{path("master_team_list")}}">Voir les equipes</a>
     {{parent()}}
     <div class="container">
         <h2 class="titre-table">Equipes</h2>

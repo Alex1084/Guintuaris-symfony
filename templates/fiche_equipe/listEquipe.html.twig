@@ -28,5 +28,17 @@
             </tbody>
         </table>
     </div>
+    <div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			{# <a href="{{path("character_list")}} ">Retour</a> #}
+			{% for character in charactersUser %}
+				<a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
+			{% endfor %}
+			
+		</div>
+	</div>
     
 {% endblock %}

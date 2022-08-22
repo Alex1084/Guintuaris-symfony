@@ -54,7 +54,7 @@ class CharacterRepository extends ServiceEntityRepository
         ->getQuery()->execute();
     }
 
-    public function findNameByTeam(int $teamId, int $userId = 0)
+    public function findNameByTeam(int $teamId, int $userId = 0, int $characterId = 0)
     {
         return $this->createQueryBuilder('c')
         ->select('c.id, c.name, c.slug, c.image, c.level')
@@ -62,6 +62,8 @@ class CharacterRepository extends ServiceEntityRepository
         ->setParameter('team', $teamId)
         ->andWhere('c.user <> :user')
         ->setParameter('user', $userId)
+        ->andWhere('c.id <> :character')
+        ->setParameter('character', $characterId)
         ->orderBy('c.name', 'ASC')
         ->getQuery()->getResult();
     }
