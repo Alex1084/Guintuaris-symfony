@@ -1,37 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Mes Personnages | {{parent()}}{% endblock %}
+{% block title %}
+{% endblock %}
 
 {% block body %}
-    <div class="container">
+ <div class="container">
         <h2 class="titre-table">Fiches personnages</h2>
         <table class="tableau">
             <thead>
                 <tr>
+                    <th>id</th>
                     <th scope="col">image</th>
                     <th scope="col">nom</th>
                     <th>niveau</th>
                     <th>equipe</th>
+                    <th>utilisateur</th>
                     <th scope="col">action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for character in characters %}
                     <tr>
+                        <td> {{character.id}}</td>
                         <td>
                             <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
                         </td>
                         <td>
-                            <a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">{{ character.name }}</a>
+                            {% if character.teamId != null %}   
+                                <a href="{{ path("team_sheet_view", {"teamSlug" : character.teamSlug, "teamId" : character.teamId, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
+                            {% else %}
+                                {{character.name}}
+                            {% endif %}
                         </td>
                         <td>{{character.level}}</td>
                         <td>
-                            {% if character.teamId != null %}
-                                <a href="{{path("team_list", {"teamSlug" : character.teamSlug,"teamId" :character.teamId})}}">{{character.teamName}}</a>
+                            {% if character.teamId != null %}   
+                                {{character.teamName}} (id: {{character.teamId}})
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ path("character_setting", {"slug" : character.slug, "id" : character.id})}}">Paramètres</a>
+                            {{character.userName}} (id : {{character.userId}})
+                        </td>
+                        <td>
+                            <a href="{#{ path("", {"slug" : character.slug, "id" : character.id})}#}">Paramètres</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -43,9 +54,7 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-            {% block link %}
-                <a href="{{ path("create_character")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Nouveau personnage</a>
-            {% endblock %}
+            
         </div>
 	</div>
 {% endblock %}

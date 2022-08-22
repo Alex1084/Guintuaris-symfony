@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Character;
 use App\Entity\Team;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -78,6 +79,16 @@ class CharacterRepository extends ServiceEntityRepository
             ->orderBy('c.name', 'ASC')
             ->getQuery()->getResult();
 
+    }
+
+    public function findAllName()
+    {
+        return $this->createQueryBuilder('c')
+                    ->select("c.id, c.slug, c.name, c.level, c.image, u.name as userName, u.id as userId, t.id as teamId, t.slug as teamSlug, t.name as teamName")
+                    ->join(User::class, "u", Join::WITH, "u.id = c.user")
+                    ->leftJoin(Team::class, "t", Join::WITH, "t.id = c.team")
+                    ->getQuery()->getResult();
+                    ;
     }
 
 }
