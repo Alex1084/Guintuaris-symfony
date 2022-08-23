@@ -9,9 +9,9 @@
 	{% if app.user.id == character.user.id %}
 		<div class="container">
 			<ul>
-                <li><a href="{{ path("character_delete", {'id' : character.id})}}">supprimer mon personnage</a></li>
-                <li><a href="{{ path("character_delete_image", {"slug" : character.slug, 'id' : character.id})}}">supprimmer mon image</a></li>
-                <li><a href="{{ path("character_update", {"slug" : character.slug, 'id' : character.id})}}">modifier mon personnage</a></li>
+                <li><a class="link" href="{{ path("character_delete", {'id' : character.id})}}">supprimer mon personnage</a></li>
+                <li><a class="link" href="{{ path("character_delete_image", {"slug" : character.slug, 'id' : character.id})}}">supprimmer mon image</a></li>
+                <li><a class="link" href="{{ path("character_update", {"slug" : character.slug, 'id' : character.id})}}">modifier mon personnage</a></li>
                 {# <li><a href="{{ path("main_home")}}"></a></li> #}
             </ul>
 		</div>

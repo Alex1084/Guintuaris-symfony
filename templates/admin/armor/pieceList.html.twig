@@ -82,10 +82,10 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a href="{{ path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retour</a>
-			<a href="{{ path('admin_weapon_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Arme</a>
-			<a href="{{ path('admin_armor_type_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter un Type aux armures</a>
-			<a href="{{ path('admin_armor_location_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Ajouter une localisation au armure</a>
+			<a class="link" href="{{ path('admin_home')}}">Retour</a>
+			<a class="link" href="{{ path('admin_weapon_list')}}">Arme</a>
+			<a class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un Type aux armures</a>
+			<a class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
 		</div>
 	</div>
 {% endblock %}

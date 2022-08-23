@@ -17,16 +17,14 @@ shownavside.addEventListener("click", e => {
     e.preventDefault();
     if (navside.classList.contains("navside-show")) {
         navside.classList.replace("navside-show","navside-hidden");
-            // shownavside.parentElement.classList.add("show")
-            shownavside.parentElement.style.width = "80px"
-            setTimeout(() =>{
+        setTimeout(() =>{
+            shownavside.parentElement.classList.add("show")
             navside.style.width = 0;
         }, 600);
     }
     else {
         navside.style.width = "20vw";
-            shownavside.parentElement.style.width = "20vw"
-            // shownavside.parentElement.classList.remove("show")
+        shownavside.parentElement.classList.remove("show")
         setTimeout(() =>{
             navside.classList.replace("navside-hidden","navside-show");
         }, 300);

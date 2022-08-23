@@ -300,11 +300,11 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a href="{{path("character_list")}} ">Retour</a>
-			<a href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a>
-			<a href="{{ path('character_setting', {"slug" : character.slug, "id" : character.id}) }}">option</a>
+			<a class="link" href="{{path("character_list")}} ">Retour</a>
+			<a class="link" href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a>
+			<a class="link" href="{{ path('character_setting', {"slug" : character.slug, "id" : character.id}) }}">option</a>
 			{% if character.team %}
-				<a href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
+				<a class="link" href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
 			{% endif %}
 		</div>
 	</div>

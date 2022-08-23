@@ -20,16 +20,16 @@
 			<div class="nav-div">
 				<nav>
 					<ul class="nav-list">
-						<li class="nav-item"><a href="{{ path('main_home') }}"><img src="{{asset("img/list.png")}}" alt="" height="10">Accueil</a></li>
+						<li class="nav-item"><a class="link" href="{{ path('main_home') }}">Accueil</a></li>
 						<div class="drop-nav">
-							<li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Races</button></li>
+							<li class="nav-item"><button class="nav-button">Races</button></li>
 							<div class="drop-nav-content">
 								<ul id="race-list">
 								</ul>
 							</div>
 						</div>
 						<div class="drop-nav">
-							<li class="nav-item"><button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">Classes</button></li>
+							<li class="nav-item"><button class="nav-button">Classes</button></li>
 							<div class="drop-nav-content">
 								<ul id="class-list">
 								</ul>
@@ -37,17 +37,17 @@
 						</div>
 						{% if app.user %}
 							{% if is_granted("ROLE_MASTER") %}
-								<li class="nav-item"><a href="{{path('master_list_character_team')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages & mes Equipes</a></li>
-								<li class="nav-item"><a href="{{path('board')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mon Tableau de maitre du jeu</a></li>
+								<li class="nav-item"><a class="link" href="{{path('master_list_character_team')}}">Mes personnages & mes Equipes</a></li>
+								<li class="nav-item"><a class="link" href="{{path('board')}}">Mon Tableau de maitre du jeu</a></li>
 							{% elseif is_granted("ROLE_USER") %}
-								<li class="nav-item"><a href="{{path('character_list')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Mes personnages</a></li>
+								<li class="nav-item"><a href="{{path('character_list')}}">Mes personnages</a></li>
 							{% endif %}
 							{% if is_granted("ROLE_ADMIN") %}
-								<li class="nav-item"><a href="{{path('admin_home')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Admin</a></li>
+								<li class="nav-item"><a class="link" href="{{path('admin_home')}}">Admin</a></li>
 							{% endif %}
 						{% else %}
-							<li class="nav-item"><a href="{{ path('app_login')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Connexion</a></li>
-							<li class="nav-item"><a href="{{ path('app_register')}}"><img src="{{asset("img/list.png")}}" alt="" height="10">S'inscrire</a></li>
+							<li class="nav-item"><a class="link" href="{{ path('app_login')}}">Connexion</a></li>
+							<li class="nav-item"><a class="link" href="{{ path('app_register')}}">S'inscrire</a></li>
 
 						{% endif %}
 
@@ -55,7 +55,7 @@
 
 					{% if app.user and is_granted("ROLE_USER") %}
 						<div class="drop-nav" id="account">
-							<button class="nav-button"><img src="{{asset("img/list.png")}}" alt="" height="10">compte</button>
+							<button class="nav-button">compte</button>
 							<div class="drop-nav-content">
 								<ul>
 									<li class="nav-item"><a href="{{ path('profil') }}">Mon compte ({{ app.user.name }})</a></li>
