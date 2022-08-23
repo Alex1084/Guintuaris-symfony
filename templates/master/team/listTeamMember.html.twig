@@ -17,7 +17,9 @@
 		<table class="tableau">
             <thead>
                 <tr>
+				{% if is_granted("ROLE_ADMIN") %}
 					<th>Id</th>
+				{% endif %}
                     <th>Image</th>
                     <th>Nom</th>
                     <th>Level</th>
@@ -27,7 +29,9 @@
             <tbody>
                 {% for character in teamMembers %}
                     <tr>
-                        <td class="data-id">{{character.id}}</td>
+						{% if is_granted("ROLE_ADMIN") %}
+                        	<td class="data-id">{{character.id}}</td>
+						{% endif %}
                         <td>
                             <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
                         </td>
@@ -54,8 +58,15 @@
 			<a id="show-form">Ajouter un Menbre</a>
 		</div>
 	</div>
-
-
+    <div class="navside-container">
+        <div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+            <a href="{{path("master_team_list")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Retourner voir les equipe</a>
+            <a href="{{path("master_list_character_team")}}"><img src="{{asset("img/list.png")}}" alt="" height="10">Voir mes equipes et mes personnages</a>
+        </div>
+	</div>
 {% endblock %}
 
 

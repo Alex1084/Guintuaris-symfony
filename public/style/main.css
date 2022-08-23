@@ -140,15 +140,17 @@ main{
 .div-show-navside {
 	border: 1px solid black;
 	background: rgba(183, 155, 118, 0.50);
-	width: 20vw;
+	width: 80px;
 	padding: 2px 10px;
     position: sticky;
     top: 0%;
     left: 0%;
+    transition: width 300ms;
 }
-.show {
+
+/* .show {
     width: fit-content;
-}
+} */
 .navside {
 	border: 1px solid black;
 	position: sticky;
@@ -203,16 +205,23 @@ p{
 }
 .title{
     font-size: 3rem;
-    font-family: "centurion";
     font-weight: lighter;
     text-align: center;
 }
-
+.title::first-letter {
+	font-size: 5rem;
+	text-transform: capitalize;
+    font-family: "centurion";
+}
 .sub-title{
     font-size: 2rem;
+
+}
+.sub-title::first-letter {
+	font-size: 2.5rem;
+	text-transform: capitalize;
     font-family: "centurion";
     font-weight: lighter;
-
 }
 .content{
     white-space: pre-line;
@@ -382,6 +391,11 @@ form .show {
 .titre-table{
     text-decoration: none;
     text-align: center;
+}
+.titre-table::first-letter{
+    font-family: "centurion";
+    font-weight: lighter;
+    font-size: 2rem;
 }
 
 .tableau{
