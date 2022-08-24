@@ -71,7 +71,21 @@ class CharacterController extends AbstractController
             return $this->json('error', 401);
         }
     }
+    #[Route('/delete/{id}', name:'delete')]
+    public function delete(int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager)
+    {
+        $character = $doctrine->getRepository(Character::class)->find($id);
 
+        if ($character && $character->getUser() === $this->getUser()) {
+            $this->removeFile($character->getImage());
+            $entityManager->remove($character);
+            $entityManager->flush();
+            $this->addFlash("success", "Au revoir ".$character->getName()."! nous vous souhaiton bon vent!");
+        }
+
+        return $this->redirectToRoute("character_list");
+
+    }
     /**
      * permet d'afficher et d'editer la fiche de personnage que l'on souhaite
      *
@@ -107,20 +121,6 @@ class CharacterController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         return $this->render('character/character/setting.html.twig', ['character' => $character]);
-    }
-    #[Route('/{id}/delete', name:'delete')]
-    public function delete(int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager)
-    {
-        $character = $doctrine->getRepository(Character::class)->find($id);
-
-        if ($character && $character->getUser() === $this->getUser()) {
-            $entityManager->remove($character);
-            $entityManager->flush();
-            $this->addFlash("success", "Au revoir ".$character->getName()."! nous vous souhaiton bon vent!");
-        }
-
-        return $this->redirectToRoute("character_list");
-
     }
     #[Route("/{slug}/{id}/update", name: "update")]
     public function updateCharact(string $slug, int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request)

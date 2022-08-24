@@ -247,10 +247,10 @@ p{
     padding: 1rem;
 }
 .flash.success {
-    background-color: rgba(0, 102, 0, 0.5) o !important;
+    background-color: rgba(0, 102, 0, 0.5);
 }
 .flash.error {
-    background-color: rgba(170, 0, 0, 0.5) !important;
+    background-color: rgba(170, 0, 0, 0.5);
 }
 /***********les input***********/
 
