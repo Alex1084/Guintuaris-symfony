@@ -59,7 +59,7 @@ class CreateController extends AbstractController
             $this->addFlash('success', 'ton personnage a été créer');
             return $this->redirectToRoute('character_view', ["id" => $character->getId(), "slug" => $character->getSlug()]);
         }
-        return $this->render('personnage/creation.html.twig', [
+        return $this->render('character/character/create.html.twig', [
             "characterForm" => $characterForm->createView()
         ]);
     }

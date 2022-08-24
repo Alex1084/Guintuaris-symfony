@@ -16,7 +16,7 @@ class RulesController extends AbstractController
     public function race(string $slug, ManagerRegistry $doctrine): Response
     {
         $race = $doctrine->getRepository(Race::class)->findOneBy(["slug" => $slug]);
-        return $this->render('race/race.html.twig', [
+        return $this->render('rules/race.html.twig', [
             'race' => $race
         ]);
     }
@@ -27,7 +27,7 @@ class RulesController extends AbstractController
         $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);
 
         $skills = $doctrine->getRepository(Skill::class)->findBy(array("class" => $class));
-        return $this->render('race/classe.html.twig', [
+        return $this->render('rules/classe.html.twig', [
             'classe' => $class,
             'skills' => $skills
         ]);

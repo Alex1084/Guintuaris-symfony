@@ -15,7 +15,7 @@ class CharacterController extends AbstractController
     {
         $characters = $doctrine->getRepository(Character::class)->findAllName();
 
-        return $this->render('admin/character/index.html.twig', [
+        return $this->render('admin/character/list.html.twig', [
             "characters" => $characters
         ]);
     }

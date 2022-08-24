@@ -41,7 +41,7 @@ class BoardController extends AbstractController
                 array_push($list[$index]["beasts"], $beast);
             }
         }
-        return $this->render('bestiaire/mjboard.html.twig', [
+        return $this->render('master/board/mjboard.html.twig', [
             "list" => $list,
         ]);
     }

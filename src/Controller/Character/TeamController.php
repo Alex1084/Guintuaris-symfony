@@ -33,7 +33,7 @@ class TeamController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         $characters = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId());
-        return $this->render('fiche_equipe/listEquipe.html.twig', [
+        return $this->render('character/team/teammateList.html.twig', [
             "characters" => $characters,
             "team" => $team,
             "charactersUser" => $charactersUser
@@ -72,7 +72,7 @@ class TeamController extends AbstractController
 
         // creation d'un formulaire en readonly pour voir le statut
 
-        return $this->render('fiche_equipe/ficheEquipier.html.twig', [
+        return $this->render('character/team/teammateSheet.html.twig', [
             'team' => $team,
             'character' => $character,
             'charactersUser' => $charactersUser,

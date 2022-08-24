@@ -42,7 +42,7 @@ class CharacterController extends AbstractController
     {
         $user = $this->getUser();
         $characters = $characterRepository->listByUser($user->getId());
-        return $this->render('personnage/list.html.twig', [
+        return $this->render('character/character/list.html.twig', [
             "characters" => $characters
         ]);
     }
@@ -91,7 +91,7 @@ class CharacterController extends AbstractController
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
         
-        return $this->render('personnage/fichePersonnage.html.twig', [
+        return $this->render('character/character/characterSheet.html.twig', [
             'character' => $character,
             'skills' => $skills,
             'armor' => $armor,
@@ -106,7 +106,7 @@ class CharacterController extends AbstractController
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
-        return $this->render('personnage/setting.html.twig', ['character' => $character]);
+        return $this->render('character/character/setting.html.twig', ['character' => $character]);
     }
     #[Route('/{id}/delete', name:'delete')]
     public function delete(int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager)
@@ -151,7 +151,7 @@ class CharacterController extends AbstractController
             $this->addFlash("success", "Les modification de ton personnage ont été sauvegarder");
             return $this->redirectToRoute("character_view", ["slug" => $slug, "id" => $id]);
         }
-        return $this->render("/personnage/updateCharacter.html.twig", [
+        return $this->render("character/character/updateCharacter.html.twig", [
             "characterForm" => $characterForm->createView()
         ]);
     }
@@ -188,7 +188,7 @@ class CharacterController extends AbstractController
             $this->addFlash("success", "très intéréssant! nous somme ravi d'en savoir plus sur vous ".$character->getName().".");
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
-        return $this->render('personnage/lore.html.twig', [
+        return $this->render('character/character/loreForm.html.twig', [
             "loreForm" => $loreForm->createView(),
             "character" =>$character,
         ]);
@@ -237,7 +237,7 @@ class CharacterController extends AbstractController
             $this->addFlash('success', $message);
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
-        return $this->render('personnage/levelup.html.twig', [
+        return $this->render('character/character/levelupForm.html.twig', [
             "characterForm" => $characterForm->createView(),
             "character" => $character,
         ]);
@@ -290,7 +290,7 @@ class CharacterController extends AbstractController
             }
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
-        return $this->render('personnage/changeImage.html.twig', [
+        return $this->render('character/character/changeImage.html.twig', [
             "imageForm" => $imageForm->createView(),
             "character" => $character
         ]);
@@ -401,7 +401,7 @@ class CharacterController extends AbstractController
             }
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
-        return $this->render('personnage/equipement.html.twig', [
+        return $this->render('character/character/armorForm.html.twig', [
             "armorForm" => $armorForm->createView(),
             "character" => $character,
             "locations" => $locations
@@ -489,7 +489,7 @@ class CharacterController extends AbstractController
                 $this->addFlash("success", "vous voilà equiper pour pourfandre vos ennemis");
                 return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
-        return $this->render('personnage/arme.html.twig', [
+        return $this->render('character/character/weaponForm.html.twig', [
             'weaponForm' => $weaponForm->createView(),
             "character" => $character,
         ]);
