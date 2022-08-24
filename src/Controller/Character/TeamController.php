@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Character;
 
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/equipe', name: 'team_')]
-class FicheEquipeController extends AbstractController
+class TeamController extends AbstractController
 {
     /**
      * cette page affiche la list des membre apartenent à l'equipe qui se trouve en parametre

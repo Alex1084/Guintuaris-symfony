@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Character;
 
 use Cocur\Slugify\Slugify;
 use App\Entity\ArmorLocation;
@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/personnage', name: 'character_')]
-class PersonnageController extends AbstractController
+class CharacterController extends AbstractController
 {
     #[Route('/list', name: 'list')]
     /**

@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Character;
 
 use Cocur\Slugify\Slugify;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
-use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
 use App\Repository\ArmorLocationRepository;
-use App\Repository\ArmorPieceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CreatePersonnageController extends AbstractController
+class CreateController extends AbstractController
 {
     #[Route('/personnage/creation', name: 'create_character')]
     /**

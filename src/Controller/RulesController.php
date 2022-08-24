@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RaceController extends AbstractController
+class RulesController extends AbstractController
 {
     #[Route('/race/{slug}', name: 'race')]
     public function race(string $slug, ManagerRegistry $doctrine): Response
