@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %} 
 
-{% block title %} Accueil | {{parent()}}{% endblock %}
+{% block title %} Compte désactiver | {{parent()}}{% endblock %}
 
 {% block body %}
     <h1>Votre compte est Désactiver</h1>
     <p>nous sommes desoler {{name }} mais votre compte à été suspendu par un administrateur</p>
     <p>toute vos action son restreinte mais rassurer vous aucune de vos information n'a ete supprimmer</p>
     <p>si vous souhaiter plus d'information veuillez contacter notre support</p>
-    <a href="{{path("app_logout")}}">Déconnéxion</a>
+    <a title="Déconnéxion" href="{{path("app_logout")}}">Déconnéxion</a>
 
 {% endblock %} 

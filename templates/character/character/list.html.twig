@@ -27,16 +27,16 @@
                             <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
                         </td>
                         <td>
-                            <a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">{{ character.name }}</a>
+                            <a title="Voir la fiche de {{character.name}}" href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">{{ character.name }}</a>
                         </td>
                         <td>{{character.level}}</td>
                         <td>
                             {% if character.teamId != null %}
-                                <a href="{{path("team_list", {"teamSlug" : character.teamSlug,"teamId" :character.teamId})}}">{{character.teamName}}</a>
+                                <a title="Voir les equipier de l'équipe {{character.teamName}}" href="{{path("team_list", {"teamSlug" : character.teamSlug,"teamId" :character.teamId})}}">{{character.teamName}}</a>
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ path("character_setting", {"slug" : character.slug, "id" : character.id})}}">Paramètres</a>
+                            <a title="Parametres de {{character.name}}" href="{{ path("character_setting", {"slug" : character.slug, "id" : character.id})}}">Paramètres</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -49,7 +49,7 @@
 		</div>
 		<div class="navside navside-hidden">
             {% block link %}
-                <a class="link" href="{{ path("create_character")}}">Nouveau personnage</a>
+                <a title="Créer un nouveau personnage" class="link" href="{{ path("create_character")}}">Nouveau personnage</a>
             {% endblock %}
         </div>
 	</div>

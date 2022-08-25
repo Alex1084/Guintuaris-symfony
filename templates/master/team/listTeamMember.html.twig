@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Ajouter un membre |
-	{{parent()}}
-{% endblock %}
+{% block title %}Ajouter un membre | {{parent()}}{% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -36,11 +33,11 @@
                             <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
                         </td>
                         <td class="data-name">
-                            <a href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
+                            <a title="Voir la fiche de {{character.name}}" href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
                         </td>
                         <td> {{character.level}} </td>
 						<td>
-							<a class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : character.id}) }}">Supprimmer</a>						
+							<a title="Enlever {{character.name}} de l'équipe" class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : character.id}) }}">Supprimmer</a>						
 						</td>
                     </tr>
                 {% endfor %}
@@ -63,8 +60,8 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-            <a class="link" href="{{path("master_team_list")}}">Retourner voir les equipe</a>
-            <a class="link" href="{{path("master_list_character_team")}}">Voir mes equipes et mes personnages</a>
+            <a title="Liste des équipes" class="link" href="{{path("master_team_list")}}">Retourner voir les equipe</a>
+            <a title="Liste des pesonnages et des equipes" class="link" href="{{path("master_list_character_team")}}">Voir mes equipes et mes personnages</a>
         </div>
 	</div>
 {% endblock %}

@@ -15,12 +15,19 @@
         <h3>Mes infos: </h3>
         <p>Email: {{ user.email }}</p>
         <p>Nom: {{ user.name }}</p>
-
-        <a class="link" href="{{path("profil_update_password")}}">change password</a>
-        <a class="link" href="{{path("profil_update_account")}}">update user</a>
-        <a class="link" href="{{path("profile_delete")}}" class="notes" id="delete-account">Supprimmer mon Compte</a>
+        <ul>
+            <li>
+                <a title="Changer mon mot de passe" class="link" href="{{path("profil_update_password")}}">changer mon mpt de passe</a>
+            </li>
+            <li>
+                <a title="Metre a jour mes information" class="link" href="{{path("profil_update_account")}}">metre a jour mes information</a>
+            </li>
+            <li>
+                <a title="Supprimmer mon compte" class="link" href="{{path("profile_delete")}}" class="notes" id="delete-account">Supprimmer mon Compte</a>
+            </li>
+        </ul>
         <h3>Mes personnages: </h3>
-        <a class="link" href="{{ path("character_list")}}">Mes personnages</a>
+        <a title="Liste des personnage" class="link" href="{{ path("character_list")}}">Mes personnages</a>
 {% endblock %}
 
 {% block script %}

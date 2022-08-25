@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	Type de bête |
-	{{parent()}}
-{% endblock %}
+{% block title %}Type au Bestiaire |{{parent()}}{% endblock %}
 
 {% block body %}
 	<h2 class="titre-table">Type de Bête</h2>
@@ -58,9 +55,9 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a class="link" href="{{ path("admin_add_bestiary")}}">Creer une bête</a>
-			<a class="link" href="{{ path('admin_bestiary_list')}}">bestiaire</a>
+			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
+			<a title="Créer une creature" class="link" href="{{ path("admin_add_bestiary")}}">Creer une creature</a>
+			<a title="Liste de creature du bestiaire" class="link" href="{{ path('admin_bestiary_list')}}">List de creature du bestiaire</a>
 		</div>
 	</div>
 {% endblock %}

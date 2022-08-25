@@ -1,10 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{classe.name}}
-	|
-	{{parent()}}
-{% endblock %}
+{% block title %}{{classe.name}} | {{parent()}}{% endblock %}
 
 {% block style %}
 	<link rel="stylesheet" href="{{asset('style/dropdown.css')}}">

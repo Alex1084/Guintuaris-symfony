@@ -1,16 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription |
-	{{parent()}}
-{% endblock %}
+{% block title %}Inscription | {{parent()}}{% endblock %}
 
 {% block body %}
 	{% if app.user %}
 		<div>
-			Vous êtes connectée avec le compte
-			{{ app.user.username }}.
+			Vous êtes connectée avec le compte {{ app.user.name }}.
 		</div>
-		<a href="{{ path('app_logout') }}">Déconexion</a>
+		<a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
 	{% else %}
 		<div class="container">
 			<h1 class="title-form">Inscription</h1>

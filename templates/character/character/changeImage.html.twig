@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Image |
-	{{parent()}}
-{% endblock %}
+{% block title %}Image | {{parent()}}{% endblock %}
 
 {% block body %}
 	{% if app.user.id == character.user.id %}

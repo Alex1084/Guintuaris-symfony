@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription |
-	{{parent()}}
-{% endblock %}
+{% block title %}Modifier mes information | {{parent()}}{% endblock %}
 
 {% block body %}
 		<div class="container">
-			<h1 class="title-form">Update</h1>
+			<h1 class="title-form">Modifier mes Information</h1>
 
 			{{ form_start(userForm) }}
 
@@ -42,7 +40,7 @@
 			</div>
 
 
-			<button type="submit" class="valid-form">Créer mon compte</button>
+			<button type="submit" class="valid-form">Valider !</button>
 			{{ form_end(userForm) }}
 		</div>
 {% endblock %}

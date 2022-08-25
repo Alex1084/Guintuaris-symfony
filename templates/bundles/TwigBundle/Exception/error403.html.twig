@@ -1,15 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Erreur 403|
-	{{parent()}}
-{% endblock %}
+{% block title %}Erreur 403| {{parent()}}{% endblock %}
 
 
 {% block body %}
 <div class="container">
     <h1 class="title">une mystiereuse entité vous bloque l'accés</h1>
     <p>une entité de <strong>niveau 403</strong> fait apparaitre un mur invisible ce dressant devant vous.ce mur est trop grands il vous empèche d'aller plus loin</p>
-    <p>vite faite <a href="{{path("main_home")}}">demi-tour</a> avant qu'elle ne vous anéantisse </p>
+    <p>vite faite <a title="Retour a l'accueil" href="{{path("main_home")}}">demi-tour</a> avant qu'elle ne vous anéantisse </p>
 </div>
 {% endblock %}

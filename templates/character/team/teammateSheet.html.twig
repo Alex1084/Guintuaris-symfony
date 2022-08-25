@@ -1,9 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	{{character.name}}
-	|
-	{{parent()}}
-{% endblock %}
+{% block title %}Equipier {{character.name}} | {{parent()}}{% endblock %}
 {% block style %}
 	<link rel="stylesheet" href="{{asset('style/personnage.css')}}">
 	<link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
@@ -271,10 +267,10 @@
 		</div>
 		<div class="navside navside-hidden">
 			{% for character in charactersUser %}
-				<a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
+				<a title="Retourner sur la fiche de {{character.name}}}" href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
 			{% endfor %}
 			{% for teammate in teammates %}
-				<a href="{{path("team_sheet_view", {"teamId" : team.id, "teamSlug" : team.slug, "characterId" : teammate.id, "characterSlug" : teammate.slug})}}">{{teammate.name}}</a>
+				<a title="voir le fiche de {{teammate.name}}" href="{{path("team_sheet_view", {"teamId" : team.id, "teamSlug" : team.slug, "characterId" : teammate.id, "characterSlug" : teammate.slug})}}">{{teammate.name}}</a>
 			{% endfor %}
 			{# <a href="">Retour </a> #}
 		</div>

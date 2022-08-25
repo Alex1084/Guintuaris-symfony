@@ -1,29 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Mon lore |
-	{{parent()}}
-{% endblock %}
+{% block title %}Mon lore |{{parent()}}{% endblock %}
 
 {% block body %}
-	{% if app.user.id == character.user.id %}
-		<div class="container">
-			{{ form_start(loreForm)}}
-			<div class="row">
-				<div class="div-form">
-					<h3 class="title-form">
-						{{ form_label(loreForm.lore) }}
-					</h3>
-					
-					{{ form_widget(loreForm.lore) }}
-					<div class="div-errors">
-						{{ form_errors(loreForm.lore)}}
-					</div>
+	<div class="container">
+		{{ form_start(loreForm)}}
+		<div class="row">
+			<div class="div-form">
+				<h3 class="title-form">
+					{{ form_label(loreForm.lore) }}
+				</h3>
+				
+				{{ form_widget(loreForm.lore) }}
+				<div class="div-errors">
+					{{ form_errors(loreForm.lore)}}
 				</div>
 			</div>
-
-			<button class="valid-form">Valider</button>
-			{{ form_end(loreForm)}}
 		</div>
-	{% endif %}
+
+		<button class="valid-form">Valider</button>
+		{{ form_end(loreForm)}}
+	</div>
 {% endblock %}

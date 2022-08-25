@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Espace Administrateur |
-	{{parent()}}
-{% endblock %}
+{% block title %}Espace Administrateur | {{parent()}}{% endblock %}
 
 {% block style %}
 	<link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
@@ -15,39 +12,39 @@
 		<span>Classe, Race</span>
 		<ul class="list">
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_race_list')}}">Race</a>
+				<a title="Liste des Races" class="link" href="{{ path('admin_race_list')}}">Races</a>
 			</li>
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_class_list')}}">classes</a>
+				<a title="Liste des Classes" class="link" href="{{ path('admin_class_list')}}">Classes</a>
 			</li>
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_skill_list')}}">compétence</a>
+				<a title="Liste des compétences" class="link" href="{{ path('admin_skill_list')}}">Compétences</a>
 			</li>
 		</ul>
 
 		<span>Arme, Armure</span>
 		<ul class="list">
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_weapon_list')}}">Arme</a>
+				<a title="Liste des armes" class="link" href="{{ path('admin_weapon_list')}}">Armes</a>
 			</li>
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un Type aux armures</a>
+				<a title="Liste des types d'armure" class="link" href="{{ path('admin_armor_type_list')}}">Types d'armure</a>
 			</li>
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
+				<a title="Liste des pieces d'armure" class="link" href="{{ path('admin_armor_location_list')}}">Localisation d'armure</a>
 			</li>
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
+				<a title="Liste des localisation d'armure" class="link" href="{{ path('admin_add_armor_piece')}}">Pièces d'armure</a>
 			</li>
 		</ul>
 		
 		<span>Bestiaire</span>
 		<ul class="list">
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_bestiary_list')}}">bestiaire</a>
+				<a title="Liste des types de creature" class="link" href="{{ path('admin_bestiary_list')}}">Liste des creature au bestiaire</a>
 			</li>
 			<li class="nav-item">
-				<a class="link" href="{{ path('admin_bestiary_type_list')}}">Ajouter un Type au bestiaire</a>
+				<a title="Liste de creature du bestiaire" class="link" href="{{ path('admin_bestiary_type_list')}}">Liste des types au bestiaire</a>
 			</li>
 		</ul>
 
@@ -59,7 +56,7 @@
 			<li class="nav-item">
 				<a class="link" href="{{path("admin_user_list")}}">liste utilisateur</a>
 			</li>
-			<li>
+			<li class="nav-item">
 				<a class="link" href="{{path("admin_character_list")}}">Liste des Personnages</a>
 			</li>
 		</ul>

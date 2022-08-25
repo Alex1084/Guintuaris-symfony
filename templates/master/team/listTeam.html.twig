@@ -37,12 +37,12 @@
                 {% for team in teams %}
                     <tr>
                         <td class="data-id">{{team.id}}</td>
-                        <td class="data-name">  <a href="{{ path("master_add_member", {'slug' : team.slug, "teamId" : team.id}) }}">{{ team.name }}</a> </td>
+                        <td class="data-name">  <a title="Détails de {{team.name}}" href="{{ path("master_add_member", {'slug' : team.slug, "teamId" : team.id}) }}">{{ team.name }}</a> </td>
                         <td>
                             <a href="{{ path("master_team_rename", {'teamId' : team.id}) }}" class="update-link">Renomer</a>
                         </td>
                         <td>
-                            <a class="ajax-delete-link" href="{{ path("master_delete_team",  { "id": team.id}) }}">Supprimer</a>
+                            <a title="Supprimer {{team.name}}" class="ajax-delete-link" href="{{ path("master_delete_team",  { "id": team.id}) }}">Supprimer</a>
                         </td>
                     </tr>		
                 {% endfor %}
@@ -54,9 +54,9 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-            <a class="link" href="{{ path("create_character")}}">Nouveau personnage</a>
-            <a class="link" href="{{path("character_list")}}">Voir les personnages</a>
-            <a class="link" href="{{path("master_list_character_team")}}">Voir mes equipes et mes personnages</a>
+            {# <a title="" class="link" href="{{ path("create_character")}}">Nouveau personnage</a> #}
+            <a title="Liste des personnages" class="link" href="{{path("character_list")}}">Voir les personnages</a>
+            <a title="Liste des pesonnages et des equipes" class="link" href="{{path("master_list_character_team")}}">Voir mes equipes et mes personnages</a>
         </div>
 	</div>
 {% endblock %}

@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	Armes admin|
-	{{parent()}}
-{% endblock %}
+{% block title %} Armes | {{parent()}}{% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -31,10 +28,10 @@
 						<td> {{ weapon.damage }} </td>
 						<td> {{ weapon.dice }} </td>
 						<td>
-							<a href="{{ path("admin_update_weapon", {'weaponId' : weapon.id}) }}">Modifier</a>
+							<a title="Modifier l'arme {{weapon.name}}" href="{{ path("admin_update_weapon", {'weaponId' : weapon.id}) }}">Modifier</a>
 						</td>
 						<td>
-							<a class="ajax-delete-link alert" href="{{ path("admin_delete_weapon", {'weaponId' : weapon.id}) }}">Supprimer</a>
+							<a title="Supprimmer l'arme {{weapon.name}}" class="ajax-delete-link alert" href="{{ path("admin_delete_weapon", {'weaponId' : weapon.id}) }}">Supprimer</a>
 						</td>
 					</tr>	
 				{% endfor %}
@@ -46,11 +43,11 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a class="link" href="{{ path('admin_home')}}">Retour</a>
-        	<a class="link" href="{{ path("admin_add_weapon")}}">Creer une Nouvelle arme</a>
-			<a class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un Type aux armures</a>
-			<a class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
-			<a class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
+			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
+        	<a title="Créer une nouvelle arme" class="link" href="{{ path("admin_add_weapon")}}">Creer une Nouvelle arme</a>
+			<a title="Liste des types d'armure" class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un Type aux armures</a>
+			<a title="Liste des localisation d'armure" class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
+			<a title="Liste des pieces d'armure" class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
 		</div>
 	</div>
 {% endblock %}

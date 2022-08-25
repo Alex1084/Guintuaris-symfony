@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	Bestiaire admin|
-	{{parent()}}
-{% endblock %}
+{% block title %}Liste Bestiaire| {{parent()}}{% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -36,10 +33,10 @@
 						<td> {{ creature.typeName }} </td>
 						<td> {{ creature.level }} </td>
 						<td>
-							<a href="{{ path("admin_update_bestiary", {'bestiaryId' : creature.id}) }}">Modifier</a>
+							<a title="Modifier la creature {{creature.name}}" href="{{ path("admin_update_bestiary", {'bestiaryId' : creature.id}) }}">Modifier</a>
 						</td>
 						<td>
-							<a class="ajax-delete-link alert" href="{{ path("admin_delete_bestiary", {'bestiaryId' : creature.id}) }}">Supprimer</a>
+							<a title="supprimer la creature {{creature.name}}" class="ajax-delete-link alert" href="{{ path("admin_delete_bestiary", {'bestiaryId' : creature.id}) }}">Supprimer</a>
 						</td>
 					</tr>
 				{% endfor %}
@@ -51,9 +48,9 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a class="link" href="{{ path("admin_add_bestiary")}}">Creer une bête</a>
-			<a class="link" href="{{ path('admin_bestiary_type_list')}}">Ajouter un Type au bestiaire</a>
+			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
+			<a title="Créer une creature" class="link" href="{{ path("admin_add_bestiary")}}">Creer une creature</a>
+			<a title="Liste des types de creature" class="link" href="{{ path('admin_bestiary_type_list')}}">List des type de creature</a>
 		</div>
 	</div>
 {% endblock %}

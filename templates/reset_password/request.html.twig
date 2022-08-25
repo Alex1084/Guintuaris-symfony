@@ -1,22 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Réinitialiser mon mot de passe | {{ parent() }}{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+    {% if app.user %}
+		<div>
+			Vous êtes connectée avec le compte {{ app.user.name }}.
+		</div>
+		<a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
+	{% else %}
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="flash error" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <h1 class="title-form">Réinitialiser mon mot de passe</h1>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address and we will send you a
-                link to reset your password.
-            </small>
-        </div>
-
-        <button class="valid-form">Send password reset email</button>
-    {{ form_end(requestForm) }}
+        {{ form_start(requestForm) }}
+            <div class="div-form">
+                {{ form_label(requestForm.email) }}
+                {{ form_widget(requestForm.email) }}
+                <div>
+                    <small>
+                        Entrez votre adresse email et un mail vous sera envoyer contenant un lien pour réinitialiser votre mot de passe
+                    </small>
+                </div>
+                <div class="div-error">
+                    {{ form_errors(requestForm.email) }}
+                </div>
+            </div>
+            <button class="valid-form">Send password reset email</button>
+        {{ form_end(requestForm) }}
+    {% endif %}
 {% endblock %}

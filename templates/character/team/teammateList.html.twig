@@ -20,7 +20,7 @@
                             <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
                         </td>
                         <td>
-                            <a href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
+                            <a title="Voir la fiche de {{character.name}}" href="{{ path("team_sheet_view", {"teamSlug" : team.slug, "teamId" : team.id, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
                         </td>
                         <td> {{character.level}} </td>
                     </tr>
@@ -35,7 +35,7 @@
 		<div class="navside navside-hidden">
 			{# <a href="{{path("character_list")}} ">Retour</a> #}
 			{% for character in charactersUser %}
-				<a href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
+				<a title="Retourner sur la fiche de {{character.name}}" href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
 			{% endfor %}
 			
 		</div>

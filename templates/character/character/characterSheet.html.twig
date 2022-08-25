@@ -1,14 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	{{character.name}}
-	|
-	{{parent()}}
-{% endblock %}
+{% block title %} {{character.name}} | {{parent()}} {% endblock %}
 {% block style %}
 	<link rel="stylesheet" href="{{asset('style/personnage.css')}}">
 	<link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
 	<link rel="stylesheet" href="{{asset('style/range.css')}}">
-
 {% endblock %}
 
 
@@ -32,7 +27,7 @@
 				<h3>{{ character.class.name }}</h3>
 				<h3>Niveau {{ character.level }}</h3>
 				{% if character.team %}
-					<a href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
+					<a title="Voir les equipier de l'équipe {{character.team.name}}" href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
 				{% endif %}
 			</div>
 			<div class="div-lore">
@@ -42,7 +37,7 @@
 					<div class=" hidden dropdown-content">
 						<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
-					<a href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier le lore</a>
+					<a title="Modifier le lore de {{character.name}}" href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier le lore</a>
 				</div>
 			</div>
 		</div>
@@ -89,7 +84,7 @@
 			</div>
 			<div class="div-statut">
 				<div>
-					<a href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Level up !</a>
+					<a title="Metre a jour les statistique de {{character.name}}" href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Level up !</a>
 				</div>
 				<div class="statut">
 					<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
@@ -190,7 +185,7 @@
 			<div>
 				<div>
 					<div>
-						<a href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
+						<a title="Change l'equipement de {{character.name}}" href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
 							<h2>Armure</h2>
 						</a>
 					</div>
@@ -233,7 +228,7 @@
 
 			<div>
 				<div>
-					<a href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
+					<a title="Changer les armes de {{character.name}}" href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
 
 						<h2>Arme</h2>
 					</a>
@@ -300,11 +295,11 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a class="link" href="{{path("character_list")}} ">Retour</a>
-			<a class="link" href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a>
-			<a class="link" href="{{ path('character_setting', {"slug" : character.slug, "id" : character.id}) }}">option</a>
+			<a title="Liste des personnages" class="link" href="{{path("character_list")}} ">Retour</a>
+			<a title="Metre a jour l'image de {{character.name}}" class="link" href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a>
+			<a title="Parametres de {{character.name}}" class="link" href="{{ path('character_setting', {"slug" : character.slug, "id" : character.id}) }}">option</a>
 			{% if character.team %}
-				<a class="link" href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
+				<a title="Voir les equipier de l'équipe {{character.team.name}}" class="link" href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
 			{% endif %}
 		</div>
 	</div>

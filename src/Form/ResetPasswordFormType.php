@@ -34,7 +34,7 @@ class ResetPasswordFormType extends AbstractType
                 ],
                 'second_options' => [
                     'attr' => ['autocomplete' => 'new-password', "class" => "log"],
-                    'label' => 'confirmez le nouveau mot de passe',
+                    'label' => 'Confirmez le nouveau mot de passe',
                 ],
                 'invalid_message' => 'Les mot de passe doivent correspondre',
                 // Instead of being set onto the object directly,

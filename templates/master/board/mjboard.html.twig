@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	Board |
-	{{parent()}}
-{% endblock %}
+{% block title %}Tableau de maitre du jeu |{{parent()}}{% endblock %}
 
 {% block style %}
 	<link rel="stylesheet" href="{{asset("style/minifiche.css")}}">
@@ -13,7 +10,7 @@
 {% block body %}
 	<div id="wrapper">
 		<div class="page-content-wrapper">
-			<a href="#" id="menu-toggle">toggled</a>
+			<a href="#" id="menu-toggle">Bestiaire</a>
 			<div class="board"></div>
 		</div>
 		<div class="sidebar-wrapper">
@@ -26,7 +23,7 @@
 							<ul>
 								{% for beast in bestiaryType.beasts %}
 									<li>
-										<a href="{{ path('summon', {"id" : beast.id})}}" class="js-like">{{beast.name}}</a>
+										<a title="Invoquation de {{beast.name}}" href="{{ path('summon', {"id" : beast.id})}}" class="js-like">{{beast.name}}</a>
 									</li>
 								{% endfor %}
 							</ul>

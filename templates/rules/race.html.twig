@@ -1,10 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{race.name}}
-	|
-	{{parent()}}
-{% endblock %}
+{% block title %}{{race.name}} | {{parent()}}{% endblock %}
 
 {% block body %}
 	<div class="container">

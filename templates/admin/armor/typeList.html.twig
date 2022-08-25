@@ -1,8 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	Types d'armure |
-	{{parent()}}
-{% endblock %}
+{% block title %}Types d'armure | {{parent()}}{% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -58,10 +55,10 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
-			<a class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a class="link" href="{{ path('admin_weapon_list')}}">Arme</a>
-			<a class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
-			<a class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
+			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
+			<a title="Liste des armes" class="link" href="{{ path('admin_weapon_list')}}">Arme</a>
+			<a title="Liste des localisation d'armure" class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
+			<a title="Liste des pieces d'armure"class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
 		</div>
 	</div>
 {% endblock %}
