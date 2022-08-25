@@ -13,13 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin', name: 'admin_')]
+#[Route('/administration/classe', name: 'admin_')]
 class ClassesController extends AbstractController
 {
      /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/ajouter-classe", name:"add_class")]
+    #[Route("/ajouter", name:"add_class")]
     public function addClass(Request $request, EntityManagerInterface $entityManager): Response
     {
         $class = new Classes();
@@ -42,7 +42,7 @@ class ClassesController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/classe-list", name:"class_list")]
+    #[Route("/liste", name:"class_list")]
     public function classList(ClassesRepository $classRepository): Response
     {
         $classs = $classRepository->classList();
@@ -54,7 +54,7 @@ class ClassesController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/modifier-classe/{slug}", name:"update_class")]
+    #[Route("/modifier/{slug}", name:"update_class")]
     public function updateClass(string $slug, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);

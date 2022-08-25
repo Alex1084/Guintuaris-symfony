@@ -67,7 +67,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route("profil/update", name:"profil_update_account")]
+    #[Route("profil/modifier", name:"profil_update_account")]
     public function updateUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $user = $this->getUser();
@@ -96,7 +96,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route("profil/delete", name: "profile_delete")]
+    #[Route("profil/supprimer", name: "profile_delete")]
     public function deleteProfil(EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
         $user = $this->getUser();
@@ -117,7 +117,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute("app_logout");
     }
 
-    #[Route("deactivate", name: "deactivate")]
+    #[Route("desactiver", name: "deactivate")]
     public function deactivate()
     {
         if ($this->isGranted("ROLE_DEACTIVATE")) {

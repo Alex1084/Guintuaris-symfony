@@ -13,13 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin', name: 'admin_')]
+#[Route('/administration/race', name: 'admin_')]
 class RaceController extends AbstractController
 {
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/ajouter-race", name:"add_race")]
+    #[Route("/ajouter", name:"add_race")]
     public function addRace(Request $request, EntityManagerInterface $entityManager): Response
     {
         $race = new Race();
@@ -42,7 +42,7 @@ class RaceController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/race-list", name:"race_list")]
+    #[Route("/liste", name:"race_list")]
     public function raceList(RaceRepository $raceRepository): Response
     {
         $races = $raceRepository->raceList();
@@ -54,7 +54,7 @@ class RaceController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route("/modifier-race/{slug}", name:"update_race")]
+    #[Route("/modifier/{slug}", name:"update_race")]
     public function updateRace(string $slug, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $race = $doctrine->getRepository(Race::class)->findOneBy(["slug" => $slug]);

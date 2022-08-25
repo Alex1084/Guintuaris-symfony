@@ -16,13 +16,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/admin", name:"admin_")]
+#[Route("/administration/armure", name:"admin_")]
 class ArmorController extends AbstractController
 {
     /**
      * Undocumented function
      */
-    #[Route("/list-localisation-armure", name:"armor_location_list")]
+    #[Route("/liste-localisation", name:"armor_location_list")]
     public function addArmorLocation(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newLoca = new ArmorLocation();
@@ -46,7 +46,7 @@ class ArmorController extends AbstractController
         ]);
     }
 
-    #[Route("/update-localisation-armure/{locationId}", name:"armor_location_update")]
+    #[Route("/modifier-localisation/{locationId}", name:"armor_location_update")]
     public function updatedArmorLocation(int $locationId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         if ($request->isMethod('post')) {
@@ -65,7 +65,7 @@ class ArmorController extends AbstractController
         return $this->redirectToRoute('admin_armor_location_list');
     }
 
-    #[Route("/list-type-armure", name:"armor_type_list")]
+    #[Route("/liste-type", name:"armor_type_list")]
     public function addArmorType(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newLoca = new ArmorType();
@@ -89,7 +89,7 @@ class ArmorController extends AbstractController
         ]);
     }
 
-    #[Route("/update-type-armure/{typeId}", name:"armor_type_update")]
+    #[Route("/modifier-type/{typeId}", name:"armor_type_update")]
     public function updatedArmorType(int $typeId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         if ($request->isMethod('post')) {
@@ -117,7 +117,7 @@ class ArmorController extends AbstractController
      * @param ArmorPieceRepository $armorPieceRepository
      * @return Response
      */
-    #[Route('/ajout-piece-d-armure', name: 'add_armor_piece')]
+    #[Route('/ajouter-piece', name: 'add_armor_piece')]
     public function addArmorPiece(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
     {
         $piecesTab = $armorPieceRepository->selectAllNamesValue();
@@ -142,7 +142,7 @@ class ArmorController extends AbstractController
         ]);
     }
 
-    #[Route('/update-piece-d-armure/{pieceId}', name: 'update_armor_piece')]
+    #[Route('/modifier-piece/{pieceId}', name: 'update_armor_piece')]
     public function updateArmorPieceValue(int $pieceId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
         if ($request->isMethod('post')) {

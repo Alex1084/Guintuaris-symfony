@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin', name: 'admin_')]
+#[Route('/administration/bestiaire', name: 'admin_')]
 class BestiaryController extends AbstractController
 {
      /**
@@ -44,7 +44,7 @@ class BestiaryController extends AbstractController
     /**
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
-    #[Route('/creature-list', name: 'bestiary_list')]
+    #[Route('/liste', name: 'bestiary_list')]
     public function bestiaryList(BestiaryRepository $bestiaryRepository): Response
     {
         $creatures = $bestiaryRepository->bestiaryList();
@@ -93,7 +93,7 @@ class BestiaryController extends AbstractController
      * permet d'ajouter un nouveau type de bete dans la base de donné (table type_bestiaire)
      * affiche toute les instance se trouvant dans cette table
      */
-    #[Route("/list-type-bestiaire", name:"bestiary_type_list")]
+    #[Route("/liste-type-bestiaire", name:"bestiary_type_list")]
     public function addBestiaryType(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newType = new BestiaryType();
@@ -112,7 +112,7 @@ class BestiaryController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route("/update-type-bestiaire/{typeId}", name:"bestiary_type_rename")]
+    #[Route("/modifier-type-bestiaire/{typeId}", name:"bestiary_type_rename")]
     public function teamRename(int $typeId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         if ($request->isMethod('post')) {

@@ -55,7 +55,7 @@ class CharacterController extends AbstractController
      * @param SheetRepository $sheetRepository
      * @return void
      */
-    #[Route('/update', name: 'update_statut')]
+    #[Route('/modifier-statut', name: 'update_statut')]
     public function updateStatut(Request $request, CharacterRepository $characterRepository, SheetRepository $sheetRepository)
     {
         if ($request->isMethod('post')) {
@@ -71,7 +71,7 @@ class CharacterController extends AbstractController
             return $this->json('error', 401);
         }
     }
-    #[Route('/delete/{id}', name:'delete')]
+    #[Route('/supprimer/{id}', name:'delete')]
     public function delete(int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager)
     {
         $character = $doctrine->getRepository(Character::class)->find($id);
@@ -122,7 +122,7 @@ class CharacterController extends AbstractController
         }
         return $this->render('character/character/setting.html.twig', ['character' => $character]);
     }
-    #[Route("/{slug}/{id}/update", name: "update")]
+    #[Route("/{slug}/{id}/modifier", name: "update")]
     public function updateCharact(string $slug, int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request)
     {
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
@@ -204,7 +204,7 @@ class CharacterController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/{slug}/{id}/level-up', name: 'level_up')]
+    #[Route('/{slug}/{id}/statistiques', name: 'level_up')]
     public function levulUp(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $message = "tes nouvelle statistique ont été enregistrée";
@@ -296,7 +296,7 @@ class CharacterController extends AbstractController
         ]);
     }
 
-    #[Route("/{slug}/{id}/image/delete", name:'delete_image')]
+    #[Route("/{slug}/{id}/image/supprimer", name:'delete_image')]
     public function deleteImage(string $slug,int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);

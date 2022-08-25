@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CharacterController extends AbstractController
 {
-    #[Route('/admin/character-list', name: 'admin_character_list')]
+    #[Route('/administration/personnage/list', name: 'admin_character_list')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $characters = $doctrine->getRepository(Character::class)->findAllName();

@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/admin", name:"admin_")]
+#[Route("/administration/equipe", name:"admin_")]
 class TeamController extends AbstractController
 {
 
@@ -23,7 +23,7 @@ class TeamController extends AbstractController
      * affiche le nom de toute les equipe et emment ensuite vers admin_add_membre
      * de plus un formulaire permet de créer une nouvelle equipe
      */
-    #[Route("/equipe", name:"team_list")]
+    #[Route("", name:"team_list")]
     public function teamListAdmin(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newTeam = new Team();
@@ -49,7 +49,7 @@ class TeamController extends AbstractController
         ]);
     }
 
-    #[Route("/equipe-update/{teamId}", name:"team_rename")]
+    #[Route("/modifier/{teamId}", name:"team_rename")]
     public function teamRename(int $teamId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         if ($request->isMethod('post')) {
@@ -72,7 +72,7 @@ class TeamController extends AbstractController
         return $this->redirectToRoute("admin_team_list");
     }
 
-    #[Route("/supprimer-equipe/{id}", name:"delete_team")]
+    #[Route("/supprimer/{id}", name:"delete_team")]
     public function deleteTeam(int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
     {
         $team = $doctrine->getRepository(Team::class)->find($id);

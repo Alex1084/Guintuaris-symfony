@@ -14,10 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/admin", name:"admin_")]
+#[Route("/administration/utilisateur", name:"admin_")]
 class UserController extends AbstractController
 {
-    #[Route('/liste-utilisateur', name: 'user_list')]
+    #[Route('/liste', name: 'user_list')]
     public function userlist(ManagerRegistry $doctrine): Response
     {
         $users = $doctrine->getRepository(User::class)->findAll();
@@ -26,7 +26,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route("/administration-utilisateur/{id}", name: "user_gestion")]
+    #[Route("/{id}", name: "user_gestion")]
     public function userGestion(int $id, ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $user = $doctrine->getRepository(User::class)->find($id);

@@ -53,7 +53,7 @@ class TeamController extends AbstractController
         ]);
     }
 
-    #[Route("/equipe-update/{teamId}", name:"team_rename")]
+    #[Route("/modiifer-equipe/{teamId}", name:"team_rename")]
     public function teamRename(int $teamId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $team = $doctrine->getRepository(Team::class)->find($teamId);

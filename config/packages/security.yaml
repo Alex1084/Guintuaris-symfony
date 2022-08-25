@@ -38,8 +38,8 @@ security:
         - { path: '^/equipe', roles: ROLE_USER }
         - { path: '^/profil', roles: ROLE_USER }
         - { path: '^/maitre-du-jeu', roles : ROLE_MASTER}
-        - { path: '^/admin', roles: ROLE_ADMIN }
-        - { path: '^/deactivate', roles : ROLE_DEACTIVATE}
+        - { path: '^/administration', roles: ROLE_ADMIN }
+        - { path: '^/desactiver', roles : ROLE_DEACTIVATE}
 when@test:
     security:
         password_hashers:

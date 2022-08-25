@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin', name: 'admin_')]
+#[Route('/administration/arme', name: 'admin_')]
 class WeaponController extends AbstractController
 {    
     /**
     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
     */
-    #[Route("/ajouter-arme", name:"add_weapon")]
+    #[Route("/ajouter", name:"add_weapon")]
    public function addWeapon(Request $request, EntityManagerInterface $entityManager): Response
    {
        $weapon = new Weapon();
@@ -38,7 +38,7 @@ class WeaponController extends AbstractController
    /**
     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
     */
-    #[Route("/arme-list", name:"weapon_list")]
+    #[Route("/liste", name:"weapon_list")]
    public function weaponList(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
    {
        $weapons = $doctrine->getRepository(Weapon::class)->findAll();
@@ -50,7 +50,7 @@ class WeaponController extends AbstractController
    /**
     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
     */
-    #[Route("/modifier-arme/{weaponId}", name:"update_weapon")]
+    #[Route("/modifier/{weaponId}", name:"update_weapon")]
    public function updateWeapon(int $weaponId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
    {
        $weapon = $doctrine->getRepository(Weapon::class)->find($weaponId);
@@ -72,7 +72,7 @@ class WeaponController extends AbstractController
    /**
     * Undocumented function
     */
-    #[Route("/supprimer-arme/{weaponId}", name:"delete_weapon")]
+    #[Route("/supprimer/{weaponId}", name:"delete_weapon")]
    public function deleteWeapon(int $weaponId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
    {
        $weapon = $doctrine->getRepository(Weapon::class)->find($weaponId);
