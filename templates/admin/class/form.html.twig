@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une compétence | {{parent()}}
+{% block title %}{{(requestAttribute == "admin_update_class") ? "Modifier une classe":"Ajouter une classe"}} | {{parent()}}
 {% endblock %}
 
 {% block body %}

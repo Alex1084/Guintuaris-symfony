@@ -43,26 +43,15 @@
                 {% endfor %}
             </tbody>
         </table>
-
-		<div class="div-form-hidden">
-			{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}
-			<div class="div-form">
-				{{ form_label(memberForm.character) }}
-                {{ form_widget(memberForm.character) }}
+    	<div class="navside-container">
+			<div class="div-show-navside show">
+				<a href="" id="show-navside">Navigation</a>
 			</div>
-			<button class="valid-form">Ajouter !</button>
-			{{form_end(memberForm)}}
-			<a id="show-form">Ajouter un Menbre</a>
+			<div class="navside navside-hidden">
+				<a title="Liste des équipes" class="link" href="{{path("master_team_list")}}">Retourner voir les equipe</a>
+				<a title="Liste des pesonnages et des equipes" class="link" href="{{path("master_list_character_team")}}">Voir mes equipes et mes personnages</a>
+			</div>
 		</div>
-	</div>
-    <div class="navside-container">
-        <div class="div-show-navside show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-            <a title="Liste des équipes" class="link" href="{{path("master_team_list")}}">Retourner voir les equipe</a>
-            <a title="Liste des pesonnages et des equipes" class="link" href="{{path("master_list_character_team")}}">Voir mes equipes et mes personnages</a>
-        </div>
 	</div>
 {% endblock %}
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une Bête | {{parent()}} {% endblock %}
+{% block title %}{{(requestAttribute == "admin_update_bestiary") ? "Modifier une creature":"Ajouter une créature"}} | {{parent()}} {% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -114,7 +114,7 @@
 				{{ form_widget(creatureForm.note) }}
 			</div>
 		</div>
-		<button class="valid-form">Ajouter !</button>
+		<button class="valid-form">Valider !</button>
 		{{form_end(creatureForm)}}
 	</div>
 {% endblock %}
