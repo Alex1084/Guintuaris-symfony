@@ -8,9 +8,10 @@
     <a title="Liste des équipes" class="link" href="{{path("master_team_list")}}">Voir les equipes</a>
 {% endblock %}
 {% block body %}
+    <h1 class="title">Liste des personnage et des equipe</h1>
     {{parent()}}
     <div class="container">
-        <h2 class="titre-table">Equipes</h2>
+        <h2 class="sub-title-center">Equipes</h2>
         <div class="div-form-hidden">
             {{form_start(addTeamForm, {'attr': {'class': 'hidden'} }) }}
                 <div class="div-form">

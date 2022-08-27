@@ -4,7 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="titre-table">Fiches personnages</h2>
+        {% if requestAttribute == "master_list_character_team" %}
+            <h2 class="sub-title-center">Fiches personnages</h2>
+        {% else %}
+            <h1 class="title">Fiches personnages</h1>
+        {% endif %}
         {% for message in app.flashes('success') %}
 			<div class="flash success">
 				{{ message }}

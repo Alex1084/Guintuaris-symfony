@@ -25,23 +25,34 @@ function ajax() {
     }
 
     console.log(values);
-    axios.post('/personnage/update',  values,   
+    axios.post('/personnage/modifier-statut',  values,   
      'Content-Type: multipart/form-data' )
-    .then(
+    .then( response => {
         Swal.fire({
             position: 'top-end',
-            // icon: 'success',
             title: "Modification enregistré",
             showConfirmButton: false,
             timer: 1500,
-            // backdrop : false,  
             background : 'url(../../img/toast.png)',
             customClass : {
                 popup : "toast-custom",
                 title : "swal-comfirm"
             },  
             toast : true
-          })
-    )
-    .catch(error => console.error(error.response.data));
+        })
+    })
+    .catch(error => {
+        Swal.fire({
+            position: 'top-end',
+            title: "Une erreur c'est produite veuillez réessayer plus tard",
+            showConfirmButton: false,
+            timer: 1500,
+            background : 'url(../../img/toast.png)',
+            customClass : {
+                popup : "toast-custom",
+                title : "swal-cancel"
+            },  
+            toast : true
+        })
+    });
 }

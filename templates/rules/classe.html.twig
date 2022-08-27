@@ -7,22 +7,19 @@
 {% endblock %}
 
 {% block body %}
-	<h1>
-		{{classe.name}}
-	</h1>
-
-	<h2>Description</h2>
-	<p>{{ classe.description}}</p>
-
-	<h2>Dé de niveau</h2>
-	<p>{{ classe.dicePv}}</p>
-	<p>{{ classe.dicePc}}</p>
-	<p>{{ classe.dicePm}}</p>
-
 	<div class="container">
-		<h2 id="title">Compétences</h2>
+		<h1 class="title">{{classe.name}}</h1>
+
+		<h2 class="sub-title">Description</h2>
+		<p>{{ classe.description}}</p>
+
+		<h2 class="sub-title">Dé de niveau</h2>
+		<p>{{ classe.dicePv}}</p>
+		<p>{{ classe.dicePc}}</p>
+		<p>{{ classe.dicePm}}</p>
 	</div>
 	<div class="container">
+		<h2 class="sub-title-center">Compétences</h2>
 		<div class="div-competence">
 			{% for skill in skills %}
 				<div class="competence">
@@ -31,7 +28,7 @@
 							{{skill.name}}
 							,
 							{{skill.cost}}
-							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+							<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 						<div class="hidden dropdown-content">
 							<textarea readonly>{{ skill.description }}</textarea>
 						</div>
@@ -40,8 +37,6 @@
 			{% endfor %}
 		</div>
 	</div>
-
-
 {% endblock %}
 
 {% block script %}

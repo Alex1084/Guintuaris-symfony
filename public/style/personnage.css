@@ -116,7 +116,10 @@
 #result{
     height: 64px;
 }
-
+/* ~~~~~~~~~~~equipement~~~~~~~~~~~ */
+.tableau{
+    width: 43vw;
+}
 
 @media (max-width: 1000px) {
 

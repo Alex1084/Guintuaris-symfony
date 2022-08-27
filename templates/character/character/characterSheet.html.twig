@@ -33,7 +33,7 @@
 			<div class="div-lore">
 				<div class="dropdown">
 					<button class="dropbtn">Lore
-						<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 					<div class=" hidden dropdown-content">
 						<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
@@ -186,7 +186,7 @@
 				<div>
 					<div>
 						<a title="Change l'equipement de {{character.name}}" href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
-							<h2>Armure</h2>
+							<h2 class="sub-title">Armure</h2>
 						</a>
 					</div>
 				</div>
@@ -229,8 +229,7 @@
 			<div>
 				<div>
 					<a title="Changer les armes de {{character.name}}" href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
-
-						<h2>Arme</h2>
+						<h2 class="sub-title">Arme</h2>
 					</a>
 				</div>
 
@@ -267,11 +266,7 @@
 		</div>
 	</div>
 	<div class="container">
-		<div class="row">
-			<h2>Compétences</h2>
-		</div>
-	</div>
-	<div class="container">
+		<h2 class="sub-title-center">Compétences</h2>
 		<div class="div-competence">
 			{% for skill in skills %}
 				<div class="competence">
@@ -280,7 +275,7 @@
 							{{skill.name}}
 							,
 							{{skill.cost}}
-							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+							<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 						<div class="hidden dropdown-content">
 							<textarea readonly>{{ skill.description }}</textarea>
 							{# <p class="content"></p> #}

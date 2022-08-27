@@ -14,7 +14,7 @@ body{
     background: url("../img/bg.jpg");
     overflow-x: hidden;
 }
- header{
+header{
     margin-bottom: 10px;
     display: flex;
     position: relative;
@@ -220,11 +220,14 @@ p{
 	text-transform: capitalize;
     font-family: "centurion";
 }
-.sub-title{
+.sub-title, .sub-title-center{
     font-size: 2rem;
 
 }
-.sub-title::first-letter {
+.sub-title-center{
+    text-align: center;
+}
+.sub-title::first-letter, .sub-title-center::first-letter {
 	font-size: 2.5rem;
 	text-transform: capitalize;
     font-family: "centurion";
@@ -297,10 +300,10 @@ form button, #de, .swal-button{
     font-size: 1.25rem;
 }
 .swal-comfirm {
-    color: #060;
+    color: #060 !important;
 }
 .swal-cancel {
-    color: #a00;
+    color: #a00 !important;
 }
 form button:active, #de:active, .swal-button:active{
     transform: translateY(4px);
@@ -335,6 +338,9 @@ select:hover{
 }
 .div-form{
     text-align: center;
+}
+.div-form .note {
+    width: 202px;
 }
 .div-form label{
     display: block;
@@ -394,16 +400,6 @@ form .show {
     display: block;
 }
 /**************tableau**************/
-
-.titre-table{
-    text-decoration: none;
-    text-align: center;
-}
-.titre-table::first-letter{
-    font-family: "centurion";
-    font-weight: lighter;
-    font-size: 2rem;
-}
 
 .tableau{
     margin: auto;

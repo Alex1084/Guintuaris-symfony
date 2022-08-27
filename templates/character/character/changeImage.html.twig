@@ -3,12 +3,10 @@
 {% block title %}Image | {{parent()}}{% endblock %}
 
 {% block body %}
-	{% if app.user.id == character.user.id %}
-		<div class="container">
-			{{ form_start(imageForm) }}
-			{{ form_widget(imageForm) }}
-			<button class="valid-form">Valider !</button>
-			{{ form_end(imageForm) }}
-		</div>
-	{% endif %}
+	<div class="container">
+		{{ form_start(imageForm) }}
+		{{ form_widget(imageForm) }}
+		<button class="valid-form">Valider !</button>
+		{{ form_end(imageForm) }}
+	</div>
 {% endblock %}

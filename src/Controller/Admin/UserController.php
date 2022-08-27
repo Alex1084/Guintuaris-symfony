@@ -38,6 +38,7 @@ class UserController extends AbstractController
                 'admin' => "ROLE_ADMIN",
                 'desactiver' => "ROLE_DEACTIVATE",
             ],
+            "attr" => ["class" => "log"],
             "data" => $user->getRoles()[0],
             "mapped" => false
         ]);

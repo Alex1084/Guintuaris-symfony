@@ -31,7 +31,7 @@
 
 				<div class="dropdown" id="lore">
 					<button class="dropbtn">Lore
-						<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 					<div class="dropdown-content hidden">
 						<textarea name="" id="lore-content" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
@@ -167,7 +167,7 @@
 		<div class="row">
 			<div>
 				<div>
-					<h2 class="titre-table">Armure</h2>
+					<h2 class="sub-title-center">Armure</h2>
 				</div>
 				{% set ca = 0 %}
 				<table class="tableau">
@@ -207,7 +207,7 @@
 			<div class="row">
 				<div>
 					<div>
-						<h2 class="titre-table">Arme</h2>
+						<h2 class="sub-title-center">Arme</h2>
 					</div>
 					<table class="tableau">
 						<thead>
@@ -241,7 +241,7 @@
 		</div>
 	</div>
 	<div class="container">
-		<h2 id="title">Compétences</h2>
+		<h2 class="sub-title-center">Compétences</h2>
 	</div>
 	<div class="container">
 		<div class="div-competence">
@@ -252,7 +252,7 @@
 							{{skill.name}}
 							,
 							{{skill.cost}}
-							<img src="{{ asset('img/list.png')}}" alt="" class="drop-logo" height="10"></button>
+							<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 						<div class="dropdown-content hidden">
 							<textarea readonly>{{ skill.description }}</textarea>
 						</div>
@@ -267,10 +267,10 @@
 		</div>
 		<div class="navside navside-hidden">
 			{% for character in charactersUser %}
-				<a title="Retourner sur la fiche de {{character.name}}}" href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
+				<a class="link" title="Retourner sur la fiche de {{character.name}}}" href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
 			{% endfor %}
 			{% for teammate in teammates %}
-				<a title="voir le fiche de {{teammate.name}}" href="{{path("team_sheet_view", {"teamId" : team.id, "teamSlug" : team.slug, "characterId" : teammate.id, "characterSlug" : teammate.slug})}}">{{teammate.name}}</a>
+				<a class="link" title="voir le fiche de {{teammate.name}}" href="{{path("team_sheet_view", {"teamId" : team.id, "teamSlug" : team.slug, "characterId" : teammate.id, "characterSlug" : teammate.slug})}}">{{teammate.name}}</a>
 			{% endfor %}
 			{# <a href="">Retour </a> #}
 		</div>
