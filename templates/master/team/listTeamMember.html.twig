@@ -5,11 +5,22 @@
 {% block body %}
 	<div class="container">
 		<h1 class="title">{{team.name}}</h1>
-			{% for message in app.flashes('success') %}
-				<div class="flash success">
-					{{ message }}
-				</div>
-			{% endfor %}
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+			<div class="div-form-hidden">
+				{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}
+					<div class="div-form">
+						{{ form_label(memberForm.character) }}
+						{{ form_widget(memberForm.character) }}
+					</div>
+					<button class="valid-form">Ajouter !</button>
+				{{form_end(memberForm)}}
+				<a id="show-form">Ajouter un Menbre</a>
+			</div>
+		</div>
 		{# <a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a> #}
 		<table class="tableau">
             <thead>

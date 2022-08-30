@@ -29,7 +29,7 @@ class TeamController extends AbstractController
     {
         $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId, "slug" => $teamSlug]);
         $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team]);
-        if (!$charactersUser && $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
+        if ($charactersUser === [] && $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
         $characters = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId());
@@ -55,7 +55,7 @@ class TeamController extends AbstractController
     {
         $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId,"slug"=>$teamSlug]);
         $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team]);
-        if (!$charactersUser && $team->getMaster() !== $this->getUser() || !$this->isGranted("ROLE_ADMIN")) {
+        if ($charactersUser == [] && $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
         $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $team]);
