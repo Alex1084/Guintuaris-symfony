@@ -53,18 +53,18 @@
   }
   
   .dropdown{
-    width: 90vw;
-    margin-bottom: 5vh;
+    width: 100%;
+    margin-bottom: 3vh;
   }
   .dropbtn{
-    width: 90vw;
+    width: 100%;
   }
   .dropdown-content{
-    width: 90vw;
+    width: 100%;
   }
   .dropdown-content textarea {
-    max-inline-size: 90vw;
-    width: 90vw;
+    max-inline-size: 100%;
+    width: 100%;
   }
 }
 
@@ -73,8 +73,6 @@
 }
 
 #lore-link{
-  position: absolute;
-  right: 5%;
   transition: transform 2s;
 }
 

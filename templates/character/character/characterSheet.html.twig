@@ -84,10 +84,6 @@
 				</div>
 			</div>
 			<div class="div-statut">
-				<div>
-				{# todo deplacer le lien #}
-					<a title="Metre a jour les statistique de {{character.name}}" href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Level up !</a>
-				</div>
 				<div class="statut">
 					<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
 					<label for="pv" class="label label-statut">
@@ -137,6 +133,9 @@
 					<input type="number" class="input-enabled soustrait" placeholder="-">
 				</div>
 			</div>
+		</div>
+		<div>
+			<a title="Metre a jour les statistique de {{character.name}}" href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Changer mes statistiques</a>
 		</div>
 		<div class="row">
 			<div class="inventaire-form">

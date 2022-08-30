@@ -115,7 +115,8 @@ nav {
     background: rgba(238, 212, 177, 0.75);
     box-shadow: 10px 5px 5px #b89c7794;
     z-index: 1;
-    right: 0;
+    left: 0;
+    width: fit-content;
 }
 
 /* Show the dropdown menu on hover */

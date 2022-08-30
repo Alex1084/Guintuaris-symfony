@@ -19,7 +19,7 @@
 					{{ form_label(registrationForm.email) }}
 
 					{{ form_widget(registrationForm.email) }}
-					<div class="div-errors"> {# TODO update affichage #}
+					<div class="div-errors-log">
 						{{form_errors(registrationForm.email)}}
 					</div>
 				</div>
@@ -29,7 +29,7 @@
 					{{ form_label(registrationForm.name) }}
 
 					{{ form_widget(registrationForm.name) }}
-					<div class="div-errors">
+					<div class="div-errors-log">
 						{{form_errors(registrationForm.name)}}
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 					{{ form_label(registrationForm.plainPassword.first) }}
 
 					{{ form_widget(registrationForm.plainPassword.first) }}
-					<div class="div-errors">
+					<div class="div-errors-log">
 						{{form_errors(registrationForm.plainPassword.first)}}
 					</div>
 				</div>
@@ -49,7 +49,7 @@
 					{{ form_label(registrationForm.plainPassword.second) }}
 
 					{{ form_widget(registrationForm.plainPassword.second) }}
-					<div class="div-errors">
+					<div class="div-errors-log">
 						{{form_errors(registrationForm.plainPassword.second)}}
 					</div>
 				</div>
