@@ -58,7 +58,7 @@ class Skill
     #[Assert\Regex(
         pattern: '/^[1-9]?[0-9]D(100|[0-9]?[0-9])$/',
         match: true,
-        message: "Vous devez indiquer un nombre de dés suivis d'un d en majuscule et le dé à lancée. (1D8, 2D6 ...)"
+        message: "Vous devez indiquer un nombre de dés suivis d'un \"D\" en majuscule et le dé à lancée. (10D8, 2D12, 1D6 ...)"
     )]
     private $damage;
 
