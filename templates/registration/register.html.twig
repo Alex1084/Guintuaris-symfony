@@ -19,6 +19,9 @@
 					{{ form_label(registrationForm.email) }}
 
 					{{ form_widget(registrationForm.email) }}
+					<div class="div-errors">
+						{{form_errors(registrationForm.email)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -26,6 +29,9 @@
 					{{ form_label(registrationForm.name) }}
 
 					{{ form_widget(registrationForm.name) }}
+					<div class="div-errors">
+						{{form_errors(registrationForm.name)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -33,6 +39,9 @@
 					{{ form_label(registrationForm.plainPassword.first) }}
 
 					{{ form_widget(registrationForm.plainPassword.first) }}
+					<div class="div-errors">
+						{{form_errors(registrationForm.plainPassword.first)}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -40,6 +49,9 @@
 					{{ form_label(registrationForm.plainPassword.second) }}
 
 					{{ form_widget(registrationForm.plainPassword.second) }}
+					<div class="div-errors">
+						{{form_errors(registrationForm.plainPassword.second)}}
+					</div>
 				</div>
 			</div>
 

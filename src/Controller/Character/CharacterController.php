@@ -397,8 +397,8 @@ class CharacterController extends AbstractController
 
                 $entityManager->persist($armor[$location->getId()  - 1]);
                 $entityManager->flush();
-                $this->addFlash("success", "vous voila equiper et prêt au combat");
             }
+            $this->addFlash("success", "vous voila equiper et prêt au combat");
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('character/character/armorForm.html.twig', [

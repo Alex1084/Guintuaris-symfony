@@ -43,6 +43,7 @@ class ClassesRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
         ->select('c.name, c.slug, c.id')
+        ->orderBy("c.name")
         ->getQuery()->getResult();
     }
 }

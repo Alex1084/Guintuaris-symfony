@@ -47,7 +47,8 @@ class SkillRepository extends ServiceEntityRepository
         ->where('s.level <= :level')
         ->andWhere('s.class = :class')
         ->setParameter('class', $class)
-        ->setParameter('level', $level);
+        ->setParameter('level', $level)
+        ->orderBy("s.level, s.name");
 
         return $query->getQuery()->getResult();
     }
@@ -58,7 +59,8 @@ class SkillRepository extends ServiceEntityRepository
         ->select('s.id, s.name, s.cost, s.level, c.name AS className')
         ->innerJoin(Classes::class, 'c', Join::WITH, 'c.id = s.class')
         ->where('s.name LIKE :search')
-        ->setParameter('search', '%'.$search.'%');
+        ->setParameter('search', '%'.$search.'%')
+        ->orderBy("c.name, s.level, s.name");
         return $query->getQuery()->getResult();
     }
 }

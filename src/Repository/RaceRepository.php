@@ -44,6 +44,7 @@ class RaceRepository extends ServiceEntityRepository
     {
         return $query = $this->createQueryBuilder('r')
             ->select('r.id, r.slug, r.name')
+            ->orderBy("r.name")
             ->getQuery()->getResult();
     }
 }

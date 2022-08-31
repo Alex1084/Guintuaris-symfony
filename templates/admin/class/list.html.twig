@@ -2,8 +2,13 @@
 {% block title %}Classes | {{parent()}}{% endblock %}
 
 {% block body %}
-	<h1 class="title">Classes</h1>
 	<div class="container">
+		<h1 class="title">Classes</h1>
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
 		<table class="tableau">
 			<thead>
 				<tr>
@@ -33,7 +38,7 @@
 		</div>
 		<div class="navside navside-hidden">
 			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-        	<a title="Créer un nouvelle competence" class="link" href="{{ path("admin_add_class")}}">Creer une Nouvelle Competence</a>
+        	<a title="Créer un nouvelle competence" class="link" href="{{ path("admin_add_class")}}">Creer une nouvelle classe</a>
 			<a title="List des races" class="link" href="{{ path('admin_race_list')}}">Race</a>
 			<a title="List des competences" class="link" href="{{ path('admin_skill_list')}}">compétence</a>
 

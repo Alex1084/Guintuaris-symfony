@@ -56,7 +56,7 @@ class CreateController extends AbstractController
             $this->insertWeapon($character, $entityManager, $doctrine);
 
 
-            $this->addFlash('success', 'ton personnage a été créer');
+            $this->addFlash('success', 'Bonjour '.$character->getName().'! Soyez le bienvenue sur Guintuaris.');
             return $this->redirectToRoute('character_view', ["id" => $character->getId(), "slug" => $character->getSlug()]);
         }
         return $this->render('character/character/create.html.twig', [
