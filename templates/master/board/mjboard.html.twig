@@ -10,29 +10,27 @@
 {% block body %}
 	<div id="wrapper">
 		<div class="page-content-wrapper">
-			<a href="#" id="menu-toggle">Bestiaire</a>
 			<h1 class="title">Tableau Bestiaire</h1>
 			<div class="board"></div>
 		</div>
-		<div class="sidebar-wrapper">
-			<ul class="sidebar-nav">
-			{% for bestiaryType in list %}
-				<li>
-					<div class="dropdown">
-						<button class="dropbtn nav-btn">{{bestiaryType.typeName}}</button>
-						<div class="dropdown-content hidden">
-							<ul>
+		<div class="sidebar-container">
+			<div class="sidebar-link">
+				<a href="#" id="menu-toggle">Bestiaire</a>
+			</div>
+			<div class="sidebar-wrapper">
+				<div class="sidebar-nav">
+					{% for bestiaryType in list %}
+						<div class="dropdown">
+							<button class="dropbtn nav-btn">{{bestiaryType.typeName}}</button>
+							<div class="dropdown-content hidden">
 								{% for beast in bestiaryType.beasts %}
-									<li>
 										<a title="Invoquation de {{beast.name}}" href="{{ path('summon', {"id" : beast.id})}}" class="js-like">{{beast.name}}</a>
-									</li>
 								{% endfor %}
-							</ul>
+							</div>
 						</div>
-					</div>
-				</li>
-			{% endfor %}
-			</ul>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

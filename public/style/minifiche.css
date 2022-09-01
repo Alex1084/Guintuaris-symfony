@@ -34,8 +34,14 @@
 }
 
 .title-sheet {
-    /* max-width: 265.5; */
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    width: 210px;
+    margin-left: 20px;
+}
+.title-sheet::first-letter{
+    text-transform: capitalize;
+    font-size: 2rem;
+    font-family: "centurion";
 }
 
 .fiche p{
@@ -78,7 +84,7 @@ input[type="integer"]::placeholder{
     top: 5px;
     right: 50px;
     cursor: pointer;
-    z-index: 2;
+    z-index: 1;
 }
 .croix{
     top: 5px;

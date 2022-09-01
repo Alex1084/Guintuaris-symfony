@@ -10,6 +10,11 @@
 				{{ message }}
 			</div>
 		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash error">
+				{{ message }}
+			</div>
+		{% endfor %}
 			<div class="div-form-hidden">
 				{{form_start(memberForm, {'attr': {'class': 'hidden'} }) }}
 					<div class="div-form">
@@ -27,11 +32,11 @@
             <thead>
                 <tr>
 				{% if is_granted("ROLE_ADMIN") %}
-					<th>Id</th>
+					<th class="sortable number">Id</th>
 				{% endif %}
                     <th>Image</th>
-                    <th>Nom</th>
-                    <th>Level</th>
+                    <th class="sortable text">Nom</th>
+                    <th class="sortable number">Level</th>
 					<th></th>
                 </tr>
             </thead>

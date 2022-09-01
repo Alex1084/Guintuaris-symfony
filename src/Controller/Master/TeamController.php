@@ -129,6 +129,10 @@ class TeamController extends AbstractController
         $memberForm->handleRequest($request);
         if ($memberForm->isSubmitted() && $memberForm->isValid()) {
             $selectedCharacter = $memberForm->get('character')->getData();
+            if ($selectedCharacter === null) {
+                $this->addFlash("error", "aucun personnage n'est selectionner");
+                return $this->redirectToRoute('master_add_member', ['teamId' => $teamId, "slug" => $slug]);
+        }
             $selectedCharacter->setTeam($team);
             $entityManager->persist($selectedCharacter);
             $entityManager->flush();

@@ -270,7 +270,8 @@ class CharacterController extends AbstractController
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        //'maxSize' => '50k'
+                        'maxSize' => '50k',
+                        'mimeTypes' => 'image/jpg',
                     ])
                 ]
             ])
