@@ -154,7 +154,7 @@ abstract class Sheet
     #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $faith;
 
-    #[ORM\Column(type: 'datetime_immutable',nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable',nullable: false)]
     private $created_at;
 
     public function getId(): ?int { return $this->id; }

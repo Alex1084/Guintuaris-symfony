@@ -109,7 +109,7 @@ class BestiaryController extends AbstractController
             $this->addFlash("success", "le type ".$newType->getName()."à été enregistré");
             return $this->redirectToRoute('admin_bestiary_type_list');
         }
-        return $this->render('admin/bestiary/TypeList.html.twig', [
+        return $this->render('admin/bestiary/typeList.html.twig', [
             'list' => $findall,
             'form' => $form->createView(),
         ]);
