@@ -286,7 +286,7 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-form button, #de, .swal-button{
+form button, #de, .swal-button, .default-sort{
     border:outset rgba(65, 57, 47, 0.502);
     background-color: rgba(238, 211, 176, 1);
     box-shadow: 10px 5px 5px rgba(183, 155, 118, 0.58);
@@ -305,7 +305,7 @@ form button, #de, .swal-button{
 .swal-cancel {
     color: #a00 !important;
 }
-form button:active, #de:active, .swal-button:active{
+form button:active, #de:active, .swal-button:active, .default-sort:active{
     transform: translateY(4px);
     scale: 0.95;
 }
@@ -413,6 +413,9 @@ table, tr,  th, td {
     border: 1px solid black;
     text-align: center;
     border-collapse: collapse;
+}
+th.sortable {
+    cursor: pointer;
 }
 
 .list {

@@ -10,15 +10,14 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-    <div class="">
-    </div>
+		<button class="default-sort">tri par defaut</button>
 		<table class="tableau" id="skill">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Name</th>
-					<th>Classe</th>
-					<th>Niveau</th>
+					<th class="sortable number">Id</th>
+					<th class="sortable text">Name</th>
+					<th class="sortable text">Classe</th>
+					<th class="sortable number">Niveau</th>
 					<th>Coût</th>
 					<th></th>
 					<th></th>
@@ -59,5 +58,6 @@
 
 
 {% block script %}
+	    <script src="{{asset('script/tableau.js')}}"></script>
 	<script src="{{ asset("script/delete.js")}}"></script>
 {% endblock %}

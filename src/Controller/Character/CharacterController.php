@@ -14,6 +14,7 @@ use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\SheetRepository;
 use App\Repository\SkillRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -95,7 +96,7 @@ class CharacterController extends AbstractController
      * @return Response
      */
     #[Route('/{slug}/{id}', name: 'view')]
-    public function fichePerso(string $slug, int $id, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
+    public function fichePerso(string $slug, int $id, SkillRepository $skillRepository, ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
     {
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
@@ -104,7 +105,9 @@ class CharacterController extends AbstractController
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
-        
+        $character->setLastView(new DateTimeImmutable());
+        $entityManager->persist($character);
+        $entityManager->flush();
         return $this->render('character/character/characterSheet.html.twig', [
             'character' => $character,
             'skills' => $skills,

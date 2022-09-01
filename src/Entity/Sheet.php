@@ -154,6 +154,9 @@ abstract class Sheet
     #[Assert\NotBlank(message: "vous devez obligatoirement donnez un valeur comprise entre 0 et 85")]
     private $faith;
 
+    #[ORM\Column(type: 'datetime_immutable',nullable: true)]
+    private $created_at;
+
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
@@ -251,6 +254,18 @@ abstract class Sheet
     public function setFaith(int $faith): self
     {
         $this->faith = $faith;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
         return $this;
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\BestiaryType;
 use App\Form\BestiaryFormType;
 use App\Form\NameFormType;
 use App\Repository\BestiaryRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,8 @@ class BestiaryController extends AbstractController
         if ($creatureForm->isSubmitted() && $creatureForm->isValid()) {
             $bestiary->setPv($bestiary->getPvMax())
                 ->setPc($bestiary->getPcMax())
-                ->setPm($bestiary->getPmMax());
+                ->setPm($bestiary->getPmMax())
+                ->setcreatedAt(new DateTimeImmutable());
             $entityManager->persist($bestiary);
             $entityManager->flush();
             $this->addFlash("success", "la bete a été enregistré dans le bestaire");

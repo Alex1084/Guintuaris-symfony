@@ -48,6 +48,9 @@ class Character extends Sheet
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $last_view;
+
     public function getUser(): ?User { return $this->user; }
     public function setUser(?User $user): self
     {
@@ -108,6 +111,18 @@ class Character extends Sheet
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+        return $this;
+    }
+
+    public function getLastView(): ?\DateTimeInterface
+    {
+        return $this->last_view;
+    }
+
+    public function setLastView(?\DateTimeInterface $last_view): self
+    {
+        $this->last_view = $last_view;
+
         return $this;
     }
 }

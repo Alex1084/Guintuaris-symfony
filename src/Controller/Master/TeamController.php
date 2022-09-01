@@ -25,7 +25,7 @@ class TeamController extends AbstractController
     #[Route("/equipe", name:"team_list")]
     public function teamListAdmin(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $allTeam = $doctrine->getRepository(Team::class)->findBy(["master" => $this->getUser()]);
+        $allTeam = $doctrine->getRepository(Team::class)->findBy(["master" => $this->getUser()], ["name" => "asc"]);
         $newTeam = new Team();
         $form = $this->TeamForm($newTeam, $request,$entityManager);
         if ($form->isSubmitted()) {
@@ -39,7 +39,7 @@ class TeamController extends AbstractController
     #[Route('/lists', name: 'list_character_team')]
     public function index(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $allTeam = $doctrine->getRepository(Team::class)->findBy(["master" => $this->getUser()]);
+        $allTeam = $doctrine->getRepository(Team::class)->findBy(["master" => $this->getUser()], ["name" => "asc"]);
         $characters = $doctrine->getRepository(Character::class)->listByUser($this->getUser()->getId());
         $newTeam = new Team();
         $form = $this->TeamForm($newTeam, $request,$entityManager);
@@ -127,7 +127,7 @@ class TeamController extends AbstractController
             ])
             ->getForm();
         $memberForm->handleRequest($request);
-        if ($memberForm->isSubmitted()) {
+        if ($memberForm->isSubmitted() && $memberForm->isValid()) {
             $selectedCharacter = $memberForm->get('character')->getData();
             $selectedCharacter->setTeam($team);
             $entityManager->persist($selectedCharacter);

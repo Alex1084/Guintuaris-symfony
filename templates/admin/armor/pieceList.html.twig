@@ -49,13 +49,14 @@
 		</div>
 	</div>
 	<div class="container">
+		<button class="default-sort">tri par defaut</button>
 		<table class="tableau">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Emplacement</th>
-					<th>Type</th>
-					<th>Valeur</th>
+					<th class="sortable number">Id</th>
+					<th class="sortable text">Emplacement</th>
+					<th class="sortable text">Type</th>
+					<th class="sortable number">Valeur</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -87,5 +88,6 @@
 	</div>
 {% endblock %}
 {% block script %}
+    <script src="{{asset('script/tableau.js')}}"></script>
 	<script src="{{ asset("script/delete.js")}}"></script>
 {% endblock %}

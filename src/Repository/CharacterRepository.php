@@ -76,7 +76,7 @@ class CharacterRepository extends ServiceEntityRepository
             ->leftJoin(Team::class, 't', Join::WITH, "t.id = c.team")
             ->where('c.user = :userId')
             ->setParameter('userId', $userId)
-            ->orderBy('c.name', 'ASC')
+            ->orderBy('c.last_view', 'DESC')
             ->getQuery()->getResult();
 
     }

@@ -14,13 +14,15 @@
 				{{ message }}
 			</div>
 		{% endfor %}
+
+        <button class="default-sort">tri par defaut</button>
         <table class="tableau">
             <thead>
                 <tr>
                     <th scope="col">image</th>
-                    <th scope="col">nom</th>
-                    <th>niveau</th>
-                    <th>equipe</th>
+                    <th class="sortable text" scope="col">nom</th>
+                    <th class="sortable number">niveau</th>
+                    <th class="sortable text">equipe</th>
                     <th scope="col">action</th>
                 </tr>
             </thead>
@@ -57,4 +59,8 @@
             {% endblock %}
         </div>
 	</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{asset('script/tableau.js')}}"></script>
 {% endblock %}

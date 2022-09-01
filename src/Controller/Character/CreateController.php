@@ -8,6 +8,7 @@ use App\Entity\Character;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
 use App\Repository\ArmorLocationRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,8 +49,8 @@ class CreateController extends AbstractController
                       ->setUser($this->getUser())
                       ->setPv($character->getPvMax())
                       ->setPm($character->getPmMax())
-                      ->setPc($character->getPcMax());
-            
+                      ->setPc($character->getPcMax())
+                      ->setcreatedAt(new DateTimeImmutable());
             // execution de la requete
             $entityManager->persist($character);
             $entityManager->flush();
