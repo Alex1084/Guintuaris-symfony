@@ -16,7 +16,7 @@ class NameFormType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
-            'label' => "nom",
+            'label' => "Nom",
             'attr' => [
                 "max" => 50
             ],

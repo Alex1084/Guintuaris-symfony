@@ -17,9 +17,11 @@ class ArmorPieceType extends AbstractType
         $builder
         ->add('location', EntityType::class,[
             'class' => ArmorLocation::class,
-                'choice_label' => 'name'
+            "label" => "Localisation",
+            'choice_label' => 'name'
             ])
         ->add('type', EntityType::class,[
+            "label" => "Type",
             'class' => ArmorType::class,
             'choice_label' => 'name'
         ])

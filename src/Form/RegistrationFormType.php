@@ -20,10 +20,12 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'attr' => ['class' => 'log']
+                'attr' => ['class' => 'log'],
+                "label" => "Adresse email",
             ])
             ->add('name', TextType::class, [
-                'attr' => ['class' => 'log']
+                'attr' => ['class' => 'log'],
+                "label" => "Nom",
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

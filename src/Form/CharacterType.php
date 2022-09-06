@@ -25,35 +25,37 @@ class CharacterType extends AbstractType
                 "min" => 1,
                 "class" => "input-form",
             ],
-            'label' => 'PV'
+            'label' => 'Point de vie'
         ])
         ->add('pcMax', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "class" => "input-form",
             ],
-            'label' => 'PC'
+            'label' => 'Point de combat'
         ])
         ->add('pmMax', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "class" => "input-form",
             ],
-            'label' => 'PM'
+            'label' => 'Point de magie'
         ])
         ->add('level', IntegerType::class, [
             "attr" => [
                 "min" => 1,
                 "max" => 10,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Niveau",
         ])
         ->add('constitution', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Constitution",
         ])
         ->add('strength', IntegerType::class, [
             "attr" => [
@@ -68,37 +70,43 @@ class CharacterType extends AbstractType
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Dextérité",
         ])
         ->add('intelligence', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Intelligence",
         ])
         ->add('charisma', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Charisme",
         ])
         ->add('faith', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Foi",
         ])
         ->add('class', EntityType::class, [
             'class' => Classes::class,
             'choice_label' => 'name',
-            'invalid_message' => "erreur, la valeur selectionné n'est pas valide"
+            'invalid_message' => "erreur, la valeur selectionné n'est pas valide",
+            "label" => "Classe",
         ])
         ->add('race', EntityType::class, [
             'class' => Race::class,
-            'choice_label' => 'name'
+            'choice_label' => 'name',
+            "label" => "Race",
         ]);
     }
 

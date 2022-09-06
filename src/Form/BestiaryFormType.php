@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,8 +17,11 @@ class BestiaryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name')
+        ->add('name', TextType::class, [
+            "label" => "Nom",
+        ])
         ->add('type', EntityType::class, [
+            "label" => "Type",
             "class" => BestiaryType::class,
             "choice_label" => "name"
         ])
@@ -26,21 +30,21 @@ class BestiaryFormType extends AbstractType
                 "min" => 10,
                 "class" => "input-form",
             ],
-            'label' => 'PV'
+            'label' => 'Point de vie'
         ])
         ->add('pcMax', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "class" => "input-form",
             ],
-            'label' => 'PC'
+            'label' => 'Point de combat'
         ])
         ->add('pmMax', IntegerType::class, [
             "attr" => [
                 "min" => 0,
                 "class" => "input-form",
             ],
-            'label' => 'PM'
+            'label' => 'Point de magie'
         ])
         ->add('level', IntegerType::class, [
             "attr" => [
@@ -57,7 +61,8 @@ class BestiaryFormType extends AbstractType
                 "max" => 85,
                 "class" => "input-form",
 
-            ]
+            ],
+            "label" => "Constitution",
         ])
         ->add('strength', IntegerType::class, [
             "attr" => [
@@ -82,7 +87,8 @@ class BestiaryFormType extends AbstractType
                 "min" => 0,
                 "max" => 85,
                 "class" => "input-form",
-            ]
+            ],
+            "label" => "Intelligence",
         ])
         ->add('charisma', IntegerType::class, [
             "attr" => [
