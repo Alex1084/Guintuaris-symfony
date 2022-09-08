@@ -114,7 +114,12 @@
 }
 
 #result{
-    height: 64px;
+    height: 3rem;
+    width: 202px;
+    border: 1px solid black;
+    text-align: center;
+    background :rgba(238, 212, 177, 0.50);
+    transition: background 600ms;
 }
 /* ~~~~~~~~~~~equipement~~~~~~~~~~~ */
 .tableau{
@@ -152,12 +157,16 @@
     }
 }
 @media (max-width: 1100px) {
-    input[type="number"]{
+    .statut input[type="number"]{
         height: 40px;
         width: 40px;
     }
     .label-statut{
         font-size: 1rem;
         width: 24px;
+    }
+    .max{
+        width: 75px;
+        margin-right: 0%;
     }
 }

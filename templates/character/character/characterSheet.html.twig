@@ -46,9 +46,9 @@
 		<div class="row">
 			<div class="div-statistique">
 				<div class="statistique">
-					<p class="label">Intelligence :</p>
+					<p class="label">Constitution:</p>
 					<div class="statistique-valeur">
-						<p>{{ character.intelligence }}</p>
+						<p>{{ character.constitution }}</p>
 					</div>
 				</div>
 				<div class="statistique">
@@ -58,17 +58,18 @@
 					</div>
 				</div>
 				<div class="statistique">
+					<p class="label">Dextérite :</p>
+					<div class="statistique-valeur">
+						<p>{{ character.dexterity }}</p>
+					</div>
+				</div>
+				<div class="statistique">
 					<p class="label">Foi :</p>
 					<div class="statistique-valeur">
 						<p>{{ character.faith }}</p>
 					</div>
 				</div>
-				<div class="statistique">
-					<p class="label">Constitution:</p>
-					<div class="statistique-valeur">
-						<p>{{ character.constitution }}</p>
-					</div>
-				</div>
+				
 				<div class="statistique">
 					<p class="label">Force :</p>
 					<div class="statistique-valeur">
@@ -76,9 +77,9 @@
 					</div>
 				</div>
 				<div class="statistique">
-					<p class="label">Dextérite :</p>
+					<p class="label">Intelligence :</p>
 					<div class="statistique-valeur">
-						<p>{{ character.dexterity }}</p>
+						<p>{{ character.intelligence }}</p>
 					</div>
 				</div>
 			</div>
@@ -156,40 +157,45 @@
 
 	</div>
 	<div class="container">
-		<select name="" id="select-stat">
-			<option value="{{character.constitution}}">Constitution</option>
-			<option value="{{character.strength}}">Force</option>
-			<option value="{{character.dexterity}}">Dextérité</option>
-			<option value="{{character.intelligence}}">Intelligence</option>
-			<option value="{{character.charisma}}">Charisme</option>
-			<option value="{{character.faith}}">Foi</option>
-		</select>
+		<div>
+			<select name="" id="select-stat">
+				<option value="{{character.constitution}}">Constitution</option>
+				<option value="{{character.strength}}">Force</option>
+				<option value="{{character.dexterity}}">Dextérité</option>
+				<option value="{{character.intelligence}}">Intelligence</option>
+				<option value="{{character.charisma}}">Charisme</option>
+				<option value="{{character.faith}}">Foi</option>
+			</select>
 
-		<select name="" id="ca">
-			<option value="0">0</option>
-			<option value="5">3 (-5)</option>
-			<option value="10">5 (-10)</option>
-			<option value="15">7 (-15)</option>
-			<option value="20">10 (-20)</option>
-			<option value="25">12 (-25)</option>
-			<option value="30">15 (-30)</option>
-			<option value="35">17 (-35)</option>
-			<option value="50">17+ (-50)</option>
-		</select>
-		<button id="de">Test !</button>
+			<select name="" id="ca">
+				<option value="0">0</option>
+				<option value="5">3 (-5)</option>
+				<option value="10">5 (-10)</option>
+				<option value="15">7 (-15)</option>
+				<option value="20">10 (-20)</option>
+				<option value="25">12 (-25)</option>
+				<option value="30">15 (-30)</option>
+				<option value="35">17 (-35)</option>
+				<option value="50">17+ (-50)</option>
+			</select>
+			<button id="de">Test !</button>
+		</div>
+		<div>
+			<button class="dice" id="dice-four">1D4</button>
+			<button class="dice" id="dice-six">1D6</button>
+			<button class="dice" id="dice-height">1D8</button>
+			<button class="dice" id="dice-ten">1D10</button>
+			<button class="dice" id="dice-twelve">1D12</button>
+			<button class="dice" id="dice-twenty">1D20</button>
+			<button class="dice" id="dice-hundred">1D100</button>
+		</div>
 		<div id="result"></div>
 	</div>
 
 	<div class="container">
 		<div class="row">
 			<div>
-				<div>
-					<div>
-						<a title="Change l'equipement de {{character.name}}" href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
-							<h2 class="sub-title">Armure</h2>
-						</a>
-					</div>
-				</div>
+				<h2 class="sub-title-center">Armure</h2>
 				{% set ca = 0 %}
 				<table class="tableau">
 					<thead>
@@ -224,44 +230,38 @@
 						</tr>
 					</tfoot>
 				</table>
+				<a title="Change l'equipement de {{character.name}}" href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">Modifier</a>
 			</div>
-
 			<div>
-				<div>
-					<a title="Changer les armes de {{character.name}}" href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">
-						<h2 class="sub-title">Arme</h2>
-					</a>
-				</div>
-
-				<div>
-					<table class="tableau">
-						<thead>
+				<h2 class="sub-title-center">Arme</h2>
+				<table class="tableau">
+					<thead>
+						<tr>
+							<th>Arme</th>
+							<th>Dégats</th>
+							<th>Dé</th>
+							<th>Effet</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for weapon in weapons %}
 							<tr>
-								<th>Arme</th>
-								<th>Dégats</th>
-								<th>Dé</th>
-								<th>Effet</th>
+							{% if weapon.weapon != null %}
+								<td>{{ weapon.weapon.name }}</td>
+								<td>{{ weapon.weapon.damage }}</td>
+								<td>{{ weapon.weapon.dice }}</td>
+								<td>{{ weapon.effect }}</td>
+							{% else %}
+								<td> Vide </td>
+								<td>0</td>
+								<td>0</td>
+								<td></td>
+							{% endif %}
 							</tr>
-						</thead>
-						<tbody>
-							{% for weapon in weapons %}
-								<tr>
-								{% if weapon.weapon != null %}
-									<td>{{ weapon.weapon.name }}</td>
-									<td>{{ weapon.weapon.damage }}</td>
-									<td>{{ weapon.weapon.dice }}</td>
-									<td>{{ weapon.effect }}</td>
-								{% else %}
-									<td> Vide </td>
-									<td>0</td>
-									<td>0</td>
-									<td></td>
-								{% endif %}
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
+						{% endfor %}
+					</tbody>
+				</table>
+				<a title="Changer les armes de {{character.name}}" href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">Modifier</a>
 			</div>
 		</div>
 	</div>

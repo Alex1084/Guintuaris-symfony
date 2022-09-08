@@ -185,11 +185,14 @@ a:hover{
     color: white;
 }
 a.link, .nav-button{
-    background: url("../img/list.svg") no-repeat;
 	/* background-size: 40px; */
-	padding-left: 45px;
-	background-position-x: 0;
-	background-position-y: 50%;
+	/* padding-left: 45px; */
+	/* background-position-x: 0; */
+	/* background-position-y: 50%; */
+}
+a.link:before, .nav-button:before{
+    content: url("../img/list.svg");
+
 }
 .ajax-delete-link{
     color: #aa0000;
@@ -286,7 +289,7 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-form button, #de, .swal-button, .default-sort{
+form button, #de, .swal-button, .default-sort, .dice{
     border:outset rgba(65, 57, 47, 0.502);
     background-color: rgba(238, 211, 176, 1);
     box-shadow: 10px 5px 5px rgba(183, 155, 118, 0.58);
@@ -305,7 +308,7 @@ form button, #de, .swal-button, .default-sort{
 .swal-cancel {
     color: #a00 !important;
 }
-form button:active, #de:active, .swal-button:active, .default-sort:active{
+form button:active, #de:active, .swal-button:active, .default-sort:active, .dice:active{
     transform: translateY(4px);
     scale: 0.95;
 }

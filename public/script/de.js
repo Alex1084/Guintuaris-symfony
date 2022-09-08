@@ -15,27 +15,78 @@ let lance;
 //cette fonction simmulle le lancée de dé
 //un chiffre compris entre 1 et 100 sera pris au hasard puis la fonction va regarder si le lence sera dans la range indiquer
 de.addEventListener('click', () => {
-    str = "";
-    lance = Math.floor(Math.random() * 100 + 1)
-    valMalus = stat.value - cA.value
-    str += "<p> " + lance + "<" + valMalus + "(" + stat.value + " - " + cA.value + ") </p>"
+    let str = "";
+    let lance = Math.floor(Math.random() * 100 + 1)
+    let valMalus = stat.value - cA.value
+    let symbol = "<"
     if (lance <= 5) {
-        str += "succée  critique !"
+        succes = "<p>succée  critique !</p>";
     }
     else if (lance < valMalus) {
-        str += "succée !"
-
+        succes = "<p>succée !</p>";
 
     }
     else if (lance > valMalus && lance <= stat.value) {
-        str += "presque reussite !"
+        symbol = ">";
+        succes = "<p>presque reussite !</p>";
 
     }
-    else if (lance >= 95) {
-        str += "echec  critique !"
+    else if (lance >= 96) {
+        symbol = ">";
+        succes = "<p>echec  critique !</p>";
     }
     else {
-        str += "echec !"
+        symbol = ">";
+        succes = "<p>echec !</p>"
     }
+    str = "<p> " + lance + symbol + valMalus + "</p>" + succes
     resultat.innerHTML = str
+    resultat.style.background = "rgba(0, 102, 0, 0.5)"
+    setTimeout(() =>{
+        resultat.style.background = "rgba(238, 212, 177, 0.50)"
+    }, 1200)
 })
+
+dices = document.querySelectorAll(".dice");
+dices.forEach(dice => {
+    dice.addEventListener("click", () =>{
+        let typeDice = getTypeDice(dice.id);
+        result = Math.floor(Math.random() * typeDice + 1); 
+        resultat.innerText = result;
+        resultat.style.background = "rgba(0, 102, 0, 0.5)"
+        setTimeout(() =>{
+            resultat.style.background = "rgba(238, 212, 177, 0.50)"
+        }, 1200)
+    })
+});
+
+function getTypeDice(elementId){
+    let typeDice = 0
+    switch (elementId) {
+        case "dice-four":
+            typeDice = 4;
+            break;
+        case "dice-six":
+            typeDice = 6;
+            break;
+        case "dice-height":
+            typeDice = 8;
+            break;
+        case "dice-ten":
+            typeDice = 10;
+            break;
+        case "dice-twelve":
+            typeDice = 12;
+            break;
+        case "dice-twenty":
+            typeDice = 20;
+            break;
+        case "dice-hundred":
+            typeDice = 100;
+            break;
+        default:
+            typeDice = 100;
+            break;
+    }
+    return typeDice
+}
