@@ -51,6 +51,10 @@ class RaceFormType extends AbstractType
                 'label' => 'Age adulte',
                 'attr' => ['class' => "input-form"]
             ])
+            ->add('lifetime', IntegerType::class, [
+                'label' => 'Durée de vie',
+                'attr' => ['class' => "input-form"]
+            ])
         ;
     }
 

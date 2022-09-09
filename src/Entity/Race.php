@@ -54,6 +54,9 @@ class Race
     #[ORM\Column(type: 'integer', nullable: true)]
     private $adulthood;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $lifetime;
+
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
@@ -84,15 +87,10 @@ class Race
         return $this;
     }
 
-    public function getSocialAbility(): ?string
-    {
-        return $this->SocialAbility;
-    }
-
+    public function getSocialAbility(): ?string { return $this->SocialAbility; }
     public function setSocialAbility(?string $SocialAbility): self
     {
         $this->SocialAbility = $SocialAbility;
-
         return $this;
     }
 
@@ -103,51 +101,38 @@ class Race
         return $this;
     }
 
-    public function getMinHieght(): ?int
-    {
-        return $this->minHieght;
-    }
-
+    public function getMinHieght(): ?int { return $this->minHieght; }
     public function setMinHieght(?int $minHieght): self
     {
         $this->minHieght = $minHieght;
-
         return $this;
     }
 
-    public function getMaxHeight(): ?int
-    {
-        return $this->maxHeight;
-    }
-
+    public function getMaxHeight(): ?int { return $this->maxHeight; }
     public function setMaxHeight(?int $maxHeight): self
     {
         $this->maxHeight = $maxHeight;
-
         return $this;
     }
 
-    public function getAverageWheight(): ?int
-    {
-        return $this->averageWheight;
-    }
-
+    public function getAverageWheight(): ?int { return $this->averageWheight; }
     public function setAverageWheight(?int $averageWheight): self
     {
         $this->averageWheight = $averageWheight;
-
         return $this;
     }
 
-    public function getAdulthood(): ?int
-    {
-        return $this->adulthood;
-    }
-
+    public function getAdulthood(): ?int { return $this->adulthood; }
     public function setAdulthood(?int $adulthood): self
     {
         $this->adulthood = $adulthood;
+        return $this;
+    }
 
+    public function getLifetime(): ?int { return $this->lifetime; }
+    public function setLifetime(?int $lifetime): self
+    {
+        $this->lifetime = $lifetime;
         return $this;
     }
 }
