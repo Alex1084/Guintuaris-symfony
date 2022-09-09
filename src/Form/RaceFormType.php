@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Race;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,13 +23,33 @@ class RaceFormType extends AbstractType
                 'attr' => ['class' => 'area-form'],
                 'label' => 'Description'
             ])
-            ->add('ability', TextareaType::class, [
+            ->add('physicalAbility', TextareaType::class, [
                 'attr' => ['class' => 'area-form'],
-                'label' => 'Aptitude'
+                'label' => 'Aptitude physique'
+            ])
+            ->add('socialAbility', TextareaType::class, [
+                'attr' => ['class' => 'area-form'],
+                'label' => 'Aptitude sociale'
             ])
             ->add('bonus', TextareaType::class, [
                 'attr' => ['class' => 'area-form'],
                 'label' => 'Bonus'
+            ])
+            ->add('minHieght', IntegerType::class, [
+                'label' => 'Taille minimum (en cm)',
+                'attr' => ['class' => "input-form"]
+            ])
+            ->add('maxHeight', IntegerType::class, [
+                'label' => 'Taille maximum (en cm)',
+                'attr' => ['class' => "input-form"]
+            ])
+            ->add('averageWheight', IntegerType::class, [
+                'label' => 'Poids moyen (en kg)',
+                'attr' => ['class' => "input-form"]
+            ])
+            ->add('adulthood', IntegerType::class, [
+                'label' => 'Age adulte',
+                'attr' => ['class' => "input-form"]
             ])
         ;
     }

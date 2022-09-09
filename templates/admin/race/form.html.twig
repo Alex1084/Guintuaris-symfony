@@ -17,6 +17,39 @@
 					</div>
 				</div>
 			</div>
+			<div>
+				<h3 class="title-form">Information physique</h3>
+			</div>
+			<div class="row">
+				<div class="div-form">
+					{{form_label(raceForm.minHieght)}}
+					{{form_widget(raceForm.minHieght)}}
+					<div class="div-errors">
+						{{form_errors(raceForm.minHieght)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(raceForm.maxHeight)}}
+					{{form_widget(raceForm.maxHeight)}}
+					<div class="div-errors">
+						{{form_errors(raceForm.maxHeight)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(raceForm.averageWheight)}}
+					{{form_widget(raceForm.averageWheight)}}
+					<div class="div-errors">
+						{{form_errors(raceForm.averageWheight)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(raceForm.adulthood)}}
+					{{form_widget(raceForm.adulthood)}}
+					<div class="div-errors">
+						{{form_errors(raceForm.adulthood)}}
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="textarea-form">
 					<h3 class="title-form">
@@ -32,12 +65,24 @@
 			<div class="row">
 				<div class="textarea-form">
 					<h3 class="title-form">
-						{{ form_label(raceForm.ability) }}
+						{{ form_label(raceForm.socialAbility) }}
 					</h3>
 					
-					{{ form_widget(raceForm.ability) }}
+					{{ form_widget(raceForm.socialAbility) }}
 					<div class="div-errors">
-						{{form_errors(raceForm.ability)}}
+						{{form_errors(raceForm.socialAbility)}}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(raceForm.physicalAbility) }}
+					</h3>
+					
+					{{ form_widget(raceForm.physicalAbility) }}
+					<div class="div-errors">
+						{{form_errors(raceForm.physicalAbility)}}
 					</div>
 				</div>
 			</div>

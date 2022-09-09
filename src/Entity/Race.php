@@ -31,13 +31,28 @@ class Race
     private $description;
 
     #[ORM\Column(type: 'text')]
-    private $ability;
-
-    #[ORM\Column(type: 'text')]
     private $bonus;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $SocialAbility;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $physicalAbility;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $minHieght;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $maxHeight;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $averageWheight;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $adulthood;
 
     public function getId(): ?int { return $this->id; }
 
@@ -55,13 +70,6 @@ class Race
         return $this;
     }
 
-    public function getAbility(): ?string { return $this->ability; }
-    public function setAbility(?string $ability): self
-    {
-        $this->ability = $ability;
-        return $this;
-    }
-
     public function getBonus(): ?string { return $this->bonus; }
     public function setBonus(?string $bonus): self
     {
@@ -73,6 +81,73 @@ class Race
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+        return $this;
+    }
+
+    public function getSocialAbility(): ?string
+    {
+        return $this->SocialAbility;
+    }
+
+    public function setSocialAbility(?string $SocialAbility): self
+    {
+        $this->SocialAbility = $SocialAbility;
+
+        return $this;
+    }
+
+    public function getPhysicalAbility(): ?string { return $this->physicalAbility; }
+    public function setPhysicalAbility(?string $physicalAbility): self
+    {
+        $this->physicalAbility = $physicalAbility;
+        return $this;
+    }
+
+    public function getMinHieght(): ?int
+    {
+        return $this->minHieght;
+    }
+
+    public function setMinHieght(?int $minHieght): self
+    {
+        $this->minHieght = $minHieght;
+
+        return $this;
+    }
+
+    public function getMaxHeight(): ?int
+    {
+        return $this->maxHeight;
+    }
+
+    public function setMaxHeight(?int $maxHeight): self
+    {
+        $this->maxHeight = $maxHeight;
+
+        return $this;
+    }
+
+    public function getAverageWheight(): ?int
+    {
+        return $this->averageWheight;
+    }
+
+    public function setAverageWheight(?int $averageWheight): self
+    {
+        $this->averageWheight = $averageWheight;
+
+        return $this;
+    }
+
+    public function getAdulthood(): ?int
+    {
+        return $this->adulthood;
+    }
+
+    public function setAdulthood(?int $adulthood): self
+    {
+        $this->adulthood = $adulthood;
+
         return $this;
     }
 }
