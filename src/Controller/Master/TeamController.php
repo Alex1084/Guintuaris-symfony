@@ -53,11 +53,11 @@ class TeamController extends AbstractController
         ]);
     }
 
-    #[Route("/modiifer-equipe/{teamId}", name:"team_rename")]
+    #[Route("/modifer-equipe/{teamId}", name:"team_rename")]
     public function teamRename(int $teamId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $team = $doctrine->getRepository(Team::class)->find($teamId);
-        if ($team->getMaster() !== $this->getUser()->getId()) {
+        if ($team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("master_team_list");
         }
         if ($request->isMethod('post')) {
@@ -118,23 +118,27 @@ class TeamController extends AbstractController
         $memberForm = $this->createFormBuilder()
             ->add('character', EntityType::class, [
                 'class' => Character::class,
-                'choice_label' => 'name',
+                // 'choice_label' => 'name',
                 'query_builder' => function (CharacterRepository $pr) {
                     return $pr->createQueryBuilder('c')
                         ->where('c.team IS NULL')
                         ->orderBy('c.name', 'ASC');
-                }
+                },
+                'multiple' => true,
+                // 'expanded'=>true,
             ])
             ->getForm();
         $memberForm->handleRequest($request);
         if ($memberForm->isSubmitted() && $memberForm->isValid()) {
-            $selectedCharacter = $memberForm->get('character')->getData();
-            if ($selectedCharacter === null) {
+            $selectedCharacters = $memberForm->get('character')->getData();
+            if ($selectedCharacters === null) {
                 $this->addFlash("error", "aucun personnage n'est selectionner");
                 return $this->redirectToRoute('master_add_member', ['teamId' => $teamId, "slug" => $slug]);
-        }
-            $selectedCharacter->setTeam($team);
-            $entityManager->persist($selectedCharacter);
+            }
+            foreach ($selectedCharacters as $character) {
+                $character->setTeam($team);
+                $entityManager->persist($character);
+            }
             $entityManager->flush();
             $this->addFlash("success", "le nouveau membre a été ajouté avec succés");
             return $this->redirectToRoute('master_add_member', ['teamId' => $teamId, "slug" => $slug]);

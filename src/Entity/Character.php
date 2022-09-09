@@ -125,4 +125,9 @@ class Character extends Sheet
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getName() . " ( utilisateur : ". $this->getUser()." )";   
+    }
 }
