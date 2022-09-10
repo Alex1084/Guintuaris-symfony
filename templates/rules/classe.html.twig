@@ -11,12 +11,23 @@
 		<h1 class="title">{{classe.name}}</h1>
 
 		<h2 class="sub-title">Description</h2>
-		<p>{{ classe.description}}</p>
+		<p class="content">{{ classe.description}}</p>
 
 		<h2 class="sub-title">Dé de niveau</h2>
-		<p>{{ classe.dicePv}}</p>
-		<p>{{ classe.dicePc}}</p>
-		<p>{{ classe.dicePm}}</p>
+		<div class="row">
+			<div>
+				<p>Point de vie</p>
+				<p>{{ classe.dicePv}}</p>
+			</div>
+			<div>
+				<p>Point de magie</p>
+				<p>{{ classe.dicePc}}</p>
+			</div>
+			<div>
+				<p>Points de combat</p>
+				<p>{{ classe.dicePm}}</p>
+			</div>
+		</div>
 	</div>
 	<div class="container">
 		<h2 class="sub-title-center">Compétences</h2>
