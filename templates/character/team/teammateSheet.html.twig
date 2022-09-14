@@ -140,7 +140,11 @@
 				<option value="{{character.faith}}">Foi</option>
 			</select>
 			<select name="" id="ca">
-				<option value="0">0</option>
+				<option value="20">+20</option>
+				<option value="15">+15</option>
+				<option value="10">+10</option>
+				<option value="5">+5</option>
+				<option value="0" selected="selected">0</option>
 				<option value="5">3 (-5)</option>
 				<option value="10">5 (-10)</option>
 				<option value="15">7 (-15)</option>
@@ -180,7 +184,7 @@
 							<th>Effet</th>
 						</tr>
 					</thead>
-					{% if armorPiece is defined %}
+					{% if armor is defined and armor|length > 0%}
 						<tbody>
 							{% for armorPiece in armor %}
 								{% set ca = ca + armorPiece.piece.value %}

@@ -35,7 +35,7 @@ class RaceFormType extends AbstractType
                 'attr' => ['class' => 'area-form'],
                 'label' => 'Bonus'
             ])
-            ->add('minHieght', IntegerType::class, [
+            ->add('minHeight', IntegerType::class, [
                 'label' => 'Taille minimum (en cm)',
                 'attr' => ['class' => "input-form"]
             ])

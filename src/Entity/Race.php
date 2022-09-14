@@ -36,25 +36,25 @@ class Race
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: false)]
     private $SocialAbility;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: false)]
     private $physicalAbility;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $minHieght;
+    private $minHeight;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $maxHeight;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $averageWheight;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $adulthood;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $lifetime;
 
     public function getId(): ?int { return $this->id; }
@@ -101,10 +101,10 @@ class Race
         return $this;
     }
 
-    public function getMinHieght(): ?int { return $this->minHieght; }
-    public function setMinHieght(?int $minHieght): self
+    public function getMinHeight(): ?int { return $this->minHeight; }
+    public function setMinHeight(?int $minHeight): self
     {
-        $this->minHieght = $minHieght;
+        $this->minHeight = $minHeight;
         return $this;
     }
 

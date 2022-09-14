@@ -9,7 +9,13 @@
 		</h1>
 
 		<h2 class="sub-title">Description</h2>
-		<p class="content">{{ race.description}}</p>
+		<p class="content">{{ race.description}}
+
+		taille minimum-maximum : {{(race.minHeight / 100)|number_format(2, 'm','')}}-{{(race.maxHeight / 100)|number_format(2, 'm','')}}
+		poids moyens : {{race.averageWheight}}
+		durèe de vie : {{race.lifetime}}
+		âge adulte : {{race.adulthood}}
+		</p>
 
 		<h2 class="sub-title">Aptitude sociale</h2>
 		<p class="content">{{ race.socialAbility}}</p>

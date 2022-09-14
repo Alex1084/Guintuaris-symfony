@@ -21,13 +21,21 @@ divStatus.forEach((div) => {
 //l'opperrande seras la valeur a droite de l'opperation (c'est la valeur à ajouter ou à soustraire)
 // et la valBare s'est la bar qui est afficher sur la fiche
 function statut(event, opperateur, valNum, operande, valeBare) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        valNum.value = eval(valNum.value + opperateur + operande.value);
-        operande.value = "";
-        if (valeBare != null) {
-            valeBare.value = valNum.value;
+    keys = ["ArrowLeft", "ArrowRight", "Backspace", "End", "Home", "-", "Enter"]
+    re = new RegExp("[0-9]")
+    if (!re.test(event.key)) {
+        if (!keys.includes(event.key)) {
+            event.preventDefault();
         }
-        ajax();
+        else if (event.key === 'Enter') {
+            event.preventDefault();
+            valNum.value = eval(valNum.value + opperateur + operande.value);
+            operande.value = "";
+            if (valeBare != null) {
+                valeBare.value = valNum.value;
+            }
+            ajax();
+        }
     }
+    
 }

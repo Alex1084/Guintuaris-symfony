@@ -7,9 +7,13 @@ inputs.forEach(input => {
 });
 
 document.getElementById("po").addEventListener("keydown", e => {
+    keys = ["ArrowLeft", "ArrowRight", "Backspace", "End", "Home", "-", "Enter"]
     re = new RegExp("[0-9]")
     if (!re.test(e.key)) {
-        e.preventDefault();
+        if (!keys.includes(e.key)) {
+            // console.log(e.key);
+            e.preventDefault();
+        }
     }
 })
 

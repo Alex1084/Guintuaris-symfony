@@ -17,8 +17,9 @@ let lance;
 de.addEventListener('click', () => {
     let str = "";
     let lance = Math.floor(Math.random() * 100 + 1)
-    let valMalus = stat.value - cA.value
+    let valMalus = +stat.value + +cA.value
     let symbol = "<"
+    let backgroundColor = "rgba(0, 102, 0, 0.5)";
     if (lance <= 5) {
         succes = "<p>succée  critique !</p>";
     }
@@ -34,14 +35,16 @@ de.addEventListener('click', () => {
     else if (lance >= 96) {
         symbol = ">";
         succes = "<p>echec  critique !</p>";
+        backgroundColor = "rgba"
     }
     else {
         symbol = ">";
-        succes = "<p>echec !</p>"
+        succes = "<p>echec !</p>";
+        backgroundColor = "rgba"
     }
     str = "<p> " + lance + symbol + valMalus + "</p>" + succes
     resultat.innerHTML = str
-    resultat.style.background = "rgba(0, 102, 0, 0.5)"
+    resultat.style.background = backgroundColor
     setTimeout(() =>{
         resultat.style.background = "rgba(238, 212, 177, 0.50)"
     }, 1200)
