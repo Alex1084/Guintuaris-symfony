@@ -14,6 +14,7 @@ use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\SheetRepository;
 use App\Repository\SkillRepository;
+use App\Repository\WeaponRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -103,8 +104,8 @@ class CharacterController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
+        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         $character->setLastView(new DateTimeImmutable());
         $entityManager->persist($character);
         $entityManager->flush();
@@ -339,7 +340,7 @@ class CharacterController extends AbstractController
         $locations = $doctrine->getRepository(ArmorLocation::class)->findAll();
         // dd($locations);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
+        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         if (count($armor) < count($locations)) {
             $ids = array_map(function ($armorPieceCharacter)
             {
@@ -365,6 +366,10 @@ class CharacterController extends AbstractController
             //ajout d'un Select avec en option les piece d'armure apartenent a la localisation $i
             $armorForm->add($name, EntityType::class, [
                 'class' => ArmorPiece::class,
+                'query_builder' => function (ArmorPieceRepository $apr) {
+                    return $apr->createQueryBuilder('ap')
+                        ->orderBy('ap.name', 'ASC');
+                },
                 'choice_label' => 'type.name',
                 'query_builder' => $armorPieceRepository->optionType($location->getId()),
                 'data' => $armor[$location->getId() - 1]->getPiece(),
@@ -430,7 +435,7 @@ class CharacterController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
+        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         if (count($weapons) <= 3) {
             $ids = array_map(function ($weaponCharacter)
             {
@@ -455,6 +460,10 @@ class CharacterController extends AbstractController
             // et ayant comme option la liste de toute les armes
             $weaponForm->add('n_' . $i, EntityType::class, [
                 'class' => Weapon::class,
+                'query_builder' => function (WeaponRepository $wr) {
+                    return $wr->createQueryBuilder('w')
+                        ->orderBy('w.name', 'ASC');
+                },
                 'choice_label' => 'name',
                 'data' => $weapons[$i - 1]->getWeapon(),
                 'attr' => ['class' => 'input-form'],

@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorType;
+use App\Repository\ArmorLocationRepository;
+use App\Repository\ArmorTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,13 +19,21 @@ class ArmorPieceType extends AbstractType
         $builder
         ->add('location', EntityType::class,[
             'class' => ArmorLocation::class,
-            "label" => "Localisation",
-            'choice_label' => 'name'
+            'query_builder' => function (ArmorLocationRepository $alr) {
+                return $alr->createQueryBuilder('al')
+                    ->orderBy('al.name', 'ASC');
+            },
+            'choice_label' => 'name',
+            "label" => "Localisation"
             ])
         ->add('type', EntityType::class,[
-            "label" => "Type",
             'class' => ArmorType::class,
-            'choice_label' => 'name'
+            'query_builder' => function (ArmorTypeRepository $atr) {
+                return $atr->createQueryBuilder('at')
+                    ->orderBy('at.name', 'ASC');
+            },
+            'choice_label' => 'name',
+            "label" => "Type",
         ])
         ->add('value')
         ;

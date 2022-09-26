@@ -13,16 +13,16 @@
 		<div id="grid-armor-character">
 			{% for location in locations %}
 				<div class="div-form">
-					{{ form_label(attribute(armorForm, location.name|lower)) }}
-					{{ form_widget(attribute(armorForm, location.name|lower)) }}
+					{{ form_label(attribute(armorForm, location.varName)) }}
+					{{ form_widget(attribute(armorForm, location.varName)) }}
 					<div class="div-errors">
-						{{ form_errors(attribute(armorForm, location.name|lower))}}
+						{{ form_errors(attribute(armorForm, location.varName))}}
 					</div>
-					{{ form_label(attribute(armorForm, "effet_" ~ location.name|lower)) }}
-					{{ form_widget(attribute(armorForm, "effet_" ~ location.name|lower)) }}
+					{{ form_label(attribute(armorForm, "effet_" ~ location.varName)) }}
+					{{ form_widget(attribute(armorForm, "effet_" ~ location.varName)) }}
 
 					<div class="div-errors">
-						{{ form_errors(attribute(armorForm, "effet_" ~ location.name|lower))}}
+						{{ form_errors(attribute(armorForm, "effet_" ~ location.varName))}}
 					</div>
 				</div>
 			{% endfor %}

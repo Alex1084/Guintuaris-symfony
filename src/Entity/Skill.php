@@ -30,6 +30,7 @@ class Skill
     private $cost;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Assert\Range(min:1,max:10,)]
     private $distance;
 
     
