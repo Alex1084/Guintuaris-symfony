@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Classes;
+use App\Entity\DurationType;
 use App\Entity\Resource;
 use App\Entity\Skill;
 use App\Repository\ClassesRepository;
+use App\Repository\DurationTypeRepository;
 use App\Repository\ResourceRepository;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -69,6 +71,15 @@ class SkillFormType extends AbstractType
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Durée',
                 'required' => false,
+            ])
+            ->add('durationType', EntityType::class, [
+                'label' => "Type de durèe",
+                'class' => DurationType::class,
+                'query_builder' => function (DurationTypeRepository $dtr) {
+                    return $dtr->createQueryBuilder('dt')
+                        ->orderBy('dt.label', 'ASC');
+                },
+                "choice_label" => "label"
             ])
             ->add('class', EntityType::class, [
                 'class' => Classes::class,

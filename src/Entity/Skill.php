@@ -42,15 +42,18 @@ class Skill
     private $class;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    #[Assert\Length(min:5,max:10, )]
+    #[Assert\Range(min:1,max:100,)]
     private $radius;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: true)]
     #[Assert\Length(min:5,max:10, )]
     private $duration;
 
     #[ORM\ManyToOne(targetEntity: Resource::class)]
     private $resource;
+
+    #[ORM\ManyToOne(targetEntity: DurationType::class)]
+    private $durationType;
 
     public function getId(): ?int { return $this->id; }
 
@@ -117,15 +120,17 @@ class Skill
         return $this;
     }
 
-    public function getResource(): ?Resource
-    {
-        return $this->resource;
-    }
-
+    public function getResource(): ?Resource { return $this->resource;}
     public function setResource(?Resource $resource): self
     {
         $this->resource = $resource;
+        return $this;
+    }
 
+    public function getDurationType(): ?DurationType { return $this->durationType; }
+    public function setDurationType(?DurationType $durationType): self
+    {
+        $this->durationType = $durationType;
         return $this;
     }
 }

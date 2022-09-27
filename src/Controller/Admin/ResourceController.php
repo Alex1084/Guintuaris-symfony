@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-#[Route("/ressource", name:"admin_")]
+#[Route("/administration/ressource", name:"admin_")]
 class ResourceController extends AbstractController
 {
     #[Route("/ajouter", name:"add_resource")]
