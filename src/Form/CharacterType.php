@@ -113,7 +113,7 @@ class CharacterType extends AbstractType
             'class' => Race::class,
             'query_builder' => function (RaceRepository $rr) {
                 return $rr->createQueryBuilder('r')
-                    ->orderBy('r.username', 'ASC');
+                    ->orderBy('r.name', 'ASC');
             },
             'choice_label' => 'name',
             "label" => "Race",

@@ -27,7 +27,6 @@ class SkillExtension extends AbstractExtension
 
     public function skillCard($skill)
     {
-        dump($skill);
         $details = "";
         if ($skill["distance"] !== null) {
             if ($skill["distance"] >= 0) {
@@ -49,7 +48,7 @@ class SkillExtension extends AbstractExtension
         $textArea = "<textarea readonly>{$details}\n{$skill["description"]}</textarea>";
         $skillCard = 
         '<div class="competence"><div class="dropdown">
-            <button class="dropbtn">'.$skill["name"].', '.$skill["cost"].''.$skill["symbol"].'<img src="{{ asset("img/list.svg")}}" alt="" class="drop-logo" height="10"></button>
+            <button class="dropbtn">'.$skill["name"].', '.$skill["cost"].''.$skill["symbol"].'<img src="/img/list.svg" alt="" class="drop-logo" height="10"></button>
             <div class="hidden dropdown-content">
                 '.$textArea.'
             </div>
