@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Classes;
+use App\Entity\Resource;
 use App\Entity\Skill;
 use App\Repository\ClassesRepository;
+use App\Repository\ResourceRepository;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -39,6 +41,14 @@ class SkillFormType extends AbstractType
             ->add('cost', TextType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Coût'
+            ])
+            ->add('resource', EntityType::class, [
+                'label' => "Ressource",
+                'class' => Resource::class,
+                'query_builder' => function (ResourceRepository $rr) {
+                    return $rr->createQueryBuilder('r')
+                        ->orderBy('r.label', 'ASC');
+                },
             ])
             ->add('distance', IntegerType::class, [
                 'attr' => ['class' => 'input-form'],

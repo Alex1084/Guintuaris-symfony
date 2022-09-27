@@ -22,7 +22,7 @@ class NameFormType extends AbstractType
             ],
             'constraints' => [
                 new Length([
-                    "min" => 5,
+                    "min" => 3,
                     "max" => 50,
                     "maxMessage" =>  "le nom doit faire 50 caractère maximum",
                     "minMessage" =>  "le nom doit faire 5 caractère minimum"

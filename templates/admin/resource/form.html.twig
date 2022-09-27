@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{(requestAttribute == "admin_update_resource") ? "Modifier une resource":"Ajouter une resource"}} | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(resourceForm) }}
+			<div>
+				<h3 class="title-form">Géneral</h3>
+			</div>
+			<div class="row">
+				<div class="div-form">
+					{{form_label(resourceForm.label)}}
+					{{form_widget(resourceForm.label)}}
+					<div class="div-errors">
+						{{form_errors(resourceForm.label)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(resourceForm.symbol)}}
+					{{form_widget(resourceForm.symbol)}}
+					<div class="div-errors">
+						{{form_errors(resourceForm.symbol)}}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(resourceForm.description) }}
+					</h3>
+					
+					{{ form_widget(resourceForm.description) }}
+					<div class="div-errors">
+						{{form_errors(resourceForm.description)}}
+					</div>
+				</div>
+			</div>
+		<button class="valid-form">Valider !</button>
+		{{form_end(resourceForm)}}
+	</div>
+{% endblock %}
