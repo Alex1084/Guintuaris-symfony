@@ -29,7 +29,7 @@ class Skill
     #[Assert\Range(min:1,max:25,)]
     private $cost;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'float', nullable: true)]
     #[Assert\Range(min:1,max:10,)]
     private $distance;
 
@@ -41,7 +41,7 @@ class Skill
     #[ORM\JoinColumn(nullable: false)]
     private $class;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[ORM\Column(type: 'float', length: 10, nullable: true)]
     #[Assert\Range(min:1,max:100,)]
     private $radius;
 
@@ -85,8 +85,8 @@ class Skill
         return $this;
     }
 
-    public function getDistance(): ?int { return $this->distance; }
-    public function setDistance(int $distance): self
+    public function getDistance(): ?float { return $this->distance; }
+    public function setDistance(float $distance): self
     {
         $this->distance = $distance;
         return $this;
@@ -106,8 +106,8 @@ class Skill
         return $this;
     }
 
-    public function getRadius(): ?string { return $this->radius;}
-    public function setRadius(?string $radius): self
+    public function getRadius(): ?float { return $this->radius;}
+    public function setRadius(?float $radius): self
     {
         $this->radius = $radius;
         return $this;

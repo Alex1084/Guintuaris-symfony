@@ -26,7 +26,7 @@ class RulesController extends AbstractController
     {
         $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);
 
-        $skills = $doctrine->getRepository(Skill::class)->findBy(["class" => $class], ["level" => "asc", "name" => "asc"]);
+        $skills = $doctrine->getRepository(Skill::class)->findByClass( $class->getId());
         return $this->render('rules/classe.html.twig', [
             'classe' => $class,
             'skills' => $skills

@@ -13,6 +13,7 @@ use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +41,7 @@ class SkillFormType extends AbstractType
                 ],
                 'label' => 'Niveau'
             ])
-            ->add('cost', TextType::class, [
+            ->add('cost', IntegerType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Coût'
             ])
@@ -52,7 +53,7 @@ class SkillFormType extends AbstractType
                         ->orderBy('r.label', 'ASC');
                 },
             ])
-            ->add('distance', IntegerType::class, [
+            ->add('distance', NumberType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Portée (en mètre)',
                 'required' => false,
@@ -62,12 +63,12 @@ class SkillFormType extends AbstractType
                 'label' => 'Dégats',
                 'required' => false,
             ])
-            ->add('radius', TextType::class, [
+            ->add('radius', NumberType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Rayon',
                 'required' => false,
             ])
-            ->add('duration', TextType::class, [
+            ->add('duration', IntegerType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Durée',
                 'required' => false,
