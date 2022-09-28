@@ -6,9 +6,11 @@ use App\Entity\Classes;
 use App\Entity\DurationType;
 use App\Entity\Resource;
 use App\Entity\Skill;
+use App\Entity\Statistic;
 use App\Repository\ClassesRepository;
 use App\Repository\DurationTypeRepository;
 use App\Repository\ResourceRepository;
+use App\Repository\StatisticRepository;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -52,6 +54,15 @@ class SkillFormType extends AbstractType
                     return $rr->createQueryBuilder('r')
                         ->orderBy('r.label', 'ASC');
                 },
+            ])
+            ->add('diceThrow', EntityType::class, [
+                'label' => "Jet",
+                'class' => Statistic::class,
+                'query_builder' => function (StatisticRepository $sr) {
+                    return $sr->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                "choice_label" => "name"
             ])
             ->add('distance', NumberType::class, [
                 'attr' => ['class' => 'input-form'],

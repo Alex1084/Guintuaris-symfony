@@ -37,18 +37,19 @@ class SkillExtension extends AbstractExtension
             }
             $details .= "Portée : {$distance} \n";
         }
-        $details .= "Durée : {$skill["duration"]} {$skill["label"]} \n";
+        $details .= "Durée : {$skill["duration"]} {$skill["durationType"]} \n";
         if ($skill["damage"] !== null) {
             $details .= "Dégats : {$skill["damage"]} \n";
         }
         if ($skill["radius"] !== null) {
             $details .= "Rayon : {$skill["radius"]} mètre \n";
         }
+        $details .= "Jet : {$skill["diceThrow"]} \n";
 
         $textArea = "<textarea readonly>{$details}\n{$skill["description"]}</textarea>";
         $skillCard = 
         '<div class="competence"><div class="dropdown">
-            <button class="dropbtn">'.$skill["name"].', '.$skill["cost"].''.$skill["symbol"].'<img src="/img/list.svg" alt="" class="drop-logo" height="10"></button>
+            <button class="dropbtn">'.$skill["name"].', '.$skill["cost"].''.$skill["resource"].'<img src="/img/list.svg" alt="" class="drop-logo" height="10"></button>
             <div class="hidden dropdown-content">
                 '.$textArea.'
             </div>

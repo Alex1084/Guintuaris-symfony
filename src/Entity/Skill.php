@@ -55,6 +55,9 @@ class Skill
     #[ORM\ManyToOne(targetEntity: DurationType::class)]
     private $durationType;
 
+    #[ORM\ManyToOne(targetEntity: Statistic::class)]
+    private $diceThrow;
+
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
@@ -131,6 +134,18 @@ class Skill
     public function setDurationType(?DurationType $durationType): self
     {
         $this->durationType = $durationType;
+        return $this;
+    }
+
+    public function getDiceThrow(): ?Statistic
+    {
+        return $this->diceThrow;
+    }
+
+    public function setDiceThrow(?Statistic $diceThrow): self
+    {
+        $this->diceThrow = $diceThrow;
+
         return $this;
     }
 }
