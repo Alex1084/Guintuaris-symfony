@@ -17,13 +17,16 @@ class ArmorLocation
 
     #[ORM\Column(type: 'string', length: 50)]
     #[Assert\Length(
-        min:5,
+        min:3,
         max:50,
         maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 5 caractère minimum"
+        minMessage: "le nom doit faire 3 caractère minimum"
     )]
     #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 5 et 50 caractere")]
     private $name;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private $varName;
 
     public function getId(): ?int { return $this->id; }
 
@@ -31,6 +34,18 @@ class ArmorLocation
     public function setName(string $name): self
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getVarName(): ?string
+    {
+        return $this->varName;
+    }
+
+    public function setVarName(?string $varName): self
+    {
+        $this->varName = $varName;
+
         return $this;
     }
 }

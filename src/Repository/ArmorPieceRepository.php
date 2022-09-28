@@ -68,6 +68,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.location = :id')
-            ->setParameter("id", $id);
+            ->setParameter("id", $id)
+            ->orderBy("p.id", "asc");
     }
 }

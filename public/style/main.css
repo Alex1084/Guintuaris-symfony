@@ -184,12 +184,6 @@ a{
 a:hover{
     color: white;
 }
-a.link, .nav-button{
-	/* background-size: 40px; */
-	/* padding-left: 45px; */
-	/* background-position-x: 0; */
-	/* background-position-y: 50%; */
-}
 a.link:before, .nav-button:before{
     content: url("../img/list.svg");
 
@@ -378,7 +372,7 @@ select[multiple="multiple"]{
     width: 90vw;
     height: 150px;
 }
-#add-skill-row{
+.row-around{
     display: flex;
     justify-content: space-around;
 }
@@ -446,7 +440,7 @@ footer{
         width: 90vw;
         flex-direction: column;
     }
-    #add-skill-row{
+    .row-around{
         flex-direction: column;
     }
 }

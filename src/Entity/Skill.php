@@ -25,11 +25,12 @@ class Skill
     #[Assert\Range(min:1,max:10,)]
     private $level;
 
-    #[ORM\Column(type: 'string', length: 10)]
-    #[Assert\Length(min:5,max:10, )]
+    #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:1,max:25,)]
     private $cost;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'float', nullable: true)]
+    #[Assert\Range(min:1,max:10,)]
     private $distance;
 
     
@@ -40,13 +41,22 @@ class Skill
     #[ORM\JoinColumn(nullable: false)]
     private $class;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    #[Assert\Length(min:5,max:10, )]
+    #[ORM\Column(type: 'float', length: 10, nullable: true)]
+    #[Assert\Range(min:1,max:100,)]
     private $radius;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: true)]
     #[Assert\Length(min:5,max:10, )]
     private $duration;
+
+    #[ORM\ManyToOne(targetEntity: Resource::class)]
+    private $resource;
+
+    #[ORM\ManyToOne(targetEntity: DurationType::class)]
+    private $durationType;
+
+    #[ORM\ManyToOne(targetEntity: Statistic::class)]
+    private $diceThrow;
 
     public function getId(): ?int { return $this->id; }
 
@@ -78,8 +88,8 @@ class Skill
         return $this;
     }
 
-    public function getDistance(): ?int { return $this->distance; }
-    public function setDistance(int $distance): self
+    public function getDistance(): ?float { return $this->distance; }
+    public function setDistance(float $distance): self
     {
         $this->distance = $distance;
         return $this;
@@ -99,8 +109,8 @@ class Skill
         return $this;
     }
 
-    public function getRadius(): ?string { return $this->radius;}
-    public function setRadius(?string $radius): self
+    public function getRadius(): ?float { return $this->radius;}
+    public function setRadius(?float $radius): self
     {
         $this->radius = $radius;
         return $this;
@@ -110,6 +120,32 @@ class Skill
     public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
+        return $this;
+    }
+
+    public function getResource(): ?Resource { return $this->resource;}
+    public function setResource(?Resource $resource): self
+    {
+        $this->resource = $resource;
+        return $this;
+    }
+
+    public function getDurationType(): ?DurationType { return $this->durationType; }
+    public function setDurationType(?DurationType $durationType): self
+    {
+        $this->durationType = $durationType;
+        return $this;
+    }
+
+    public function getDiceThrow(): ?Statistic
+    {
+        return $this->diceThrow;
+    }
+
+    public function setDiceThrow(?Statistic $diceThrow): self
+    {
+        $this->diceThrow = $diceThrow;
+
         return $this;
     }
 }

@@ -8,6 +8,7 @@ use App\Entity\ArmorType;
 use App\Form\ArmorPieceType;
 use App\Form\NameFormType;
 use App\Repository\ArmorPieceRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,8 @@ class ArmorController extends AbstractController
         $form->handleRequest($request);
         if ($request->isMethod("post")) {
             if ($form->isSubmitted() && $form->isValid()) {
+                $slugify = new Slugify();
+                $newLoca->setVarName($slugify->slugify($newLoca->getName()));
                 $entityManager->persist($newLoca);
                 $entityManager->flush();
                 $this->addFlash("success", "la localisation d'armure a été ajouter. Pour le moment aucune piece d'armure ne sont associer a cette localisation, pensez à crée des pieces.");
@@ -58,6 +61,8 @@ class ArmorController extends AbstractController
             $location = $doctrine->getRepository(ArmorLocation::class)->find($locationId);
             $oldName = $location->getName();
             $location->setName($newName);
+            $slugify = new Slugify();
+            $location->setVarName($slugify->slugify($location->getName()));
             $entityManager->persist($location);
             $entityManager->flush();
             $this->addFlash("success", "la localisation ". $oldName." a été renommé ". $newName);

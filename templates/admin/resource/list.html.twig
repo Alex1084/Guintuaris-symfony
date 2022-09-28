@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %} Ressource | {{parent()}}{% endblock %}
+
+{% block body %}
+	<h1 class="title">Ressource</h1>
+	<div class="container">
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<button class="default-sort">tri par defaut</button>
+		<table class="tableau">
+			<thead>
+				<tr>
+					<th class="sortable number">Id</th>
+					<th class="sortable text">Nom</th>
+					<th class="sortable text">Symbole</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for resource in resources %}
+
+					<tr>
+						<td> {{resource.id}} </td>
+						<td> {{ resource.label }} </td>
+						<td> {{ resource.symbol }} </td>
+						<td>
+							<a href="{{ path("admin_update_resource", {'id' : resource.id}) }}">Modifier</a>
+						</td>
+					</tr>
+						
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
+			<a title="Créer un nouvelle resource" class="link" href="{{ path("admin_add_resource")}}">Creer une Ressource</a>
+
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block script %}
+    <script src="{{asset('script/tableau.js')}}"></script>
+	<script src="{{ asset("script/delete.js")}}"></script>
+{% endblock %}

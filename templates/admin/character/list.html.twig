@@ -26,11 +26,7 @@
                             <img src="{{asset('image_personnage/'~ character.image)}}" alt="" height="50">
                         </td>
                         <td>
-                            {% if character.teamId != null %}   
-                                <a href="{{ path("team_sheet_view", {"teamSlug" : character.teamSlug, "teamId" : character.teamId, "characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
-                            {% else %}
-                                {{character.name}}
-                            {% endif %}
+                            <a href="{{ path("admin_character_view", {"characterSlug": character.slug, "characterId" : character.id}) }}">{{ character.name }}</a>
                         </td>
                         <td>{{character.level}}</td>
                         <td>

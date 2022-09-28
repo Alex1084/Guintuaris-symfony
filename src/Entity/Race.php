@@ -42,7 +42,7 @@ class Race
     #[ORM\Column(type: 'text', nullable: false)]
     private $physicalAbility;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $minHeight;
 
     #[ORM\Column(type: 'integer', nullable: false)]

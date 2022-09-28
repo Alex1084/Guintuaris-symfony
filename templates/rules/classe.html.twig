@@ -33,18 +33,7 @@
 		<h2 class="sub-title-center">Compétences</h2>
 		<div class="div-competence">
 			{% for skill in skills %}
-				<div class="competence">
-					<div class="dropdown">
-						<button class="dropbtn">
-							{{skill.name}}
-							,
-							{{skill.cost}}
-							<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
-						<div class="hidden dropdown-content">
-							<textarea readonly>{{ skill.description }}</textarea>
-						</div>
-					</div>
-				</div>
+				{{skill|skillCard}}
 			{% endfor %}
 		</div>
 	</div>

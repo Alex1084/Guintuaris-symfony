@@ -23,7 +23,7 @@ de.addEventListener('click', () => {
     if (lance <= 5) {
         succes = "<p>succée  critique !</p>";
     }
-    else if (lance < valMalus) {
+    else if (lance <= valMalus) {
         succes = "<p>succée !</p>";
 
     }

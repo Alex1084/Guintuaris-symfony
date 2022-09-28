@@ -29,19 +29,31 @@
 					
 					{{ form_widget(skillForm.cost) }}
 				</div>
+				<div class="div-form">{{ form_label(skillForm.resource) }}
+					
+					{{ form_widget(skillForm.resource) }}
+				</div>
 				<div class="div-form">{{ form_label(skillForm.distance) }}
 					
 					{{ form_widget(skillForm.distance) }}
 				</div>
+				<div class="div-form">{{ form_label(skillForm.diceThrow) }}
+					
+					{{ form_widget(skillForm.diceThrow) }}
+				</div>
+			</div>
+			<div class="row">
 				<div class="div-form">{{ form_label(skillForm.damage) }}
 					
 					{{ form_widget(skillForm.damage) }}
 				</div>
-			</div>
-			<div id="add-skill-row">
 				<div class="div-form">{{ form_label(skillForm.duration) }}
 					
 					{{ form_widget(skillForm.duration) }}
+				</div>
+				<div class="div-form">{{ form_label(skillForm.durationType) }}
+					
+					{{ form_widget(skillForm.durationType) }}
 				</div>
 				<div class="div-form">{{ form_label(skillForm.radius) }}
 					

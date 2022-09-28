@@ -21,10 +21,10 @@
 				<h1>{{ character.name }}</h1>
 				<h3>{{ character.race.name }}</h3>
 				<h3>{{ character.class.name }}</h3>
-				<h3>Niveau
-					{{ character.level }}</h3>
-				<h5>{{character.team.name}}
-				</h5>
+				<h3>Niveau {{ character.level }}</h3>
+				{% if character.team != null %}
+					<h5>{{character.team.name}}</h5>
+				{% endif %}
 
 			</div>
 			<div class="div-lore">
@@ -251,18 +251,7 @@
 	<div class="container">
 		<div class="div-competence">
 			{% for skill in skills %}
-				<div class="competence">
-					<div class="dropdown">
-						<button class="dropbtn">
-							{{skill.name}}
-							,
-							{{skill.cost}}
-							<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
-						<div class="dropdown-content hidden">
-							<textarea readonly>{{ skill.description }}</textarea>
-						</div>
-					</div>
-				</div>
+				{{skill|skillCard}}
 			{% endfor %}
 		</div>
 	</div>
@@ -271,12 +260,16 @@
 			<a href="" id="show-navside">Navigation</a>
 		</div>
 		<div class="navside navside-hidden">
+		{% if charactersUser is defined %}
 			{% for character in charactersUser %}
 				<a class="link" title="Retourner sur la fiche de {{character.name}}}" href="{{ path("character_view", {"slug" : character.slug, "id" : character.id}) }}">Retour {{character.name}}</a>
 			{% endfor %}
+		{% endif %}
+		{% if teammates is defined %}
 			{% for teammate in teammates %}
 				<a class="link" title="voir le fiche de {{teammate.name}}" href="{{path("team_sheet_view", {"teamId" : team.id, "teamSlug" : team.slug, "characterId" : teammate.id, "characterSlug" : teammate.slug})}}">{{teammate.name}}</a>
 			{% endfor %}
+		{% endif %}
 			{# <a href="">Retour </a> #}
 		</div>
 	</div>

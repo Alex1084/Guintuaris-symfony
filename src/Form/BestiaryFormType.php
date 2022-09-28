@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bestiary;
 use App\Entity\BestiaryType;
+use App\Repository\BestiaryTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -23,6 +24,10 @@ class BestiaryFormType extends AbstractType
         ->add('type', EntityType::class, [
             "label" => "Type",
             "class" => BestiaryType::class,
+            'query_builder' => function (BestiaryTypeRepository $btr) {
+                return $btr->createQueryBuilder('bt')
+                    ->orderBy('bt.name', 'ASC');
+            },
             "choice_label" => "name"
         ])
         ->add('pvMax', IntegerType::class, [

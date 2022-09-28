@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{(requestAttribute == "admin_update_statistic") ? "Modifier une statistique":"Ajouter une statistique"}} | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(statisticForm) }}
+			<div>
+				<h3 class="title-form">Géneral</h3>
+			</div>
+			<div class="row-around">
+				<div class="div-form">
+					{{form_label(statisticForm.name)}}
+					{{form_widget(statisticForm.name)}}
+					<div class="div-errors">
+						{{form_errors(statisticForm.name)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(statisticForm.symbol)}}
+					{{form_widget(statisticForm.symbol)}}
+					<div class="div-errors">
+						{{form_errors(statisticForm.symbol)}}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(statisticForm.description) }}
+					</h3>
+					
+					{{ form_widget(statisticForm.description) }}
+					<div class="div-errors">
+						{{form_errors(statisticForm.description)}}
+					</div>
+				</div>
+			</div>
+		<button class="valid-form">Valider !</button>
+		{{form_end(statisticForm)}}
+	</div>
+{% endblock %}

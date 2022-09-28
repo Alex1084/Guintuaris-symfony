@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{(requestAttribute == "admin_update_duration") ? "Modifier une duration":"Ajouter une duration"}} | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(durationForm) }}
+			<div>
+				<h3 class="title-form">Géneral</h3>
+			</div>
+			<div class="row-around">
+				<div class="div-form">
+					{{form_label(durationForm.label)}}
+					{{form_widget(durationForm.label)}}
+					<div class="div-errors">
+						{{form_errors(durationForm.label)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(durationForm.symbol)}}
+					{{form_widget(durationForm.symbol)}}
+					<div class="div-errors">
+						{{form_errors(durationForm.symbol)}}
+					</div>
+				</div>
+			</div>
+			<button class="valid-form">Valider !</button>
+		{{form_end(durationForm)}}
+	</div>
+{% endblock %}
