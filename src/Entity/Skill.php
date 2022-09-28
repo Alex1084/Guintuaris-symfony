@@ -25,7 +25,7 @@ class Skill
     #[Assert\Range(min:1,max:10,)]
     private $level;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     #[Assert\Range(min:1,max:25,)]
     private $cost;
 
