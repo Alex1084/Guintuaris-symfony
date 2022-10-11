@@ -360,7 +360,7 @@ class CharacterController extends AbstractController
 
         //ajout des champs dans le formulmaire
         foreach ($locations as $location) {
-            $name = strtolower($location->getName());
+            $name = $location->getVarName();
             $str = 'effet_' . $name;
 
             //ajout d'un Select avec en option les piece d'armure apartenent a la localisation $i
@@ -370,6 +370,7 @@ class CharacterController extends AbstractController
                     return $apr->createQueryBuilder('ap')
                         ->orderBy('ap.name', 'ASC');
                 },
+                "label" => $location->getName(),
                 'choice_label' => 'type.name',
                 'query_builder' => $armorPieceRepository->optionType($location->getId()),
                 'data' => $armor[$location->getId() - 1]->getPiece(),
@@ -398,7 +399,7 @@ class CharacterController extends AbstractController
 
             //cette boucle permet de recuperer toute les donnée envoyer et de mettre a jour la base de donnée
             foreach ($locations as $location) {
-                $name = strtolower($location->getName());
+                $name = $location->getVarName();
                 $piece = $armorForm->get($name)->getData();
                 $effect = $armorForm->get('effet_' . $name)->getData();
                 $armor[$location->getId() - 1]->setPiece($piece);
