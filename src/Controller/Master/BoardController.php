@@ -22,7 +22,7 @@ class BoardController extends AbstractController
     #[Route('/maitre-du-jeu/tableau', name: 'board')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        $bestiaryType = $doctrine->getRepository(BestiaryType::class)->findAll();
+        $bestiaryType = $doctrine->getRepository(BestiaryType::class)->findBy([], ["name" => "ASC"]);
         $bestiaryList = $doctrine->getRepository(Bestiary::class)->bestiaryBoard();
         $ids = array_map(function ($type)
         {

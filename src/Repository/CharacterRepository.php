@@ -87,6 +87,7 @@ class CharacterRepository extends ServiceEntityRepository
                     ->select("c.id, c.slug, c.name, c.level, c.image, u.name as userName, u.id as userId, t.id as teamId, t.slug as teamSlug, t.name as teamName")
                     ->join(User::class, "u", Join::WITH, "u.id = c.user")
                     ->leftJoin(Team::class, "t", Join::WITH, "t.id = c.team")
+                    ->orderBy("c.name")
                     ->getQuery()->getResult();
                     ;
     }

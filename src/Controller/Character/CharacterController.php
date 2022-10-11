@@ -337,7 +337,7 @@ class CharacterController extends AbstractController
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
-        $locations = $doctrine->getRepository(ArmorLocation::class)->findAll();
+        $locations = $doctrine->getRepository(ArmorLocation::class)->findBy([], ["id" => "ASC"]);
         // dd($locations);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
@@ -373,6 +373,7 @@ class CharacterController extends AbstractController
                 "label" => $location->getName(),
                 'choice_label' => 'type.name',
                 'query_builder' => $armorPieceRepository->optionType($location->getId()),
+                'preferred_choices' => $armorPieceRepository->findEmptybyLocation($location->getId()),
                 'data' => $armor[$location->getId() - 1]->getPiece(),
                 'attr' => ['class' => 'input-form']
             ])
@@ -429,7 +430,7 @@ class CharacterController extends AbstractController
      * @return Response
      */
     #[Route('/{slug}/{id}/arme', name: 'update_weapon')]
-    public function updateWeapon(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateWeapon(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine, WeaponRepository $weaponRepository): Response
     {
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
@@ -461,12 +462,10 @@ class CharacterController extends AbstractController
             // et ayant comme option la liste de toute les armes
             $weaponForm->add('n_' . $i, EntityType::class, [
                 'class' => Weapon::class,
-                'query_builder' => function (WeaponRepository $wr) {
-                    return $wr->createQueryBuilder('w')
-                        ->orderBy('w.name', 'ASC');
-                },
+                'query_builder' => $weaponRepository->optionType(),
                 'choice_label' => 'name',
                 'data' => $weapons[$i - 1]->getWeapon(),
+                'preferred_choices' => $weaponRepository->findEmpty(),
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Arme N°' . $i
             ])

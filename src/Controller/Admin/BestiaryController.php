@@ -100,7 +100,7 @@ class BestiaryController extends AbstractController
     {
         $newType = new BestiaryType();
 
-        $findall = $doctrine->getRepository(BestiaryType::class)->findAll();
+        $findall = $doctrine->getRepository(BestiaryType::class)->findBy([], ["name" => "ASC"]);
         $form = $this->createForm(NameFormType::class, $newType);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

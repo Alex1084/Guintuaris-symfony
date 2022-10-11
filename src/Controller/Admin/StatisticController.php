@@ -38,7 +38,7 @@ class StatisticController extends AbstractController
     #[Route("/liste", name:"statistic_list")]
     public function classList(ManagerRegistry $doctrine): Response
     {
-        $statistics = $doctrine->getRepository(Statistic::class)->findAll();
+        $statistics = $doctrine->getRepository(Statistic::class)->findBy([], ["id" => "ASC"]);
         return $this->render('admin/statistic/list.html.twig', [
             "statistics" => $statistics
         ]);

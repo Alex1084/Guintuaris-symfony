@@ -41,7 +41,7 @@ class WeaponController extends AbstractController
     #[Route("/liste", name:"weapon_list")]
    public function weaponList(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
    {
-       $weapons = $doctrine->getRepository(Weapon::class)->findAll();
+       $weapons = $doctrine->getRepository(Weapon::class)->findBy([], ["name" => "ASC"]);
        return $this->render('admin/weapon/list.html.twig', [
            'weapons' => $weapons
        ]);

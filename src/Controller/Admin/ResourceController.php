@@ -37,7 +37,7 @@ class ResourceController extends AbstractController
     #[Route("/liste", name:"resource_list")]
     public function classList(ManagerRegistry $doctrine): Response
     {
-        $resources = $doctrine->getRepository(Resource::class)->findAll();
+        $resources = $doctrine->getRepository(Resource::class)->findBy([], ["id" => "ASC"]);
         return $this->render('admin/resource/list.html.twig', [
             "resources" => $resources
         ]);

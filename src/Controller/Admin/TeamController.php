@@ -27,7 +27,7 @@ class TeamController extends AbstractController
     public function teamListAdmin(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newTeam = new Team();
-        $allTeam = $doctrine->getRepository(Team::class)->findAll();
+        $allTeam = $doctrine->getRepository(Team::class)->findBy([], ["name" => "ASC"]);
         $form = $this->createFormBuilder($newTeam)
             ->add('name', TextType::class)
             ->getForm();

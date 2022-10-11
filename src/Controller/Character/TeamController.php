@@ -28,7 +28,7 @@ class TeamController extends AbstractController
     public function teamMembersList(string $teamSlug, int $teamId, ManagerRegistry $doctrine): Response
     {
         $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId, "slug" => $teamSlug]);
-        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team]);
+        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team], ["name" => "ASC"]);
         if ($charactersUser === [] && $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -54,7 +54,7 @@ class TeamController extends AbstractController
     public function fichePerso(string $teamSlug, int $teamId,string $characterSlug,  int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
     {
         $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId,"slug"=>$teamSlug]);
-        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team]);
+        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team], ["name" => "ASC"]);
         if ($charactersUser == [] && $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -67,8 +67,8 @@ class TeamController extends AbstractController
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
+        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
+        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
 
         // creation d'un formulaire en readonly pour voir le statut
 

@@ -27,7 +27,7 @@ class ArmorController extends AbstractController
     public function addArmorLocation(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newLoca = new ArmorLocation();
-        $findall = $doctrine->getRepository(ArmorLocation::class)->findAll();
+        $findall = $doctrine->getRepository(ArmorLocation::class)->findBy([], ["id" => "ASC"]);
         $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
         if ($request->isMethod("post")) {
@@ -74,7 +74,7 @@ class ArmorController extends AbstractController
     public function addArmorType(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $newLoca = new ArmorType();
-        $findall = $doctrine->getRepository(ArmorType::class)->findAll();
+        $findall = $doctrine->getRepository(ArmorType::class)->findBy([], ["id" => "ASC"]);
         $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
         if ($request->isMethod("post")) {

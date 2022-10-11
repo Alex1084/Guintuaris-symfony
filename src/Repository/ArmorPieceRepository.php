@@ -41,7 +41,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function getArmorbyLocation($locationId)
+    public function findEmptybyLocation($locationId)
     {
         $typeName = "Enlever";
         $query = $this->createQueryBuilder('ap')
@@ -51,7 +51,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
             ->andWhere('ap.location = :empla')
             ->setParameter('empla', $locationId)
             ->getQuery();
-        return $query->getSingleResult();
+        return $query->getResult();
     }
 
     public function selectAllNamesValue()

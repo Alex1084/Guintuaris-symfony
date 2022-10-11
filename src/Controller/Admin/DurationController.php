@@ -38,7 +38,7 @@ class DurationController extends AbstractController
     #[Route("/liste", name:"duration_list")]
     public function classList(ManagerRegistry $doctrine): Response
     {
-        $durations = $doctrine->getRepository(DurationType::class)->findAll();
+        $durations = $doctrine->getRepository(DurationType::class)->findBy([], ["id" => "ASC"]);
         return $this->render('admin/duration/list.html.twig', [
             "durations" => $durations
         ]);
