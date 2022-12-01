@@ -82,7 +82,7 @@ class CharacterController extends AbstractController
             $this->removeFile($character->getImage());
             $entityManager->remove($character);
             $entityManager->flush();
-            $this->addFlash("success", "Au revoir ".$character->getName()."! nous vous souhaiton bon vent!");
+            $this->addFlash("success", "Au revoir ".$character->getName()." ! Nous vous souhaitons bon vent !");
         }
 
         return $this->redirectToRoute("character_list");
@@ -152,7 +152,7 @@ class CharacterController extends AbstractController
             $character->setSlug($slug);
             $entityManager->persist($character);
             $entityManager->flush();
-            $this->addFlash("success", "Les modification de ton personnage ont été sauvegarder");
+            $this->addFlash("success", "Les modifications de ton personnage ont été sauvegardées.");
             return $this->redirectToRoute("character_view", ["slug" => $slug, "id" => $id]);
         }
         return $this->render("character/character/updateCharacter.html.twig", [
@@ -189,7 +189,7 @@ class CharacterController extends AbstractController
             $entityManager->persist($character);
             $entityManager->flush();
             //
-            $this->addFlash("success", "très intéréssant! nous somme ravi d'en savoir plus sur vous ".$character->getName().".");
+            $this->addFlash("success", "Très intéressant ! Nous sommes ravis d'en savoir plus sur vous ".$character->getName().".");
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('character/character/loreForm.html.twig', [
@@ -211,7 +211,7 @@ class CharacterController extends AbstractController
     #[Route('/{slug}/{id}/statistiques', name: 'level_up')]
     public function levulUp(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $message = "tes nouvelle statistique ont été enregistrée";
+        $message = "Vos nouvelles statistiques ont été enregistrées.";
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
         $currentLevel = $character->getLevel();
         if (!$character || $character->getUser() !== $this->getUser()) {
@@ -236,7 +236,7 @@ class CharacterController extends AbstractController
             $entityManager->flush();
             //
             if ($character->getLevel() > $currentLevel) {
-                $message = "fellicitation ! vous etes desormais niveau ".$character->getLevel();
+                $message = "Félicitations ! Vous êtes désormais au niveau ".$character->getLevel().".";
             }
             $this->addFlash('success', $message);
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
@@ -291,7 +291,7 @@ class CharacterController extends AbstractController
                 $character->setImage($fileName);
                 $entityManager->persist($character);
                 $entityManager->flush();
-                $this->addFlash("success", "c'est toujours agreable de mettre un visage sur un nom! ");
+                $this->addFlash("success", "C'est toujours agréable de mettre un visage sur un nom !");
             }
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
@@ -314,7 +314,7 @@ class CharacterController extends AbstractController
             $character->setImage(null);
             $entityManager->persist($character);
             $entityManager->flush();
-            $this->addFlash("success", "c'est donc ça un sans visage ?");
+            $this->addFlash("success", "C'est donc ça un sans visage ?");
         }
         return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
     }
@@ -409,7 +409,7 @@ class CharacterController extends AbstractController
                 $entityManager->persist($armor[$location->getId()  - 1]);
                 $entityManager->flush();
             }
-            $this->addFlash("success", "vous voila equiper et prêt au combat");
+            $this->addFlash("success", "Vous voilà équipé et prêt au combat.");
             return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('character/character/armorForm.html.twig', [
@@ -499,7 +499,7 @@ class CharacterController extends AbstractController
                 $entityManager->persist($weapons[$i - 1]);
                 $entityManager->flush();
             }
-                $this->addFlash("success", "vous voilà equiper pour pourfandre vos ennemis");
+                $this->addFlash("success", "Vous voilà équipé pour pourfendre vos ennemis.");
                 return $this->redirectToRoute('character_view', ["slug" => $slug, "id" => $id]);
         }
         return $this->render('character/character/weaponForm.html.twig', [

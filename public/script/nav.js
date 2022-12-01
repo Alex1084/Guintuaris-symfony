@@ -19,11 +19,9 @@ shownavside.addEventListener("click", e => {
         navside.classList.replace("navside-show","navside-hidden");
         setTimeout(() =>{
             shownavside.parentElement.classList.add("show")
-            navside.style.width = 0;
         }, 600);
     }
     else {
-        navside.style.width = "20vw";
         shownavside.parentElement.classList.remove("show")
         setTimeout(() =>{
             navside.classList.replace("navside-hidden","navside-show");

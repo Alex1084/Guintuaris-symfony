@@ -36,7 +36,7 @@ class BestiaryController extends AbstractController
                 ->setcreatedAt(new DateTimeImmutable());
             $entityManager->persist($bestiary);
             $entityManager->flush();
-            $this->addFlash("success", "la bete a été enregistré dans le bestaire");
+            $this->addFlash("success", "La créature a été enregistrée dans le bestiaire.");
             return $this->redirectToRoute("admin_bestiary_list");
         }
         return $this->render('admin/bestiary/form.html.twig', [
@@ -71,7 +71,7 @@ class BestiaryController extends AbstractController
                  ->setPm($bestiary->getPmMax());
             $entityManager->persist($bestiary);
             $entityManager->flush();
-            $this->addFlash("success", "La creature a été modifé avec succés");
+            $this->addFlash("success", "La créature a été modifiée avec succès.");
             return $this->redirectToRoute("admin_bestiary_list");
         }
         return $this->render('admin/bestiary/form.html.twig', [
@@ -106,7 +106,7 @@ class BestiaryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($newType);
             $entityManager->flush();
-            $this->addFlash("success", "le type ".$newType->getName()."à été enregistré");
+            $this->addFlash("success", "Le type ".$newType->getName()."a été enregistré.");
             return $this->redirectToRoute('admin_bestiary_type_list');
         }
         return $this->render('admin/bestiary/typeList.html.twig', [
@@ -120,13 +120,15 @@ class BestiaryController extends AbstractController
         if ($request->isMethod('post')) {
             $newName = $request->request->get("value");
             if (strlen($newName) <= 3 || strlen($newName) > 50 ) {
+                $this->addFlash("error", "Le nom entré n'est pas valide, il doit faire entre 3 et 50 caractères.");
                 return $this->redirectToRoute("admin_bestiary_type_list");
             }
-            $team = $doctrine->getRepository(BestiaryType::class)->find($typeId);
-            $team->setName($newName);
-            $entityManager->persist($team);
+            $type = $doctrine->getRepository(BestiaryType::class)->find($typeId);
+            $oldname = $type->getName();
+            $type->setName($newName);
+            $entityManager->persist($type);
             $entityManager->flush();
-            $this->addFlash("success", "le type de bete & été renommé avec succés");
+            $this->addFlash("success", "Le type ".$oldname." a été renommé ".$newName.".");
         }
         return $this->redirectToRoute("admin_bestiary_type_list");
     }

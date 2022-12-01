@@ -57,7 +57,7 @@ class UserController extends AbstractController
 
                     $entityManager->persist($this->getUser());
                     $entityManager->flush();
-                    $this->addFlash("success","votre nouveau mot de passe a été enregistré");
+                    $this->addFlash("success","Votre nouveau mot de passe a été enregistré.");
                     return $this->redirectToRoute("profil");
 
                 }
@@ -84,7 +84,7 @@ class UserController extends AbstractController
                 // $user->setUpdatedAt(new DateTimeImmutable());
                 $entityManager->persist($this->getUser());
                 $entityManager->flush();
-                    $this->addFlash("success","les modification de votre compte ont été enregistré");
+                    $this->addFlash("success","Les modifications de votre compte ont été enregistrées.");
                     return $this->redirectToRoute("profil");
 
             }
@@ -113,7 +113,7 @@ class UserController extends AbstractController
         $entityManager->flush();
         $session = new Session();
         $session->invalidate();
-        $this->addFlash("success","votre compte a été supprimmer");
+        $this->addFlash("success","Votre compte a été supprimé.");
         return $this->redirectToRoute("app_logout");
     }
 

@@ -52,7 +52,7 @@ class UserController extends AbstractController
                     $user->setRoles($userForm->get("roles")->getData());
                     $entityManager->persist($user);
                     $entityManager->flush();
-                    $this->addFlash("success", "l'utilisateur n°".$user->getId()." a été mis a jour");
+                    $this->addFlash("success", "L'utilisateur n°".$user->getId()." a été mis à jour.");
                     return $this->redirectToRoute("admin_user_list");
                 }
             }
@@ -67,7 +67,7 @@ class UserController extends AbstractController
                     );
                     $entityManager->persist($user);
                     $entityManager->flush();
-                    $this->addFlash("success", "le mot de passe de l'utilisateur n°".$user->getId()." a été mis a jour");
+                    $this->addFlash("success", "Le mot de passe de l'utilisateur n°".$user->getId()." a été mis à jour.");
                     return $this->redirectToRoute("admin_user_list");
                 }
                 

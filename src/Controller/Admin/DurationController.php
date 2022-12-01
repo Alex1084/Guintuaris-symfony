@@ -25,7 +25,7 @@ class DurationController extends AbstractController
             $entityManager->persist($newDuration);
             $entityManager->flush();
 
-            $this->addFlash("success", "la ressource a été ajouté avec succés");
+            $this->addFlash("success", "La ressource a été ajoutée avec succès.");
             return $this->redirectToRoute("admin_duration_list");
         }
         return $this->render('admin/duration/form.html.twig', [
@@ -57,7 +57,7 @@ class DurationController extends AbstractController
         if ($durationForm->isSubmitted() && $durationForm->isValid()) {
             $entityManager->persist($duration);
             $entityManager->flush();
-            $this->addFlash("success", "la ressource a été modifié avec succés");
+            $this->addFlash("success", "La ressource a été modifiée avec succès.");
             return $this->redirectToRoute("admin_duration_list");
         }
         return $this->render('admin/duration/form.html.twig', [

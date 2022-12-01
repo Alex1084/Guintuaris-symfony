@@ -24,7 +24,7 @@ class ResourceController extends AbstractController
             $entityManager->persist($newResource);
             $entityManager->flush();
 
-            $this->addFlash("success", "la ressource a été ajouté avec succés");
+            $this->addFlash("success", "La ressource a été ajoutée avec succès.");
             return $this->redirectToRoute("admin_resource_list");
         }
         return $this->render('admin/resource/form.html.twig', [
@@ -56,7 +56,7 @@ class ResourceController extends AbstractController
         if ($resourceForm->isSubmitted() && $resourceForm->isValid()) {
             $entityManager->persist($resource);
             $entityManager->flush();
-            $this->addFlash("success", "la ressource a été modifié avec succés");
+            $this->addFlash("success", "La ressource a été modifiée avec succès.");
             return $this->redirectToRoute("admin_resource_list");
         }
         return $this->render('admin/resource/form.html.twig', [

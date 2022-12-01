@@ -130,14 +130,14 @@
 
     .div-detail-personnage{
         text-align: center;
-        width: 90vw;
+        width: 100%;
     }
     .div-lore{
-        width: 90vw;
+        width: 100%;
     }
 
     .div-statistique{
-        width: 90vw;
+        width: 100%;
     }
     .statistique-valeur{
         margin: auto;
@@ -145,14 +145,14 @@
     }
 
     .div-statut{
-        width: 100vw;
+        width: 100%;
     }
 
     .div-competence{
         display: block;
     }
   .competence{
-        width: 90vw;
+        width: 100%;
         margin-bottom: 5vh;
     }
 }

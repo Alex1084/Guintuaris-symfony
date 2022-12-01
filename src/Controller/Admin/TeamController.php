@@ -40,7 +40,7 @@ class TeamController extends AbstractController
                     ->setMaster($this->getUser());
             $entityManager->persist($newTeam);
             $entityManager->flush();
-            $this->addFlash("success", "l'equipe ".$newTeam->getName()." a été créé avec succés");
+            $this->addFlash("success", "L'équipe ".$newTeam->getName()." a été créée avec succès.");
             return $this->redirectToRoute("admin_add_member", ['teamId' => $newTeam->getId(), "slug" => $newTeam->getSlug()]);
         }
         return $this->render('master/team/listTeam.html.twig', [
@@ -55,7 +55,7 @@ class TeamController extends AbstractController
         if ($request->isMethod('post')) {
             $newName = $request->request->get("value");
             if (strlen($newName) <= 3) {
-                $this->addFlash("error", "nom invalie, le nom de l'quipe doit faire entre 3 et 50 caractère ");
+                $this->addFlash("error", "Nom invalide, le nom de l'équipe doit faire entre 3 et 50 caractères.");
                 return $this->redirectToRoute("admin_team_list");
             }
             $team = $doctrine->getRepository(Team::class)->find($teamId);
@@ -67,7 +67,7 @@ class TeamController extends AbstractController
                     ->setMaster($this->getUser());
             $entityManager->persist($team);
             $entityManager->flush();
-            $this->addFlash("success", "l'equipe ".$oldName." a été renommé en ".$newName);
+            $this->addFlash("success", "L'équipe ".$oldName." a été renommée en ".$newName.".");
         }
         return $this->redirectToRoute("admin_team_list");
     }
@@ -119,7 +119,7 @@ class TeamController extends AbstractController
             $selectedCharacter->setTeam($team);
             $entityManager->persist($selectedCharacter);
             $entityManager->flush();
-            $this->addFlash("success", "le nouveau membre a été ajouté avec succés");
+            $this->addFlash("success", "Le nouveau membre a été ajouté avec succès.");
             return $this->redirectToRoute('admin_add_member', ['teamId' => $teamId, "slug" => $slug]);
         }
         return $this->render('master/team/listTeamMember.html.twig', [

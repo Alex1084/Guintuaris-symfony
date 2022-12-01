@@ -30,7 +30,7 @@ class SkillController extends AbstractController
 
             $entityManager->persist($skill);
             $entityManager->flush();
-            $this->addFlash("success", "la competence ".$skill->getName()." a été créé avec succés");
+            $this->addFlash("success", "La compétence ".$skill->getName()." a été créé avec succès.");
             return $this->redirectToRoute("admin_skill_list");
         }
         return $this->render('admin/skill/form.html.twig', [
@@ -63,7 +63,7 @@ class SkillController extends AbstractController
 
             $entityManager->persist($skill);
             $entityManager->flush();
-            $this->addFlash("success", "la competence ".$skill->getName()." a été mis a jour avec succés");
+            $this->addFlash("success", "La compétence ".$skill->getName()." a été mis à jour avec succès.");
             return $this->redirectToRoute("admin_skill_list");
         }
         return $this->render('admin/skill/form.html.twig', [

@@ -32,7 +32,7 @@ class ClassesController extends AbstractController
             $class->setSlug($slug);
             $entityManager->persist($class);
             $entityManager->flush();
-            $this->addFlash("success", "la classe ".$class->getName()." a été crée avec succée, les joueur peuvent peuvent désormer céer des personnage avec cette classe");
+            $this->addFlash("success", "La classe ".$class->getName()." a été créé avec sucée, les joueurs peuvent désormais créer des personnages avec cette classe.");
             return $this->redirectToRoute("admin_class_list");
         }
         return $this->render('admin/class/form.html.twig', [
@@ -67,8 +67,8 @@ class ClassesController extends AbstractController
                 $slugify = new Slugify();
                 $slug = $slugify->slugify($class->getName());
                 $class->setSlug($slug);
-                $this->addFlash("success", "la classe ".$oldName." à été renommé en ".$class->getName());
-            }
+                $this->addFlash("success", "La classe ".$oldName." a été renommé en ".$class->getName().".");
+        }
             $entityManager->persist($class);
             $entityManager->flush();
             $this->addFlash("success", "la classe a été mis a jour avec succés");

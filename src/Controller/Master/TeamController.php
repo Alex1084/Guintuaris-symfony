@@ -62,12 +62,12 @@ class TeamController extends AbstractController
         }
         if ($request->isMethod('post')) {
             if ($team->getMaster() !== $this->getUser()) {
-                $this->addFlash("error", "access denied");
+                $this->addFlash("error", "Accès refusé, vous n'avez pas accès à cette fonctionnalité.");
                 return $this->redirectToRoute("master_team_list");
             }
             $newName = $request->request->get("value");
             if (strlen($newName) <= 3) {
-                $this->addFlash("error", "nom invalie, le nom de l'quipe doit faire entre 3 et 50 caractère ");
+                $this->addFlash("error", "Le nom invalide, le nom de l'quine doit faire entre 3 et 50 caractères.");
                 return $this->redirectToRoute("master_team_list");
             }
             $slugify = new Slugify();
@@ -77,7 +77,7 @@ class TeamController extends AbstractController
                     ->setName($newName);
             $entityManager->persist($team);
             $entityManager->flush();
-            $this->addFlash("success", "l'equipe ".$oldName." a été renommé en ".$newName);
+            $this->addFlash("success", "L'équipe ".$oldName." a été renommée en ".$newName.".");
         }
         return $this->redirectToRoute("master_team_list");
     }
@@ -132,7 +132,7 @@ class TeamController extends AbstractController
         if ($memberForm->isSubmitted() && $memberForm->isValid()) {
             $selectedCharacters = $memberForm->get('character')->getData();
             if ($selectedCharacters === null) {
-                $this->addFlash("error", "aucun personnage n'est selectionner");
+                $this->addFlash("error", "Erreur, vous n'avez sélectionné aucun personnage.");
                 return $this->redirectToRoute('master_add_member', ['teamId' => $teamId, "slug" => $slug]);
             }
             foreach ($selectedCharacters as $character) {
@@ -140,7 +140,7 @@ class TeamController extends AbstractController
                 $entityManager->persist($character);
             }
             $entityManager->flush();
-            $this->addFlash("success", "le nouveau membre a été ajouté avec succés");
+            $this->addFlash("success", "Le nouveau membre a été ajouté avec succès.");
             return $this->redirectToRoute('master_add_member', ['teamId' => $teamId, "slug" => $slug]);
         }
         return $this->render('master/team/listTeamMember.html.twig', [
@@ -178,7 +178,7 @@ class TeamController extends AbstractController
                     ->setMaster($this->getUser());
             $entityManager->persist($newTeam);
             $entityManager->flush();
-            $this->addFlash("success", "l'equipe ".$newTeam->getName()." a été créé avec succés");
+            $this->addFlash("success", "L'équipe ".$newTeam->getName()." a été créée avec succès.");
         }
         return $form;
     }

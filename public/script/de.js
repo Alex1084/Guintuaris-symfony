@@ -39,7 +39,7 @@ de.addEventListener('click', () => {
     }
     else {
         symbol = ">";
-        succes = "<p>echec !</p>";
+        succes = "<p>échec !</p>";
         backgroundColor = "rgba"
     }
     str = "<p> " + lance + symbol + valMalus + "</p>" + succes

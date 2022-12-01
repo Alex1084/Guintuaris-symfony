@@ -28,7 +28,7 @@ class WeaponController extends AbstractController
 
            $entityManager->persist($weapon);
            $entityManager->flush();
-           $this->addFlash("success", "l'arme ".$weapon->getName()." a été crée, les personnage peuvent désormais l'equipé");
+           $this->addFlash("success", "L'arme ".$weapon->getName()." a été créée, les personnages peuvent désormais l'équipé.");
            return $this->redirectToRoute("admin_weapon_list");
        }
        return $this->render('admin/weapon/form.html.twig', [
@@ -61,7 +61,7 @@ class WeaponController extends AbstractController
 
            $entityManager->persist($weapon);
            $entityManager->flush();
-           $this->addFlash("success", "l'arme ".$weapon->getName()." a été mis a jour");
+           $this->addFlash("success", "L'arme ".$weapon->getName()." a été mise à jour.");
            return $this->redirectToRoute("admin_weapon_list");
        }
        return $this->render('admin/weapon/form.html.twig', [

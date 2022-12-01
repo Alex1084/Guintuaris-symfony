@@ -8,24 +8,24 @@ if (board !== null) {
     console.log(boardId);       
     switch (boardId) {
         case "skill":
-            titleAlert = "Etes vous sûr de vouloir supprimer cette competence ?";
-            message = "<p>si vous comfirmez cette competence sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            titleAlert = "Êtes-vous sûr de vouloir supprimer cette compétence ?";
+            message = "<p>Si vous confirmez, cette compétence sera définitivement supprimée, aucune restauration ne sera possible.</p>";
             break;
         case "bestiary" : 
-            titleAlert = "Etes vous sûr de vouloir supprimer cet element du bestiaire ?";
-            message = "<p>si vous comfirmez cette element du bestiaire sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            titleAlert = "Êtes-vous sûr de vouloir supprimer cet élément du bestiaire ?";
+            message = "<p>Si vous confirmez, cet élément du bestiaire sera définitivement supprimé, aucune restauration ne sera possible.</p>";
             break;
         case "weapon" :
-            titleAlert = "Etes vous sûr de vouloir supprimer cette arme ?";
-            message = "<p>si vous comfirmez cette arme sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            titleAlert = "Êtes-vous sûr de vouloir supprimer cette arme ?";
+            message = "<p>Si vous confirmez, cette arme sera définitivement supprimée, aucune restauration ne sera possible.</p>";
             break;
         case "team" :
-            titleAlert = "Etes vous sûr de vouloir supprimer cette equipe ?";
-            message = "<p>si vous comfirmez cette equipe sera definitivement supprimmé, aucunne restauration ne sera possible.</p> <p>les personnages ne seront pas supprimer mais les joueur n'oront plus accées au fiche de leurs equipié";
+            titleAlert = "Êtes-vous sûr de vouloir supprimer cette équipe ?";
+            message = "<p>Si vous confirmez, cette équipe sera définitivement supprimée, aucune restauration ne sera possible.</p><p>Les personnages ne seront pas supprimés, mais les joueurs n'auront plus accès aux fiches de leurs équipiers.</p>";
             break;
         default:
-            titleAlert = "Etes vous sûr de vouloir supprimer cette donnèe ?";
-            message = "<p>si vous comfirmez cette donnée sera definitivement supprimmé, aucunne restauration ne sera possible.</p>";
+            titleAlert = "Êtes-vous sûr de vouloir supprimer cette donnée ?";
+            message = "<p>Si vous confirmez, cette donnée sera définitivement supprimée, aucune restauration ne sera possible.</p>";
             break;
     }
 }

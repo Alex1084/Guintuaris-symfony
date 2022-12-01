@@ -32,7 +32,7 @@ class RaceController extends AbstractController
             $race->setSlug($slug);
             $entityManager->persist($race);
             $entityManager->flush();
-            $this->addFlash("success", "la classe ".$race->getName()." a été crée avec succée, les joueur peuvent peuvent désormer céer des personnage avec cette race");
+            $this->addFlash("success", "La race ".$race->getName()." a été crée avec sucée, les joueurs peuvent désormais créer des personnage avec cette race.");
             return $this->redirectToRoute("admin_race_list");
         }
         return $this->render('admin/race/form.html.twig', [
@@ -66,7 +66,7 @@ class RaceController extends AbstractController
                 $slugify = new Slugify();
                 $slug = $slugify->slugify($race->getName());
                 $race->setSlug($slug);
-                $this->addFlash("success", "la race ".$oldName." à été renommé en ".$race->getName());
+                $this->addFlash("success", "La race ".$oldName." a été renommé en ".$race->getName().".");
             }
             $entityManager->persist($race);
             $entityManager->flush();

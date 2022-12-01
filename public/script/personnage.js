@@ -48,7 +48,7 @@ function ajax() {
     .catch(error => {
         Swal.fire({
             position: 'top-end',
-            title: "Une erreur c'est produite veuillez réessayer plus tard",
+            title: "Une erreur s'est produite veuillez réessayer plus tard.",
             showConfirmButton: false,
             timer: 1500,
             background : 'url(../../img/toast.png)',

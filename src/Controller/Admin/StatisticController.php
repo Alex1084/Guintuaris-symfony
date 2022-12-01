@@ -25,7 +25,7 @@ class StatisticController extends AbstractController
             $entityManager->persist($newStatistic);
             $entityManager->flush();
 
-            $this->addFlash("success", "la ressource a été ajouté avec succés");
+            $this->addFlash("success", "La ressource a été ajoutée avec succès.");
             return $this->redirectToRoute("admin_statistic_list");
         }
         return $this->render('admin/statistic/form.html.twig', [
@@ -57,7 +57,7 @@ class StatisticController extends AbstractController
         if ($statisticForm->isSubmitted() && $statisticForm->isValid()) {
             $entityManager->persist($statistic);
             $entityManager->flush();
-            $this->addFlash("success", "la ressource a été modifié avec succés");
+            $this->addFlash("success", "La ressource a été modifiée avec succès.");
             return $this->redirectToRoute("admin_statistic_list");
         }
         return $this->render('admin/statistic/form.html.twig', [
