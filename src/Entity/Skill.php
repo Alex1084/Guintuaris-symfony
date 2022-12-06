@@ -15,26 +15,51 @@ class Skill
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
-    #[Assert\Length(min:5,max:100, )]
+    #[Assert\Length(
+        min:5,
+        max:100,
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
     private $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:1,max:10,)]
+    #[Assert\Range(
+        min:1,
+        max:10, 
+        invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
+        notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
+    )]
     private $level;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Assert\Range(min:1,max:25,)]
+    #[Assert\Range(
+        min:1,
+        max:25,
+        invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
+        notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
+    )]
     private $cost;
 
     #[ORM\Column(type: 'float', nullable: true)]
-    #[Assert\Range(min:1,max:10,)]
+    #[Assert\Range(
+        min:1,
+        max:10,
+        invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
+        notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
+    )]
     private $distance;
 
     
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/^[1-9]?[0-9]D(100|[0-9]?[0-9])$/',
+        match: true,
+        message: "Vous devez indiquer un nombre de dés suivis d'un d en majuscule et le dé à lancée. (1D8, 2D6 ...)"
+    )]
     private $damage;
 
     #[ORM\ManyToOne(targetEntity: Classes::class)]
@@ -42,11 +67,21 @@ class Skill
     private $class;
 
     #[ORM\Column(type: 'float', length: 10, nullable: true)]
-    #[Assert\Range(min:1,max:100,)]
+    #[Assert\Range(
+        min:1,
+        max:100,
+        invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
+        notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
+    )]
     private $radius;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Assert\Length(min:5,max:10, )]
+    #[Assert\Length(
+        min:5,
+        max:10, 
+        invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
+        notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
+    )]
     private $duration;
 
     #[ORM\ManyToOne(targetEntity: Resource::class)]

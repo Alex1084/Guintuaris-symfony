@@ -26,8 +26,8 @@ class WeaponCharacter
     #[Assert\Length(
         min:5,
         max:50,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 5 caractère minimum"
+        maxMessage: "L'effet doit faire {{ limit }} caractères maximum.",
+        minMessage: "L'effet doit faire {{ limit }} caractères minimum."
     )]
     #[Assert\IsNull()]
     private $effect;

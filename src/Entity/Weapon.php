@@ -15,16 +15,23 @@ class Weapon
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Assert\Length( min:2,
-    max:50,
-    maxMessage: "le nom doit faire 50 caractère maximum",
-    minMessage: "le nom doit faire 2 caractère minimum")]
+    #[Assert\Length( 
+        min:2,
+        max:50,
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
     private $name;
 
     #[ORM\Column(type: 'integer')]
     private $damage;
 
     #[ORM\Column(type: 'string', length: 10)]
+    #[Assert\Regex(
+        pattern: '/^[1-9]?[0-9]D(100|[0-9]?[0-9])$/',
+        match: true,
+        message: "Vous devez indiquer un nombre de dés suivis d'un d en majuscule et le dé à lancée. (1D8, 2D6 ...)"
+    )]
     private $dice;
 
     public function getId(): ?int { return $this->id; }

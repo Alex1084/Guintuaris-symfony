@@ -23,7 +23,12 @@ class ArmorPieceCharacter
     private $piece;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    #[Assert\Length(min:5,max:50, )]
+    #[Assert\Length(
+        min:5,
+        max:50,  
+        maxMessage: "L'effet doit faire {{ limit }} caractères maximum.",
+        minMessage: "L'effet doit faire {{ limit }} caractères minimum."
+    )]
     private $effect;
 
     public function getId(): ?int

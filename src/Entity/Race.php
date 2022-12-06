@@ -21,8 +21,8 @@ class Race
     #[Assert\Length(
         min:3,
         max:30,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 3 caractère minimum"
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
     #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
     private $name;
@@ -43,18 +43,23 @@ class Race
     private $physicalAbility;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\Positive(message:"La taille minimum doit être un nombre supérieur à zéro.")]
     private $minHeight;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\Positive(message:"La taille maximum doit être un nombre supérieur à zéro.")]
     private $maxHeight;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\Positive(message:"Le poids moyens doit être un nombre supérieur à zéro.")]
     private $averageWheight;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\Positive(message:"l'age adulte doit être un nombre supérieur à zéro.")]
     private $adulthood;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\Positive(message:"La durèe de vie doit être un nombre supérieur à zéro.")]
     private $lifetime;
 
     public function getId(): ?int { return $this->id; }

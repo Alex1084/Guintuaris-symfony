@@ -18,10 +18,10 @@ class ArmorType
     #[Assert\Length(
         min:5,
         max:50,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 5 caractère minimum"
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
-    #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 5 et 50 caractere")]
+    #[Assert\NotBlank(message: "Vous devez obligatoirement mettre un nom, celui-ci doit faire entre 3 et 50 caractères.")]
     private $name;
 
     public function getId(): ?int {return $this->id; }

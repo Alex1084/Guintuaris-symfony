@@ -17,11 +17,6 @@ class Character extends Sheet
 
     #[ORM\ManyToOne(targetEntity: Classes::class)]
     #[ORM\JoinColumn(nullable: false)]
-/*     #[Assert\Choice(
-        callback: [Classes::class, "getName"], //Classes::class,
-        message: "erreur, la valeur selectionné n'est pas valide"
-    )] */
-    // #[Assert\Callback([Classes::class, "getName"])]
     private $class;
 
     #[ORM\ManyToOne(targetEntity: Race::class)]
@@ -39,7 +34,6 @@ class Character extends Sheet
     private $inventory;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    #[Assert\Range(min:0,max:999999999,)]
     private $gold;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

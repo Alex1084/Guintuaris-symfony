@@ -16,7 +16,12 @@ class Team
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Assert\Length(min:5,max:50, )]
+    #[Assert\Length(
+        min:5,
+        max:50, 
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]

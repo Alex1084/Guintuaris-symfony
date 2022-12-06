@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ResourceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ResourceRepository::class)]
 class Resource
@@ -14,9 +15,21 @@ class Resource
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(
+        min:3,
+        max:50, 
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
     private $label;
 
     #[ORM\Column(type: 'string', length: 2)]
+    #[Assert\Length(
+        min:1,
+        max:5, 
+        maxMessage: "Le diminutif doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le diminutif doit faire {{ limit }} caractères minimum."
+    )]
     private $symbol;
 
     #[ORM\Column(type: 'text')]

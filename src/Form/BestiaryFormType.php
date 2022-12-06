@@ -30,6 +30,7 @@ class BestiaryFormType extends AbstractType
             },
             "choice_label" => "name"
         ])
+        // todo del min
         ->add('pvMax', IntegerType::class, [
             "attr" => [
                 "min" => 10,

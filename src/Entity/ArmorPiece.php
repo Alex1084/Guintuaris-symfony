@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArmorPieceRepository::class)]
-#[UniqueEntity(fields:["location", "type"], message: "erreur: cette combinaison d'amure existe déjà")]
+#[UniqueEntity(fields:["location", "type"], message: "Erreur, cette combinaison d'armure existe déjà.")]
 #[ORM\UniqueConstraint(name : "location_type", columns: ["location_id", "type_id"] )]
 class ArmorPiece
 {
@@ -26,7 +26,11 @@ class ArmorPiece
     private $type;
 
     #[ORM\Column(type: 'integer')]
-    #[Assert\Range(min:0,max:10, notInRangeMessage: "la valeur doit etre entre 1 10")]
+    #[Assert\Range(
+        min:0,
+        max:10, 
+        notInRangeMessage: "La valeur incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
+    )]
     private $value;
 
     public function getId(): ?int { return $this->id; }

@@ -19,10 +19,10 @@ class ArmorLocation
     #[Assert\Length(
         min:3,
         max:50,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 3 caractère minimum"
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
-    #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 5 et 50 caractere")]
+    #[Assert\NotBlank(message: "Vous devez obligatoirement mettre un nom, celui-ci doit faire entre 3 et 50 caractères.")]
     private $name;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]

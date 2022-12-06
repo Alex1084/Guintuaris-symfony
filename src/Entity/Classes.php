@@ -8,8 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClassesRepository::class)]
-#[UniqueEntity(fields:["name"], message: "erreur: cette combinaison d'amure existe déjà")]
-#[UniqueEntity(fields:["slug"], message: "erreur: cette combinaison d'amure existe déjà")]
+#[UniqueEntity(fields:["name"], message: "Erreur: ce nom de classe existe déjà.")]
+#[UniqueEntity(fields:["slug"], message: "Erreur: le nom normaliser existe déjà.")]
 class Classes
 {
     #[ORM\Id]
@@ -21,18 +21,23 @@ class Classes
     #[Assert\Length(
         min:3,
         max:30, 
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 3 caractère minimum"
+        maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
-    #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
+    #[Assert\NotBlank(message: "Vous devez obligatoirement mettre un nom, celui-ci doit faire entre 3 et 50 caractères.")]
     private $name;
-
+    // TODO add message for Assert & update noBlank message
     #[ORM\Column(type: 'string', length: 30)]
     #[Assert\Length(
         min:5,
         max:30,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 3 caractère minimum"
+        // maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        // minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[1-9]?[0-9]D(100|[0-9]?[0-9]) [+] /",
+        match : true,
+        message: "Vous devez indiquer un nombre de dé suivie d'un d en majuscule et le dé à lancée (1D8, 2D6 ...)"
     )]
     #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
     private $dicePv;
@@ -41,8 +46,13 @@ class Classes
     #[Assert\Length(
         min:5,
         max:30,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 3 caractère minimum"
+        // maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        // minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[1-9]?[0-9]D(100|[0-9]?[0-9]) [+] /",
+        match : true,
+        message: "Vous devez indiquer un nombre de dé suivie d'un d en majuscule et le dé à lancée (1D8, 2D6 ...)"
     )]
     #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
     private $dicePm;
@@ -51,8 +61,13 @@ class Classes
     #[Assert\Length(
         min:5,
         max:30,
-        maxMessage: "le nom doit faire 50 caractère maximum",
-        minMessage: "le nom doit faire 3 caractère minimum"
+        // maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
+        // minMessage: "Le nom doit faire {{ limit }} caractères minimum."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[1-9]?[0-9]D(100|[0-9]?[0-9]) [+] /",
+        match : true,
+        message: "Vous devez indiquer un nombre de dé suivie d'un d en majuscule et le dé à lancée (1D8, 2D6 ...)"
     )]
     #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
     private $dicePc;
