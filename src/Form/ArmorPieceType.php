@@ -9,6 +9,7 @@ use App\Repository\ArmorLocationRepository;
 use App\Repository\ArmorTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,7 +36,9 @@ class ArmorPieceType extends AbstractType
             'choice_label' => 'name',
             "label" => "Type",
         ])
-        ->add('value')
+        ->add('value', IntegerType::class, [
+            "label" => 'Valeur'
+        ])
         ;
     }
 

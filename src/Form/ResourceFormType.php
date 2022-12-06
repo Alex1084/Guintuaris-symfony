@@ -16,7 +16,7 @@ class ResourceFormType extends AbstractType
         $builder
             ->add('label', TextType::class, [
                 "attr" => ["class" => "input-form"],
-                'label' => "libellé",
+                'label' => "Libellé",
             ])
             ->add('symbol', TextType::class, [
                 "attr" => ["class" => "input-form"],

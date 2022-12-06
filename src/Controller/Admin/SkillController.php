@@ -80,6 +80,6 @@ class SkillController extends AbstractController
         $skill = $doctrine->getRepository(Skill::class)->find($skillId);
             $entityManager->remove($skill);
             $entityManager->flush();
-            return $this->json("delete Succes");
+            return $this->json("Supprimé avec succès");
     }
 }

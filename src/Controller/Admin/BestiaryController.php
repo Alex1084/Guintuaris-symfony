@@ -88,7 +88,7 @@ class BestiaryController extends AbstractController
         $bestiary = $doctrine->getRepository(Bestiary::class)->find($bestiaryId);
             $entityManager->remove($bestiary);
             $entityManager->flush();
-            return $this->json("delete Succes");
+            return $this->json("Supprimé avec succès");
     }
 
     /**

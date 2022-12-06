@@ -48,7 +48,7 @@ abstract class Sheet
 
     #[ORM\Column(type: 'integer')]
     #[Assert\Range(
-        min:0,
+        min:1,
         max:500,
         invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 

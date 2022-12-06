@@ -29,8 +29,8 @@ class SkillExtension extends AbstractExtension
     {
         $details = "";
         if ($skill["distance"] !== null) {
-            if ($skill["distance"] >= 0) {
-                $distance = $skill["distance"] ." mètre";
+            if ($skill["distance"] > 0) {
+                $distance = $skill["distance"] ." mètres";
             }
             else {
                 $distance = "contact";
@@ -42,7 +42,7 @@ class SkillExtension extends AbstractExtension
             $details .= "Dégats : {$skill["damage"]} \n";
         }
         if ($skill["radius"] !== null) {
-            $details .= "Rayon : {$skill["radius"]} mètre \n";
+            $details .= "Rayon : {$skill["radius"]} mètres \n";
         }
         $details .= "Jet : {$skill["diceThrow"]} \n";
 

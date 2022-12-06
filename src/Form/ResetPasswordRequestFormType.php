@@ -20,7 +20,7 @@ class ResetPasswordRequestFormType extends AbstractType
                         'message' => 'Please enter your email',
                     ]),
                 ],
-                "label" => "adresse email",
+                "label" => "Adresse email",
             ])
         ;
     }

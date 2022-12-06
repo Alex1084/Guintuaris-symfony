@@ -89,9 +89,9 @@ class TeamController extends AbstractController
         if ($this->getUser()->getId() === $team->getMaster()) {
             $entityManager->remove($team);
             $entityManager->flush();
-            return $this->json("delete Succes");
+            return $this->json("Supprimé avec succès");
         }
-        return $this->json("access denied", 403);
+        return $this->json("Accès refusé, vous n'avez pas accès à cette action.", 403);
     }
 
     /**
@@ -156,12 +156,12 @@ class TeamController extends AbstractController
         $character = $doctrine->getRepository(Character::class)->find($characterId);
         $team = $doctrine->getRepository(Team::class)->find($character->getTeam());
         if (!$team || $team->getMaster() !== $this->getUser()) {
-            return $this->json("access denied", 403);
+            return $this->json("Accès refusé, vous n'avez pas accès à cette action.", 403);
         }
         $character->setTeam(null);
         $entityManager->persist($character);
         $entityManager->flush();
-        return $this->json("delete Succes");
+        return $this->json("Supprimé avec succès");
     }
 
     private function TeamForm(Team $newTeam, Request $request, EntityManagerInterface $entityManager)

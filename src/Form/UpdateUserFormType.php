@@ -21,22 +21,23 @@ class UpdateUserFormType extends AbstractType
                 'attr' => ['class' => 'log']
             ])
             ->add('name', TextType::class, [
-                'attr' => ['class' => 'log']
+                'attr' => ['class' => 'log'],
+                "label" => "Nom"
             ])
             ->add('password', PasswordType::class, [
                 'attr' => ["class" => "log"],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Veuillez entré un mot de passe',
+                            'message' => 'Veuillez entrer un mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Votre mot de passe doit faire en minimum {{ limit }} caractère s',
+                            'minMessage' => 'Votre mot de passe doit faire en minimum {{ limit }} caractères',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'mot de passe',
+                    'label' => 'Mot de passe',
                     'mapped' => false //besion du mapped = false sinon ecrase la valeur password du user
             ] )
         ;

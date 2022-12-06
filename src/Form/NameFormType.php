@@ -2,6 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\ArmorLocation;
+use App\Entity\ArmorType;
+use App\Entity\BestiaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,8 +28,8 @@ class NameFormType extends AbstractType
                 new Length([
                     "min" => 3,
                     "max" => 50,
-                    "maxMessage" =>  "le nom doit faire 50 caractère maximum",
-                    "minMessage" =>  "le nom doit faire 5 caractère minimum"
+                    "maxMessage" => "Le nom doit faire {{ limit }} caractères maximum.",
+                    "minMessage" => "Le nom doit faire {{ limit }} caractères minimum."
                 ]),
                 new NotBlank( [
                     "message" => "erreur : ce champ ne peut pas etre vide, celui-ci doit faire entre 5 et 50 caractere"

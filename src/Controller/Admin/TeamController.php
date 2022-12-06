@@ -78,7 +78,7 @@ class TeamController extends AbstractController
         $team = $doctrine->getRepository(Team::class)->find($id);
             $entityManager->remove($team);
             $entityManager->flush();
-            return $this->json("delete Succes");
+            return $this->json("Supprimé avec succès");
     }
 
     /**
@@ -137,9 +137,9 @@ class TeamController extends AbstractController
             $character->setTeam(null);
             $entityManager->persist($character);
             $entityManager->flush();
-            return $this->json("delete Succes");
+            return $this->json("Supprimé avec succès");
         // } else {
-            return $this->json("access denied", 403);
+            return $this->json("Accès refusé, vous n'avez pas accès à cette action.", 403);
         // }
     }
 }

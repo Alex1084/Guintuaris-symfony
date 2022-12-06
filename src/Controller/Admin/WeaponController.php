@@ -78,6 +78,6 @@ class WeaponController extends AbstractController
        $weapon = $doctrine->getRepository(Weapon::class)->find($weaponId);
            $entityManager->remove($weapon);
            $entityManager->flush();
-           return $this->json("delete Succes");
+           return $this->json("Supprimé avec succès");
    }
 }

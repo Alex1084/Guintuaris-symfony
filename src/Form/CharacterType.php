@@ -21,6 +21,7 @@ class CharacterType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
+            "label" => "Nom"
         ])
         ->add('pvMax', IntegerType::class, [
             "attr" => [
@@ -106,7 +107,7 @@ class CharacterType extends AbstractType
                     ->orderBy('c.name', 'ASC');
             },
             'choice_label' => 'name',
-            'invalid_message' => "erreur, la valeur selectionné n'est pas valide",
+            'invalid_message' => "Erreur, la valeur sélectionnée n'est pas valides.",
             "label" => "Classe",
         ])
         ->add('race', EntityType::class, [
@@ -116,6 +117,7 @@ class CharacterType extends AbstractType
                     ->orderBy('r.name', 'ASC');
             },
             'choice_label' => 'name',
+            'invalid_message' => "Erreur, la valeur sélectionnée n'est pas valides.",
             "label" => "Race",
         ]);
     }

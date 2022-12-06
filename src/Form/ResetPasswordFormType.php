@@ -21,11 +21,11 @@ class ResetPasswordFormType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password', "class" => "log"],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Veuillez entré un mot de passe',
+                            'message' => 'Veuillez entrer un mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Votre mot de passe doit faire en minimum {{ limit }} caractère s',
+                            'minMessage' => 'Votre mot de passe doit faire en minimum {{ limit }} caractères',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
@@ -36,7 +36,7 @@ class ResetPasswordFormType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password', "class" => "log"],
                     'label' => 'Confirmez le nouveau mot de passe',
                 ],
-                'invalid_message' => 'Les mot de passe doivent correspondre',
+                'invalid_message' => 'Les mots de passe doivent correspondre',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
