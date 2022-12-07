@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %} Race | {{parent()}}{% endblock %}
+{% block title %} Races | {{parent()}}{% endblock %}
 
 {% block body %}
 	<h1 class="title">Races</h1>
@@ -9,12 +9,12 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-		<button class="default-sort">tri par defaut</button>
+		<button class="default-sort">Tri par defaut</button>
 		<table class="tableau">
 			<thead>
 				<tr>
 					<th class="sortable number">Id</th>
-					<th class="sortable text">Name</th>
+					<th class="sortable text">Nom</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -39,9 +39,9 @@
 		</div>
 		<div class="navside navside-hidden">
 			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a title="Créer un nouvelle race" class="link" href="{{ path("admin_add_race")}}">Creer une Race</a>
-			<a title="Liste des classes" class="link" href="{{ path('admin_class_list')}}">classes</a>
-			<a title="Liste des compétences" class="link" href="{{ path('admin_skill_list')}}">compétences</a>
+			<a title="Créer un nouvelle race" class="link" href="{{ path("admin_add_race")}}">Creer une race</a>
+			<a title="Liste des classes" class="link" href="{{ path('admin_class_list')}}">Classes</a>
+			<a title="Liste des compétences" class="link" href="{{ path('admin_skill_list')}}">Compétences</a>
 
 		</div>
 	</div>

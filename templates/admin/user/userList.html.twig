@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste utilisateur | {{parent()}}{% endblock %}
+{% block title %}Liste utilisateurs | {{parent()}}{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1 class="title">Liste utilisateur</h1>
+        <h1 class="title">Liste utilisateurs</h1>
         {% for message in app.flashes('success') %}
             <div class="flash success">
                 {{ message }}
             </div>
         {% endfor %}
-        <button class="default-sort">tri par defaut</button>
+        <button class="default-sort">Tri par defaut</button>
         <table class="tableau">
             <thead>
                 <tr>

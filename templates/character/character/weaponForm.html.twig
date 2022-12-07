@@ -3,7 +3,6 @@
 {% block title %}Mon équipement | {{parent()}}{% endblock %}
 
 {% block body %}
-	{% if app.user.id == character.user.id %}
 		<div class="container">
 			{{ form_start(weaponForm)}}
 
@@ -53,5 +52,4 @@
 			<button class="valid-form">Modifier !</button>
 			{{ form_end(weaponForm)}}
 		</div>
-	{% endif %}
 {% endblock %}

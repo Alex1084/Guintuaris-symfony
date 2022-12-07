@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block title %}Type au Bestiaire |{{parent()}}{% endblock %}
+{% block title %}Types au Bestiaire |{{parent()}}{% endblock %}
 
 {% block body %}
-	<h1 class="title">Type de Bête</h1>
+	<h1 class="title">Types de Bête</h1>
 	<div class="div-form-hidden">
-		<a id="show-form">Ajouter un Menbre</a>
+		<a id="show-form">Ajouter un type</a>
 		{{form_start(form, { "attr" : { "class" : "hidden"}}) }}
 			<h3 class="title-form"> {{ form_label(form.name) }} </h3>
 			<div class="div-form">
@@ -27,12 +27,12 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-		<button class="default-sort">tri par defaut</button>
+		<button class="default-sort">Tri par defaut</button>
 		<table class="tableau">
 			<thead>
 				<tr>
 					<th class="sortable number">Id</th>
-					<th class="sortable text">Name</th>
+					<th class="sortable text">Nom</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -58,7 +58,7 @@
 		<div class="navside navside-hidden">
 			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
 			<a title="Créer une creature" class="link" href="{{ path("admin_add_bestiary")}}">Creer une creature</a>
-			<a title="Liste de creature du bestiaire" class="link" href="{{ path('admin_bestiary_list')}}">List de creature du bestiaire</a>
+			<a title="Liste de creature du bestiaire" class="link" href="{{ path('admin_bestiary_list')}}">Liste de creatures du bestiaire</a>
 		</div>
 	</div>
 {% endblock %}

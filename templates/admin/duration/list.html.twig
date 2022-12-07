@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title %} Ressource | {{parent()}}{% endblock %}
+{% block title %} Ressources | {{parent()}}{% endblock %}
 
 {% block body %}
-	<h1 class="title">Ressource</h1>
+	<h1 class="title">Ressources</h1>
 	<div class="container">
 		{% for message in app.flashes('success') %}
 			<div class="flash success">
 				{{ message }}
 			</div>
 		{% endfor %}
-		<button class="default-sort">tri par defaut</button>
+		<button class="default-sort">Tri par defaut</button>
 		<table class="tableau">
 			<thead>
 				<tr>
@@ -41,7 +41,7 @@
 		</div>
 		<div class="navside navside-hidden">
 			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a title="Créer un nouveau type de durée" class="link" href="{{ path("admin_add_duration")}}">Creer un type de durèe</a>
+			<a title="Créer un nouveau type de durée" class="link" href="{{ path("admin_add_duration")}}">Creer un type de durée</a>
 
 		</div>
 	</div>

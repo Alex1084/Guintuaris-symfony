@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		{# <a href="{{path("admin_team_rename", {"teamId" : team.id})}}">Rennomer l'equipe</a> #}
-		<button class="default-sort">tri par defaut</button>
+		<button class="default-sort">Tri par defaut</button>
 		<table class="tableau">
             <thead>
                 <tr>
@@ -36,7 +36,7 @@
 				{% endif %}
                     <th>Image</th>
                     <th class="sortable text">Nom</th>
-                    <th class="sortable number">Level</th>
+                    <th class="sortable number">Niveau</th>
 					<th></th>
                 </tr>
             </thead>
@@ -54,7 +54,7 @@
                         </td>
                         <td> {{character.level}} </td>
 						<td>
-							<a title="Enlever {{character.name}} de l'équipe" class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : character.id}) }}">Supprimmer</a>						
+							<a title="Enlever {{character.name}} de l'équipe" class="ajax-delete-link" href="{{ path("admin_delete_team_member", {"characterId" : character.id}) }}">Supprimer</a>						
 						</td>
                     </tr>
                 {% endfor %}

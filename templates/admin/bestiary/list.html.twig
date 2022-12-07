@@ -14,12 +14,12 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-		<button class="default-sort">tri par defaut</button>
+		<button class="default-sort">Tri par defaut</button>
 		<table class="tableau" id="bestiary">
 			<thead>
 				<tr>
 					<th class="sortable number">Id</th>
-					<th class="sortable text">Name</th>
+					<th class="sortable text">Nom</th>
 					<th class="sortable number">Niveau</th>
 					<th class="sortable text">Type</th>
 					<th></th>
@@ -51,7 +51,7 @@
 		<div class="navside navside-hidden">
 			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
 			<a title="Créer une creature" class="link" href="{{ path("admin_add_bestiary")}}">Creer une creature</a>
-			<a title="Liste des types de creature" class="link" href="{{ path('admin_bestiary_type_list')}}">List des type de creature</a>
+			<a title="Liste des types de creature" class="link" href="{{ path('admin_bestiary_type_list')}}">List des types de creature</a>
 		</div>
 	</div>
 {% endblock %}

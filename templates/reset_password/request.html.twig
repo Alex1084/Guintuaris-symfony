@@ -20,14 +20,14 @@
                 {{ form_widget(requestForm.email) }}
                 <div>
                     <small>
-                        Entrez votre adresse email et un mail vous sera envoyer contenant un lien pour réinitialiser votre mot de passe
+                        Entrez votre adresse email et un mail vous sera envoyer contenant un lien pour réinitialiser votre mot de passe.
                     </small>
                 </div>
                 <div class="div-error">
                     {{ form_errors(requestForm.email) }}
                 </div>
             </div>
-            <button class="valid-form">Send password reset email</button>
+            <button class="valid-form">Envoyer !</button>
         {{ form_end(requestForm) }}
     {% endif %}
 {% endblock %}

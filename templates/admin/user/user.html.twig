@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste utilisateur | {{parent()}}{% endblock %}
+{# todo update title #}
+{% block title %}Liste utilisateurs | {{parent()}}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -42,7 +43,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="valid-form">Modifier ce compte !</button>
+				<button type="submit" class="valid-form">Modifier ce compte</button>
 			{{ form_end(userForm) }}
 
 			{{ form_start(passwordForm) }}

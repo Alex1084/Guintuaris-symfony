@@ -1,6 +1,6 @@
 {% extends 'character/character/list.html.twig' %}
 
-{% block title %}Mes personnage & Mes equipe | Guintuaris{% endblock %}
+{% block title %}Mes personnages & Mes équipes | Guintuaris{% endblock %}
 
 {% block link %}
     {{parent()}}
@@ -8,7 +8,7 @@
     <a title="Liste des équipes" class="link" href="{{path("master_team_list")}}">Voir les equipes</a>
 {% endblock %}
 {% block body %}
-    <h1 class="title">Liste des personnage et des equipe</h1>
+    <h1 class="title">Liste des personnages et des équipes</h1>
     {{parent()}}
     <div class="container">
         <h2 class="sub-title-center">Equipes</h2>
@@ -20,11 +20,11 @@
                 </div>
                 <button class="valid-form">Créer !</button>
             {{form_end(addTeamForm) }}
-            <a id="show-form">Crée une nouvelle équipe</a>
+            <a id="show-form">Créer une nouvelle équipe</a>
         </div>
         <table class="tableau">
             <thead>
-                <th>Name</th>
+                <th>Nom</th>
                 <th></th>
                 <th></th>
             </thead>
@@ -33,7 +33,7 @@
                     <tr>
                         <td class="data-name">  <a title="Détails de {{team.name}}" href="{{ path("master_add_member", {'slug' : team.slug, "teamId" : team.id}) }}">{{ team.name }}</a> </td>
                         <td>
-                            <a href="{{ path("master_team_rename", {'teamId' : team.id}) }}" class="update-link">Renomer</a>
+                            <a href="{{ path("master_team_rename", {'teamId' : team.id}) }}" class="update-link">Renommer</a>
                         </td>
                         <td>
                             <a title="Supprimer {{team.name}}" class="ajax-delete-link" href="{{ path("master_delete_team",  { "id": team.id}) }}">Supprimer</a>

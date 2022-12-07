@@ -3,7 +3,7 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="title">Localisation d'amure</h1>
+		<h1 class="title">Localisations d'amure</h1>
 		{% for message in app.flashes('success') %}
 			<div class="flash success">
 				{{ message }}
@@ -27,12 +27,12 @@
 				<button class="valid-form">Créer !</button>
 			{{form_end(form) }}
 		</div>
-			<button class="default-sort">tri par defaut</button>
+			<button class="default-sort">Tri par defaut</button>
 		<table class="tableau">
 			<thead>
 				<tr>
 					<th class="sortable number">Id</th>
-					<th class="sortable text">Name</th>
+					<th class="sortable text">Nom</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -56,7 +56,7 @@
 		</div>
 		<div class="navside navside-hidden">
 			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a title="Liste des armes" class="link" href="{{ path('admin_weapon_list')}}">Arme</a>
+			<a title="Liste des armes" class="link" href="{{ path('admin_weapon_list')}}">Armes</a>
 			<a title="Liste des types d'armure" class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un Type aux armures</a>
 			<a title="Liste des pieces d'armure" class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
 		</div>

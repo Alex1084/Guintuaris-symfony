@@ -5,9 +5,9 @@
 {% block body %}
 	<div class="container">
 		<ul>
-			<li><a title="Supprimer mon personnnage" class="link" href="{{ path("character_delete", {'id' : character.id})}}">supprimer mon personnage</a></li>
-			<li><a title="Supprimer l'image de {{character.name}}" class="link" href="{{ path("character_delete_image", {"slug" : character.slug, 'id' : character.id})}}">supprimmer mon image</a></li>
-			<li><a title="Modifier les information de base" class="link" href="{{ path("character_update", {"slug" : character.slug, 'id' : character.id})}}">modifier mon personnage</a></li>
+			<li><a title="Supprimer mon personnnage" class="link" href="{{ path("character_delete", {'id' : character.id})}}">Supprimer mon personnage</a></li>
+			<li><a title="Supprimer l'image de {{character.name}}" class="link" href="{{ path("character_delete_image", {"slug" : character.slug, 'id' : character.id})}}">Supprimmer mon image</a></li>
+			<li><a title="Modifier les information de base" class="link" href="{{ path("character_update", {"slug" : character.slug, 'id' : character.id})}}">Modifier mon personnage</a></li>
 		</ul>
 	</div>
 {% endblock %}

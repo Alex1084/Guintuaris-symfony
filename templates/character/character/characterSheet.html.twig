@@ -32,12 +32,12 @@
 			</div>
 			<div class="div-lore">
 				<div class="dropdown">
-					<button class="dropbtn">Lore
+					<button class="dropbtn">Histoire
 						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 					<div class=" hidden dropdown-content">
 						<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
-					<a title="Modifier le lore de {{character.name}}" href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier le lore</a>
+					<a title="Modifier le lore de {{character.name}}" href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier mon histoire</a>
 				</div>
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="statistique">
-					<p class="label">Dextérite :</p>
+					<p class="label">Dextérité :</p>
 					<div class="statistique-valeur">
 						<p>{{ character.dexterity }}</p>
 					</div>
@@ -85,6 +85,7 @@
 			</div>
 			<div class="div-statut">
 				<div>
+				{# todo deplacer le lien #}
 					<a title="Metre a jour les statistique de {{character.name}}" href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Level up !</a>
 				</div>
 				<div class="statut">

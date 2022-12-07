@@ -55,7 +55,7 @@
 
 					{% if app.user and is_granted("ROLE_USER") %}
 						<div class="drop-nav" id="account">
-							<button class="nav-button">compte</button>
+							<button class="nav-button">Compte</button>
 							<div class="drop-nav-content">
 								<ul>
 									<li class="nav-item"><a title="Voir mon Compte" href="{{ path('profil') }}">Mon compte ({{ app.user.name }})</a></li>
