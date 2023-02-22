@@ -1,0 +1,49 @@
+<div class="navside-container">
+    <div class="div-show-navside show">
+        <a href="" id="show-navside">Navigation</a>
+    </div>
+    <div class="navside navside-hidden">
+    {% for link in navsideLinks %}
+        <a title="{{link.title}}" class="link" href="{{path(link.routeName, link.parameters)}} ">{{link.text}}</a>
+    {% endfor %}
+    {% if addManualLinks is defined %}
+        {% for link in addManualLinks %}
+             {{link|raw}}
+        {% endfor %}
+    {% endif %}
+    
+        {# <a title="Liste des personnages" class="link" href="{{path("character_list")}} ">Retour</a>
+        <a title="Metre a jour l'image de {{character.name}}" class="link" href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a>
+        <a title="Parametres de {{character.name}}" class="link" href="{{ path('character_setting', {"slug" : character.slug, "id" : character.id}) }}">option</a>
+        {% if character.team %}
+            <a title="Voir les equipier de l'équipe {{character.team.name}}" class="link" href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
+        {% endif %} #}
+    </div>
+</div>
+
+{#
+    to get navside template need three var :
+    navsideDisplay : boolean it need it at true too 
+    navsideLinks structure is like this :
+        navsideLinks = {
+            {
+                "title" : "", // the title in tag a
+                "routeName" : "", // the name of route
+                "text" : "", // the text between the open and the closure of tag
+                "parameters" :  {
+                    
+                } // the paramaters to link, if link don't have parameters set empty array
+            } // this is one link set one array to have one link
+            {
+                "title" : "",
+                "routeName" : "",
+                "text" : "",
+                "parameters" :  {
+                    
+                }
+            }
+        }
+    addManualLinks : add manual link is an array, it contain strings with html tag for link
+    there var must be in block navside and don't forget to call parent (parent call at end )
+    the include is called in base.html.twig under the block body
+#}

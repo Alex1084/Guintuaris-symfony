@@ -50,17 +50,17 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="navside-container">
-		<div class="div-show-navside  show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a title="Liste des armes" class="link" href="{{ path('admin_weapon_list')}}">Armes</a>
-			<a title="Liste des types d'armure" class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un Type aux armures</a>
-			<a title="Liste des pieces d'armure" class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
-		</div>
-	</div>
+{% endblock %}
+
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+		jsonLinks.returnAdmin,
+		jsonLinks.weapons,
+		jsonLinks.armorTypes,
+		jsonLinks.armorPiece
+	]%}
+	{{parent()}}
 {% endblock %}
 
 {% block script %}

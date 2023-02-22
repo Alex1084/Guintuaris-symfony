@@ -51,16 +51,16 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="navside-container">
-		<div class="div-show-navside show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a title="Créer une creature" class="link" href="{{ path("admin_add_bestiary")}}">Creer une creature</a>
-			<a title="Liste de creature du bestiaire" class="link" href="{{ path('admin_bestiary_list')}}">Liste de creatures du bestiaire</a>
-		</div>
-	</div>
+{% endblock %}
+
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+		jsonLinks.returnAdmin,
+		jsonLinks.createCreature,
+		jsonLinks.creature,
+	]%}
+	{{parent()}}
 {% endblock %}
 
 {% block script %}

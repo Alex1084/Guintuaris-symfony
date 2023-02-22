@@ -39,20 +39,19 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="navside-container">
-		<div class="div-show-navside show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-        	<a title="Créer une nouvelle arme" class="link" href="{{ path("admin_add_weapon")}}">Créer une nouvelle arme</a>
-			<a title="Liste des types d'armure" class="link" href="{{ path('admin_armor_type_list')}}">Ajouter un type aux armures</a>
-			<a title="Liste des localisation d'armure" class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
-			<a title="Liste des pieces d'armure" class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation d'armure</a>
-		</div>
-	</div>
 {% endblock %}
 
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+		jsonLinks.returnAdmin,
+		jsonLinks.createWeapon,
+		jsonLinks.armorTypes,
+		jsonLinks.armorLocation,
+		jsonLinks.armorPiece
+	]%}
+	{{parent()}}
+{% endblock %}
 
 {% block script %}
     <script src="{{asset('script/tableau.js')}}"></script>

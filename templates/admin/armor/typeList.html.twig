@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Types d'armure | {{parent()}}{% endblock %}
 
 {% block body %}
@@ -51,17 +52,18 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="navside-container">
-		<div class="div-show-navside show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-			<a title="Liste des armes" class="link" href="{{ path('admin_weapon_list')}}">Armes</a>
-			<a title="Liste des localisation d'armure" class="link" href="{{ path('admin_armor_location_list')}}">Ajouter une localisation au armure</a>
-			<a title="Liste des pieces d'armure"class="link" href="{{ path('admin_add_armor_piece')}}">Ajouter une pièce d'armure</a>
-		</div>
-	</div>
+{% endblock %}
+
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+			jsonLinks.returnAdmin,
+			jsonLinks.weapons,
+			jsonLinks.armorLocation,
+			jsonLinks.armorPiece,
+		]
+	%}
+	{{parent()}}
 {% endblock %}
 
 {% block script %}

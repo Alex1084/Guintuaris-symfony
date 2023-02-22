@@ -19,63 +19,15 @@
 		{% block style %}{% endblock %}
 	</head>
 	<body>
-		<header>
-			<div id="div-logo">
-				<img src="{{asset('img/logo.png')}}" alt="logo_guituaris">
-			</div>
-			<div class="nav-div">
-				<nav>
-					<ul class="nav-list">
-						<li class="nav-item"><a title="Accueil" class="link" href="{{ path('main_home') }}">Accueil</a></li>
-						<div class="drop-nav">
-							<li class="nav-item"><button class="nav-button">Races</button></li>
-							<div class="drop-nav-content">
-								<ul id="race-list">
-								</ul>
-							</div>
-						</div>
-						<div class="drop-nav">
-							<li class="nav-item"><button class="nav-button">Classes</button></li>
-							<div class="drop-nav-content">
-								<ul id="class-list">
-								</ul>
-							</div>
-						</div>
-						{% if app.user %}
-							{% if is_granted("ROLE_MASTER") %}
-								<li class="nav-item"><a title="Liste des pesonnages et des equipes" class="link" href="{{path('master_list_character_team')}}">Mes personnages et mes Equipes</a></li>
-								<li class="nav-item"><a title="Tableau de metre du jeu" class="link" href="{{path('board')}}">Mon Tableau de maitre du jeu</a></li>
-							{% elseif is_granted("ROLE_USER") %}
-								<li class="nav-item"><a title="Liste des personnages" class="link" href="{{path('character_list')}}">Mes personnages</a></li>
-							{% endif %}
-							{% if is_granted("ROLE_ADMIN") %}
-								<li class="nav-item"><a title="Administration" class="link" href="{{path('admin_home')}}">Administration</a></li>
-							{% endif %}
-						{% else %}
-							<li class="nav-item"><a title="Connexion" class="link" href="{{ path('app_login')}}">Connexion</a></li>
-							<li class="nav-item"><a title="Inscription" class="link" href="{{ path('app_register')}}">S'inscrire</a></li>
-
-						{% endif %}
-
-					</ul>
-
-					{% if app.user and is_granted("ROLE_USER") %}
-						<div class="drop-nav" id="account">
-							<button class="nav-button">Compte</button>
-							<div class="drop-nav-content">
-								<ul>
-									<li class="nav-item"><a title="Voir mon Compte" href="{{ path('profil') }}">Mon compte ({{ app.user.name }})</a></li>
-									<li class="nav-item"><a title="Déconnexion" href="{{ path('app_logout')}}">Déconexion</a></li>
-								</ul>
-							</div>
-						</div>
-					{% endif %}
-				</nav>
-			</div>
-		</header>
+		{% include("inc/nav.html.twig") %}
 
 		<main>
 			{% block body %}{% endblock %}
+			{% block navside %}
+				{% if navsideDisplay is defined and navsideDisplay == true %}
+					{% include("inc/navside.html.twig") %}
+				{% endif %}
+			{% endblock %}
 		</main>
 
 		<footer>

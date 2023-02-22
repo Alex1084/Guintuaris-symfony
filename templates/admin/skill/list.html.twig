@@ -42,20 +42,18 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="navside-container">
-		<div class="div-show-navside show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-			<a title="Retour a l'accueil administrateur" class="link" href="{{ path('admin_home')}}">Retour</a>
-        	<a title="Créer un nouvelle competence" class="link" href="{{ path("admin_add_skill")}}">Créer une nouvelle competence</a>
-			<a title="Liste des Races" class="link" href="{{ path('admin_race_list')}}">Races</a>
-			<a title="Liste des Classes" class="link" href="{{ path('admin_class_list')}}">Classes</a>
-
-		</div>
-	</div>
 {% endblock %}
 
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+		jsonLinks.returnAdmin,
+		jsonLinks.createSkill,
+		jsonLinks.classes,
+		jsonLinks.races,
+	]%}
+	{{parent()}}
+{% endblock %}
 
 {% block script %}
 	    <script src="{{asset('script/tableau.js')}}"></script>

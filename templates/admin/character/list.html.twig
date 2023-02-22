@@ -45,12 +45,12 @@
             </tbody>
         </table>
     </div>
-    <div class="navside-container">
-        <div class="div-show-navside show">
-			<a href="" id="show-navside">Navigation</a>
-		</div>
-		<div class="navside navside-hidden">
-            
-        </div>
-	</div>
+{% endblock %}
+
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+		jsonLinks.returnAdmin,
+	]%}
+	{{parent()}}
 {% endblock %}

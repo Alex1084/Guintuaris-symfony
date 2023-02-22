@@ -1,0 +1,128 @@
+{
+    "returnAdmin" : {
+        "title" : "Retour a l'accueil administrateur",
+        "routeName" : "admin_home",
+        "text" : "Retour",
+        "parameters" : []
+    },
+    "createWeapon" : {
+        "title" : "Liste Créer une nouvelle arme armes",
+        "routeName" : "admin_add_weapon",
+        "text" : "Créer une nouvelle arme",
+        "parameters" :  []
+    },
+    "weapons" : {
+        "title" : "Liste des armes",
+        "routeName" : "admin_weapon_list",
+        "text" : "Armes",
+        "parameters" :  []
+    },
+    "armorTypes" :{
+        "title" : "Liste des types d'armure",
+        "routeName" : "admin_armor_type_list",
+        "text" : "Ajouter un Type aux armures",
+        "parameters" :  []
+    },
+    "armorPiece" : {
+        "title" : "Liste des pieces d'armure",
+        "routeName" : "admin_add_armor_piece",
+        "text" : "Ajouter une pièce d'armure",
+        "parameters" :  []
+    },
+    "armorLocation" : {
+        "title" : "Liste des localisation d'armure",
+        "routeName" : "admin_armor_location_list",
+        "text" : "Ajouter une localisation au armure",
+        "parameters" :  []
+    },
+    "createCreature" : {
+        "title" : "Créer une creature",
+        "routeName" : "admin_add_bestiary",
+        "text" : "Creer une creature",
+        "parameters" :  []
+    },
+    "creatureType" : {
+        "title" : "Liste des types de creature",
+        "routeName" : "admin_bestiary_type_list",
+        "text" : "List des types de creature",
+        "parameters" :  []
+    },
+    "creature" : {
+        "title" : "Liste de creature du bestiaire",
+        "routeName" : "admin_bestiary_list",
+        "text" : "Liste de creatures du bestiaire",
+        "parameters" :  []
+    },
+    "createClass" : {
+        "title" : "Créer un nouvelle classe",
+        "routeName" : "admin_add_class",
+        "text" : "Creer une nouvelle classe",
+        "parameters" : []
+    },
+    "classes" : {
+        "title" : "Liste des classes",
+        "routeName" : "admin_class_list",
+        "text" : "Classes",
+        "parameters" : []
+    },
+    "createRace" : {
+        "title" : "Créer un nouvelle race",
+        "routeName" : "admin_add_race",
+        "text" : "Creer une race",
+        "parameters" : []
+    },
+    "races" : {
+        "title" : "List des races",
+        "routeName" : "admin_race_list",
+        "text" : "Races",
+        "parameters" : []
+    },
+    "createSkill" : {
+        "title" : "Créer un nouvelle competence",
+        "routeName" : "admin_add_skill",
+        "text" : "Créer une nouvelle competence",
+        "parameters" : []
+    },
+    "skills" : {
+        "title" : "List des competences",
+        "routeName" : "admin_skill_list",
+        "text" : "Compétences",
+        "parameters" : []
+    },
+    "createDuration" : {
+        "title" : "Créer un nouveau type de durée",
+        "routeName" : "admin_add_duration",
+        "text" : "Creer un type de durée",
+        "parameters" : []
+    },
+    "duration" : {
+        "title" : "Liste des type de durée",
+        "routeName" : "admin_duration_list",
+        "text" : "Durée",
+        "parameters" : []
+    },
+    "createResource" : {
+        "title" : "Créer un nouvelle ressource",
+        "routeName" : "admin_add_resource",
+        "text" : "Créer une ressource",
+        "parameters" : []
+    },
+    "resource" : {
+        "title" : "Liste des ressource",
+        "routeName" : "admin_resource_list",
+        "text" : "Ressource",
+        "parameters" : []
+    },
+    "createStatistic" : {
+        "title" : "Créer un nouvelle statistique",
+        "routeName" : "admin_add_statistic",
+        "text" : "Créer une statistique",
+        "parameters" : []
+    },
+    "statistic" : {
+        "title" : "Liste des statistique",
+        "routeName" : "admin_statistic_list",
+        "text" : "Statistique",
+        "parameters" : []
+    }
+}
