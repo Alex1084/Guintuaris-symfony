@@ -6,7 +6,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-class SkillExtension extends AbstractExtension
+class JsonDecodeExtension extends AbstractExtension
 {
     public function getFilters(): array
     {
@@ -17,13 +17,6 @@ class SkillExtension extends AbstractExtension
             new TwigFilter('json_decode', [$this, 'jsonDecode']),
         ];
     }
-
-   /*  public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('skillCard', [$this, 'skillCard'], ['is_safe' => ['html']]),
-        ];
-    } */
 
     public function jsonDecode($data)
     {
