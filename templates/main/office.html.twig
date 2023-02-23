@@ -1,0 +1,14 @@
+ {% extends 'base.html.twig' %} 
+
+{% block title %} Le bureau | {{parent()}}{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="flash success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+        <h1 class="title">Bienvenue sur le bureau</h1>
+    </div>
+{% endblock %}  

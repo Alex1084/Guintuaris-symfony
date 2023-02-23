@@ -32,4 +32,12 @@ class RulesController extends AbstractController
             'skills' => $skills
         ]);
     }
+
+    #[Route('/regles', name: 'teaser_rules')]
+    public function rules(): Response
+    {
+        return $this->render('rules/rules.html.twig');
+    }
+
+
 }

@@ -22,6 +22,12 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig');
     }
 
+    #[Route('/le-bureau', name: 'teaser_office')]
+    public function office(): Response
+    {
+        return $this->render('main/office.html.twig');
+    }
+
     #[Route('/init-nav-bar', name: 'init_nav_bar')]
     public function init(ManagerRegistry $doctrine): Response
     {

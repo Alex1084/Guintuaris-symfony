@@ -114,9 +114,8 @@ nav {
     position: absolute;
     background: rgba(238, 212, 177, 0.75);
     box-shadow: 10px 5px 5px #b89c7794;
-    z-index: 1;
-    left: 0;
-    width: fit-content;
+    z-index: 3;
+    width: max-content;
 }
 
 /* Show the dropdown menu on hover */
@@ -127,7 +126,14 @@ nav {
 #account{
     position: absolute;
     top : 2vh;
-    right: 5vw;
+    right: 2.5vw;
+    width: 7.5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+#account .drop-nav .drop-nav-content {
+    translate: -50%;
 }
 
 /***********navside***********/
