@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             </div>
-            {% if app.user %}
+            {% if app.user and is_granted("ROLE_PREMIUM") %}
                 <div class="drop-nav">
                     <div class="nav-item"><button class="nav-button">Regle</button></div>
                     <div class="drop-nav-content">

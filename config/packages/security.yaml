@@ -28,7 +28,8 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
     role_hierarchy :
-        ROLE_MASTER : ROLE_USER
+        ROLE_PREMIUM : ROLE_USER
+        ROLE_MASTER : ROLE_PREMIUM
         ROLE_ADMIN : ROLE_MASTER
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
@@ -36,6 +37,8 @@ security:
         - { path: '^/personnage', roles: ROLE_USER }
         - { path: '^/equipe', roles: ROLE_USER }
         - { path: '^/profil', roles: ROLE_USER }
+        - { path: '^/regles', roles: ROLE_PREMIUM }
+        - { path: '^/le-bureau', roles: ROLE_PREMIUM }
         - { path: '^/maitre-du-jeu', roles : ROLE_MASTER}
         - { path: '^/administration', roles: ROLE_ADMIN }
         - { path: '^/desactiver', roles : ROLE_DEACTIVATE}

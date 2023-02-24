@@ -33,10 +33,11 @@ class UserController extends AbstractController
         $userForm = $this->createForm(UpdateUserFormType::class, $user);
         $userForm->remove("password")->add("roles", ChoiceType::class,[
             'choices' => [
-                'user' => "ROLE_USER",
-                'mj' => "ROLE_MASTER",
-                'admin' => "ROLE_ADMIN",
-                'desactiver' => "ROLE_DEACTIVATE",
+                'Utilisateur' => "ROLE_USER",
+                'Premium' => "ROLE_PREMIUM",
+                'Maitre du jeu' => "ROLE_MASTER",
+                'Administrateur' => "ROLE_ADMIN",
+                'Désactiver se compte' => "ROLE_DEACTIVATE",
             ],
             "attr" => ["class" => "log"],
             "data" => $user->getRoles()[0],
