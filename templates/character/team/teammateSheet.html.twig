@@ -33,7 +33,7 @@
 					<button class="dropbtn">Histoire
 						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 					<div class="dropdown-content hidden">
-						<textarea name="" id="lore-content" cols="50" readonly>{{ character.lore }}</textarea>
+						<textarea name="lore" id="lore-content" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
 				</div>
 			</div>
@@ -84,21 +84,21 @@
 					<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
 					<label for="pv" class="label label-statut">PV
 					</label>
-					<input type="number" class="numerique" id="" name="number" value="{{character.pv}}" readonly>
+					<input type="number" class="numerique" id="pv" name="pv" value="{{character.pv}}" readonly>
 					<span class="max">/ {{character.pvMax}}</span>
 
 					<!-- ~~~~~~ barre de vie ~~~~~~ -->
-					<input type="range" class="bar" id="pv-range" min="0" , max="{{character.pvMax}}" value="{{character.pv}}" disabled>
+					<input type="range" class="bar" id="pv-range" min="0" max="{{character.pvMax}}" value="{{character.pv}}" disabled>
 				</div>
 				<div class="statut">
 					<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 					<label for="pm" class="label label-statut">PM</label>
-					<input type="number" class="numerique" id="" name="" value="{{character.pm}}" readonly>
+					<input type="number" class="numerique" id="pm" name="pm" value="{{character.pm}}" readonly>
 
 					<span class="max">/ {{character.pmMax}}</span>
 
 					<!-- ~~~~~~ bar de mana ~~~~~~ -->
-					<input type="range" class="bar" id="pm-range" min="0" , max="{{character.pmMax}}" value="{{character.pm}}" disabled>
+					<input type="range" class="bar" id="pm-range" min="0" max="{{character.pmMax}}" value="{{character.pm}}" disabled>
 				</div>
 				<div
 					class="statut">
@@ -106,67 +106,30 @@
 					<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
 					<label for="pc" class="label label-statut">PC
 					</label>
-					<input type="number" class="numerique" id="" name="" value="{{character.pc}}" readonly>
+					<input type="number" class="numerique" id="pc" name="pc" value="{{character.pc}}" readonly>
 
 					<span class="max">/ {{character.pcMax}}</span>
 
 					<!-- ~~~~~~ bar de mana ~~~~~~ -->
-					<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
+					<input type="range" class="bar" id="pc-range" min="0" max="{{character.pcMax}}" value="{{character.pc}}" disabled>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="inventaire-form">
 				<div class="label label-form">
-					<span>Inventaire</span>
+					<span><i class="icons-inventory"></i> Inventaire</span>
 				</div>
 				<textarea readonly>{{character.inventory}}</textarea>
 				<div class="label label-form">
-					<span>Piece d'or</span>
+					<span><i class="icons-po"></i> Piece d'or</span>
 				</div>
 				<input type="number" value="{{character.gold}}" readonly>
 
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div>
-			<select name="" id="select-stat">
-				<option value="{{character.constitution}}">Constitution</option>
-				<option value="{{character.strength}}">Force</option>
-				<option value="{{character.dexterity}}">Dextérité</option>
-				<option value="{{character.intelligence}}">Intelligence</option>
-				<option value="{{character.charisma}}">Charisme</option>
-				<option value="{{character.faith}}">Foi</option>
-			</select>
-			<select name="" id="ca">
-				<option value="20">+20</option>
-				<option value="15">+15</option>
-				<option value="10">+10</option>
-				<option value="5">+5</option>
-				<option value="0" selected="selected">0</option>
-				<option value="5">3 (-5)</option>
-				<option value="10">5 (-10)</option>
-				<option value="15">7 (-15)</option>
-				<option value="20">10 (-20)</option>
-				<option value="25">12 (-25)</option>
-				<option value="30">15 (-30)</option>
-				<option value="35">17 (-35)</option>
-				<option value="50">17+ (-50)</option>
-			</select>
-			<button id="de">Test !</button>
-		</div>
-		<div>
-			<button class="dice" id="dice-four">1D4</button>
-			<button class="dice" id="dice-six">1D6</button>
-			<button class="dice" id="dice-height">1D8</button>
-			<button class="dice" id="dice-ten">1D10</button>
-			<button class="dice" id="dice-twelve">1D12</button>
-			<button class="dice" id="dice-twenty">1D20</button>
-			<button class="dice" id="dice-hundred">1D100</button>
-		</div>
-		<div id="result"></div>
-	</div>
+	{% include "inc/dices-component.html.twig" %}
 
 	<div class="container">
 		<div class="row">
@@ -189,7 +152,7 @@
 							{% for armorPiece in armor %}
 								{% set ca = ca + armorPiece.piece.value %}
 								<tr>
-									<td>{{ armorPiece.piece.location.name }}</td>
+									<td><i class="icons-{{armorPiece.piece.location.varName}}"></i>{{ armorPiece.piece.location.name }}</td>
 									<td>{{ armorPiece.piece.type.name }}</td>
 									<td>{{ armorPiece.piece.value }}</td>
 									<td>{{ armorPiece.effect }}</td>

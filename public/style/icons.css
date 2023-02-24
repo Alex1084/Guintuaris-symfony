@@ -1,0 +1,119 @@
+/* .icons-::before {
+    content: url("../assets/icons/");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+} */
+
+
+/* ---armors---- */
+.icons-amulette::before {
+    content: url("../assets/icons/armors/amulette.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+.icons-anneaux::before {
+    content: url("../assets/icons/armors/anneaux.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+.icons-bouclier::before {
+    content: url("../assets/icons/armors/bouclier.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+.icons-cape::before {
+    content: url("../assets/icons/armors/cape.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+.icons-casque::before {
+    content: url("../assets/icons/armors/casque.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+.icons-jambiere::before {
+    content: url("../assets/icons/armors/jambiere.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+.icons-plastron::before {
+    content: url("../assets/icons/armors/plastron.svg");
+    width: 30px;
+    background-size: 30px;
+    display: inline-block;
+	transform: translateY(3px);
+}
+
+/* ---dices--- */
+.icons-d4::before {
+    content: url("../assets/icons/dices/d4.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}
+.icons-d6::before {
+    content: url("../assets/icons/dices/d6.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}
+.icons-d8::before {
+    content: url("../assets/icons/dices/d8.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}
+.icons-d10::before {
+    content: url("../assets/icons/dices/d10.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}
+.icons-d12::before {
+    content: url("../assets/icons/dices/d12.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}
+.icons-d20::before {
+    content: url("../assets/icons/dices/d20.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}
+
+/* ---other--- */
+.icons-po::before {
+    content: url("../assets/icons/po.svg");
+	width: 35px;
+	background-size: 35px;
+	display: inline-block;
+	transform: translateY(3px);
+    
+}
+.icons-inventory::before {
+	content: url("../assets/icons/inventory.svg");
+	width: 30px;
+	background-size: 30px;
+	display: inline-block;
+	transform: translateY(3px);
+}

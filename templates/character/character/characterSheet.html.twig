@@ -35,7 +35,7 @@
 					<button class="dropbtn">Histoire
 						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 					<div class=" hidden dropdown-content">
-						<textarea name="" cols="50" readonly>{{ character.lore }}</textarea>
+						<textarea name="lore" cols="50" readonly>{{ character.lore }}</textarea>
 					</div>
 					<a title="Modifier le lore de {{character.name}}" href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier mon histoire</a>
 				</div>
@@ -95,10 +95,10 @@
 					</span>
 
 					<!-- ~~~~~~ bar de vie ~~~~~~ -->
-					<input type="range" class="bar" id="pv-range" min="0" , max="{{character.pvMax}}" value="{{character.pv}}" disabled>
+					<input type="range" class="bar" id="pv-range" min="0" max="{{character.pvMax}}" value="{{character.pv}}" disabled>
 
-					<input type="number" class="input-enabled ajout" placeholder="+">
-					<input type="number" class="input-enabled soustrait" placeholder="-">
+					<input id="pv-plus" type="number" class="input-enabled ajout" placeholder="">
+					<input id="pv-moins" type="number" class="input-enabled soustrait" placeholder="">
 				</div>
 
 				<div class="statut">
@@ -111,10 +111,10 @@
 						{{character.pmMax}}</span>
 
 					<!-- ~~~~~~ bar de mana ~~~~~~ -->
-					<input type="range" class="bar" id="pm-range" min="0" , max="{{character.pmMax}}" value="{{character.pm}}" disabled>
+					<input type="range" class="bar" id="pm-range" min="0" max="{{character.pmMax}}" value="{{character.pm}}" disabled>
 
-					<input type="number" class="input-enabled ajout" placeholder="+">
-					<input type="number" class="input-enabled soustrait" placeholder="-">
+					<input id="pm-plus" type="number" class="input-enabled ajout" placeholder="">
+					<input id="pm-moins" type="number" class="input-enabled soustrait" placeholder="">
 				</div>
 				<div class="statut">
 
@@ -127,10 +127,10 @@
 						{{character.pcMax}}</span>
 
 					<!-- ~~~~~~ bar de mana ~~~~~~ -->
-					<input type="range" class="bar" id="pc-range" min="0" , max="{{character.pcMax}}" value="{{character.pc}}" disabled>
+					<input type="range" class="bar" id="pc-range" min="0" max="{{character.pcMax}}" value="{{character.pc}}" disabled>
 
-					<input type="number" class="input-enabled ajout" placeholder="+">
-					<input type="number" class="input-enabled soustrait" placeholder="-">
+					<input id="pc-plus" type="number" class="input-enabled ajout" placeholder="">
+					<input id="pc-moins" type="number" class="input-enabled soustrait" placeholder="">
 				</div>
 			</div>
 		</div>
@@ -141,14 +141,14 @@
 			<div class="inventaire-form">
 				<div>
 					<div class="label label-form">
-						<label for="inventaire">Inventaire</label>
+						<label for="inventaire"><i class="icons-inventory"></i> Inventaire</label>
 					</div>
 					<textarea class="ajax" name="inventaire" id="inventaire" cols="30" rows="10">{{character.inventory}}</textarea>
 				</div>
 
 				<div class="div-sauvegarde">
 					<div class="label label-form">
-						<label for="">Piece d'or</label>
+						<label for="po"><i class="icons-po"></i> Piece d'or</label>
 					</div>
 					<input class="ajax" type="number" name="po" id="po" value="{{character.gold}}">
 				</div>
@@ -156,45 +156,7 @@
 		</div>
 
 	</div>
-	<div class="container">
-		<div>
-			<select name="" id="select-stat">
-				<option value="{{character.constitution}}">Constitution</option>
-				<option value="{{character.strength}}">Force</option>
-				<option value="{{character.dexterity}}">Dextérité</option>
-				<option value="{{character.intelligence}}">Intelligence</option>
-				<option value="{{character.charisma}}">Charisme</option>
-				<option value="{{character.faith}}">Foi</option>
-			</select>
-
-			<select name="" id="ca">
-				<option value="20">+20</option>
-				<option value="15">+15</option>
-				<option value="10">+10</option>
-				<option value="5">+5</option>
-				<option value="0" selected="selected">0</option>
-				<option value="-5">-5</option>
-				<option value="-10">-10</option>
-				<option value="-15">-15</option>
-				<option value="-20">-20</option>
-				<option value="-25">-25</option>
-				<option value="-30">-30</option>
-				<option value="-35">-35</option>
-				<option value="-50">-50</option>
-			</select>
-			<button id="de">Test !</button>
-		</div>
-		<div>
-			<button class="dice" id="dice-four">1D4</button>
-			<button class="dice" id="dice-six">1D6</button>
-			<button class="dice" id="dice-height">1D8</button>
-			<button class="dice" id="dice-ten">1D10</button>
-			<button class="dice" id="dice-twelve">1D12</button>
-			<button class="dice" id="dice-twenty">1D20</button>
-			<button class="dice" id="dice-hundred">1D100</button>
-		</div>
-		<div id="result"></div>
-	</div>
+	{% include "inc/dices-component.html.twig" %}
 
 	<div class="container">
 		<div class="row">
@@ -217,7 +179,7 @@
 								
 									{% set ca = ca + armorPiece.piece.value %}
 									<tr>
-										<td>{{ armorPiece.piece.location.name }}</td>
+										<td><i class="icons-{{armorPiece.piece.location.varName}}"></i>{{ armorPiece.piece.location.name }}</td>
 										<td>{{ armorPiece.piece.type.name }}</td>
 										<td>{{ armorPiece.piece.value }}</td>
 										<td>{{ armorPiece.effect }}</td>
@@ -231,6 +193,7 @@
 							<th>Total :</th>
 							<td></td>
 							<td>{{ca}}</td>
+							<td></td>
 						</tr>
 					</tfoot>
 				</table>

@@ -1,0 +1,39 @@
+<div class="container">
+		<div>
+			<select name="select-stat" id="select-stat">
+				<option value="{{character.constitution}}">Constitution</option>
+				<option value="{{character.strength}}">Force</option>
+				<option value="{{character.dexterity}}">Dextérité</option>
+				<option value="{{character.intelligence}}">Intelligence</option>
+				<option value="{{character.charisma}}">Charisme</option>
+				<option value="{{character.faith}}">Foi</option>
+			</select>
+
+			<select name="ca" id="ca">
+				<option value="20">+20</option>
+				<option value="15">+15</option>
+				<option value="10">+10</option>
+				<option value="5">+5</option>
+				<option value="0" selected="selected">0</option>
+				<option value="-5">-5</option>
+				<option value="-10">-10</option>
+				<option value="-15">-15</option>
+				<option value="-20">-20</option>
+				<option value="-25">-25</option>
+				<option value="-30">-30</option>
+				<option value="-35">-35</option>
+				<option value="-50">-50</option>
+			</select>
+			<button id="de">Test !</button>
+		</div>
+		<div>
+			<button class="dice" id="dice-four"><i class="icons-d4"></i></button>
+			<button class="dice" id="dice-six"><i class="icons-d6"></i></button>
+			<button class="dice" id="dice-height"><i class="icons-d8"></i></button>
+			<button class="dice" id="dice-ten"><i class="icons-d10"></i></button>
+			<button class="dice" id="dice-twelve"><i class="icons-d12"></i></button>
+			<button class="dice" id="dice-twenty"><i class="icons-d20"></i></button>
+			<button class="dice" id="dice-hundred">1D100</button>
+		</div>
+		<div id="result"></div>
+	</div>

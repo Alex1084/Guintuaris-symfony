@@ -89,6 +89,45 @@
     opacity: 1;
     font-family: 'centurion';
 }
+
+#pv-plus{
+    background-image: url("../assets/icons/status/pv-plus.svg");
+}
+#pv-plus:focus {
+    background-image: none;
+}
+#pv-moins{
+    background-image: url("../assets/icons/status/pv-moins.svg");
+}
+#pv-moins:focus {
+    background-image: none;
+}
+#pm-plus{
+    background-image: url("../assets/icons/status/pm-plus.svg");
+}
+#pm-plus:focus {
+    background-image: none;
+}
+#pm-moins{
+    background-image: url("../assets/icons/status/pm-moins.svg");
+
+}
+#pm-moins:focus {
+    background-image: none;
+
+}
+#pc-plus{
+    background-image: url("../assets/icons/status/pc-plus.svg");
+}
+#pc-plus:focus {
+    background-image: none;
+}
+#pc-moins{
+    background-image: url("../assets/icons/status/pc-moins.svg");
+}
+#pc-moins:focus {
+    background-image: none;
+}
 .max{
     display: inline-block;
     width: 75px;
