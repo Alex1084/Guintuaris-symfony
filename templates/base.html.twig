@@ -1,6 +1,13 @@
 {% set requestAttribute = app.request.attributes.get("_route") %}
+{% if app.request.locale != app.request.defaultLocale %}
+	{% set _locale = app.request.locale %}
+{% else %}
+	{% set _locale = app.request.defaultLocale %}
+{% endif %}
+{% set jsonLinks = include("links.json")|json_decode %}
+
 <!DOCTYPE html>
-<html>
+<html lang="{{_locale}}">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +22,7 @@
 			{% block title %}Guintuaris{% endblock %}
 		</title>
 		<link rel="icon" href="{{ asset('img/icon.png')}}">
-		<link rel="stylesheet" href="{{ asset('style/main.css')}}"> 
+		<link rel="stylesheet" href="{{ asset('style/main.css')}}">
 		<link rel="stylesheet" href="{{ asset('style/icons.css')}}">
 		{% block style %}{% endblock %}
 	</head>
