@@ -15,19 +15,19 @@
 				<tr>
 					<th class="sortable number">Id</th>
 					<th class="sortable text">Nom</th>
-					<th class="sortable text">Symbole</th>
+					<th class="sortable text">Statistiques</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for statistic in statistics %}
+				{% for talent in talents %}
 
 					<tr>
-						<td> {{statistic.id}} </td>
-						<td> {{ statistic.name }} </td>
-						<td> {{ statistic.symbol }} </td>
+						<td> {{talent.id}} </td>
+						<td> {{ talent.name }} </td>
+						<td> {{ talent.statistic.name }} </td>
 						<td>
-							<a href="{{ path("admin_update_statistic", {'id' : statistic.id}) }}">Modifier</a>
+							<a href="{{ path("admin_update_talent", {'id' : talent.id}) }}">Modifier</a>
 						</td>
 					</tr>
 						
@@ -41,10 +41,9 @@
 	{% set navsideDisplay = true %}
 	{% set navsideLinks = [
 		jsonLinks.returnAdmin,
-		jsonLinks.createStatistic,
+		jsonLinks.createTalent,
 		jsonLinks.duration,
 		jsonLinks.resource,
-		jsonLinks.talent,
 		jsonLinks.skills,
 	]%}
 	{{parent()}}

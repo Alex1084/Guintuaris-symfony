@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{(requestAttribute == "admin_update_talent") ? "Modifier un talent":"Ajouter un talent"}} | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(talentForm) }}
+			<div>
+				<h3 class="title-form">Géneral</h3>
+			</div>
+			<div class="row-around">
+				<div class="div-form">
+					{{form_label(talentForm.name)}}
+					{{form_widget(talentForm.name)}}
+					<div class="div-errors">
+						{{form_errors(talentForm.name)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{form_label(talentForm.statistic)}}
+					{{form_widget(talentForm.statistic)}}
+					<div class="div-errors">
+						{{form_errors(talentForm.statistic)}}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="textarea-form">
+					<h3 class="title-form">
+						{{ form_label(talentForm.description) }}
+					</h3>
+					
+					{{ form_widget(talentForm.description) }}
+					<div class="div-errors">
+						{{form_errors(talentForm.description)}}
+					</div>
+				</div>
+			</div>
+		<button class="valid-form">Valider !</button>
+		{{form_end(talentForm)}}
+	</div>
+{% endblock %}

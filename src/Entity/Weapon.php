@@ -27,11 +27,11 @@ class Weapon
     private $damage;
 
     #[ORM\Column(type: 'string', length: 10)]
-    #[Assert\Regex(
+    /* #[Assert\Regex(
         pattern: '/^[1-9]?[0-9]D(100|[0-9]?[0-9])$/',
         match: true,
         message: "Vous devez indiquer un nombre de dés suivis d'un \"D\" en majuscule et le dé à lancée. (10D8, 2D12, 1D6 ...)"
-    )]
+    )] */
     private $dice;
 
     public function getId(): ?int { return $this->id; }

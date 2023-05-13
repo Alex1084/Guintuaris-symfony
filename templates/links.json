@@ -114,15 +114,27 @@
         "parameters" : []
     },
     "createStatistic" : {
-        "title" : "Créer un nouvelle statistique",
+        "title" : "Créer une nouvelle statistique",
         "routeName" : "admin_add_statistic",
         "text" : "Créer une statistique",
         "parameters" : []
     },
     "statistic" : {
-        "title" : "Liste des statistique",
+        "title" : "Liste des statistiques",
         "routeName" : "admin_statistic_list",
         "text" : "Statistique",
+        "parameters" : []
+    },
+    "createTalent" : {
+        "title" : "Créer un nouveau talent",
+        "routeName" : "admin_add_talent",
+        "text" : "Créer un talent",
+        "parameters" : []
+    },
+    "talent" : {
+        "title" : "Liste des talents",
+        "routeName" : "admin_talent_list",
+        "text" : "Talent",
         "parameters" : []
     }
 }

@@ -18,5 +18,5 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
-public/tamplate/index.html
+public/tamplate/
 templates/123.twig

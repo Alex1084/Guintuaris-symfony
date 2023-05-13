@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StatisticRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,6 +38,14 @@ class Statistic
 
     #[ORM\Column(type: 'text')]
     private $description;
+
+    #[ORM\OneToMany(mappedBy: 'statistic', targetEntity: Talent::class)]
+    private $talent;
+
+    public function __construct()
+    {
+        $this->talent = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +84,36 @@ class Statistic
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Talent>
+     */
+    public function getTalent(): Collection
+    {
+        return $this->talent;
+    }
+
+    public function addTalent(Talent $talent): self
+    {
+        if (!$this->talent->contains($talent)) {
+            $this->talent[] = $talent;
+            $talent->setStatistic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTalent(Talent $talent): self
+    {
+        if ($this->talent->removeElement($talent)) {
+            // set the owning side to null (unless already changed)
+            if ($talent->getStatistic() === $this) {
+                $talent->setStatistic(null);
+            }
+        }
 
         return $this;
     }
