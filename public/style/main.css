@@ -314,7 +314,12 @@ form button, #de, .swal-button, .default-sort, .dice{
 .swal-cancel {
     color: #a00 !important;
 }
-form button:active, #de:active, .swal-button:active, .default-sort:active, .dice:active{
+form button:active, 
+#de:active, 
+.swal-button:active, 
+.default-sort:active, 
+.dice:active
+.page-button:active{
     transform: translateY(4px);
     scale: 0.95;
 }
@@ -464,4 +469,18 @@ footer{
     .div-show-navside{
         width: 33vw;
     }
+}
+
+.pagination-button {
+	width: 40px;
+	height: 40px;
+	background: rgba(238, 211, 176, 1);
+	border: outset rgba(65, 57, 47, 0.502);
+	margin: 0 5px;
+	border-radius: 5px;
+}
+
+#pagination {
+	display: flex;
+	justify-content: center;
 }

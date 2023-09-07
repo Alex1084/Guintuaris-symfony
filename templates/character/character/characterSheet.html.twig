@@ -137,6 +137,28 @@
 		<div>
 			<a title="Metre a jour les statistique de {{character.name}}" href="{{path("character_level_up", {"slug" : character.slug, "id" :character.id})}}">Changer mes statistiques</a>
 		</div>
+
+		<div class="row">
+			<div>
+				<h2 class="sub-title-center">Talent</h2>
+				<table class="tableau" id="talent-table">
+				 <thead>
+				 	<tr>
+						<th>Nom</th>
+						<th>Niveau</th>
+						<th>Autre bonus</th>
+						{# <th>Total</th> #}
+						<th>Experience</th>
+					</tr>
+				 </thead>
+				 <tbody id="talent-table-body">
+				 </tbody>
+				</table>
+				<div id="pagination">
+				</div>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="inventaire-form">
 				<div>
@@ -260,4 +282,5 @@
 	<script src="{{asset('script/bar.js')}}"></script>
 	<script src="{{asset('script/de.js')}}"></script>
 	<script src="{{asset('script/personnage.js')}}"></script>
+	<script src="{{asset('script/table-paginator.js')}}"></script>
 {% endblock %}
