@@ -72,9 +72,9 @@ function loadData() {
     let data = []
     for (let key in talents) {
         let stisticName = statistics[talents[key].statistic]
-        let stisticElement = document.querySelector(".statistique-valeur[data-"+stisticName+"]");
+        let stasticElement = document.querySelector(".statistique-valeur[data-"+stisticName+"]");
 
-        talents[key]['total'] = +stisticElement.dataset[stisticName] + talents[key].level*5 + +talents[key].otherBonus
+        talents[key]['total'] = +stasticElement.dataset[stisticName] + talents[key].level*5 + +talents[key].otherBonus
         if (talents[key].isVisible == true) {
             data.push(talents[key])
         }

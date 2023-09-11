@@ -60,6 +60,7 @@ class TalentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder("t")
         ->select("t.name, t.id, s.id as statistic_id")
         ->join(Statistic::class, 's', Join::WITH, "t.statistic = s.id")
+        ->orderBy('t.name')
         ->getQuery()
         ->getResult()
         ;

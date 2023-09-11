@@ -524,18 +524,41 @@ class CharacterController extends AbstractController
 
         $talents = $doctrine->getRepository(Talent::class)->findAllNames();
         if ($request->isMethod("post")) {
+            $errors = [];
             $equipedTalents = json_decode($request->request->get("talents"), true);
             foreach ($equipedTalents as $key => $talent) {
+
                 $indexOfTalent = array_search($key, array_column($talents, 'id'));
-
-                $equipedTalents[$key]['name'] = $talents[$indexOfTalent]['name'];
-                $equipedTalents[$key]['statistic'] = $talents[$indexOfTalent]['statistic_id'];
-
+                if ($indexOfTalent === false) {
+                    if (isset($talent['name'])) {
+                        $this->addFlash("error", "le talent " .$talent['name']. " n'a pas été trouvé ou n'existe plus, ce dernier a été supprimer de ta liste des talents");
+                    }
+                    unset($equipedTalents[$key]);
+                }
+                else {
+                    $equipedTalents[$key]['name'] = $talents[$indexOfTalent]['name'];
+                    $equipedTalents[$key]['statistic'] = $talents[$indexOfTalent]['statistic_id'];
+                    
+                    if ($talent['level'] <0 || $talent['level']>3) {
+                        array_push($errors,'erreur le talent ' .$equipedTalents[$key]['name']. " a un niveau non conforme");
+                    }
+                    if ($talent['otherBonus'] <0) {
+                        array_push($errors,'erreur le talent ' .$equipedTalents[$key]['name']. " a un bonus non conforme");
+                    }
+                }
             }
-            $character->setTalents($equipedTalents);
-            $entityManagerInterface->persist($character);
-            $entityManagerInterface->flush();
-            return $this->redirectToRoute('character_view', ["slug" => $character->getSlug(), "id" => $character->getId()]);
+            if (count($errors) === 0) {
+                $character->setTalents($equipedTalents);
+                $entityManagerInterface->persist($character);
+                $entityManagerInterface->flush();
+                return $this->redirectToRoute('character_view', ["slug" => $character->getSlug(), "id" => $character->getId()]);
+            }
+            else {
+                foreach ($errors as $error) {
+                    $this->addFlash("error",$error);
+                }
+                $equipedTalents = json_encode($equipedTalents);
+            }
         }
 
  
