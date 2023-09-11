@@ -47,38 +47,38 @@
 			<div class="div-statistique">
 				<div class="statistique">
 					<p class="label">Constitution:</p>
-					<div class="statistique-valeur">
+					<div class="statistique-valeur" data-constitution="{{ character.constitution}}">
 						<p>{{ character.constitution }}</p>
 					</div>
 				</div>
 				<div class="statistique">
 					<p class="label">Charisme :</p>
-					<div class="statistique-valeur">
+					<div class="statistique-valeur" data-charisma="{{ character.charisma}}">
 						<p>{{ character.charisma }}</p>
 					</div>
 				</div>
 				<div class="statistique">
 					<p class="label">Dextérité :</p>
-					<div class="statistique-valeur">
+					<div class="statistique-valeur" data-dexterity="{{ character.dexterity}}">
 						<p>{{ character.dexterity }}</p>
 					</div>
 				</div>
 				<div class="statistique">
 					<p class="label">Foi :</p>
-					<div class="statistique-valeur">
+					<div class="statistique-valeur" data-faith="{{ character.faith}}">
 						<p>{{ character.faith }}</p>
 					</div>
 				</div>
 				
 				<div class="statistique">
 					<p class="label">Force :</p>
-					<div class="statistique-valeur">
+					<div class="statistique-valeur" data-strength="{{ character.strength}}">
 						<p>{{ character.strength }}</p>
 					</div>
 				</div>
 				<div class="statistique">
 					<p class="label">Intelligence :</p>
-					<div class="statistique-valeur">
+					<div class="statistique-valeur" data-intelligence="{{ character.intelligence}}">
 						<p>{{ character.intelligence }}</p>
 					</div>
 				</div>
@@ -147,15 +147,16 @@
 						<th>Nom</th>
 						<th>Niveau</th>
 						<th>Autre bonus</th>
-						{# <th>Total</th> #}
+						<th>Total</th>
 						<th>Experience</th>
 					</tr>
 				 </thead>
-				 <tbody id="talent-table-body">
+				 <tbody id="paginate-table-body" data-talents="{{character.talents|json_encode}}">
 				 </tbody>
 				</table>
 				<div id="pagination">
 				</div>
+				<a title="Metre a jour les talents de {{character.name}}" href="{{path("character_update_talent", {"slug" : character.slug, "id" :character.id})}}">Changer mes talents</a>
 			</div>
 		</div>
 
@@ -282,5 +283,5 @@
 	<script src="{{asset('script/bar.js')}}"></script>
 	<script src="{{asset('script/de.js')}}"></script>
 	<script src="{{asset('script/personnage.js')}}"></script>
-	<script src="{{asset('script/table-paginator.js')}}"></script>
+	<script src="{{asset('script/table-pagination.js')}}"></script>
 {% endblock %}

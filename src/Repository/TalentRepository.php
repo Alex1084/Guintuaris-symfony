@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Statistic;
 use App\Entity\Talent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +41,27 @@ class TalentRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Talent[] Returns an array of Talent objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Talent
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getTalentNotInPlayerInfos($ids)
+    {
+        // if user haven't talents select all
+        if (empty($ids)) {
+            $ids = 0; // array can't be empty so set false value
+        }
+        return $this->createQueryBuilder("t")
+        ->select("t.name, t.id")
+        ->where("t.id NOT IN (:ids)")
+        ->setParameter("ids", $ids)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    public function findAllNames()
+    {
+        return $this->createQueryBuilder("t")
+        ->select("t.name, t.id, s.id as statistic_id")
+        ->join(Statistic::class, 's', Join::WITH, "t.statistic = s.id")
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }

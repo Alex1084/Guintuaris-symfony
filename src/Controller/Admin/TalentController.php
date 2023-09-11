@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +23,9 @@ class TalentController extends AbstractController
         $talentForm = $this->createForm(TalentFormType::class, $newTalent);
         $talentForm->handleRequest($request);
         if ($talentForm->isSubmitted() && $talentForm->isValid()) {
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($newTalent->getName());
+            $newTalent->setSlug($slug);
             $entityManager->persist($newTalent);
             $entityManager->flush();
             
@@ -50,6 +54,9 @@ class TalentController extends AbstractController
         $talentForm = $this->createForm(TalentFormType::class, $talent);
         $talentForm->handleRequest($request);
         if ($talentForm->isSubmitted() && $talentForm->isValid()) {
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($talent->getName());
+            $talent->setSlug($slug);
             $entityManager->persist($talent);
             $entityManager->flush();
             

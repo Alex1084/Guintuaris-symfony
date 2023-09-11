@@ -1,126 +1,34 @@
-let table = document.getElementById("talent-table-body")
+let tbody = document.getElementById("paginate-table-body")
 let paginationElement = document.getElementById("pagination")
-
-let data = [
-    {
-        name : "Lutte",
-        level : "Avancé",
-        experience : "0",
-        otherBonus : "5",
-        // stat : "",
-    },
-    {
-        name : "Armes à une mains",
-        level : "Apprenti",
-        experience : "100",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Vol à la tir",
-        level : "Maître",
-        experience : "0",
-        otherBonus : "10",
-        // stat : "",
-    },
-    {
-        name : "Represantation",
-        level : "Avancé",
-        experience : "0",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Medecine",
-        level : "Apprenti",
-        experience : "0",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Lutte",
-        level : "Avancé",
-        experience : "0",
-        otherBonus : "5",
-        // stat : "",
-    },
-    {
-        name : "Armes à une mains",
-        level : "Apprenti",
-        experience : "100",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Vol à la tir",
-        level : "Maître",
-        experience : "0",
-        otherBonus : "10",
-        // stat : "",
-    },
-    {
-        name : "Represantation",
-        level : "Avancé",
-        experience : "0",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Medecine",
-        level : "Apprenti",
-        experience : "0",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Lutte",
-        level : "Avancé",
-        experience : "0",
-        otherBonus : "5",
-        // stat : "",
-    },
-    {
-        name : "Armes à une mains",
-        level : "Apprenti",
-        experience : "100",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Vol à la tir",
-        level : "Maître",
-        experience : "0",
-        otherBonus : "10",
-        // stat : "",
-    },
-    {
-        name : "Represantation",
-        level : "Avancé",
-        experience : "0",
-        otherBonus : "0",
-        // stat : "",
-    },
-    {
-        name : "Medecine",
-        level : "Apprenti",
-        experience : "0",
-        otherBonus : "0",
-        // stat : "",
-    },
-]
-
+const statistics = { 
+    1 : "constitution",
+    2 : "strength",
+    3 : "dexterity",
+    4 : "intelligence",
+    5 : "charisma",
+    6 : "faith",
+};
+const LEVEL_NAMES = {
+    0 : "Débutant",
+    1 : "Aprenti",
+    2 : "Avancé",
+    3 : "Maître",
+}
 
 function init() {
+    data = loadData()
     let pageNumber = Math.ceil(data.length/10)
     let currentPage = 1
 
-    let pagination = '<button class="pagination-button" data-page="previous">&lt</button>'
-    for (let i = 1; i <= pageNumber; i++) {
-        pagination += '<button data-page="'+i+'" class="pagination-button">'+i+'</button>'
+    if (pageNumber >= 2) {
+        let pagination = '<button class="pagination-button" data-page="previous">&lt</button>'
+        for (let i = 1; i <= pageNumber; i++) {
+            pagination += '<button data-page="'+i+'" class="pagination-button">'+i+'</button>'
+        }
+        pagination += '<button class="pagination-button" data-page="next">&gt</button>'
+        paginationElement.innerHTML = pagination
     }
-    pagination += '<button class="pagination-button" data-page="next">&gt</button>'
-    paginationElement.innerHTML = pagination
-    changePage(currentPage)
+    changePage(data, currentPage)
 
     let buttons = document.querySelectorAll(".pagination-button")
 
@@ -136,28 +44,42 @@ function init() {
                 page = buttonData
 
             if (page <= pageNumber && page >= 1) {
-                console.log(page);
-                changePage(page)
+                changePage(data,page)
                 currentPage = page
             }
         })
     }
 }
 
-function changePage(page) {
+function changePage(data,page) {
     let firstValue = 10*(page-1)
     let lastValue = 10*page
-    table.innerHTML = ''
+    tbody.innerHTML = ''
     for (let i = firstValue; i < lastValue; i++) {
-        let row = document.createElement('tr')
-        for (let key in data[i]) {
-            let field = document.createElement("td")
-            field.innerText = data[i][key]
-            row.appendChild(field)
-                
-        }
-        table.appendChild(row)
+        let html = `
+        <tr>
+            <td>${data[i].name}</td>
+            <td>${LEVEL_NAMES[data[i].level]} (${data[i].level * 5 })</td>
+            <td>${data[i].otherBonus}</td>
+            <td>${data[i].total}</td>
+        </tr>`
+        tbody.insertAdjacentHTML( 'beforeend', html )
     }        
+}
+
+function loadData() {
+    let talents = JSON.parse(tbody.dataset.talents)
+    let data = []
+    for (let key in talents) {
+        let stisticName = statistics[talents[key].statistic]
+        let stisticElement = document.querySelector(".statistique-valeur[data-"+stisticName+"]");
+
+        talents[key]['total'] = +stisticElement.dataset[stisticName] + talents[key].level*5 + +talents[key].otherBonus
+        if (talents[key].isVisible == true) {
+            data.push(talents[key])
+        }
+    }
+    return data
 }
 
 init()

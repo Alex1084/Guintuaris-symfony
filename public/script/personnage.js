@@ -28,7 +28,6 @@ function ajax() {
         id : getId
     }
 
-    console.log(values);
     axios.post('/personnage/modifier-statut',  values,   
      'Content-Type: multipart/form-data' )
     .then( response => {

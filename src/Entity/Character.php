@@ -45,6 +45,9 @@ class Character extends Sheet
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $last_view;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private $talents = [];
+
     public function getUser(): ?User { return $this->user; }
     public function setUser(?User $user): self
     {
@@ -123,5 +126,17 @@ class Character extends Sheet
     public function __toString()
     {
         return $this->getName() . " ( utilisateur : ". $this->getUser()." )";   
+    }
+
+    public function getTalents(): ?array
+    {
+        return $this->talents;
+    }
+
+    public function setTalents(?array $talents): self
+    {
+        $this->talents = $talents;
+
+        return $this;
     }
 }

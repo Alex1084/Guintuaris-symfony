@@ -7,6 +7,7 @@ use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
+use App\Entity\Talent;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
@@ -508,6 +509,44 @@ class CharacterController extends AbstractController
         ]);
     }
 
+    #[Route('/{slug}/{id}/talents', name: 'update_talent')]
+    public function updateTalent(string $slug,int $id, ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManagerInterface)
+    {
+        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $characterTalentsId = [];
+        $equipedTalents = json_encode($character->getTalents());
+        
+        if ($character->getTalents() ==! null) {
+            foreach ($character->getTalents() as $key => $talent) {
+                array_push($characterTalentsId, $key);
+            }
+        }
+
+        $talents = $doctrine->getRepository(Talent::class)->findAllNames();
+        if ($request->isMethod("post")) {
+            $equipedTalents = json_decode($request->request->get("talents"), true);
+            foreach ($equipedTalents as $key => $talent) {
+                $indexOfTalent = array_search($key, array_column($talents, 'id'));
+
+                $equipedTalents[$key]['name'] = $talents[$indexOfTalent]['name'];
+                $equipedTalents[$key]['statistic'] = $talents[$indexOfTalent]['statistic_id'];
+
+            }
+            $character->setTalents($equipedTalents);
+            $entityManagerInterface->persist($character);
+            $entityManagerInterface->flush();
+            return $this->redirectToRoute('character_view', ["slug" => $character->getSlug(), "id" => $character->getId()]);
+        }
+
+ 
+        
+        return $this->render('character/character/talentsForm.html.twig', [
+            "character" => $character,
+            "equipedTalentsIds" => $characterTalentsId,
+            "equipedTalents" => $equipedTalents,
+            "talents" => $talents,
+        ]);
+    }
     /**
      *  cette fonctrion permet de suprimmer l'encienne image de profil d'un personnage lorsque l'utilisateur la change
      *
