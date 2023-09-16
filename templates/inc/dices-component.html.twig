@@ -1,15 +1,23 @@
-<div class="container">
-		<div>
-			<select name="select-stat" id="select-stat">
-				<option value="{{character.constitution}}">Constitution</option>
-				<option value="{{character.strength}}">Force</option>
-				<option value="{{character.dexterity}}">Dextérité</option>
-				<option value="{{character.intelligence}}">Intelligence</option>
-				<option value="{{character.charisma}}">Charisme</option>
-				<option value="{{character.faith}}">Foi</option>
+<div>
+	<h2 class="sub-title-center">Brouette à dés</h2>
+	<div class="dices-div">
+		<div class="simple-dices">
+			<button data-face-number="4" class="dice" id="dice-four"><i class="icons-d4"></i></button>
+			<button data-face-number="6" class="dice" id="dice-six"><i class="icons-d6"></i></button>
+			<button data-face-number="8" class="dice" id="dice-height"><i class="icons-d8"></i></button>
+			<button data-face-number="10" class="dice" id="dice-ten"><i class="icons-d10"></i></button>
+			<button data-face-number="12" class="dice" id="dice-twelve"><i class="icons-d12"></i></button>
+			<button data-face-number="20" class="dice" id="dice-twenty"><i class="icons-d20"></i></button>
+			<button data-face-number="100" class="dice" id="dice-hundred">1D100</button>
+		</div>
+		<div class="complexe-dices">
+			<select name="select-stat" id="select-stat" data-statistic="{{statistics|json_encode}}">
+				<option value="0">Voir tous</option>
+			</select>
+			<select name="select-talent" id="select-talent" data-talents="{{talents|json_encode}}">
 			</select>
 
-			<select name="ca" id="ca">
+			<select name="modifier" id="modifier">
 				<option value="20">+20</option>
 				<option value="15">+15</option>
 				<option value="10">+10</option>
@@ -24,16 +32,8 @@
 				<option value="-35">-35</option>
 				<option value="-50">-50</option>
 			</select>
-			<button id="de">Test !</button>
-		</div>
-		<div>
-			<button class="dice" id="dice-four"><i class="icons-d4"></i></button>
-			<button class="dice" id="dice-six"><i class="icons-d6"></i></button>
-			<button class="dice" id="dice-height"><i class="icons-d8"></i></button>
-			<button class="dice" id="dice-ten"><i class="icons-d10"></i></button>
-			<button class="dice" id="dice-twelve"><i class="icons-d12"></i></button>
-			<button class="dice" id="dice-twenty"><i class="icons-d20"></i></button>
-			<button class="dice" id="dice-hundred">1D100</button>
+			<button id="talent-dice">Test !</button>
 		</div>
 		<div id="result"></div>
 	</div>
+</div>

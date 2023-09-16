@@ -7,6 +7,7 @@ use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
+use App\Entity\Statistic;
 use App\Entity\Talent;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
@@ -105,16 +106,25 @@ class CharacterController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
+        // todo : create custom query
         $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        
+        $statistics = $doctrine->getRepository(Statistic::class)->findAllNames();
+        $talents = $doctrine->getRepository(Talent::class)->findAllNames();
+
         $character->setLastView(new DateTimeImmutable());
         $entityManager->persist($character);
         $entityManager->flush();
+        
         return $this->render('character/character/characterSheet.html.twig', [
             'character' => $character,
             'skills' => $skills,
             'armor' => $armor,
             'weapons' => $weapons,
+            'statistics' => $statistics,
+            'talents' => $talents,
+            
         ]);
     }
 

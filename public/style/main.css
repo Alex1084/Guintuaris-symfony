@@ -333,7 +333,7 @@ input[type="checkbox"]:checked + label.checkbox-label span.checkbox-button::afte
     content: '✘';
 }
 
-form button, #de, .swal-button, .default-sort, .dice{
+form button, #talent-dice, .swal-button, .default-sort, .dice{
     border:outset rgba(65, 57, 47, 0.502);
     background-color: rgba(238, 211, 176, 1);
     box-shadow: 10px 5px 5px rgba(183, 155, 118, 0.58);
@@ -353,7 +353,7 @@ form button, #de, .swal-button, .default-sort, .dice{
     color: #a00 !important;
 }
 form button:active, 
-#de:active, 
+#talent-dice:active, 
 .swal-button:active, 
 .default-sort:active, 
 .dice:active

@@ -39,28 +39,13 @@ class StatisticRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Statistic[] Returns an array of Statistic objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Statistic
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAllNames()
+    {
+        return $this->createQueryBuilder("s")
+        ->select("s.name, s.id")
+        ->orderBy('s.name')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }

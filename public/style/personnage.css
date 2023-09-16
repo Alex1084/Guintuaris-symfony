@@ -159,6 +159,23 @@
     text-align: center;
     background :rgba(238, 212, 177, 0.50);
     transition: background 600ms;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dices-div {
+    height: 20vh;
+    border: 1px solid black;
+    position: relative;
+    margin: auto;
+}
+.dices-div .simple-dices {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 /* ~~~~~~~~~~~equipement~~~~~~~~~~~ */
 .tableau{
