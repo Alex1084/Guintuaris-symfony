@@ -7,7 +7,7 @@ let data
 init()
 function init() {
     data = JSON.parse(tbody.dataset.talent)
-    if (data == null)
+    if (data === null || data === [])
     {
         data = {}
     }
@@ -15,13 +15,13 @@ function init() {
         addTalentInTable(
             talent, 
             data[talent].name,
+            data[talent].isVisible,
             data[talent].level,
-            data[talent].otherBonus,
-            data[talent].isVisible)
+            data[talent].otherBonus)
     }
 }
 
-function addTalentInTable(id, name, level = 0, otherBonus = 0, isVisible = false) {
+function addTalentInTable(id, name, isVisible = false, level = 0, otherBonus = 0) {
     let html = `
         <tr id="${id}">
             <td>${name}</td>
@@ -57,7 +57,7 @@ newTalentForm.addEventListener("submit", (e) => {
     let talent = talentSelector.value
     let talentOption = talentSelector[talentSelector.selectedIndex]
     talentOption.remove();
-    addTalentInTable(talent, talentOption.text)
+    addTalentInTable(talent, talentOption.text, true)
 })
 
 function initTalent(id) {

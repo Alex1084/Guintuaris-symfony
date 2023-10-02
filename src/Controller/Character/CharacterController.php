@@ -525,7 +525,7 @@ class CharacterController extends AbstractController
         $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
         $characterTalentsId = [];
         $equipedTalents = json_encode($character->getTalents());
-        
+
         if ($character->getTalents() ==! null) {
             foreach ($character->getTalents() as $key => $talent) {
                 array_push($characterTalentsId, $key);
@@ -540,15 +540,16 @@ class CharacterController extends AbstractController
 
                 $indexOfTalent = array_search($key, array_column($talents, 'id'));
                 if ($indexOfTalent === false) {
-                    if (isset($talent['name'])) {
-                        $this->addFlash("error", "le talent " .$talent['name']. " n'a pas été trouvé ou n'existe plus, ce dernier a été supprimer de ta liste des talents");
+                    if (isset($talent['name']) === false) {
+                        $this->addFlash("error", "le talent " .$talent['name']. " n'a pas été trouvé ou n'existe plus");
                     }
-                    unset($equipedTalents[$key]);
+                    else {
+                        unset($equipedTalents[$key]);
+                    }
                 }
                 else {
                     $equipedTalents[$key]['name'] = $talents[$indexOfTalent]['name'];
                     $equipedTalents[$key]['statistic'] = $talents[$indexOfTalent]['statistic_id'];
-                    
                     if ($talent['level'] <0 || $talent['level']>3) {
                         array_push($errors,'erreur le talent ' .$equipedTalents[$key]['name']. " a un niveau non conforme");
                     }

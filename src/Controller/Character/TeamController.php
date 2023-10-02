@@ -4,6 +4,8 @@ namespace App\Controller\Character;
 
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
+use App\Entity\Statistic;
+use App\Entity\Talent;
 use App\Entity\Team;
 use App\Entity\WeaponCharacter;
 use App\Repository\CharacterRepository;
@@ -63,6 +65,8 @@ class TeamController extends AbstractController
         if (!$character) {
             return $this->redirectToRoute("character_list");
         }
+        $statistics = $doctrine->getRepository(Statistic::class)->findAllNames();
+        $talents = $doctrine->getRepository(Talent::class)->findAllNames();
         $teammates = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId(), $character->getId());
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
@@ -79,7 +83,9 @@ class TeamController extends AbstractController
             "teammates" => $teammates,
             'skills' => $skills,
             'armor' => $armor,
-            'weapons' => $weapons
+            'weapons' => $weapons,
+            'statistics' => $statistics,
+            'talents' => $talents,
         ]);
     }
 }
