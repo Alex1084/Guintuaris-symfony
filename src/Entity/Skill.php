@@ -79,8 +79,8 @@ class Skill
     #[Assert\Length(
         min:5,
         max:10, 
-        invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
-        notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
+        minMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
+        maxMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
     )]
     private $duration;
 

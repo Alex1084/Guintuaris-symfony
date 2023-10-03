@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\DurationType;
 use App\Form\DurationFormType;
+use App\Repository\DurationTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class DurationController extends AbstractController
 {
     #[Route("/ajouter", name:"add_duration")]
-    public function addClass(Request $request, EntityManagerInterface $entityManager): Response
+    public function addClass(
+        Request $request,
+        EntityManagerInterface $entityManager): Response
     {
         $newDuration = new DurationType();
 
@@ -36,9 +38,9 @@ class DurationController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/liste", name:"duration_list")]
-    public function classList(ManagerRegistry $doctrine): Response
+    public function classList(DurationTypeRepository $durationTypeRepository): Response
     {
-        $durations = $doctrine->getRepository(DurationType::class)->findBy([], ["id" => "ASC"]);
+        $durations = $durationTypeRepository->findBy([], ["id" => "ASC"]);
         return $this->render('admin/duration/list.html.twig', [
             "durations" => $durations
         ]);
@@ -48,9 +50,13 @@ class DurationController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/modifier/{id}", name:"update_duration")]
-    public function updateClass(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateClass(
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        DurationTypeRepository $durationTypeRepository): Response
     {
-        $duration = $doctrine->getRepository(DurationType::class)->find($id);
+        $duration = $durationTypeRepository->find($id);
         $durationForm = $this->createForm(DurationFormType::class, $duration);
 
         $durationForm->handleRequest($request);

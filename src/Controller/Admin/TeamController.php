@@ -6,8 +6,8 @@ use Cocur\Slugify\Slugify;
 use App\Entity\Character;
 use App\Entity\Team;
 use App\Repository\CharacterRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,10 +24,13 @@ class TeamController extends AbstractController
      * de plus un formulaire permet de créer une nouvelle equipe
      */
     #[Route("", name:"team_list")]
-    public function teamListAdmin(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function teamListAdmin(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository): Response
     {
         $newTeam = new Team();
-        $allTeam = $doctrine->getRepository(Team::class)->findBy([], ["name" => "ASC"]);
+        $allTeam = $teamRepository->findBy([], ["name" => "ASC"]);
         $form = $this->createFormBuilder($newTeam)
             ->add('name', TextType::class)
             ->getForm();
@@ -50,7 +53,11 @@ class TeamController extends AbstractController
     }
 
     #[Route("/modifier/{teamId}", name:"team_rename")]
-    public function teamRename(int $teamId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function teamRename(
+        int $teamId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository): Response
     {
         if ($request->isMethod('post')) {
             $newName = $request->request->get("value");
@@ -58,7 +65,7 @@ class TeamController extends AbstractController
                 $this->addFlash("error", "Nom invalide, le nom de l'équipe doit faire entre 3 et 50 caractères.");
                 return $this->redirectToRoute("admin_team_list");
             }
-            $team = $doctrine->getRepository(Team::class)->find($teamId);
+            $team = $teamRepository->find($teamId);
             $slugify = new Slugify();
             $slug = $slugify->slugify($newName);
             $oldName = $team->getName();
@@ -73,9 +80,12 @@ class TeamController extends AbstractController
     }
 
     #[Route("/supprimer/{id}", name:"delete_team")]
-    public function deleteTeam(int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteTeam(
+        int $id,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository)
     {
-        $team = $doctrine->getRepository(Team::class)->find($id);
+        $team = $teamRepository->find($id);
             $entityManager->remove($team);
             $entityManager->flush();
             return $this->json("Supprimé avec succès");
@@ -85,19 +95,17 @@ class TeamController extends AbstractController
      * affiche dans un select tout les personnage present dans l'equipe aucune
      * lorsque le formulaire est valider le persnnage selectioner changer d'equipe et a pour equipe celle selectionner dans la page admin_equipe_list
      * de plus la page affiche le nom de tout les personnage apartenent a l'equipe (les nom emmenent ensuite vers leur fiche)
-     * 
-     *
-     * @param integer $teamId
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param CharacterRepository $characterRepository
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/ajout-membre/{slug}/{teamId}', name: 'add_member')]
-    public function addTeamMember(string $slug, int $teamId, Request $request, EntityManagerInterface $entityManager, CharacterRepository $characterRepository, ManagerRegistry $doctrine): Response
+    public function addTeamMember(
+        string $slug,
+        int $teamId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository,
+        TeamRepository $teamRepository): Response
     {
-        $team = $doctrine->getRepository(Team::class)->findOneBy(["slug" => $slug, "id" => $teamId]); //represente la L'equipe sur la quelle des membre vont etre ajouter
+        $team = $teamRepository->findOneBy(["slug" => $slug, "id" => $teamId]); //represente la L'equipe sur la quelle des membre vont etre ajouter
         if (!$team) {
             return $this->redirectToRoute("admin_team_list");
         }
@@ -130,9 +138,12 @@ class TeamController extends AbstractController
     }
 
     #[Route("/retire-membre/{characterId}", name:"delete_team_member")]
-    public function deleteTeamMember(int $characterId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteTeamMember(
+        int $characterId,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository)
     {
-        $character = $doctrine->getRepository(Character::class)->find($characterId);
+        $character = $characterRepository->find($characterId);
         // if ($this->getUser()->getRoles() === "ROLE_ADMIN") {
             $character->setTeam(null);
             $entityManager->persist($character);

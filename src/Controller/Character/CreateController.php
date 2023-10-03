@@ -10,7 +10,6 @@ use App\Form\CharacterType;
 use App\Repository\ArmorLocationRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,19 +23,13 @@ class CreateController extends AbstractController
      * lors de la creation 7 nouvelle ligne sont créer dans la table armor_piece_character
      * avec comme idantifiant le personnage et un nombre allant de 1 à 7
      * et trois ligne sont créer pour les arme_personnage
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ArmorPieceRepository $armorPieceRepository
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, ArmorLocationRepository $armorLocationRepository, ManagerRegistry $doctrine): Response
+    public function create(
+        Request $request,EntityManagerInterface $entityManager,
+        ): Response
     {
         $character = new Character();
         $characterForm = $this->createForm(CharacterType::class, $character);
-
-        //annulation affichage champs hors formulaire
 
         //
         $characterForm->handleRequest($request);
@@ -54,7 +47,7 @@ class CreateController extends AbstractController
             // execution de la requete
             $entityManager->persist($character);
             $entityManager->flush();
-            $this->insertWeapon($character, $entityManager, $doctrine);
+            $this->insertWeapon($character, $entityManager);
 
 
             $this->addFlash('success', 'Bonjour '.$character->getName().'! Soyez le bienvenue sur Guintuaris.');
@@ -88,7 +81,7 @@ class CreateController extends AbstractController
      * ces ligne sont mis dans une fonction parce que je trouve sa plus lisible
      *
      */
-    private function insertWeapon(Character $character, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    private function insertWeapon(Character $character, EntityManagerInterface $entityManager)
     {
         for ($i=1; $i <=3; $i++) { 
             $weaponCharacter = new WeaponCharacter();

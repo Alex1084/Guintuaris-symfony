@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Statistic;
 use App\Form\StatisticFormType;
+use App\Repository\StatisticRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatisticController extends AbstractController
 {
     #[Route("/ajouter", name:"add_statistic")]
-    public function addClass(Request $request, EntityManagerInterface $entityManager): Response
+    public function addClass(
+        Request $request,
+        EntityManagerInterface $entityManager): Response
     {
         $newStatistic = new Statistic();
 
@@ -36,9 +38,9 @@ class StatisticController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/liste", name:"statistic_list")]
-    public function classList(ManagerRegistry $doctrine): Response
+    public function classList(StatisticRepository $statisticRepository): Response
     {
-        $statistics = $doctrine->getRepository(Statistic::class)->findBy([], ["id" => "ASC"]);
+        $statistics = $statisticRepository->findBy([], ["id" => "ASC"]);
         return $this->render('admin/statistic/list.html.twig', [
             "statistics" => $statistics
         ]);
@@ -48,9 +50,13 @@ class StatisticController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/modifier/{id}", name:"update_statistic")]
-    public function updateClass(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateClass(
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        StatisticRepository $statisticRepository): Response
     {
-        $statistic = $doctrine->getRepository(Statistic::class)->find($id);
+        $statistic = $statisticRepository->find($id);
         $statisticForm = $this->createForm(StatisticFormType::class, $statistic);
 
         $statisticForm->handleRequest($request);

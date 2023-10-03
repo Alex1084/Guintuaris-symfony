@@ -2,11 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\UpdateUserFormType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,18 +17,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/liste', name: 'user_list')]
-    public function userlist(ManagerRegistry $doctrine): Response
+    public function userlist(UserRepository $userRepository): Response
     {
-        $users = $doctrine->getRepository(User::class)->findAll();
+        $users = $userRepository->findAll();
         return $this->render('admin/user/userList.html.twig', [
             "users" => $users
         ]);
     }
 
     #[Route("/{id}", name: "user_gestion")]
-    public function userGestion(int $id, ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
+    public function userGestion(
+        int $id,
+        UserRepository $userRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $userPasswordHasher)
     {
-        $user = $doctrine->getRepository(User::class)->find($id);
+        $user = $userRepository->find($id);
         $userForm = $this->createForm(UpdateUserFormType::class, $user);
         $userForm->remove("password")->add("roles", ChoiceType::class,[
             'choices' => [

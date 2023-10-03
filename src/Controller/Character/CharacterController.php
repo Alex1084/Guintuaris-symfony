@@ -3,23 +3,23 @@
 namespace App\Controller\Character;
 
 use Cocur\Slugify\Slugify;
-use App\Entity\ArmorLocation;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
-use App\Entity\Character;
-use App\Entity\Statistic;
-use App\Entity\Talent;
 use App\Entity\Weapon;
 use App\Entity\WeaponCharacter;
 use App\Form\CharacterType;
+use App\Repository\ArmorLocationRepository;
+use App\Repository\ArmorPieceCharacterRepository;
 use App\Repository\ArmorPieceRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\SheetRepository;
 use App\Repository\SkillRepository;
+use App\Repository\StatisticRepository;
+use App\Repository\TalentRepository;
+use App\Repository\WeaponCharacterRepository;
 use App\Repository\WeaponRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -38,9 +38,6 @@ class CharacterController extends AbstractController
     /**
      * affiche la liste des personnage qui appartienent au joueur connecter
      * chaque nom des personnage rammene ver leur fiche
-     *
-     * @param CharacterRepository $characterRepository
-     * @return Response
      */
     public function list(CharacterRepository $characterRepository): Response
     {
@@ -53,14 +50,12 @@ class CharacterController extends AbstractController
 
     /**
      * Undocumented function
-     *
-     * @param Request $request
-     * @param CharacterRepository $characterRepository
-     * @param SheetRepository $sheetRepository
-     * @return void
      */
     #[Route('/modifier-statut', name: 'update_statut')]
-    public function updateStatut(Request $request, CharacterRepository $characterRepository, SheetRepository $sheetRepository)
+    public function updateStatut(
+        Request $request,
+        CharacterRepository $characterRepository,
+        SheetRepository $sheetRepository)
     {
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent());
@@ -76,9 +71,13 @@ class CharacterController extends AbstractController
         }
     }
     #[Route('/supprimer/{id}', name:'delete')]
-    public function delete(int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager)
+    public function delete(
+        int $id,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository,
+        )
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
+        $character = $characterRepository->find($id);
 
         if ($character && $character->getUser() === $this->getUser()) {
             $this->removeFile($character->getImage());
@@ -92,26 +91,30 @@ class CharacterController extends AbstractController
     }
     /**
      * permet d'afficher et d'editer la fiche de personnage que l'on souhaite
-     *
-     * @param integer $id
-     * @param SkillRepository $skillRepository
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/{slug}/{id}', name: 'view')]
-    public function fichePerso(string $slug, int $id, SkillRepository $skillRepository, ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
+    public function fichePerso(
+        string $slug,
+        int $id,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository,
+        SkillRepository $skillRepository,
+        ArmorPieceCharacterRepository $armorPieceCharacterRepository,
+        WeaponCharacterRepository $weaponCharacterRepository,
+        StatisticRepository $statisticRepository,
+        TalentRepository $talentRepository): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
         // todo : create custom query
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        $weapons = $weaponCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         
-        $statistics = $doctrine->getRepository(Statistic::class)->findAllNames();
-        $talents = $doctrine->getRepository(Talent::class)->findAllNames();
+        $statistics = $statisticRepository->findAllNames();
+        $talents = $talentRepository->findAllNames();
 
         $character->setLastView(new DateTimeImmutable());
         $entityManager->persist($character);
@@ -129,18 +132,27 @@ class CharacterController extends AbstractController
     }
 
     #[Route('/{slug}/{id}/option', name:'setting')]
-    public function setting(string $slug, int $id, ManagerRegistry $doctrine)
+    public function setting(
+        string $slug,
+        int $id,
+        CharacterRepository $characterRepository)
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
         return $this->render('character/character/setting.html.twig', ['character' => $character]);
     }
+
     #[Route("/{slug}/{id}/modifier", name: "update")]
-    public function updateCharact(string $slug, int $id, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request)
+    public function updateCharact(
+        string $slug,
+        int $id,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        CharacterRepository $characterRepository)
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -173,17 +185,16 @@ class CharacterController extends AbstractController
     /**
      * permet d'editer le champ lore du personnage passer en id 
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
-     *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/{slug}/{id}/lore', name: 'update_lore')]
-    public function Updatelore(string $slug, int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function Updatelore(
+        string $slug,
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -212,18 +223,17 @@ class CharacterController extends AbstractController
     /**
      * permet d'editer les statistique du personnage, son statut au max et son niveau
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
-     *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/{slug}/{id}/statistiques', name: 'level_up')]
-    public function levulUp(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function levulUp(
+        string $slug,
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository): Response
     {
         $message = "Vos nouvelles statistiques ont été enregistrées.";
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         $currentLevel = $character->getLevel();
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
@@ -261,17 +271,16 @@ class CharacterController extends AbstractController
     /**
      * permet d'editer la photo de "profil" du personnage
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
-     *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/{slug}/{id}/image', name: 'change_image')]
-    public function modifImage(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function modifImage(
+        string $slug,
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -313,9 +322,13 @@ class CharacterController extends AbstractController
     }
 
     #[Route("/{slug}/{id}/image/supprimer", name:'delete_image')]
-    public function deleteImage(string $slug,int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteImage(
+        string $slug,
+        int $id,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository)
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
@@ -333,25 +346,26 @@ class CharacterController extends AbstractController
     /**
      * permet de creer un formulaire servant a modifier l'equipement d'un personnage
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
-     *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ArmorPieceRepository $armorPieceRepository
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/{slug}/{id}/armure', name: 'update_armor')]
-    public function updateArmor(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository, ManagerRegistry $doctrine): Response
+    public function updateArmor(
+        string $slug,
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ArmorPieceRepository $armorPieceRepository,
+        CharacterRepository $characterRepository,
+        ArmorLocationRepository $armorLocationRepository,
+        ArmorPieceCharacterRepository $armorPieceCharacterRepository): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
-        $locations = $doctrine->getRepository(ArmorLocation::class)->findBy([], ["id" => "ASC"]);
+        $locations = $armorLocationRepository->findBy([], ["id" => "ASC"]);
         // dd($locations);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         if (count($armor) < count($locations)) {
             $ids = array_map(function ($armorPieceCharacter)
             {
@@ -433,22 +447,23 @@ class CharacterController extends AbstractController
     /**
      * permet de modifier les arme equiper par un personnage
      * une fois le formulaire valider on redirige l'utilisateur vers character_view
-     *
-     * @param integer $id
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/{slug}/{id}/arme', name: 'update_weapon')]
-    public function updateWeapon(string $slug,int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine, WeaponRepository $weaponRepository): Response
+    public function updateWeapon(
+        string $slug,
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository,
+        WeaponRepository $weaponRepository,
+        WeaponCharacterRepository $weaponCharacterRepository): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         if (!$character || $character->getUser() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
         // recherche des toute les armes appartenent au personnage (dans la table arme_personnage)
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        $weapons = $weaponCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         if (count($weapons) <= 3) {
             $ids = array_map(function ($weaponCharacter)
             {
@@ -520,9 +535,15 @@ class CharacterController extends AbstractController
     }
 
     #[Route('/{slug}/{id}/talents', name: 'update_talent')]
-    public function updateTalent(string $slug,int $id, ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManagerInterface)
+    public function updateTalent(
+        string $slug,
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManagerInterface,
+        CharacterRepository $characterRepository,
+        TalentRepository $talentRepository)
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["slug"=> $slug, "id" => $id]);
+        $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
         $characterTalentsId = [];
         $equipedTalents = json_encode($character->getTalents());
 
@@ -532,7 +553,7 @@ class CharacterController extends AbstractController
             }
         }
 
-        $talents = $doctrine->getRepository(Talent::class)->findAllNames();
+        $talents = $talentRepository->findAllNames();
         if ($request->isMethod("post")) {
             $errors = [];
             $equipedTalents = json_decode($request->request->get("talents"), true);
@@ -583,9 +604,6 @@ class CharacterController extends AbstractController
     }
     /**
      *  cette fonctrion permet de suprimmer l'encienne image de profil d'un personnage lorsque l'utilisateur la change
-     *
-     * @param string $file
-     * @return void
      */
     public function removeFile(string $file)
     {

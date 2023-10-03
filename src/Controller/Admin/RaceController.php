@@ -7,7 +7,6 @@ use App\Entity\Race;
 use App\Form\RaceFormType;
 use App\Repository\RaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,9 @@ class RaceController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/ajouter", name:"add_race")]
-    public function addRace(Request $request, EntityManagerInterface $entityManager): Response
+    public function addRace(
+        Request $request,
+        EntityManagerInterface $entityManager): Response
     {
         $race = new Race();
         $raceForm = $this->createForm(RaceFormType::class, $race);
@@ -55,9 +56,13 @@ class RaceController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/modifier/{slug}", name:"update_race")]
-    public function updateRace(string $slug, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateRace(
+        string $slug,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        RaceRepository $raceRepository): Response
     {
-        $race = $doctrine->getRepository(Race::class)->findOneBy(["slug" => $slug]);
+        $race = $raceRepository->findOneBy(["slug" => $slug]);
         $raceForm = $this->createForm(RaceFormType::class, $race);
         $oldName = $race->getName();
         $raceForm->handleRequest($request);

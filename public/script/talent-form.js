@@ -7,7 +7,7 @@ let data
 init()
 function init() {
     data = JSON.parse(tbody.dataset.talent)
-    if (data === null || data === [])
+    if ( Array.isArray(data) || data === null)
     {
         data = {}
     }
@@ -66,7 +66,7 @@ function initTalent(id) {
         data[id] = {
             level : 0,
             otherBonus : 0,
-            isVisible : false
+            isVisible : true
         }
     }
 

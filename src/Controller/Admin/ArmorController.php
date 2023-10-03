@@ -7,12 +7,12 @@ use App\Entity\ArmorPiece;
 use App\Entity\ArmorType;
 use App\Form\ArmorPieceType;
 use App\Form\NameFormType;
+use App\Repository\ArmorLocationRepository;
 use App\Repository\ArmorPieceRepository;
+use App\Repository\ArmorTypeRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,10 +24,14 @@ class ArmorController extends AbstractController
      * Undocumented function
      */
     #[Route("/liste-localisation", name:"armor_location_list")]
-    public function addArmorLocation(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function addArmorLocation(
+        Request $request, 
+        EntityManagerInterface $entityManager,
+        ArmorLocationRepository $armorLocationRepository
+        ): Response
     {
         $newLoca = new ArmorLocation();
-        $findall = $doctrine->getRepository(ArmorLocation::class)->findBy([], ["id" => "ASC"]);
+        $findall = $armorLocationRepository->findBy([], ["id" => "ASC"]);
         $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
         if ($request->isMethod("post")) {
@@ -50,7 +54,11 @@ class ArmorController extends AbstractController
     }
 
     #[Route("/modifier-localisation/{locationId}", name:"armor_location_update")]
-    public function updatedArmorLocation(int $locationId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updatedArmorLocation(
+        int $locationId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ArmorLocationRepository $armorLocationRepository): Response
     {
         if ($request->isMethod('post')) {
             $newName = $request->request->get('value');
@@ -58,7 +66,7 @@ class ArmorController extends AbstractController
                 $this->addFlash("error", "Le nom entré n'est pas valide, il doit faire entre 2 et 50 caractères.");
                 return $this->redirectToRoute('admin_armor_location_list');
             }
-            $location = $doctrine->getRepository(ArmorLocation::class)->find($locationId);
+            $location = $armorLocationRepository->find($locationId);
             $oldName = $location->getName();
             $location->setName($newName);
             $slugify = new Slugify();
@@ -71,10 +79,13 @@ class ArmorController extends AbstractController
     }
 
     #[Route("/liste-type", name:"armor_type_list")]
-    public function addArmorType(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function addArmorType(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ArmorTypeRepository $armorTypeRepository): Response
     {
         $newLoca = new ArmorType();
-        $findall = $doctrine->getRepository(ArmorType::class)->findBy([], ["id" => "ASC"]);
+        $findall = $armorTypeRepository->findBy([], ["id" => "ASC"]);
         $form = $this->createForm(NameFormType::class, $newLoca);
         $form->handleRequest($request);
         if ($request->isMethod("post")) {
@@ -95,7 +106,11 @@ class ArmorController extends AbstractController
     }
 
     #[Route("/modifier-type/{typeId}", name:"armor_type_update")]
-    public function updatedArmorType(int $typeId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updatedArmorType(
+        int $typeId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ArmorTypeRepository $armorTypeRepository): Response
     {
         if ($request->isMethod('post')) {
             $newName = $request->request->get('value');
@@ -103,7 +118,7 @@ class ArmorController extends AbstractController
                 $this->addFlash("error", "Le nom entré n'est pas valide, il doit faire entre 2 et 50 caractères.");
                 return $this->redirectToRoute('admin_armor_type_list');
             }
-            $type = $doctrine->getRepository(ArmorType::class)->find($typeId);
+            $type = $armorTypeRepository->find($typeId);
             $oldName = $type->getName();
             $type->setName($newName);
             $entityManager->persist($type);
@@ -116,14 +131,12 @@ class ArmorController extends AbstractController
     /**
      * permet d'ajouter une nouvel Piece d'armure dans la BDD (table armor_piece)
      * permet aussi d'afficher toute les instance de cette table
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param ArmorPieceRepository $armorPieceRepository
-     * @return Response
      */
     #[Route('/ajouter-piece', name: 'add_armor_piece')]
-    public function addArmorPiece(Request $request, EntityManagerInterface $entityManager, ArmorPieceRepository $armorPieceRepository): Response
+    public function addArmorPiece(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ArmorPieceRepository $armorPieceRepository): Response
     {
         $piecesTab = $armorPieceRepository->selectAllNamesValue();
         $armorPiece = new ArmorPiece();
@@ -148,7 +161,10 @@ class ArmorController extends AbstractController
     }
 
     #[Route('/modifier-piece/{pieceId}', name: 'update_armor_piece')]
-    public function updateArmorPieceValue(int $pieceId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function updateArmorPieceValue(
+        int $pieceId, Request $request,
+        EntityManagerInterface $entityManager,
+        ArmorPieceRepository $armorPieceRepository)
     {
         if ($request->isMethod('post')) {
             $newValue = $request->request->get('value');
@@ -156,7 +172,7 @@ class ArmorController extends AbstractController
                 $this->addFlash("error", "La valeur de classe d'armure n'est pas valide, veuillez entrer un nombre entier entre 1 et 10.");
                 return $this->redirectToRoute('admin_add_armor_piece');
             }
-            $piece = $doctrine->getRepository(ArmorPiece::class)->find($pieceId);
+            $piece = $armorPieceRepository->find($pieceId);
             $piece->setValue($newValue);
             $entityManager->persist($piece);
             $entityManager->flush();

@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Classes;
 use App\Entity\Race;
 use App\Entity\Skill;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\ClassesRepository;
+use App\Repository\RaceRepository;
+use App\Repository\SkillRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,20 +15,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class RulesController extends AbstractController
 {
     #[Route('/race/{slug}', name: 'race')]
-    public function race(string $slug, ManagerRegistry $doctrine): Response
+    public function race(
+        string $slug,
+        RaceRepository $raceRepository): Response
     {
-        $race = $doctrine->getRepository(Race::class)->findOneBy(["slug" => $slug]);
+        $race = $raceRepository->findOneBy(["slug" => $slug]);
         return $this->render('rules/race.html.twig', [
             'race' => $race
         ]);
     }
 
     #[Route('/classe/{slug}', name: 'class')]
-    public function classe(string $slug, ManagerRegistry $doctrine): Response
+    public function classe(
+        string $slug,
+        ClassesRepository $classesRepository,
+        SkillRepository $skillRepository): Response
     {
-        $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);
+        $class = $classesRepository->findOneBy(["slug" => $slug]);
 
-        $skills = $doctrine->getRepository(Skill::class)->findByClass( $class->getId());
+        $skills = $skillRepository->findByClass( $class->getId());
         return $this->render('rules/classe.html.twig', [
             'classe' => $class,
             'skills' => $skills

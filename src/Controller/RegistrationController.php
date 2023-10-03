@@ -20,11 +20,6 @@ class RegistrationController extends AbstractController
     /**
      * ce controller permet l'inscription de nouveau utilisateur sur le site
      * (utilisation de la generation automatique des registration par composer)
-     *
-     * @param Request $request
-     * @param UserPasswordHasherInterface $userPasswordHasher
-     * @param EntityManagerInterface $entityManager
-     * @return Response
      */
     #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, 

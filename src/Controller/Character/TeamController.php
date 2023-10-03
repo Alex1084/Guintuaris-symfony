@@ -2,15 +2,13 @@
 
 namespace App\Controller\Character;
 
-use App\Entity\ArmorPieceCharacter;
-use App\Entity\Character;
-use App\Entity\Statistic;
-use App\Entity\Talent;
-use App\Entity\Team;
-use App\Entity\WeaponCharacter;
+use App\Repository\ArmorPieceCharacterRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\SkillRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\StatisticRepository;
+use App\Repository\TalentRepository;
+use App\Repository\TeamRepository;
+use App\Repository\WeaponCharacterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,20 +19,20 @@ class TeamController extends AbstractController
     /**
      * cette page affiche la list des membre apartenent à l'equipe qui se trouve en parametre
      * l'objectif serais qu'un joueur qui n'a pas de personnage dans une equipe ne puisse pas y acceder par l'url
-     *
-     * @param integer $teamId
-     * @param CharacterRepository $characterRepository
-     * @return Response
      */
     #[Route('/list/{teamSlug}/{teamId}', name: 'list')]
-    public function teamMembersList(string $teamSlug, int $teamId, ManagerRegistry $doctrine): Response
+    public function teamMembersList(
+        string $teamSlug,
+        int $teamId,
+        TeamRepository $teamRepository,
+        CharacterRepository $characterRepository): Response
     {
-        $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId, "slug" => $teamSlug]);
-        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team], ["name" => "ASC"]);
+        $team = $teamRepository->findOneBy(["id" => $teamId, "slug" => $teamSlug]);
+        $charactersUser = $characterRepository->findBy(["user" => $this->getUser(), "team" => $team], ["name" => "ASC"]);
         if ($charactersUser === [] && $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
-        $characters = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId());
+        $characters = $characterRepository->findNameByTeam($teamId, $this->getUser()->getId());
         return $this->render('character/team/teammateList.html.twig', [
             "characters" => $characters,
             "team" => $team,
@@ -46,33 +44,38 @@ class TeamController extends AbstractController
     /**
      * cette page affiche une fiche de personnage qui ne peut pas être editer
      * le membre y on seulement un accee afin de pouvoir voir les fiche des membre de leur equipe
-     *
-     * @param integer $teamId
-     * @param integer $characterId
-     * @param SkillRepository $skillRepository
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
-    public function fichePerso(string $teamSlug, int $teamId,string $characterSlug,  int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
+    public function fichePerso(
+        string $teamSlug,
+        int $teamId,string $characterSlug,
+        int $characterId,
+        SkillRepository $skillRepository,
+        TeamRepository $teamRepository,
+        CharacterRepository $characterRepository,
+        StatisticRepository $statisticRepository,
+        TalentRepository $talentRepository,
+        ArmorPieceCharacterRepository $armorPieceCharacterRepository,
+        WeaponCharacterRepository $weaponCharacterRepository
+        ): Response
     {
-        $team = $doctrine->getRepository(Team::class)->findOneBy(["id" => $teamId,"slug"=>$teamSlug]);
-        $charactersUser = $doctrine->getRepository(Character::class)->findBy(["user" => $this->getUser(), "team" => $team], ["name" => "ASC"]);
+        $team = $teamRepository->findOneBy(["id" => $teamId,"slug"=>$teamSlug]);
+        $charactersUser = $characterRepository->findBy(["user" => $this->getUser(), "team" => $team], ["name" => "ASC"]);
         if ($charactersUser == [] && $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("character_list");
         }
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $team]);
+        $character = $characterRepository->findOneBy(["id" => $characterId, "slug" => $characterSlug, "team" => $team]);
         //requete pour les competence
         if (!$character) {
             return $this->redirectToRoute("character_list");
         }
-        $statistics = $doctrine->getRepository(Statistic::class)->findAllNames();
-        $talents = $doctrine->getRepository(Talent::class)->findAllNames();
-        $teammates = $doctrine->getRepository(Character::class)->findNameByTeam($teamId, $this->getUser()->getId(), $character->getId());
+        $statistics = $statisticRepository->findAllNames();
+        $talents = $talentRepository->findAllNames();
+        $teammates = $characterRepository->findNameByTeam($teamId, $this->getUser()->getId(), $character->getId());
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
+        $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
+        $weapons = $weaponCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
 
         // creation d'un formulaire en readonly pour voir le statut
 

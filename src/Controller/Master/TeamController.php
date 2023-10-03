@@ -5,9 +5,9 @@ namespace App\Controller\Master;
 use App\Entity\Character;
 use App\Entity\Team;
 use App\Repository\CharacterRepository;
+use App\Repository\TeamRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,9 +23,12 @@ class TeamController extends AbstractController
      * de plus un formulaire permet de créer une nouvelle equipe
      */
     #[Route("/equipe", name:"team_list")]
-    public function teamListAdmin(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function teamListAdmin(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository): Response
     {
-        $allTeam = $doctrine->getRepository(Team::class)->findBy(["master" => $this->getUser()], ["name" => "asc"]);
+        $allTeam = $teamRepository->findBy(["master" => $this->getUser()], ["name" => "asc"]);
         $newTeam = new Team();
         $form = $this->TeamForm($newTeam, $request,$entityManager);
         if ($form->isSubmitted()) {
@@ -36,11 +39,16 @@ class TeamController extends AbstractController
             'addTeamForm' => $form->createView(),
         ]);
     }
+
     #[Route('/lists', name: 'list_character_team')]
-    public function index(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository,
+        CharacterRepository $characterRepository): Response
     {
-        $allTeam = $doctrine->getRepository(Team::class)->findBy(["master" => $this->getUser()], ["name" => "asc"]);
-        $characters = $doctrine->getRepository(Character::class)->listByUser($this->getUser()->getId());
+        $allTeam = $teamRepository->findBy(["master" => $this->getUser()], ["name" => "asc"]);
+        $characters = $characterRepository->listByUser($this->getUser()->getId());
         $newTeam = new Team();
         $form = $this->TeamForm($newTeam, $request,$entityManager);
         if ($form->isSubmitted()) {
@@ -54,9 +62,13 @@ class TeamController extends AbstractController
     }
 
     #[Route("/modifer-equipe/{teamId}", name:"team_rename")]
-    public function teamRename(int $teamId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function teamRename(
+        int $teamId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository): Response
     {
-        $team = $doctrine->getRepository(Team::class)->find($teamId);
+        $team = $teamRepository->find($teamId);
         if ($team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("master_team_list");
         }
@@ -83,9 +95,12 @@ class TeamController extends AbstractController
     }
 
     #[Route("/supprimer-equipe/{id}", name:"delete_team")]
-    public function deleteTeam(int $id, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteTeam(
+        int $id,
+        EntityManagerInterface $entityManager,
+        TeamRepository $teamRepository)
     {
-        $team = $doctrine->getRepository(Team::class)->find($id);
+        $team = $teamRepository->find($id);
         if ($this->getUser()->getId() === $team->getMaster()) {
             $entityManager->remove($team);
             $entityManager->flush();
@@ -98,19 +113,17 @@ class TeamController extends AbstractController
      * affiche dans un select tout les personnage present dans l'equipe aucune
      * lorsque le formulaire est valider le persnnage selectioner changer d'equipe et a pour equipe celle selectionner dans la page master_equipe_list
      * de plus la page affiche le nom de tout les personnage apartenent a l'equipe (les nom emmenent ensuite vers leur fiche)
-     * 
-     *
-     * @param integer $teamId
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param CharacterRepository $characterRepository
-     * @param ManagerRegistry $doctrine
-     * @return Response
      */
     #[Route('/ajout-membre/{slug}/{teamId}', name: 'add_member')]
-    public function addTeamMember(string $slug, int $teamId, Request $request, EntityManagerInterface $entityManager, CharacterRepository $characterRepository, ManagerRegistry $doctrine): Response
+    public function addTeamMember(
+        string $slug,
+        int $teamId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository,
+        TeamRepository $teamRepository): Response
     {
-        $team = $doctrine->getRepository(Team::class)->findOneBy(["slug" => $slug, "id" => $teamId]); //represente la L'equipe sur la quelle des membre vont etre ajouter
+        $team = $teamRepository->findOneBy(["slug" => $slug, "id" => $teamId]); //represente la L'equipe sur la quelle des membre vont etre ajouter
         if (!$team || $team->getMaster() !== $this->getUser()) {
             return $this->redirectToRoute("master_team_list");
         }
@@ -151,10 +164,14 @@ class TeamController extends AbstractController
     }
 
     #[Route("/retire-membre/{characterId}", name:"delete_team_member")]
-    public function deleteTeamMember(int $characterId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteTeamMember(
+        int $characterId,
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository,
+        TeamRepository $teamRepository)
     {
-        $character = $doctrine->getRepository(Character::class)->find($characterId);
-        $team = $doctrine->getRepository(Team::class)->find($character->getTeam());
+        $character = $characterRepository->find($characterId);
+        $team = $teamRepository->find($character->getTeam());
         if (!$team || $team->getMaster() !== $this->getUser()) {
             return $this->json("Accès refusé, vous n'avez pas accès à cette action.", 403);
         }
@@ -164,7 +181,10 @@ class TeamController extends AbstractController
         return $this->json("Supprimé avec succès");
     }
 
-    private function TeamForm(Team $newTeam, Request $request, EntityManagerInterface $entityManager)
+    private function TeamForm(
+        Team $newTeam,
+        Request $request,
+        EntityManagerInterface $entityManager)
     {
         $form = $this->createFormBuilder($newTeam)
         ->add('name', TextType::class)

@@ -2,12 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ArmorPieceCharacter;
-use App\Entity\Character;
-use App\Entity\Team;
-use App\Entity\WeaponCharacter;
+use App\Repository\ArmorPieceCharacterRepository;
+use App\Repository\CharacterRepository;
 use App\Repository\SkillRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\WeaponCharacterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CharacterController extends AbstractController
 {
     #[Route('/administration/personnage/list', name: 'admin_character_list')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(CharacterRepository $characterRepository): Response
     {
-        $characters = $doctrine->getRepository(Character::class)->findAllName();
+        $characters = $characterRepository->findAllName();
 
         return $this->render('admin/character/list.html.twig', [
             "characters" => $characters
@@ -25,9 +23,15 @@ class CharacterController extends AbstractController
     }
 
     #[Route("/administration/personnage/{characterSlug}/{characterId}", name: "admin_character_view")]
-    public function fichePerso(string $characterSlug,  int $characterId, SkillRepository $skillRepository, ManagerRegistry $doctrine): Response
+    public function fichePerso(
+        string $characterSlug,
+        int $characterId,
+        SkillRepository $skillRepository,
+        CharacterRepository $characterRepository,
+        ArmorPieceCharacterRepository $armorPieceCharacterRepository,
+        WeaponCharacterRepository $weaponCharacterRepository): Response
     {
-        $character = $doctrine->getRepository(Character::class)->findOneBy(["id" => $characterId, "slug" => $characterSlug]);
+        $character = $characterRepository->findOneBy(["id" => $characterId, "slug" => $characterSlug]);
         //requete pour les competence
         if (!$character) {
             return $this->redirectToRoute("character_list");
@@ -36,8 +40,8 @@ class CharacterController extends AbstractController
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
-        $armor = $doctrine->getRepository(ArmorPieceCharacter::class)->findBy(["charact" => $character->getId()]);
-        $weapons = $doctrine->getRepository(WeaponCharacter::class)->findBy(["charact" => $character->getId()]);
+        $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()]);
+        $weapons = $weaponCharacterRepository->findBy(["charact" => $character->getId()]);
 
         return $this->render('character/team/teammateSheet.html.twig', [
             //'team' => $team,

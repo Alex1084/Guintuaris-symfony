@@ -12,8 +12,6 @@ class AdminController extends AbstractController
 
     /**
      * affiche le lien des pour acceder au fonctionaliter administrateur
-     *
-     * @return Response
      */
     #[Route('/', name: 'home')]
     public function adminHome(): Response

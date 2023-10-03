@@ -6,7 +6,6 @@ use App\Entity\Skill;
 use App\Form\SkillFormType;
 use App\Repository\SkillRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,9 @@ class SkillController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/ajouter", name:"add_skill")]
-    public function addSkill(Request $request, EntityManagerInterface $entityManager): Response
+    public function addSkill(
+        Request $request,
+        EntityManagerInterface $entityManager): Response
     {
         $skill = new Skill();
         $skillForm = $this->createForm(SkillFormType::class, $skill);
@@ -41,7 +42,7 @@ class SkillController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/liste", name:"skill_list")]
-    public function skillList(Request $request, EntityManagerInterface $entityManager, SkillRepository $skillRepository): Response
+    public function skillList(SkillRepository $skillRepository): Response
     {
         $skills = $skillRepository->skillList();
         return $this->render('admin/skill/list.html.twig', [
@@ -53,9 +54,12 @@ class SkillController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/modifier/{skillId}", name:"update_skill")]
-    public function updateSkill(int $skillId, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateSkill(
+        int $skillId, Request $request,
+        EntityManagerInterface $entityManager,
+        SkillRepository $skillRepository): Response
     {
-        $skill = $doctrine->getRepository(Skill::class)->find($skillId);
+        $skill = $skillRepository->find($skillId);
         $skillForm = $this->createForm(SkillFormType::class, $skill);
 
         $skillForm->handleRequest($request);
@@ -75,9 +79,12 @@ class SkillController extends AbstractController
      * Undocumented function
      */
     #[Route("/supprimer/{skillId}", name:"delete_skill")]
-    public function deleteSkill(int $skillId, EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteSkill(
+        int $skillId,
+        EntityManagerInterface $entityManager,
+        SkillRepository $skillRepository)
     {
-        $skill = $doctrine->getRepository(Skill::class)->find($skillId);
+        $skill = $skillRepository->find($skillId);
             $entityManager->remove($skill);
             $entityManager->flush();
             return $this->json("Supprimé avec succès");

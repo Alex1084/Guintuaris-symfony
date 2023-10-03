@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Character;
-use App\Entity\Sheet;
 use App\Form\ChangePasswordFormType;
 use App\Form\UpdateUserFormType;
-use DateTimeImmutable;
+use App\Repository\CharacterRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,8 +18,6 @@ class UserController extends AbstractController
 {
     /**
      * permet de voir les information de son profil
-     *
-     * @return Response
      */
     #[Route("/profil", name:"profil")]
     public function profilUser(): Response
@@ -97,13 +93,15 @@ class UserController extends AbstractController
     }
 
     #[Route("profil/supprimer", name: "profile_delete")]
-    public function deleteProfil(EntityManagerInterface $entityManager, ManagerRegistry $doctrine)
+    public function deleteProfil(
+        EntityManagerInterface $entityManager,
+        CharacterRepository $characterRepository)
     {
         $user = $this->getUser();
         if (!$user){
             return $this->redirectToRoute("app_login");
         }
-        $sheets = $doctrine->getRepository(Character::class)->findBy(["user" => $user]);
+        $sheets = $characterRepository->findBy(["user" => $user]);
         foreach ($sheets as $sheet) {
             $file_path = $this->getParameter('images_directory') . '/' . $sheet->getImage();
             if (file_exists($file_path)) unlink($file_path);

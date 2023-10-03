@@ -7,7 +7,6 @@ use App\Entity\Classes;
 use App\Form\ClassesFormType;
 use App\Repository\ClassesRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,9 @@ class ClassesController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/ajouter", name:"add_class")]
-    public function addClass(Request $request, EntityManagerInterface $entityManager): Response
+    public function addClass(
+        Request $request,
+        EntityManagerInterface $entityManager): Response
     {
         $class = new Classes();
         $classForm = $this->createForm(ClassesFormType::class, $class);
@@ -55,9 +56,13 @@ class ClassesController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/modifier/{slug}", name:"update_class")]
-    public function updateClass(string $slug, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateClass(
+        string $slug,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ClassesRepository $classesRepository): Response
     {
-        $class = $doctrine->getRepository(Classes::class)->findOneBy(["slug" => $slug]);
+        $class = $classesRepository->findOneBy(["slug" => $slug]);
         $classForm = $this->createForm(ClassesFormType::class, $class);
         $oldName = $class->getName();
         $classForm->handleRequest($request);

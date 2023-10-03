@@ -12,9 +12,6 @@ class SecurityController extends AbstractController
     /**
      * permet a l'utilisateur de se connecter et de se déconnecter
      * (utilisation de la generation automatique des registration par composer)
-     *
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
      */
     #[Route(path: '/connexion', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response

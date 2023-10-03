@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Resource;
 use App\Form\ResourceFormType;
+use App\Repository\ResourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,9 +35,9 @@ class ResourceController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/liste", name:"resource_list")]
-    public function classList(ManagerRegistry $doctrine): Response
+    public function classList(ResourceRepository $resourceRepository): Response
     {
-        $resources = $doctrine->getRepository(Resource::class)->findBy([], ["id" => "ASC"]);
+        $resources = $resourceRepository->findBy([], ["id" => "ASC"]);
         return $this->render('admin/resource/list.html.twig', [
             "resources" => $resources
         ]);
@@ -47,9 +47,13 @@ class ResourceController extends AbstractController
      * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route("/modifier/{id}", name:"update_resource")]
-    public function updateClass(int $id, Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function updateClass(
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ResourceRepository $resourceRepository): Response
     {
-        $resource = $doctrine->getRepository(Resource::class)->find($id);
+        $resource = $resourceRepository->find($id);
         $resourceForm = $this->createForm(ResourceFormType::class, $resource);
 
         $resourceForm->handleRequest($request);
