@@ -14,43 +14,43 @@ class ArmorPiece
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id;
 
-    #[ORM\ManyToOne(targetEntity: ArmorLocation::class)]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private $location;
+    private ?ArmorLocation $location;
 
-    #[ORM\ManyToOne(targetEntity: ArmorType::class)]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private $type;
+    private ?ArmorType $type;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:10, 
         notInRangeMessage: "La valeur incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
     )]
-    private $value;
+    private ?int $value;
 
     public function getId(): ?int { return $this->id; }
 
     public function getLocation(): ?ArmorLocation { return $this->location; }
-    public function setLocation(?ArmorLocation $location): self
+    public function setLocation(?ArmorLocation $location): static
     {
         $this->location = $location;
         return $this;
     }
 
     public function getType(): ?ArmorType { return $this->type; }
-    public function setType(?ArmorType $type): self
+    public function setType(?ArmorType $type): static
     {
         $this->type = $type;
         return $this;
     }
 
     public function getValue(): ?int { return $this->value; }
-    public function setValue(int $value): self
+    public function setValue(int $value): static
     {
         $this->value = $value;
         return $this;

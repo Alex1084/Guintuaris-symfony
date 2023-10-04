@@ -14,10 +14,10 @@ abstract class Sheet
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min:3,
         max:50,
@@ -25,9 +25,9 @@ abstract class Sheet
         minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement mettre un nom, celui-ci doit faire entre 3 et 50 caractères.")]
-    private $name;
+    private ?string $name;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:1,
         max:10, 
@@ -35,18 +35,18 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $level;
+    private ?int $level;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:-500,
         max:500,
         invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
-    private $pv;
+    private ?int $pv;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:1,
         max:500,
@@ -54,18 +54,18 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $pvMax;
+    private ?int $pvMax;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:-500,
         max:500,
         invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
-    private $pc;
+    private ?int $pc;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:500,
@@ -73,18 +73,18 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $pcMax;
+    private ?int $pcMax;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:-500,
         max:500,
         invalidMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}.", 
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
-    private $pm;
+    private ?int $pm;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:500,
@@ -92,9 +92,9 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $pmMax;
+    private ?int $pmMax;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:85,
@@ -102,9 +102,9 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $constitution;
+    private ?int $constitution;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:85,
@@ -112,9 +112,9 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $strength;
+    private ?int $strength;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:85,
@@ -122,9 +122,9 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $dexterity;
+    private ?int $dexterity;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:85,
@@ -132,9 +132,9 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $intelligence;
+    private ?int $intelligence;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:85,
@@ -142,9 +142,9 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $charisma;
+    private ?int $charisma;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     #[Assert\Range(
         min:0,
         max:85,
@@ -152,7 +152,7 @@ abstract class Sheet
         notInRangeMessage: "La valeur est incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}." 
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement donner une valeur comprise entre {{ min }} et {{ max }}.")]
-    private $faith;
+    private ?int $faith;
 
     #[ORM\Column(type: 'datetime_immutable',nullable: false)]
     private $created_at;
@@ -160,112 +160,107 @@ abstract class Sheet
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
         return $this;
     }
 
     public function getPv(): ?int { return $this->pv; }
-    public function setPv(int $pv): self
+    public function setPv(int $pv): static
     {
         $this->pv = $pv;
         return $this;
     }
 
     public function getPvMax(): ?int { return $this->pvMax; }
-    public function setPvMax(int $pvMax): self
+    public function setPvMax(int $pvMax): static
     {
         $this->pvMax = $pvMax;
         return $this;
     }
 
     public function getPc(): ?int { return $this->pc; }
-    public function setPc(int $pc): self
+    public function setPc(int $pc): static
     {
         $this->pc = $pc;
         return $this;
     }
 
     public function getPcMax(): ?int { return $this->pcMax; }
-    public function setPcMax(int $pcMax): self
+    public function setPcMax(int $pcMax): static
     {
         $this->pcMax = $pcMax;
         return $this;
     }
 
     public function getPm(): ?int { return $this->pm; }
-    public function setPm(int $pm): self
+    public function setPm(int $pm): static
     {
         $this->pm = $pm;
         return $this;
     }
 
     public function getPmMax(): ?int { return $this->pmMax; }
-    public function setPmMax(int $pmMax): self
+    public function setPmMax(int $pmMax): static
     {
         $this->pmMax = $pmMax;
         return $this;
     }
 
     public function getLevel(): ?int { return $this->level; }
-    public function setLevel(int $level): self
+    public function setLevel(int $level): static
     {
         $this->level = $level;
         return $this;
     }
 
     public function getConstitution(): ?int { return $this->constitution; }
-    public function setConstitution(int $constitution): self
+    public function setConstitution(int $constitution): static
     {
         $this->constitution = $constitution;
         return $this;
     }
 
     public function getStrength(): ?int { return $this->strength; } 
-    public function setStrength(int $strength): self 
+    public function setStrength(int $strength): static 
     { 
         $this->strength = $strength;
         return $this;
     }
 
     public function getDexterity(): ?int { return $this->dexterity; }
-    public function setDexterity(int $dexterity): self
+    public function setDexterity(int $dexterity): static
     {
         $this->dexterity = $dexterity;
         return $this;
     }
 
     public function getIntelligence(): ?int { return $this->intelligence; }
-    public function setIntelligence(int $intelligence): self
+    public function setIntelligence(int $intelligence): static
     {
         $this->intelligence = $intelligence;
         return $this;
     }
 
     public function getCharisma(): ?int { return $this->charisma; }
-    public function setCharisma(int $charisma): self
+    public function setCharisma(int $charisma): static
     {
         $this->charisma = $charisma;
         return $this;
     }
 
     public function getFaith(): ?int { return $this->faith; }
-    public function setFaith(int $faith): self
+    public function setFaith(int $faith): static
     {
         $this->faith = $faith;
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function getCreatedAt(): ?\DateTimeImmutable { return $this->created_at; }
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 }

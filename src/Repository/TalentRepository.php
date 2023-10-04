@@ -23,24 +23,6 @@ class TalentRepository extends ServiceEntityRepository
         parent::__construct($registry, Talent::class);
     }
 
-    public function add(Talent $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Talent $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
     public function getTalentNotInPlayerInfos($ids)
     {
         // if user haven't talents select all

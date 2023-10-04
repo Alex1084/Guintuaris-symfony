@@ -24,23 +24,6 @@ class ArmorPieceRepository extends ServiceEntityRepository
         parent::__construct($registry, ArmorPiece::class);
     }
 
-    public function add(ArmorPiece $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(ArmorPiece $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
     public function findEmptybyLocation($locationId)
     {
         $typeName = "Enlever";

@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\TalentRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TalentRepository::class)]
 #[UniqueEntity(fields:["name"], message: "Erreur: ce nom de classe existe déjà.")]
@@ -12,72 +14,49 @@ class Talent
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    private $name;
+    #[ORM\Column(length: 50)]
+    private ?string $name;
 
-    #[ORM\Column(type: 'text')]
-    private $description;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description;
 
-    #[ORM\ManyToOne(targetEntity: Statistic::class, inversedBy: 'talent')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private $statistic;
+    private ?Statistic $statistic;
 
-    #[ORM\Column(type: 'string', length: 255,nullable : false)]
-    private $slug;
+    #[ORM\Column(length: 255,nullable : false)]
+    private ?string $slug;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
+    public function getName(): ?string {return $this->name; }
+    public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
+    public function getDescription(): ?string { return $this->description; }
+    public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
-    public function getStatistic(): ?Statistic
-    {
-        return $this->statistic;
-    }
-
-    public function setStatistic(?Statistic $statistic): self
+    public function getStatistic(): ?Statistic { return $this->statistic;}
+    public function setStatistic(?Statistic $statistic): static
     {
         $this->statistic = $statistic;
-
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
+    public function getSlug(): ?string { return $this->slug; }
+    public function setSlug(string $slug): static
     {
         $this->slug = $slug;
-
         return $this;
     }
 }

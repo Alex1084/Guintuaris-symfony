@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RaceRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,10 +15,10 @@ class Race
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 30)]
+    #[ORM\Column(length: 30)]
     #[Assert\Length(
         min:3,
         max:30,
@@ -25,117 +26,117 @@ class Race
         minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
     #[Assert\NotBlank(message: "vous devez obligatoirement metre un nom, celui-ci doit faire entre 3 et 50 caractere")]
-    private $name;
+    private ?string $name;
 
-    #[ORM\Column(type: 'text')]
-    private $description;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description;
 
-    #[ORM\Column(type: 'text')]
-    private $bonus;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $bonus;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $slug;
+    #[ORM\Column(length: 255)]
+    private ?string $slug;
 
-    #[ORM\Column(type: 'text', nullable: false)]
-    private $SocialAbility;
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
+    private ?string $SocialAbility;
 
-    #[ORM\Column(type: 'text', nullable: false)]
-    private $physicalAbility;
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
+    private ?string $physicalAbility;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(nullable: false)]
     #[Assert\Positive(message:"La taille minimum doit être un nombre supérieur à zéro.")]
-    private $minHeight;
+    private ?int $minHeight;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(nullable: false)]
     #[Assert\Positive(message:"La taille maximum doit être un nombre supérieur à zéro.")]
-    private $maxHeight;
+    private ?int $maxHeight;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(nullable: false)]
     #[Assert\Positive(message:"Le poids moyens doit être un nombre supérieur à zéro.")]
-    private $averageWheight;
+    private ?int $averageWheight;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(nullable: false)]
     #[Assert\Positive(message:"l'age adulte doit être un nombre supérieur à zéro.")]
-    private $adulthood;
+    private ?int $adulthood;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(nullable: false)]
     #[Assert\Positive(message:"La durèe de vie doit être un nombre supérieur à zéro.")]
-    private $lifetime;
+    private ?int $lifetime;
 
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
         return $this;
     }
 
     public function getDescription(): ?string { return $this->description; }
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
         return $this;
     }
 
     public function getBonus(): ?string { return $this->bonus; }
-    public function setBonus(?string $bonus): self
+    public function setBonus(?string $bonus): static
     {
         $this->bonus = $bonus;
         return $this;
     }
 
     public function getSlug(): ?string { return $this->slug; }
-    public function setSlug(string $slug): self
+    public function setSlug(string $slug): static
     {
         $this->slug = $slug;
         return $this;
     }
 
     public function getSocialAbility(): ?string { return $this->SocialAbility; }
-    public function setSocialAbility(?string $SocialAbility): self
+    public function setSocialAbility(?string $SocialAbility): static
     {
         $this->SocialAbility = $SocialAbility;
         return $this;
     }
 
     public function getPhysicalAbility(): ?string { return $this->physicalAbility; }
-    public function setPhysicalAbility(?string $physicalAbility): self
+    public function setPhysicalAbility(?string $physicalAbility): static
     {
         $this->physicalAbility = $physicalAbility;
         return $this;
     }
 
     public function getMinHeight(): ?int { return $this->minHeight; }
-    public function setMinHeight(?int $minHeight): self
+    public function setMinHeight(?int $minHeight): static
     {
         $this->minHeight = $minHeight;
         return $this;
     }
 
     public function getMaxHeight(): ?int { return $this->maxHeight; }
-    public function setMaxHeight(?int $maxHeight): self
+    public function setMaxHeight(?int $maxHeight): static
     {
         $this->maxHeight = $maxHeight;
         return $this;
     }
 
     public function getAverageWheight(): ?int { return $this->averageWheight; }
-    public function setAverageWheight(?int $averageWheight): self
+    public function setAverageWheight(?int $averageWheight): static
     {
         $this->averageWheight = $averageWheight;
         return $this;
     }
 
     public function getAdulthood(): ?int { return $this->adulthood; }
-    public function setAdulthood(?int $adulthood): self
+    public function setAdulthood(?int $adulthood): static
     {
         $this->adulthood = $adulthood;
         return $this;
     }
 
     public function getLifetime(): ?int { return $this->lifetime; }
-    public function setLifetime(?int $lifetime): self
+    public function setLifetime(?int $lifetime): static
     {
         $this->lifetime = $lifetime;
         return $this;

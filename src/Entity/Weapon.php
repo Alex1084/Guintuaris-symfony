@@ -11,47 +11,47 @@ class Weapon
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length( 
         min:2,
         max:50,
         maxMessage: "Le nom doit faire {{ limit }} caractères maximum.",
         minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
-    private $name;
+    private ?string $name;
 
-    #[ORM\Column(type: 'integer')]
-    private $damage;
+    #[ORM\Column]
+    private ?int $damage;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(length: 10)]
     /* #[Assert\Regex(
         pattern: '/^[1-9]?[0-9]D(100|[0-9]?[0-9])$/',
         match: true,
         message: "Vous devez indiquer un nombre de dés suivis d'un \"D\" en majuscule et le dé à lancée. (10D8, 2D12, 1D6 ...)"
     )] */
-    private $dice;
+    private ?string $dice;
 
     public function getId(): ?int { return $this->id; }
     
     public function getName(): ?string { return $this->name; }
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
         return $this;
     }
 
     public function getDamage(): ?int { return $this->damage; }
-    public function setDamage(int $damage): self
+    public function setDamage(int $damage): static
     {
         $this->damage = $damage;
         return $this;
     }
 
     public function getDice(): ?string { return $this->dice; }
-    public function setDice(string $dice): self
+    public function setDice(string $dice): static
     {
         $this->dice = $dice;
         return $this;

@@ -21,24 +21,6 @@ class SheetRepository extends ServiceEntityRepository
         parent::__construct($registry, Sheet::class);
     }
 
-    public function add(Sheet $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Sheet $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
     public function updateStatus($id, $pv, $pc, $pm)
     {
         $this->createQueryBuilder('s')

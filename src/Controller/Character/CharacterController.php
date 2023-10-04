@@ -27,6 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -362,7 +363,6 @@ class CharacterController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         $locations = $armorLocationRepository->findBy([], ["id" => "ASC"]);
-        // dd($locations);
         // recherche des toute les piece d'armure appartenent au personnage (dans la table armor_piece_character)
         $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
         if (count($armor) < count($locations)) {
@@ -375,7 +375,10 @@ class CharacterController extends AbstractController
                 if ($index === false) {
                     $piece = new ArmorPieceCharacter();
                     $piece->setId($location->getId())
+                    ->setPiece(null)
+                    ->setEffect(null)
                     ->setCharact($character);
+                    
                     array_push($armor, $piece);
                 }
             }

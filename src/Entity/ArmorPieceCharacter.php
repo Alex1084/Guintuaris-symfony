@@ -10,72 +10,52 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ArmorPieceCharacter
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column]
+    private ?int $id;
 
-    #[ORM\ManyToOne(targetEntity: Character::class)]
+    #[ORM\ManyToOne]
     #[ORM\Id]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE" )]
-    private $charact;
+    private ?Character $charact;
 
-    #[ORM\ManyToOne(targetEntity: ArmorPiece::class)]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: true)]
-    private $piece;
+    private ?ArmorPiece $piece;
 
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(
         min:5,
         max:50,  
         maxMessage: "L'effet doit faire {{ limit }} caractères maximum.",
         minMessage: "L'effet doit faire {{ limit }} caractères minimum."
     )]
-    private $effect;
+    private ?string $effect;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId($id): self
+    public function getId(): ?int { return $this->id; }
+    public function setId($id): static
     {
         $this->id = $id;
-
         return $this;
     }
     
-    public function getCharact(): ?Character
-    {
-        return $this->charact;
-    }
-
-    public function setCharact(?Character $charact): self
+    public function getCharact(): ?Character { return $this->charact; }
+    public function setCharact(?Character $charact): static
     {
         $this->charact = $charact;
-
         return $this;
     }
 
-    public function getPiece(): ?ArmorPiece
-    {
-        return $this->piece;
-    }
-
-    public function setPiece(?ArmorPiece $piece): self
+    public function getPiece(): ?ArmorPiece { return $this->piece; }
+    public function setPiece(?ArmorPiece $piece): static
     {
         $this->piece = $piece;
-
         return $this;
     }
 
-    public function getEffect(): ?string
-    {
-        return $this->effect;
-    }
-
-    public function setEffect(?string $effect): self
+    public function getEffect(): ?string { return $this->effect; }
+    public function setEffect(?string $effect): static
     {
         $this->effect = $effect;
-
         return $this;
     }
 }
