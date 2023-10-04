@@ -2,7 +2,6 @@
 
 namespace App\Controller\Character;
 
-use Cocur\Slugify\Slugify;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Character;
 use App\Entity\WeaponCharacter;
@@ -14,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CreateController extends AbstractController
 {
@@ -25,8 +25,9 @@ class CreateController extends AbstractController
      * et trois ligne sont créer pour les arme_personnage
      */
     public function create(
-        Request $request,EntityManagerInterface $entityManager,
-        ): Response
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger): Response
     {
         $character = new Character();
         $characterForm = $this->createForm(CharacterType::class, $character);
@@ -35,8 +36,7 @@ class CreateController extends AbstractController
         $characterForm->handleRequest($request);
         if ($characterForm->isSubmitted() && $characterForm->isValid()) {
             // hydratation des champs
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($character->getName());
+            $slug = $slugger->slug($character->getName());
             $character->setSlug($slug)
                       ->setGold(0)
                       ->setUser($this->getUser())

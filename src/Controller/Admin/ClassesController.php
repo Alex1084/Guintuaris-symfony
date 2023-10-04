@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use Cocur\Slugify\Slugify;
 use App\Entity\Classes;
 use App\Form\ClassesFormType;
 use App\Repository\ClassesRepository;
@@ -11,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/administration/classe', name: 'admin_')]
 class ClassesController extends AbstractController
@@ -21,15 +21,15 @@ class ClassesController extends AbstractController
     #[Route("/ajouter", name:"add_class")]
     public function addClass(
         Request $request,
-        EntityManagerInterface $entityManager): Response
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger): Response
     {
         $class = new Classes();
         $classForm = $this->createForm(ClassesFormType::class, $class);
 
         $classForm->handleRequest($request);
         if ($classForm->isSubmitted() && $classForm->isValid()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($class->getName());
+            $slug = $slugger->slug($class->getName());
             $class->setSlug($slug);
             $entityManager->persist($class);
             $entityManager->flush();
@@ -60,6 +60,7 @@ class ClassesController extends AbstractController
         string $slug,
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         ClassesRepository $classesRepository): Response
     {
         $class = $classesRepository->findOneBy(["slug" => $slug]);
@@ -69,8 +70,7 @@ class ClassesController extends AbstractController
         if ($classForm->isSubmitted() && $classForm->isValid()) {
             if ($oldName !== $class->getName()) {
                 
-                $slugify = new Slugify();
-                $slug = $slugify->slugify($class->getName());
+                $slug = $slugger->slug($class->getName());
                 $class->setSlug($slug);
                 $this->addFlash("success", "La classe ".$oldName." a été renommé en ".$class->getName().".");
         }

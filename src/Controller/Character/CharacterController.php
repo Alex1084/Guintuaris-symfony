@@ -2,7 +2,6 @@
 
 namespace App\Controller\Character;
 
-use Cocur\Slugify\Slugify;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Weapon;
@@ -150,6 +149,7 @@ class CharacterController extends AbstractController
         int $id,
         EntityManagerInterface $entityManager,
         Request $request,
+        SluggerInterface $slugger,
         CharacterRepository $characterRepository)
     {
         $character = $characterRepository->findOneBy(["slug"=> $slug, "id" => $id]);
@@ -170,8 +170,7 @@ class CharacterController extends AbstractController
                     ->remove("faith");
         $characterForm->handleRequest($request);
         if ($characterForm->isSubmitted() && $characterForm->isValid()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($character->getName());
+            $slug = $slugger->slug($character->getName());
             $character->setSlug($slug);
             $entityManager->persist($character);
             $entityManager->flush();

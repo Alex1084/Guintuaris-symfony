@@ -6,7 +6,6 @@ use App\Entity\Character;
 use App\Entity\Team;
 use App\Repository\CharacterRepository;
 use App\Repository\TeamRepository;
-use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route("/maitre-du-jeu", name:"master_")]
 class TeamController extends AbstractController
@@ -26,11 +26,12 @@ class TeamController extends AbstractController
     public function teamListAdmin(
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         TeamRepository $teamRepository): Response
     {
         $allTeam = $teamRepository->findBy(["master" => $this->getUser()], ["name" => "asc"]);
         $newTeam = new Team();
-        $form = $this->TeamForm($newTeam, $request,$entityManager);
+        $form = $this->TeamForm($newTeam, $request,$entityManager,$slugger);
         if ($form->isSubmitted()) {
             return $this->redirectToRoute("master_add_member", ['teamId' => $newTeam->getId(), "slug" => $newTeam->getSlug()]);
         }
@@ -45,12 +46,13 @@ class TeamController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         TeamRepository $teamRepository,
+        SluggerInterface $slugger,
         CharacterRepository $characterRepository): Response
     {
         $allTeam = $teamRepository->findBy(["master" => $this->getUser()], ["name" => "asc"]);
         $characters = $characterRepository->listByUser($this->getUser()->getId());
         $newTeam = new Team();
-        $form = $this->TeamForm($newTeam, $request,$entityManager);
+        $form = $this->TeamForm($newTeam, $request,$entityManager, $slugger);
         if ($form->isSubmitted()) {
             return $this->redirectToRoute("master_add_member", ['teamId' => $newTeam->getId(), "slug" => $newTeam->getSlug()]);
         }
@@ -66,6 +68,7 @@ class TeamController extends AbstractController
         int $teamId,
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         TeamRepository $teamRepository): Response
     {
         $team = $teamRepository->find($teamId);
@@ -82,8 +85,7 @@ class TeamController extends AbstractController
                 $this->addFlash("error", "Le nom invalide, le nom de l'quine doit faire entre 3 et 50 caractères.");
                 return $this->redirectToRoute("master_team_list");
             }
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($newName);
+            $slug = $slugger->slug($newName);
             $oldName = $team->getName();
             $team->setSlug($slug)
                     ->setName($newName);
@@ -184,7 +186,8 @@ class TeamController extends AbstractController
     private function TeamForm(
         Team $newTeam,
         Request $request,
-        EntityManagerInterface $entityManager)
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger)
     {
         $form = $this->createFormBuilder($newTeam)
         ->add('name', TextType::class)
@@ -192,8 +195,7 @@ class TeamController extends AbstractController
         
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($newTeam->getName());
+            $slug = $slugger->slug($newTeam->getName());
             $newTeam->setSlug($slug)
                     ->setMaster($this->getUser());
             $entityManager->persist($newTeam);

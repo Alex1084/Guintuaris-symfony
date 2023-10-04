@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Talent;
 use App\Form\TalentFormType;
 use App\Repository\TalentRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/administration/talent', name: 'admin_')]
 class TalentController extends AbstractController
@@ -18,15 +18,15 @@ class TalentController extends AbstractController
     #[Route('/ajouter', name: 'add_talent')]
     public function addTalent(
         Request $request,
-        EntityManagerInterface $entityManager): Response
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger): Response
     {
         $newTalent = new Talent();
 
         $talentForm = $this->createForm(TalentFormType::class, $newTalent);
         $talentForm->handleRequest($request);
         if ($talentForm->isSubmitted() && $talentForm->isValid()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($newTalent->getName());
+            $slug = $slugger->slug($newTalent->getName());
             $newTalent->setSlug($slug);
             $entityManager->persist($newTalent);
             $entityManager->flush();
@@ -53,14 +53,14 @@ class TalentController extends AbstractController
     public function updateTalent(int $id,
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         TalentRepository $talentRepository): Response
     {
         $talent = $talentRepository->find($id);
         $talentForm = $this->createForm(TalentFormType::class, $talent);
         $talentForm->handleRequest($request);
         if ($talentForm->isSubmitted() && $talentForm->isValid()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($talent->getName());
+            $slug = $slugger->slug($talent->getName());
             $talent->setSlug($slug);
             $entityManager->persist($talent);
             $entityManager->flush();

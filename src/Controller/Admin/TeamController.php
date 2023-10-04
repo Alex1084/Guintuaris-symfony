@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use Cocur\Slugify\Slugify;
 use App\Entity\Character;
 use App\Entity\Team;
 use App\Repository\CharacterRepository;
@@ -14,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route("/administration/equipe", name:"admin_")]
 class TeamController extends AbstractController
@@ -27,6 +27,7 @@ class TeamController extends AbstractController
     public function teamListAdmin(
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         TeamRepository $teamRepository): Response
     {
         $newTeam = new Team();
@@ -37,8 +38,7 @@ class TeamController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($newTeam->getName());
+            $slug = $slugger->slug($newTeam->getName());
             $newTeam->setSlug($slug)
                     ->setMaster($this->getUser());
             $entityManager->persist($newTeam);
@@ -57,6 +57,7 @@ class TeamController extends AbstractController
         int $teamId,
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         TeamRepository $teamRepository): Response
     {
         if ($request->isMethod('post')) {
@@ -66,8 +67,7 @@ class TeamController extends AbstractController
                 return $this->redirectToRoute("admin_team_list");
             }
             $team = $teamRepository->find($teamId);
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($newName);
+            $slug = $slugger->slug($newName);
             $oldName = $team->getName();
             $team->setSlug($slug)
                     ->setName($newName)

@@ -10,12 +10,12 @@ use App\Form\NameFormType;
 use App\Repository\ArmorLocationRepository;
 use App\Repository\ArmorPieceRepository;
 use App\Repository\ArmorTypeRepository;
-use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route("/administration/armure", name:"admin_")]
 class ArmorController extends AbstractController
@@ -27,7 +27,8 @@ class ArmorController extends AbstractController
     public function addArmorLocation(
         Request $request, 
         EntityManagerInterface $entityManager,
-        ArmorLocationRepository $armorLocationRepository
+        ArmorLocationRepository $armorLocationRepository,
+        SluggerInterface $slugger
         ): Response
     {
         $newLoca = new ArmorLocation();
@@ -36,8 +37,7 @@ class ArmorController extends AbstractController
         $form->handleRequest($request);
         if ($request->isMethod("post")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $slugify = new Slugify();
-                $newLoca->setVarName($slugify->slugify($newLoca->getName()));
+                $newLoca->setVarName($slugger->slug($newLoca->getName()));
                 $entityManager->persist($newLoca);
                 $entityManager->flush();
                 $this->addFlash("success", "La localisation d'armure a été ajoutée. Pour le moment, aucune pièce d'armure n'est associée à cette localisation, pensez à créer des pièces d'armure.");
@@ -58,6 +58,7 @@ class ArmorController extends AbstractController
         int $locationId,
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         ArmorLocationRepository $armorLocationRepository): Response
     {
         if ($request->isMethod('post')) {
@@ -69,8 +70,7 @@ class ArmorController extends AbstractController
             $location = $armorLocationRepository->find($locationId);
             $oldName = $location->getName();
             $location->setName($newName);
-            $slugify = new Slugify();
-            $location->setVarName($slugify->slugify($location->getName()));
+            $location->setVarName($slugger->slug($location->getName()));
             $entityManager->persist($location);
             $entityManager->flush();
             $this->addFlash("success", "La localisation ". $oldName." a été renommé ". $newName.".");

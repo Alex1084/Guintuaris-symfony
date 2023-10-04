@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use Cocur\Slugify\Slugify;
 use App\Entity\Race;
 use App\Form\RaceFormType;
 use App\Repository\RaceRepository;
@@ -11,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/administration/race', name: 'admin_')]
 class RaceController extends AbstractController
@@ -21,15 +21,15 @@ class RaceController extends AbstractController
     #[Route("/ajouter", name:"add_race")]
     public function addRace(
         Request $request,
-        EntityManagerInterface $entityManager): Response
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger): Response
     {
         $race = new Race();
         $raceForm = $this->createForm(RaceFormType::class, $race);
 
         $raceForm->handleRequest($request);
         if ($raceForm->isSubmitted()) {
-            $slugify = new Slugify();
-            $slug = $slugify->slugify($race->getName());
+            $slug = $slugger->slug($race->getName());
             $race->setSlug($slug);
             $entityManager->persist($race);
             $entityManager->flush();
@@ -60,6 +60,7 @@ class RaceController extends AbstractController
         string $slug,
         Request $request,
         EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
         RaceRepository $raceRepository): Response
     {
         $race = $raceRepository->findOneBy(["slug" => $slug]);
@@ -68,8 +69,7 @@ class RaceController extends AbstractController
         $raceForm->handleRequest($request);
         if ($raceForm->isSubmitted()) {
             if ($oldName !== $race->getName()) {
-                $slugify = new Slugify();
-                $slug = $slugify->slugify($race->getName());
+                $slug = $slugger->slug($race->getName());
                 $race->setSlug($slug);
                 $this->addFlash("success", "La race ".$oldName." a été renommé en ".$race->getName().".");
             }
