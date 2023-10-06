@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistique | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+        <h1 class="title">Statistique</h1>
+        <div class="content">
+            <h2 class="sub-title">Description</h2>
+            <p>Les statistiques représentent chacune un aspect physique et/ou 
+            intellectuelle de votre personnage, elles sont au nombre de six 
+            et chacune d’elles sont indépendantes des autres.</p>
+            <br>
+            {% for stat in statistics %}
+                <h2 class="sub-title">{{stat.name}}</h2>
+                <p>{{stat.description}}</p>
+                <br>
+            {% endfor %}
+        </div>
+	</div>
+{% endblock %}

@@ -219,6 +219,9 @@ a.link:before, .nav-button:before{
 p{
     font-size: 1.25rem;
 }
+p.pre-line {
+    white-space: pre-line;
+}
 .title{
     font-size: 3rem;
     font-weight: lighter;
@@ -243,11 +246,12 @@ p{
     font-weight: lighter;
 }
 .content{
-    white-space: pre-line;
-    transition: background 0.3s;
+    transition: all 0.6s;
 }
 .content:hover{
-    background: rgba(238, 212, 177, 0.507);
+    background: rgba(238, 212, 177, 0.75);
+    border: 1px solid black;
+    box-shadow: 10px 5px 5px rgba(91, 76, 57, 0.62);
 }
 
 .toast-custom{

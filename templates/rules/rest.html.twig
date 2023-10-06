@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Repos | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+        <h1 class="title">Repos</h1>
+        <div class="content">
+
+            <h2 class="sub-title">Description</h2>
+            <p>Afin de regagner des forces après des combats, 
+            les joueurs peuvent décider de prendre soit un temps de repos 
+            soit un temps de sommeil, ces deux temps permettent aux joueurs de regagner 
+            des ressources afin d'être en meilleure forme pour
+            le combat ou le voyage qui les attend.</p>
+            <br>
+            <h2 class="sub-title">Temps de repos</h2>
+            <p>Le temps de repos est un temps où le personnage décide 
+            de se reposer pendant un minimum de 2h. 
+            Durant ce temps, votre personnage ne fait aucune activité fatigante, 
+            cela va lui permettre de se ressourcer et de récupérer des forces pour 
+            la suite de la journée.</p>
+            <br>
+            <p>Pour 2h de repos, votre personnage regagne pour chacune de 
+            ces ressources un dé de niveau pour chaque deux niveaux 
+            ( 1d pour niveau 1, 2 et 3, 2d pour le niveau 4 et 5 ...).</p>
+
+            <p> Puis pour chaque 2 heure en plus, il regagne une dizaine 
+            de la statistique associées à sa ressource.</p>
+            <br>
+            <h3>Exemple</h3>
+            <p>Crom est un guerrier de niveau 6 qui se repose 4h. Il peut donc lancer 3d12 pour sa vie, 3d4 pour sa magie et 3d6 pour ces points de combat puis pour le 2h de plus il peut gagner 4 points de vie (40 de constitution) 5 points de combat (50 de force) et 2 points de magie (20 d’intelligence)</p>
+            <br>
+            <h2 class="sub-title">Temps de sommeil</h2>
+            <p>Le temps de sommeil quant à lui, est un temps où le personnage 
+            doit dormir sur une durée de minimum le sommeil est très important 
+            de se ressourcer auprès des dieux.</p>
+
+            <p>Au bout de 6h de sommeil, le joueur pourra recouvrer l'intégralité de 
+            ses points de vie et pour recouvrer la moitié de ce point de magie 
+            ainsi que de ses points d'endurance.</p>
+            <br>
+            <h2 class="sub-title">Fatigue</h2>
+            <p>Il est nécessaire pour un personnage normal de faire 
+            un temps de sommeil par jour si cela n'est pas fait, 
+            ce dernier sera donc affaibli.</p>
+            <br>
+            <h3>Fatigue 1</h3>
+            <p>Sans une bonne nuit de sommeil, vous ne pouvez pas exprimer 
+            vos talents, votre état mental et physique vous empêche de 
+            les utiliser.</p>
+            <p>Aucun talent en place</p>
+            <br>
+            <h3>Fatigue 2</h3>
+            <p>Désormais, c’est votre santé qui en prend un coup, 
+            vos statistiques se voient réduites de 10 points et 
+            vos points de vie se voient réduits d’un quart.</p>
+            <p>Malus de 10 et pu max réduit de 1/4</p>
+            <br>
+            <h3>Fatigue 3</h3>
+            <p></p>
+        </div>
+	</div>
+{% endblock %}

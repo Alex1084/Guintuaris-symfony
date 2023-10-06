@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Talent | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+        <h1 class="title">Talent</h1>
+
+        <div class="content">
+            <h2 class="sub-title">Description</h2>
+            <p>Les talents sont des aspects plus particulier de votre 
+            personnage, elle représente des compétences physique, 
+            intellectuelle ou sociale. Votre personnage auras 
+            plusieurs niveaux pour chacun des talent, le niveaux débutant, 
+            apprenti, avancé et le niveaux maître.</p>
+            <br>
+            <p>Plus le niveau de talent sera élevé, plus le bonus lorsque 
+            vous devrez utiliser votre compétence sera élevé. 
+            Les talents au niveau débutant n’offres aucun bonus, au niveau apprenti vous aurez un bonus de 5, puis un bonus de 10 au niveau avancé et enfin un bonus de 15 au niveau maître.</p>
+            <p>Vous aurez le niveau débutant pour tous les talents 
+            puis vous pourrez augmenter ces talant à force d'expérience</p>
+            <br>
+            <h3>Les formations nécessaires</h3>
+            <p>Certains talents ont besoin d’une formation afin de pouvoir 
+            être utilisés. Ces talents ne pourront pas être utilisés 
+            si vous possédez seulement le niveau débutant. 
+            Vous pouvez accéder à 2 de ces talents au niveau 1, 
+            les autres pourront être débloqués au fur et à mesure 
+            de votre aventure.</p>
+
+            <br>
+            {% for talent in talents %}
+                <p><b>{{talent.name}} :</b> {{talent.description}}</p>
+                <br>
+            {% endfor %}
+        </div>
+	</div>
+{% endblock %}

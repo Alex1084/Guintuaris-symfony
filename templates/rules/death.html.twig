@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Jet contre la mort | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+        <h1 class="title">Jet contre la mort</h1>
+        <div class="content">
+            <h2 class="sub-title">Description</h2>
+            <p>Lorsque vous atteignez 0 point de vie, 
+            vous tombez au sol et vous vous retrouvez entre la vie et la mort.</p>
+            <br>
+            <p>Désormais, seul Mortaris va déterminer si vous allez survivre ou 
+            mourir cependant selon votre état de santé vous aurez plus ou moins de 
+            chance de mourir. Plus vous aurez de blessure grave plus aurez de 
+            chance de mourir il y a trois cas de configuration lors de votre 
+            jet de dé contre la mort.</p>
+            <br>
+
+            <h2 class="sub-title">Le Jet</h2>
+            <h3>Si vous avez aucune ou une blessure :</h3>
+
+            <p>Si votre résultat est entre 1 et 25 alors 
+            il vous faudrat du repos pour vous en remmetre, 
+            mais tout va bien pour vous</p>
+
+            <p>Si votre résultat est entre 26 et 50 alors vous êtes vivant, 
+            mais vous avez une blessure grave.</p>
+
+            <p>Si votre résultat est entre 51 et 75 alors vous êtes mort, 
+            mais il est possible d’utiliser un point de destin.</p>
+
+            <p>Si votre résultat est à plus de 75 alors vous êtes morts 
+            et les dieux ne pourront rien pour vous.</p>
+
+            <br>
+            <h3>Si vous avez 2 blessure :</h3>
+
+            <p>Si le résultat est entre 6 et 25 vous êtes vivant, 
+            mais votre état s’aggrave vous avez désormais 3 blessures graves.</p>
+            <p>Si le résultat est entre 26 et 75 vous avez succombé à 
+            vos blessures, mais les dieux vous accorde une nouvelle 
+            chance grâce à un point de destin.</p>
+            <br>
+            <h3>Si vous avez 3 blessures</h3>
+            <p>Si votre résultat dépasse 50 alors vos blessures ont eu raison de vous.</p>
+
+
+        </div>
+	</div>
+{% endblock %}

@@ -4,26 +4,26 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="title">
-			{{race.name}}
-		</h1>
+		<h1 class="title">{{race.name}}</h1>
 
-		<h2 class="sub-title">Description</h2>
-		<p class="content">{{ race.description}}
+		<div class="content">
+			<h2 class="sub-title">Description</h2>
+			<p class="pre-line">{{ race.description}}
 
-		taille minimum-maximum : {{(race.minHeight / 100)|number_format(2, 'm','')}}-{{(race.maxHeight / 100)|number_format(2, 'm','')}}
-		poids moyens : {{race.averageWheight}} kg
-		durèe de vie : {{race.lifetime}} ans
-		âge adulte : {{race.adulthood}} ans
-		</p>
+			taille minimum-maximum : {{(race.minHeight / 100)|number_format(2, 'm','')}}-{{(race.maxHeight / 100)|number_format(2, 'm','')}}
+			poids moyens : {{race.averageWheight}} kg
+			durèe de vie : {{race.lifetime}} ans
+			âge adulte : {{race.adulthood}} ans
+			</p>
 
-		<h2 class="sub-title">Aptitude sociale</h2>
-		<p class="content">{{ race.socialAbility}}</p>
-		
-		<h2 class="sub-title">Aptitude Physique</h2>
-		<p class="content">{{ race.physicalAbility}}</p>
-		
-		<h2 class="sub-title">Bonus</h2>
-		<p class="content">{{ race.bonus}}</p>
+			<h2 class="sub-title">Aptitude sociale</h2>
+			<p class="pre-line">{{ race.socialAbility}}</p>
+			
+			<h2 class="sub-title">Aptitude Physique</h2>
+			<p class="pre-line">{{ race.physicalAbility}}</p>
+			
+			<h2 class="sub-title">Bonus</h2>
+			<p class="pre-line">{{ race.bonus}}</p>
+		</div>
 	</div>
 {% endblock %}

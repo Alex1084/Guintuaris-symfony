@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Combat | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+        <h1 class="title">Combat</h1>
+        <div class="content">
+            <h2 class="sub-title">Initiatives</h2>
+            <p>Les combats sont une phase qui se déroule en tour par tour. 
+                Afin de connaître l'ordre de chaque combattant, 
+                chacun d'entre eux doit faire un jet initiative. 
+                il suffit pour cela de lancé 1D100, plus le résultat est petit 
+                plus vous commencez tôt.</p>
+            <p>Au début de chaque combat, chaque combattant doit faire un jet de dés 
+                pour savoir qui prend l'initiative d'attaquer en premier.</p>
+            <br>
+
+            <h2 class="sub-title">Action</h2>
+            <p>Lorsque c'est à votre tour de jouer, 
+                vous avez le droit de faire une action. 
+                Cette action peut être différentes choses comme attaquer un ennemi, 
+                utiliser un objet ou interagir avec le décor. 
+                Le joueur n'a accès qu'à une action par tour en plus de son déplacement.</p>
+            <br>
+
+            <h2 class="sub-title">Déplacement</h2>
+            <p>Lors de votre tour, vous pouvez également vous déplacer. 
+                Vous pouvez bouger et vous rendre où vous voulez sur le champ de 
+                bataille à une portée de 9 mètres autour de vous. 
+                (il est également possible de grimper.)</p>
+            <br>
+
+            <h2 class="sub-title">Réaction</h2>
+            <p>Lors d'un tour d’un autre joueur ou d’un ennemi, 
+                il est possible dans certains cas de réagir à l’action de ce personnage 
+                la réaction ce ne présente pas toujours au joueur. 
+                La réaction se déclenche grâce à une compétence ou à une action d’un 
+                personnage se trouvant à proximité.</p>
+            <br>
+
+            <h2 class="sub-title">Critique</h2>
+            <p>Lors des combats, et plus précisément, lors des attaques, 
+                vous devez lancer un jet d’attaque afin de savoir si vous touchez 
+                l’adversaire. Lorsque vous lancez votre dé, il peut y avoir des 
+                résultats spéciaux : si le résultat est entre 1 et 5 alors vous avez 
+                fait une réussite critique, mais si vous faites entre 96 et 100 alors 
+                vous avez fait un échec critique.</p>
+            <br>
+
+            <p>Succès critique : lorsqu’une attaque fait une réussite critique, 
+                votre coup a non seulement touché votre cible, mais en plus, 
+                vous l’avez sûrement blessé gravement. 
+                Lorsque vous faites votre jet de dégâts, 
+                les dégâts de base sont multipliés par 2.</p>
+            <br>
+
+            <p>Échec critique : lorsque votre de jet d’attaques fait un échec critique 
+                alors votre coup ne touche pas sa cible. De plus, 
+                à cause de votre maladresse, une conséquence vient s’ajouter. 
+                (un allié touché se prend le coup, vous trébuchez, etc.)</p>
+        </div>
+	</div>
+{% endblock %}

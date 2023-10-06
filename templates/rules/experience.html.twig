@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Experience | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+        <h1 class="title">Experience</h1>
+
+        <div class="content">
+            <h2 class="sub-title">Description</h2>
+            <p>Expérience et le reflet de vos entraînements et de vos combats, 
+            celle-ci représente votre apprentissage pour le talent en compétences 
+            ainsi que votre amélioration physique globale.</p>
+            <p>Lorsque vous gagnez des points d'expérience vous choisissez où investir 
+            ces points. Cela peut être n’importe où dans un talent, 
+            dans une compétence ou encore dans l’augmentation de niveaux 
+            lorsque vous investissez des points ces derniers représentent les fruits 
+            du potentiel entraînement. Lorsque vous atteignez le nombre de points 
+            nécessaire, cela signifie que votre persévérance a porté ses fruits, 
+            l’objet de cet entraînement se voit acquis sans délai.</p>
+            <br>
+            <h3>Exemple</h3>
+            <p>Crom à 1000 points d’expérience en réserve, 
+            il décide de dépenser 300 XP et les mettre dans le talent Lutte, 
+            n’ayant se talent qu'au niveau débutant, 
+            il passe désormais au niveau apprentis 
+            de plus il souhaite débloquer la compétence double attaque, 
+            il a déjà 600 XP sur cette compétence, 
+            il lui reste donc 150 points à mettre pour débloquer sa compétence.</p>
+            <p>Il reste maintenant à Crom 550 XP, mais pour le moment, 
+            il ne sait pas quoi en faire, il décide alors de les garder en 
+            réserve en attendant de savoir où les placer.</p>
+            <br>
+            <h3>Expliquation</h3>
+            <p>Comme précisé précédemment, vous pouvez investir votre expérience dans trois catégories :
+            </p>
+            <br>
+            <p>En premier, il y a bien sûr l’augmentation de niveau qui permet d’avoir accès à des nouveaux points de talent, de nouvelles compétences et des améliorations de statut.
+            </p>
+            <p>En second, vous pouvez augmenter vos points de talents cela vous permet d’avoir un meilleur bonus dans un talent.
+            </p>
+            <p>En dernier il y a les compétences à avoir lorsque vous passez un niveau, vous pouvez débloquer l’accès à des nouvelles compétences. Cependant, vous ne pouvez pas encore les utiliser. Vous devez avant cela investir de l'expérience pour pouvoir utiliser cette compétence.
+            </p>
+            <br>
+
+            <h2 class="sub-title">Expérience dans les talents</h2>
+            <p>Pour les talents, il y a 6 cas différents pour gagner un niveau, 
+            ces 6 cas se composent en deux groupes. 
+            Le premier groupe est pour les talents normaux et 
+            le second est pour les talents de formation. 
+            Le diffèrent cas sont décrits dans le tableau ci-dessous :</p>
+            <table class="tableau">
+                <thead>
+                    <tr>
+                        <th>Niveau</th>
+                        <th>Experience</th>
+                        <th>Bonus</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Talents normaux</th>
+                    </tr>
+                    <tr>
+                        <td>Apprenti</td>
+                        <td>300</td>
+                        <td>+5</td>
+                    </tr>
+                    <tr>
+                        <td>Avancé</td>
+                        <td>500</td>
+                        <td>+10</td>
+                    </tr>
+                    <tr>
+                        <td>Maître</td>
+                        <td>800</td>
+                        <td>+15</td>
+                    </tr>
+                    <tr>
+                        <th>Talents de formation</th>
+                    </tr>
+                    <tr>
+                        <td>Apprenti</td>
+                        <td>1000</td>
+                        <td>+5</td>
+                    </tr>
+                    <tr>
+                        <td>Avancé</td>
+                        <td>600</td>
+                        <td>+10</td>
+                    </tr>
+                    <tr>
+                        <td>Maître</td>
+                        <td>900</td>
+                        <td>+15</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="sub-title">Augmentation de niveaux</h2>
+            <p>Afin d’augmenter de niveaux, il faut investir un certain nombre 
+            de points d'expérience. Le nombre de points peut varier en fonction de 
+            la classe que vous choisirez, deux cas interviennent. 
+            Le premier cas concerne l’assassin, le clerc, le guerrier, l’ingénieur et 
+            le rôdeur. Le deuxième cas concerne l’herboriste, le mage et le prêtre.</p>
+
+            <table class="tableau">
+                <thead>
+                    <tr>
+                        <th>Experience cas 1</th>
+                        <th>Experience cas 2</th>
+                        <th>Niveau</th>
+                        <th>Point de talent</th>
+                        <th>Point de formation</th>
+                        <th>Point de Statistique</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>-----</td>
+                        <td>-----</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>NON</td>
+                    </tr>
+                    <tr>
+                        <td>1000</td>
+                        <td>700</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>NON</td>
+                    </tr>
+                    <tr>
+                        <td>1500</td>
+                        <td>1200</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>5</td>
+                        <td>OUI</td>
+                    </tr>
+                    <tr>
+                        <td>1750</td>
+                        <td>1450</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>NON</td>
+                    </tr>
+                    <tr>
+                        <td>2000</td>
+                        <td>1700</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>10</td>
+                        <td>NON</td>
+                    </tr>
+                    <tr>
+                        <td>2250</td>
+                        <td>1950</td>
+                        <td>6</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>OUI</td>
+                    </tr>
+                    <tr>
+                        <td>2600</td>
+                        <td>2300</td>
+                        <td>7</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>NON</td>
+                    </tr>
+                    <tr>
+                        <td>2900</td>
+                        <td>2600</td>
+                        <td>8</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>NON</td>
+                    </tr>
+                    <tr>
+                        <td>3500</td>
+                        <td>3200</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>OUI</td>
+                    </tr>
+                    <tr>
+                        <td>4000</td>
+                        <td>3700</td>
+                        <td>10</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>10</td>
+                        <td>OUI</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+	</div>
+{% endblock %}
