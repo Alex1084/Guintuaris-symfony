@@ -29,7 +29,7 @@ class SkillRepository extends ServiceEntityRepository
     public function findByLevel(int $level, int $class)
     {
         $query = $this->createQueryBuilder('s')
-        ->select('s.name, s.distance, s.damage, s.duration, dt.label as durationType, s.radius, s.description, s.level, s.cost, r.symbol as resource, st.name as diceThrow')
+        ->select('s.name, s.distance, s.damage, s.duration, dt.label as durationType, s.radius, s.description, s.level, s.cost, r.symbol as resource, st.name as diceThrow, s.experience')
         ->join(DurationType::class, 'dt', Join::WITH, 'dt.id = s.durationType')
         ->join(Resource::class, 'r', Join::WITH, 'r.id = s.resource')
         ->join(Statistic::class, 'st', Join::WITH, 'st.id = s.diceThrow')
@@ -56,7 +56,11 @@ class SkillRepository extends ServiceEntityRepository
     public function findByClass(int $classId)
     {
         return $this->createQueryBuilder('s')
-        ->select('s.name, s.distance, s.damage, s.duration, dt.label as durationType, s.radius, s.description, s.level, s.cost, r.symbol as resource, st.name as diceThrow')
+        ->select('s.name, s.distance, s.damage, s.duration, 
+                  dt.label as durationType, s.radius, 
+                  s.description, s.level, s.cost, 
+                  r.symbol as resource, st.name as diceThrow,
+                  s.experience')
         ->join(DurationType::class, 'dt', Join::WITH, 'dt.id = s.durationType')
         ->join(Resource::class, 'r', Join::WITH, 'r.id = s.resource')
         ->join(Statistic::class, 'st', Join::WITH, 'st.id = s.diceThrow')

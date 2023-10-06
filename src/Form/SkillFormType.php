@@ -43,6 +43,12 @@ class SkillFormType extends AbstractType
                 ],
                 'label' => 'Niveau'
             ])
+            ->add('experience', IntegerType::class, [
+                "attr" => [
+                    "class" => "input-form"
+                ],
+                'label' => "Experience"
+            ])
             ->add('cost', IntegerType::class, [
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Coût'

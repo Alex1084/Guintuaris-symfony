@@ -28,6 +28,10 @@ class SkillExtension extends AbstractExtension
     public function skillCard($skill)
     {
         $details = "";
+
+        $details .= "Niveau : {$skill["level"]}\n";
+        $details .= "Experience : {$skill["experience"]}\n\n";
+
         if ($skill["distance"] !== null) {
             if ($skill["distance"] > 0) {
                 $distance = $skill["distance"] ." mètres";

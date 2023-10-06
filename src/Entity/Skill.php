@@ -94,6 +94,9 @@ class Skill
     #[ORM\ManyToOne]
     private ?Statistic $diceThrow;
 
+    #[ORM\Column()]
+    private ?int $experience = 0;
+
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
@@ -181,6 +184,18 @@ class Skill
     public function setDiceThrow(?Statistic $diceThrow): static
     {
         $this->diceThrow = $diceThrow;
+
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(int $experience): static
+    {
+        $this->experience = $experience;
 
         return $this;
     }
