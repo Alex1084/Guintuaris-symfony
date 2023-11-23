@@ -46,7 +46,7 @@ class Character extends Sheet
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $last_view;
 
-    #[ORM\Column(type: 'json', nullable: true)]
+    #[ORM\Column(type: 'json', nullable: false)]
     private array $talents = [];
 
     public function getUser(): ?User { return $this->user; }
