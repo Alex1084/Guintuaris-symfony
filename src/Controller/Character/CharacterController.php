@@ -58,9 +58,19 @@ class CharacterController extends AbstractController
         SheetRepository $sheetRepository)
     {
         if ($request->isMethod('post')) {
-            $data = json_decode($request->getContent());
-            $characterRepository->updateInventaire($data->id, $data->inventaire, $data->po);
-            $sheetRepository->updateStatus($data->id, $data->pv, $data->pc, $data->pm);
+            dump($request->getContent());
+            $data = $request->request;
+            $characterRepository->updateInventaire(
+                $data->get("id"), 
+                $data->get('inventaire'), 
+                $data->get('po')
+            );
+            $sheetRepository->updateStatus(
+                $data->get('id'), 
+                $data->get('pv'), 
+                $data->get('pc'), 
+                $data->get('pm')
+            );
             
             return $this->json(
                 "result", 200

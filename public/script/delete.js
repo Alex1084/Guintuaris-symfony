@@ -56,18 +56,22 @@ document.querySelectorAll(".ajax-delete-link").forEach(link =>{
             }
         }).then((result) => {
             if(result.isConfirmed){
-                axiosLink(link);
+                sendDelete(link);
             }
           })
     })
 })
 
-function axiosLink(linkElement) {
+function sendDelete(linkElement) {
 
-    axios.get(linkElement.href).then(response =>{
+    fetch(linkElement.href)
+    .then(response => response.json())
+    .then(data => {
         linkElement.parentElement.parentElement.remove();
-    }).catch(error => console.error(error.response.data));
-    
+    })
+    .catch(error => {
+        error => console.error(error.response.data)
+    });
 }
 
 const showForm = document.getElementById("show-form");

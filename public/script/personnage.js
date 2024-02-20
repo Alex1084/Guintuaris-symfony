@@ -19,18 +19,22 @@ document.getElementById("po").addEventListener("keydown", e => {
 
 
 function ajax() {
-    let values = {
-        inventaire: document.getElementById("inventaire").value,
-        po: document.getElementById("po").value,
-        pv : document.getElementById("pv").value,
-        pc: document.getElementById("pc").value,
-        pm : document.getElementById("pm").value,
-        id : getId
-    }
+    const formData = new FormData();
+    formData.append('inventaire', document.getElementById("inventaire").value);
+    formData.append('po', document.getElementById("po").value);
+    formData.append('pv', document.getElementById("pv").value);
+    formData.append('pc', document.getElementById("pc").value);
+    formData.append('pm', document.getElementById("pm").value);
+    formData.append('id', getId);
 
-    axios.post('/personnage/modifier-statut',  values,   
-     'Content-Type: multipart/form-data' )
-    .then( response => {
+    let requestOptions = { 
+        method: 'POST',
+        body: formData,
+    };
+
+    fetch('/personnage/modifier-statut', requestOptions)
+    .then(response => response.json())
+    .then(data => {
         Swal.fire({
             position: 'top-end',
             title: "Modification enregistré",

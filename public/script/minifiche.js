@@ -113,14 +113,19 @@ function insertFiche(monstre) {
 function onClickBtnLike(event) {
     event.preventDefault();
     const url = this.href;
-    axios.get(url).then(function (response) {
-        console.log(response.data);
-        monstre = response.data;
-        container.innerHTML += insertFiche(monstre);
+
+    // Effectuer une requête GET
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        container.innerHTML += insertFiche(data);
 
         fiches = document.querySelectorAll(".fiche");
         fiches.forEach(ficheControl)
-
+    })
+    .catch(error => {
+    // Gérer les erreurs
+    console.error(error);
     });
 }
 

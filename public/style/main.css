@@ -339,7 +339,7 @@ input[type="checkbox"]:checked + label.checkbox-label span.checkbox-button::afte
 
 form button, #talent-dice, .swal-button, .default-sort, .dice{
     border:outset rgba(65, 57, 47, 0.502);
-    background-color: rgba(238, 211, 176, 1);
+    background-color: rgba(238, 212, 177, 1);
     box-shadow: 10px 5px 5px rgba(183, 155, 118, 0.58);
     border-radius: 12px;
     font-size: 1rem;
@@ -371,7 +371,7 @@ select{
     background-color: rgb(238, 212, 177);
 }
 select:hover{
-    background-color: #ceb799;
+    background-color: rgb(206, 183, 153);
 
 }
 select[multiple="multiple"]{
@@ -520,7 +520,7 @@ footer{
 .pagination-button {
 	width: 40px;
 	height: 40px;
-	background: rgba(238, 211, 176, 1);
+	background: rgba(238, 212, 177, 1);
 	border: outset rgba(65, 57, 47, 0.502);
 	margin: 0 5px;
 	border-radius: 5px;

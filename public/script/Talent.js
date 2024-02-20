@@ -35,6 +35,7 @@ class Talents
         this.initEquipedTalent()
         this.pageNumber = Math.ceil(this.displayableData.length/10)
         this.currentPage = 1
+        this.initPagination()
         this.changePage()
 
 
@@ -63,7 +64,7 @@ class Talents
     }
 
     initPagination() {
-    
+        let paginationElement = document.getElementById("pagination");
         if (this.pageNumber >= 2) {
             let pagination = '<button class="pagination-button" data-page="previous">&lt</button>'
             for (let i = 1; i <= this.pageNumber; i++) {
@@ -166,7 +167,6 @@ class Talents
                 statisticId : statistic.id,
             }
             allData[id] = data;
-            console.log(data);
         }
         this.talentsData = allData
     }
