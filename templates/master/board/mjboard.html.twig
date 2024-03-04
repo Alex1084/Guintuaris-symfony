@@ -24,7 +24,7 @@
 							<button class="dropbtn nav-btn">{{bestiaryType.typeName}}</button>
 							<div class="dropdown-content hidden">
 								{% for beast in bestiaryType.beasts %}
-										<a title="Invoquation de {{beast.name}}" href="{{ path('summon', {"id" : beast.id})}}" class="js-like">{{beast.name}}</a>
+										<a title="Invoquation de {{beast.name}}" href="{{ path('summon', {"id" : beast.id})}}" class="creature-name">{{beast.name}}</a>
 								{% endfor %}
 							</div>
 						</div>

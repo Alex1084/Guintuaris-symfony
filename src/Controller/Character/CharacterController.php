@@ -119,9 +119,9 @@ class CharacterController extends AbstractController
             return $this->redirectToRoute("character_list");
         }
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
-        // todo : create custom query
-        $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
-        $weapons = $weaponCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "asc"]);
+        
+        $armor = $armorPieceCharacterRepository->findArmorPiecesCharacterByCharacter($character->getId());
+        $weapons = $weaponCharacterRepository->findWeaponCharacterByCharacter($character->getId());
         
         $statistics = $statisticRepository->findAllNames();
         $talents = $talentRepository->findAllNames();
@@ -211,7 +211,7 @@ class CharacterController extends AbstractController
         $loreForm = $this->createFormBuilder($character)
             ->add('lore', TextareaType::class, [
                 'required' => false,
-                'attr' => ['class' => 'area-form']
+                'attr' => ['class' => 'area-form ckeditor']
             ])
             ->getForm();
         $loreForm->handleRequest($request);

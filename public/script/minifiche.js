@@ -129,6 +129,6 @@ function onClickBtnLike(event) {
     });
 }
 
-document.querySelectorAll("a.js-like").forEach((link) => {
+document.querySelectorAll("a.creature-name").forEach((link) => {
     link.addEventListener('click', onClickBtnLike);
 })

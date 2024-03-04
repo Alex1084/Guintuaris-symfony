@@ -203,16 +203,14 @@
 					{% if armor|length > 0 %}
 						<tbody>
 							{% for armorPiece in armor %}
-								{% if armorPiece.piece != null %}
 								
-									{% set ca = ca + armorPiece.piece.value %}
-									<tr>
-										<td><i class="icons-{{armorPiece.piece.location.varName}}"></i>{{ armorPiece.piece.location.name }}</td>
-										<td>{{ armorPiece.piece.type.name }}</td>
-										<td>{{ armorPiece.piece.value }}</td>
-										<td>{{ armorPiece.effect }}</td>
-									</tr>
-								{% endif %}
+								{% set ca = ca + armorPiece.value %}
+								<tr>
+									<td><i class="icons-{{armorPiece.locationVarName}}"></i>{{ armorPiece.locationName }}</td>
+									<td>{{ armorPiece.typeName }}</td>
+									<td>{{ armorPiece.value }}</td>
+									<td>{{ armorPiece.effect }}</td>
+								</tr>
 							{% endfor %}
 						</tbody>
 					{% endif %}
@@ -241,17 +239,10 @@
 					<tbody>
 						{% for weapon in weapons %}
 							<tr>
-							{% if weapon.weapon != null %}
-								<td>{{ weapon.weapon.name }}</td>
-								<td>{{ weapon.weapon.damage }}</td>
-								<td>{{ weapon.weapon.dice }}</td>
+								<td>{{ weapon.name }}</td>
+								<td>{{ weapon.damage }}</td>
+								<td>{{ weapon.dice }}</td>
 								<td>{{ weapon.effect }}</td>
-							{% else %}
-								<td> Vide </td>
-								<td>0</td>
-								<td>0</td>
-								<td></td>
-							{% endif %}
 							</tr>
 						{% endfor %}
 					</tbody>

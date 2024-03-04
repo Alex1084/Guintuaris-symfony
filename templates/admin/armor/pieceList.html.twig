@@ -50,7 +50,7 @@
 	</div>
 	<div class="container">
 		<button class="default-sort">Tri par defaut</button>
-		<table class="tableau">
+		<table class="tableau" id="armor-piece-table">
 			<thead>
 				<tr>
 					<th class="sortable number">Id</th>
@@ -74,6 +74,7 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<div class="pagination"></div>
 	</div>
 {% endblock %}
 {% block navside %}
@@ -90,5 +91,6 @@
 
 {% block script %}
     <script src="{{asset('script/tableau.js')}}"></script>
+    <script src="{{asset('script/Table.js')}}"></script>
 	<script src="{{ asset("script/delete.js")}}"></script>
 {% endblock %}

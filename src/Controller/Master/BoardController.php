@@ -15,7 +15,7 @@ class BoardController extends AbstractController
      * cette page est utile au mj uniquement durant des partie
      */
     #[Route('/maitre-du-jeu/tableau', name: 'board')]
-    public function index(
+    public function board(
         BestiaryTypeRepository $bestiaryTypeRepository,
         BestiaryRepository $bestiaryRepository
     ): Response
@@ -45,12 +45,12 @@ class BoardController extends AbstractController
     }
 
     /**
-     * renvoie un reponse json pour afficher les carte dans le mj board
-     * grace a des lien contennent un identifiant, 
+     * renvoie un reponse json pour afficher des mini fiche dans le mj board
+     * grace a des lien contennent l'identifiant d'une creature, 
      * une bete du bestiaire va etre appeler et est interpreter par une requete ajax se trouvant dans le fichier miniFiche.js
      */
     #[Route('/maitre-du-jeu/invoquation/{id}', name: 'summon')]
-    public function beteToJson(
+    public function creatureToJson(
         int $id,
         BestiaryRepository $bestiaryRepository): Response
     {
@@ -59,9 +59,6 @@ class BoardController extends AbstractController
         return $this->json(
             $creature,
             200,
-            /* [],
-            ['groups' => ["read", "note"]] */
         );
-        //return $this->json(["code" => 200, 'bete' => $bete], 200);
     }
 }

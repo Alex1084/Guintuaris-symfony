@@ -15,18 +15,21 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 const shownavside = document.getElementById("show-navside");
 const navside = document.querySelector(".navside")
-shownavside.addEventListener("click", e => {
-    e.preventDefault();
-    if (navside.classList.contains("navside-show")) {
-        navside.classList.replace("navside-show","navside-hidden");
-        setTimeout(() =>{
-            shownavside.parentElement.classList.add("show")
-        }, 600);
-    }
-    else {
-        shownavside.parentElement.classList.remove("show")
-        setTimeout(() =>{
-            navside.classList.replace("navside-hidden","navside-show");
-        }, 300);
-    }
-})
+if (document.getElementById("navside-container") !== null)
+{
+    shownavside.addEventListener("click", e => {
+        e.preventDefault();
+        if (navside.classList.contains("navside-show")) {
+            navside.classList.replace("navside-show","navside-hidden");
+            setTimeout(() =>{
+                shownavside.parentElement.classList.add("show")
+            }, 600);
+        }
+        else {
+            shownavside.parentElement.classList.remove("show")
+            setTimeout(() =>{
+                navside.classList.replace("navside-hidden","navside-show");
+            }, 300);
+        }
+    })    
+}
