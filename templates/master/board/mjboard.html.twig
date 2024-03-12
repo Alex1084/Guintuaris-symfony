@@ -21,7 +21,7 @@
 				<div class="sidebar-nav">
 					{% for bestiaryType in list %}
 						<div class="dropdown">
-							<button class="dropbtn nav-btn">{{bestiaryType.typeName}}</button>
+							<button class="dropbtn nav-btn">{{bestiaryType.typeName}} <img src="/img/list.svg" alt="" class="drop-logo" height="10"></button>
 							<div class="dropdown-content hidden">
 								{% for beast in bestiaryType.beasts %}
 										<a title="Invoquation de {{beast.name}}" href="{{ path('summon', {"id" : beast.id})}}" class="creature-name">{{beast.name}}</a>
@@ -35,8 +35,6 @@
 	</div>
 {% endblock %}
 {% block script %}
+	{{ encore_entry_script_tags('board') }}
 	<script src="{{ asset("script/bar.js")}}"></script>
-	<script src="{{ asset("script/minifiche.js")}}"></script>
-	<script src="{{ asset("script/sidebar.js")}}"></script>
-	<script src="{{ asset("script/dropdown.js")}}"></script>
 {% endblock %}

@@ -157,6 +157,15 @@
 					</tr>
 				 </thead>
 				 <tbody id="paginate-table-body" data-talents="{{character.talents|json_encode}}">
+				 	{% for talent in character.talents %}
+						<tr>
+							<td>{{talent.name}}</td>
+							<td>{{talent.level}}</td>
+							<td>{{talent.otherBonus}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+					{% endfor %}
 				 </tbody>
 				</table>
 				<div id="pagination">
@@ -275,9 +284,7 @@
 {% endblock %}
 
 {% block script %}
-	<script src="{{asset('script/dropdown.js')}}"></script>
 	<script src="{{asset('script/bar.js')}}"></script>
-	<script src="{{asset('script/dice.js')}}"></script>
 	<script src="{{asset('script/personnage.js')}}"></script>
 	<script src="{{asset('script/Talent.js')}}"></script>
 {% endblock %}

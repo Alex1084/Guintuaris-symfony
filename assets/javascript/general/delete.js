@@ -4,8 +4,6 @@ let message = "";
 
 if (board !== null) {
     const boardId = board.id;
-    console.log(board);
-    console.log(boardId);       
     switch (boardId) {
         case "skill":
             titleAlert = "Êtes-vous sûr de vouloir supprimer cette compétence ?";

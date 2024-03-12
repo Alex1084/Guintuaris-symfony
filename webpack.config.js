@@ -21,9 +21,10 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    .addEntry('ckeditor', '@ckeditor/ckeditor5-build-classic',
-                        //   '@ckeditor/ckeditor5-special-characters'
-             )
+    .addEntry('board', './assets/board.js')
+    // .addEntry('ckeditor', '@ckeditor/ckeditor5-editor-classic',
+                        // '@ckeditor/ckeditor5-special-characters'
+            //  )
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

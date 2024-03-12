@@ -60,3 +60,5 @@ class TablePagination
         }
     }
 }
+
+// document.querySelectorAll('.tableau')

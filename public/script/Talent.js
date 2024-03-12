@@ -28,6 +28,9 @@ class Talents
 
         this.rngButton = document.getElementById("talent-dice")
         this.modifierSelect = document.getElementById("modifier")
+        
+        this.resultat = document.getElementById("result")
+
         this.init()
     }
 
@@ -40,6 +43,7 @@ class Talents
 
 
         this.initAllTalent()
+        this.initSimpleDices()
         this.initRGNSelects()
         this.rngListenner()
     }
@@ -136,6 +140,21 @@ class Talents
         })
     }
 
+    initSimpleDices() {
+        let dices = document.querySelectorAll(".dice");
+        dices.forEach(dice => {
+            dice.addEventListener("click", () =>{
+                let faceNumber = dice.dataset.faceNumber;
+                result = Math.floor(Math.random() * faceNumber + 1); 
+                this.resultat.innerText = result;
+                this.resultat.style.background = "rgba(0, 102, 0, 0.5)"
+                setTimeout(() =>{
+                    this.resultat.style.background = "rgba(238, 212, 177, 0.50)"
+                }, 1200)
+            })
+        });
+    }
+
     initAllTalent() {
         let allData = {}
         for (let key in this.talentsData) {
@@ -191,15 +210,15 @@ class Talents
            let message = ''
            if (randomNumber <= 5) {
                 message = 'succée critique'
-                resultat.style.background = "rgba(0,192,0,0.5)"
+                this.resultat.style.background = "rgba(0,192,0,0.5)"
             }
            else if (randomNumber >= 96) {
                 message = 'echec critique'
-                resultat.style.background = "rgba(0,0,0,0.5)"
+                this.resultat.style.background = "rgba(0,0,0,0.5)"
             }
            else if (randomNumber <= totalWithModifier) {
                 message = 'succée'
-                resultat.style.background = "rgba(0,102,0,0.5)"
+                this.resultat.style.background = "rgba(0,102,0,0.5)"
             }
         //    else if (randomNumber > totalWithModifier && randomNumber <= total ) {
         //         message = 'presque reusite'
@@ -207,13 +226,13 @@ class Talents
         //     }
            else if (randomNumber >= total) {
                 message = 'echec'
-                resultat.style.background = "rgba(170,0,0,0.5)"
+                this.resultat.style.background = "rgba(170,0,0,0.5)"
             }
             message = `<p>${message}</p> <p>${randomNumber}/${totalWithModifier} </p>`
-           resultat.innerHTML = message;
+            this.resultat.innerHTML = message;
 
            setTimeout(() =>{
-               resultat.style.background = "rgba(238, 212, 177, 0.50)"
+            this.resultat.style.background = "rgba(238, 212, 177, 0.50)"
            }, 1200)
         })
     }

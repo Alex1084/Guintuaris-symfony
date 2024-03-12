@@ -88,6 +88,10 @@ function initTalent(id) {
     })
     document.getElementById(id+"[delete]").addEventListener("click", e => {
         e.preventDefault();
+
+        let html = `<option value="${id}">${data[id].name}</option>`
+        talentSelector.insertAdjacentHTML( 'beforeend', html )
+        
         delete(data[id]);
         document.getElementById(id).remove();
     })

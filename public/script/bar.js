@@ -29,6 +29,21 @@ function statut(event, opperateur, valNum, operande, valeBare) {
         }
         else if (event.key === 'Enter') {
             event.preventDefault();
+            if (isNaN(operande.value) == true || operande.value <= 0) {
+                Swal.fire({
+                    position: 'top-end',
+                    title: "Veuillez Entrée un nombre superieur a 0",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    background : 'url(../../img/toast.png)',
+                    customClass : {
+                        popup : "toast-custom",
+                        title : "swal-cancel"
+                    },  
+                    toast : true
+                })
+                return
+            }
             valNum.value = eval(valNum.value + opperateur + operande.value);
             operande.value = "";
             if (valeBare != null) {
