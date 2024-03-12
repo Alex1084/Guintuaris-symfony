@@ -2,9 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\ArmorLocation;
-use App\Entity\ArmorType;
-use App\Entity\BestiaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

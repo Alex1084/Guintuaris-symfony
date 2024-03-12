@@ -19,11 +19,11 @@
 			</div>
 			<div class="sidebar-wrapper">
 				<div class="sidebar-nav">
-					{% for bestiaryType in list %}
+					{% for creatureType in list %}
 						<div class="dropdown">
-							<button class="dropbtn nav-btn">{{bestiaryType.typeName}} <img src="/img/list.svg" alt="" class="drop-logo" height="10"></button>
+							<button class="dropbtn nav-btn">{{creatureType.typeName}} <img src="/img/list.svg" alt="" class="drop-logo" height="10"></button>
 							<div class="dropdown-content hidden">
-								{% for beast in bestiaryType.beasts %}
+								{% for beast in creatureType.beasts %}
 										<a title="Invoquation de {{beast.name}}" href="{{ path('summon', {"id" : beast.id})}}" class="creature-name">{{beast.name}}</a>
 								{% endfor %}
 							</div>

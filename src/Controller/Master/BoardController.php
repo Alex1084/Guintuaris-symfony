@@ -2,11 +2,11 @@
 
 namespace App\Controller\Master;
 
-use App\Repository\BestiaryRepository;
-use App\Repository\BestiaryTypeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CreatureRepository;
+use App\Repository\CreatureTypeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BoardController extends AbstractController
 {
@@ -16,24 +16,23 @@ class BoardController extends AbstractController
      */
     #[Route('/maitre-du-jeu/tableau', name: 'board')]
     public function board(
-        BestiaryTypeRepository $bestiaryTypeRepository,
-        BestiaryRepository $bestiaryRepository
+        CreatureTypeRepository $creatureTypeRepository,
+        CreatureRepository $creatureRepository
     ): Response
     {
-        $bestiaryType = $bestiaryTypeRepository->findBy([], ["name" => "ASC"]);
-        $bestiaryList = $bestiaryRepository->bestiaryBoard();
+        $creatureType = $creatureTypeRepository->findBy([], ["name" => "ASC"]);
+        $creatureList = $creatureRepository->getAllName();
         $ids = array_map(function ($type)
         {
-
             return $type->getId();
-        }, $bestiaryType);
+        }, $creatureType);
         $list = [];
-        foreach ($bestiaryType as $key => $type) {
+        foreach ($creatureType as $key => $type) {
             $list[$key]["beasts"] = [];
             $list[$key]["typeName"] = $type->getName();
             $list[$key]["typeID"] = $type->getId();
         }
-        foreach ($bestiaryList as $beast) {
+        foreach ($creatureList as $beast) {
             $index = array_search($beast["typeID"], $ids);
             if ($index !== false) {
                 array_push($list[$index]["beasts"], $beast);
@@ -52,10 +51,9 @@ class BoardController extends AbstractController
     #[Route('/maitre-du-jeu/invoquation/{id}', name: 'summon')]
     public function creatureToJson(
         int $id,
-        BestiaryRepository $bestiaryRepository): Response
+        CreatureRepository $creatureRepository): Response
     {
-        $creature = $bestiaryRepository->find($id);
-        //dd($bete);
+        $creature = $creatureRepository->find($id);
         return $this->json(
             $creature,
             200,

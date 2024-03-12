@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SheetRepository::class)]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name:'discr', type:'string')]
-#[ORM\DiscriminatorMap(["sheet" => "Sheet", "character" => "Character","bestiary" => "Bestiary" ])]
+#[ORM\DiscriminatorMap(["sheet" => "Sheet", "character" => "Character","creature" => "Creature" ])]
 abstract class Sheet
 {
     #[ORM\Id]
@@ -157,6 +157,9 @@ abstract class Sheet
     #[ORM\Column(type: 'datetime_immutable',nullable: false)]
     private $created_at;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $talents = [];
+
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
@@ -261,6 +264,13 @@ abstract class Sheet
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+        return $this;
+    }
+
+    public function getTalents(): ?array { return $this->talents; }
+    public function setTalents(?array $talents): static
+    {
+        $this->talents = $talents;
         return $this;
     }
 }

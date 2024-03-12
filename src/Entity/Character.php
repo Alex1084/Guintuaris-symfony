@@ -46,9 +46,6 @@ class Character extends Sheet
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $last_view;
 
-    #[ORM\Column(type: 'json', nullable: false)]
-    private array $talents = [];
-
     public function getUser(): ?User { return $this->user; }
     public function setUser(?User $user): static
     {
@@ -116,13 +113,6 @@ class Character extends Sheet
     public function setLastView(?\DateTimeInterface $last_view): static
     {
         $this->last_view = $last_view;
-        return $this;
-    }
-
-    public function getTalents(): ?array { return $this->talents; }
-    public function setTalents(?array $talents): static
-    {
-        $this->talents = $talents;
         return $this;
     }
 

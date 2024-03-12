@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231025101849 extends AbstractMigration
+final class Version20240312125443 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,15 @@ final class Version20231025101849 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE `character` CHANGE talents talents JSON NOT NULL DEFAULT "[]"');
+        $this->addSql('ALTER TABLE sheet ADD talents JSON NOT NULL');
+        $this->addSql('ALTER TABLE `character` DROP talents');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE `character` CHANGE talents talents JSON DEFAULT NULL');
+        $this->addSql('ALTER TABLE `character` ADD talents JSON DEFAULT NULL');
+        $this->addSql('UPDATE `character` INNER JOIN sheet ON `character`.`id` = `sheet`.id SET `character`.talent = `sheet`.talents;');
+        $this->addSql('ALTER TABLE sheet DROP talents');
     }
 }

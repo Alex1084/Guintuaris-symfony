@@ -2,18 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\BestiaryTypeRepository;
+use App\Repository\CreatureTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
-
-#[ORM\Entity(repositoryClass: BestiaryTypeRepository::class)]
-class BestiaryType
+#[ORM\Entity(repositoryClass: CreatureTypeRepository::class)]
+class CreatureType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id;
+    private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(
@@ -23,7 +21,7 @@ class BestiaryType
         minMessage: "Le nom doit faire {{ limit }} caractères minimum."
     )]
     #[Assert\NotBlank(message: "Vous devez obligatoirement mettre un nom, celui-ci doit faire entre 3 et 50 caractères.")]
-    private ?string $name;
+    private ?string $name = null;
 
     public function getId(): ?int { return $this->id; }
 

@@ -37,19 +37,19 @@
     },
     "createCreature" : {
         "title" : "Créer une creature",
-        "routeName" : "admin_add_bestiary",
+        "routeName" : "admin_add_creature",
         "text" : "Creer une creature",
         "parameters" :  []
     },
     "creatureType" : {
         "title" : "Liste des types de creature",
-        "routeName" : "admin_bestiary_type_list",
+        "routeName" : "admin_creature_type_list",
         "text" : "List des types de creature",
         "parameters" :  []
     },
     "creature" : {
         "title" : "Liste de creature du bestiaire",
-        "routeName" : "admin_bestiary_list",
+        "routeName" : "admin_creature_list",
         "text" : "Liste de creatures du bestiaire",
         "parameters" :  []
     },

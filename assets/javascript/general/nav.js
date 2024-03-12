@@ -14,8 +14,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const shownavside = document.getElementById("show-navside");
+console.log(document.querySelector(".navside-container"));
 const navside = document.querySelector(".navside")
-if (document.getElementById("navside-container") !== null)
+if (document.querySelector(".navside-container") !== null)
 {
     shownavside.addEventListener("click", e => {
         e.preventDefault();

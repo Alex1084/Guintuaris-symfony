@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Bestiary;
-use App\Entity\BestiaryType;
-use App\Repository\BestiaryTypeRepository;
+use App\Entity\Creature;
+use App\Entity\CreatureType;
+use App\Repository\CreatureTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BestiaryFormType extends AbstractType
+class CreatureFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -23,8 +23,8 @@ class BestiaryFormType extends AbstractType
         ])
         ->add('type', EntityType::class, [
             "label" => "Type",
-            "class" => BestiaryType::class,
-            'query_builder' => function (BestiaryTypeRepository $btr) {
+            "class" => CreatureType::class,
+            'query_builder' => function (CreatureTypeRepository $btr) {
                 return $btr->createQueryBuilder('bt')
                     ->orderBy('bt.name', 'ASC');
             },
@@ -112,15 +112,20 @@ class BestiaryFormType extends AbstractType
             'label' => 'Foi'
         ])
         ->add("note", TextareaType::class, [
-            'attr' => ['class' => 'area-form']
+            'attr' => ['class' => 'area-form'],
+            'required' => false,
+        ])
+        ->add("description", TextareaType::class, [
+            'attr' => ['class' => 'area-form'],
+            'required' => false,
         ]);
-        ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Bestiary::class,
+            'data_class' => Creature::class,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{(requestAttribute == "admin_update_bestiary") ? "Modifier une creature":"Ajouter une créature"}} | {{parent()}} {% endblock %}
+{% block title %}{{(requestAttribute == "admin_update_creature") ? "Modifier une creature":"Ajouter une créature"}} | {{parent()}} {% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -112,6 +112,15 @@
 				</h3>
 				
 				{{ form_widget(creatureForm.note) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="textarea-form">
+				<h3 class="title-form">
+					{{ form_label(creatureForm.description) }}
+				</h3>
+				
+				{{ form_widget(creatureForm.description) }}
 			</div>
 		</div>
 		<button class="valid-form">Valider !</button>
