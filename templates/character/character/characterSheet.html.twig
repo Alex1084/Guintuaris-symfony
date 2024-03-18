@@ -40,7 +40,7 @@
 					<button class="dropbtn">Histoire
 						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
 					<div class=" hidden dropdown-content">
-						<div>{{ character.lore|raw }}</div>
+						<textarea>{{ character.lore }}</textarea>
 					</div>
 					<a title="Modifier le lore de {{character.name}}" href="{{ path("character_update_lore", {"slug" : character.slug, "id" :character.id}) }}" id="lore-link">Modifier mon histoire</a>
 				</div>
