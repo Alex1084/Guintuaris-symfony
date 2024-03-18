@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SheetRepository::class)]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name:'discr', type:'string')]
-#[ORM\DiscriminatorMap(["sheet" => "Sheet", "character" => "Character","creature" => "Creature" ])]
+#[ORM\DiscriminatorMap(["sheet" => "Sheet", "character" => "Character","creature" => "Creature", "pet" => "Pet" ])]
 abstract class Sheet
 {
     #[ORM\Id]
@@ -160,6 +160,18 @@ abstract class Sheet
     #[ORM\Column(type: 'json', nullable: true)]
     private array $talents = [];
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $experience = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $skills = null;
+
     public function getId(): ?int { return $this->id; }
 
     public function getName(): ?string { return $this->name; }
@@ -271,6 +283,44 @@ abstract class Sheet
     public function setTalents(?array $talents): static
     {
         $this->talents = $talents;
+        return $this;
+    }
+
+    public function getImage(): ?string { return $this->image; }
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getSlug(): ?string { return $this->slug; }
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?int $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getSkills(): ?array
+    {
+        return $this->skills;
+    }
+
+    public function setSkills(?array $skills): static
+    {
+        $this->skills = $skills;
+
         return $this;
     }
 }

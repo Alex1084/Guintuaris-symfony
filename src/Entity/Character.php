@@ -37,12 +37,6 @@ class Character extends Sheet
     #[ORM\Column(nullable: true)]
     private ?int $gold;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image;
-
-    #[ORM\Column(length: 255)]
-    private ?string $slug;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $last_view;
 
@@ -92,20 +86,6 @@ class Character extends Sheet
     public function setGold(int $gold): static
     {
         $this->gold = $gold;
-        return $this;
-    }
-
-    public function getImage(): ?string { return $this->image; }
-    public function setImage(?string $image): static
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    public function getSlug(): ?string { return $this->slug; }
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
         return $this;
     }
 

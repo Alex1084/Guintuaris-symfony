@@ -17,13 +17,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CreateController extends AbstractController
 {
-    #[Route('/personnage/creation', name: 'create_character')]
     /**
      * cette page permet de creer pour un utilisateur un nouveau personnage$
      * lors de la creation 7 nouvelle ligne sont créer dans la table armor_piece_character
      * avec comme idantifiant le personnage et un nombre allant de 1 à 7
      * et trois ligne sont créer pour les arme_personnage
      */
+    #[Route('/personnage/creation', name: 'create_character')]
     public function create(
         Request $request,
         EntityManagerInterface $entityManager,

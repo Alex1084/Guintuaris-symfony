@@ -1,0 +1,288 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{pet.name}} | {{parent()}} {% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{{asset('style/personnage.css')}}">
+	<link rel="stylesheet" href="{{asset('style/dropdown.css')}}">
+	<link rel="stylesheet" href="{{asset('style/range.css')}}">
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash error">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="row">
+			<div class="img-div">
+				<div>
+					{# <img src="{{asset('image_personnage/'~ pet.image)}}" alt="" height="200"> #}
+				</div>
+			</div>
+			<div class="div-detail-personnage">
+
+				<h1>{{ pet.name }}</h1>
+				<h3>{{ pet.species.name }}</h3>
+				{# <h3>{{ pet.class.name }}</h3> #}
+				<h3>Niveau {{ pet.level }}</h3>
+				{# {% if character.team %}
+					<a title="Voir les equipier de l'équipe {{character.team.name}}" href="{{ path("team_list", {"teamSlug" : character.team.slug,"teamId" :character.team.id})}}">{{character.team.name}}</a>
+				{% endif %} #}
+			</div>
+			<div class="div-lore">
+				<div class="dropdown">
+					<button class="dropbtn">Histoire
+						<img src="{{ asset('img/list.svg')}}" alt="" class="drop-logo" height="10"></button>
+					<div class=" hidden dropdown-content">
+						<div>{{ pet.lore|raw }}</div>
+					</div>
+					<a title="Modifier le lore de {{pet.name}}" href="{{ path("pet_update_lore", {"slug" : pet.slug, "id" :pet.id}) }}" id="lore-link">Modifier mon histoire</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="div-statistique">
+				<div class="statistique">
+					<p class="label">Constitution:</p>
+					<div class="statistique-valeur" data-constitution="{{ pet.constitution}}">
+						<p>{{ pet.constitution }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Charisme :</p>
+					<div class="statistique-valeur" data-charisma="{{ pet.charisma}}">
+						<p>{{ pet.charisma }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Dextérité :</p>
+					<div class="statistique-valeur" data-dexterity="{{ pet.dexterity}}">
+						<p>{{ pet.dexterity }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Foi :</p>
+					<div class="statistique-valeur" data-faith="{{ pet.faith}}">
+						<p>{{ pet.faith }}</p>
+					</div>
+				</div>
+				
+				<div class="statistique">
+					<p class="label">Force :</p>
+					<div class="statistique-valeur" data-strength="{{ pet.strength}}">
+						<p>{{ pet.strength }}</p>
+					</div>
+				</div>
+				<div class="statistique">
+					<p class="label">Intelligence :</p>
+					<div class="statistique-valeur" data-intelligence="{{ pet.intelligence}}">
+						<p>{{ pet.intelligence }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="div-statut">
+				<div class="statut">
+					<!-- ~~~~~~ vie valeur numerique ~~~~~~ -->
+					<label for="pv" class="label label-statut">
+						PV
+					</label>
+					<input type="number" class="numerique ajax" id="pv" name="pv" value="{{pet.pv}}" readonly>
+					<span class="max">/
+						{{pet.pvMax}}
+					</span>
+
+					<!-- ~~~~~~ bar de vie ~~~~~~ -->
+					<input type="range" class="bar" id="pv-range" min="0" max="{{pet.pvMax}}" value="{{pet.pv}}" disabled>
+
+					<input id="pv-plus" type="number" class="input-enabled ajout" placeholder="">
+					<input id="pv-moins" type="number" class="input-enabled soustrait" placeholder="">
+				</div>
+
+				<div class="statut">
+
+					<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+					<label for="pm" class="label label-statut">PM</label>
+					<input type="number" class="numerique ajax" id="pm" name="pm" value="{{pet.pm}}" readonly>
+
+					<span class="max">/
+						{{pet.pmMax}}</span>
+
+					<!-- ~~~~~~ bar de mana ~~~~~~ -->
+					<input type="range" class="bar" id="pm-range" min="0" max="{{pet.pmMax}}" value="{{pet.pm}}" disabled>
+
+					<input id="pm-plus" type="number" class="input-enabled ajout" placeholder="">
+					<input id="pm-moins" type="number" class="input-enabled soustrait" placeholder="">
+				</div>
+				<div class="statut">
+
+					<!-- ~~~~~~ mana valeur numerique ~~~~~~ -->
+					<label for="pc" class="label label-statut">PC
+					</label>
+					<input type="number" class="numerique ajax" id="pc" name="pc" value="{{pet.pc}}" readonly>
+
+					<span class="max">/
+						{{pet.pcMax}}</span>
+
+					<!-- ~~~~~~ bar de mana ~~~~~~ -->
+					<input type="range" class="bar" id="pc-range" min="0" max="{{pet.pcMax}}" value="{{pet.pc}}" disabled>
+
+					<input id="pc-plus" type="number" class="input-enabled ajout" placeholder="">
+					<input id="pc-moins" type="number" class="input-enabled soustrait" placeholder="">
+				</div>
+			</div>
+		</div>
+		<div>
+			<a title="Metre a jour les statistique de {{pet.name}}" href="{{path("pet_level_up", {"id" :pet.id, "slug" : pet.slug})}}">Changer mes statistiques</a>
+		</div>
+
+		<div class="row">
+			<div>
+				<h2 class="sub-title-center">Talent</h2>
+				<table class="tableau" id="talent-table">
+				 <thead>
+				 	<tr>
+						<th>Nom</th>
+						<th>Niveau</th>
+						<th>Autre bonus</th>
+						<th>Total</th>
+						<th>Experience</th>
+					</tr>
+				 </thead>
+				 <tbody id="paginate-table-body" data-talents="{{pet.talents|json_encode}}">
+				 	{% for talent in pet.talents %}
+						<tr>
+							<td>{{talent.name}}</td>
+							<td>{{talent.level}}</td>
+							<td>{{talent.otherBonus}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+					{% endfor %}
+				 </tbody>
+				</table>
+				<div id="pagination">
+				</div>
+				<a title="Metre a jour les talents de {{pet.name}}" href="{{path("pet_update_talent", {"slug" : pet.slug, "id" :pet.id})}}">Changer mes talents</a>
+			</div>
+			{% include "inc/dices-component.html.twig" %}
+		</div>
+
+		{# <div class="row">
+			<div class="inventaire-form">
+				<div>
+					<div class="label label-form">
+						<label for="inventaire"><i class="icons-inventory"></i> Inventaire</label>
+					</div>
+					<textarea class="ajax" name="inventaire" id="inventaire" cols="30" rows="10">{{character.inventory}}</textarea>
+				</div>
+
+				<div class="div-sauvegarde">
+					<div class="label label-form">
+						<label for="po"><i class="icons-po"></i> Piece d'or</label>
+					</div>
+					<input class="ajax" type="number" name="po" id="po" value="{{character.gold}}">
+				</div>
+			</div>
+		</div> #}
+
+	</div>
+
+	<div class="container">
+		{# <div class="row">
+			<div>
+				<h2 class="sub-title-center">Armure</h2>
+				{% set ca = 0 %}
+				<table class="tableau">
+					<thead>
+						<tr>
+							<th>Pièce</th>
+							<th>Type</th>
+							<th>CA</th>
+							<th>Effet</th>
+						</tr>
+					</thead>
+					{% if armor|length > 0 %}
+						<tbody>
+							{% for armorPiece in armor %}
+								
+								{% set ca = ca + armorPiece.value %}
+								<tr>
+									<td><i class="icons-{{armorPiece.locationVarName}}"></i>{{ armorPiece.locationName }}</td>
+									<td>{{ armorPiece.typeName }}</td>
+									<td>{{ armorPiece.value }}</td>
+									<td>{{ armorPiece.effect }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					{% endif %}
+					<tfoot>
+						<tr>
+							<th>Total :</th>
+							<td></td>
+							<td>{{ca}}</td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+				<a title="Change l'equipement de {{character.name}}" href="{{ path("character_update_armor", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">Modifier</a>
+			</div>
+			<div>
+				<h2 class="sub-title-center">Arme</h2>
+				<table class="tableau">
+					<thead>
+						<tr>
+							<th>Arme</th>
+							<th>Dégats</th>
+							<th>Dé</th>
+							<th>Effet</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for weapon in weapons %}
+							<tr>
+								<td>{{ weapon.name }}</td>
+								<td>{{ weapon.damage }}</td>
+								<td>{{ weapon.dice }}</td>
+								<td>{{ weapon.effect }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<a title="Changer les armes de {{character.name}}" href="{{ path("character_update_weapon", {"slug" : character.slug, "id" : character.id}) }}" class="titre-table">Modifier</a>
+			</div>
+		</div> #}
+	</div>
+	<div class="container">
+		<h2 class="sub-title-center">Compétences</h2>
+		{# <div class="div-competence">
+			{% for skill in skills %}
+				{{skill|skillCard}}
+			{% endfor %}
+		</div> #}
+	</div>
+	<div class="navside-container">
+		<div class="div-show-navside show">
+			<a href="" id="show-navside">Navigation</a>
+		</div>
+		<div class="navside navside-hidden">
+			<a title="Liste des familier" class="link" href="{{path("pet_list")}} ">Retour</a>
+			{# <a title="Metre a jour l'image de {{character.name}}" class="link" href="{{ path("character_change_image", {"slug" : character.slug, 'id' : character.id})}}">Changer d'image</a> #}
+			{# <a title="Parametres de {{pet.name}}" class="link" href="{{ path('character_setting', {"slug" : pet.slug, "id" : pet.id}) }}">option</a> #}
+			<a title="Voir les equipier de l'équipe {{pet.owner.name}}" class="link" href="{{ path("character_view", {"slug" : pet.owner.slug,"id" : pet.owner.id})}}">{{pet.owner.name}}</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{{asset('script/bar.js')}}"></script>
+	<script src="{{asset('script/personnage.js')}}"></script>
+	<script src="{{asset('script/Talent.js')}}"></script>
+{% endblock %}

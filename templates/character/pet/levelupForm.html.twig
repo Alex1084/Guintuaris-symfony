@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Changement de statistique | {{parent()}}{% endblock %}
+
+{% block body %}
+	{{ form_start(petForm) }}
+	<div class="container">
+		<div>
+			<h3 class="title-form">Niveau</h3>
+		</div>
+
+		<div>
+			<div class="div-form">
+				{{ form_label(petForm.level) }}
+
+				{{ form_widget(petForm.level)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.level)}}
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<h3 class="title-form">Statut</h3>
+		</div>
+
+		<div class="row">
+			<div class="div-form">
+				{{ form_label(petForm.pvMax) }}
+
+				{{ form_widget(petForm.pvMax)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.pvMax)}}
+				</div>	
+			</div>
+			<div class="div-form">
+				{{ form_label(petForm.pcMax) }}
+
+				{{ form_widget(petForm.pcMax)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.pcMax)}}
+				</div>
+			</div>
+			<div class="div-form">
+				{{ form_label(petForm.pmMax) }}
+
+				{{ form_widget(petForm.pmMax)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.pmMax)}}
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<h3 class="title-form">Statistiques</h3>
+		</div>
+		<div class="row">
+			<div class="div-form">
+				{{ form_label(petForm.constitution) }}
+
+				{{ form_widget(petForm.constitution)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.constitution)}}
+				</div>	
+			</div>
+			<div class="div-form">
+				{{ form_label(petForm.strength) }}
+
+				{{ form_widget(petForm.strength)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.strength)}}
+				</div>
+			</div>
+			<div class="div-form">
+				{{ form_label(petForm.dexterity) }}
+
+				{{ form_widget(petForm.dexterity)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.dexterity)}}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="div-form">
+				{{ form_label(petForm.intelligence) }}
+
+				{{ form_widget(petForm.intelligence)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.intelligence)}}
+				</div>
+			</div>
+			<div class="div-form">
+				{{ form_label(petForm.charisma) }}
+
+				{{ form_widget(petForm.charisma)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.charisma)}}
+				</div>
+			</div>
+			<div class="div-form">
+				{{ form_label(petForm.faith) }}
+
+				{{ form_widget(petForm.faith)}}
+				<div class="div-errors">
+					{{ form_errors(petForm.faith)}}
+				</div>
+			</div>
+		</div>
+		<div>
+			<button class="valid-form">Valider !</button>
+		</div>
+	</div>
+	{{ form_end(petForm) }}
+{% endblock %}

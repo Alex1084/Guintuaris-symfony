@@ -46,9 +46,11 @@
                             <ul>
                                 {% if is_granted("ROLE_MASTER") %}
                                     <li class="nav-item"><a title="Liste des pesonnages et des equipes" href="{{path('master_list_character_team')}}">Mes personnages et mes Equipes</a></li>
+                                    <li class="nav-item"><a title="Liste des familier" href="{{path('pet_list')}}">Mes familier</a></li>
                                     <li class="nav-item"><a title="Tableau de metre du jeu" href="{{path('board')}}">Mon Tableau de maitre du jeu</a></li>
                                 {% elseif is_granted("ROLE_USER") %}
                                     <li class="nav-item"><a title="Liste des personnages" href="{{path('character_list')}}">Mes personnages</a></li>
+                                    <li class="nav-item"><a title="Liste des familier" href="{{path('pet_list')}}">Mes familier</a></li>
                                 {% endif %}
                                 {% if is_granted("ROLE_ADMIN") %}
                                     <li class="nav-item"><a title="Administration" href="{{path('admin_home')}}">Administration</a></li>

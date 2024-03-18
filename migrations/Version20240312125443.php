@@ -21,6 +21,7 @@ final class Version20240312125443 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE sheet ADD talents JSON NOT NULL');
+        $this->addSql('UPDATE sheet INNER JOIN `character` ON `character`.`id` = `sheet`.id SET `sheet`.talent = `character`.talents;');
         $this->addSql('ALTER TABLE `character` DROP talents');
     }
 

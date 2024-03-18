@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Personnage |{{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(petForm) }}
+		<div>
+			<h3 class="title-form">Personnage</h3>
+		</div>
+		<div class="row">
+			<div class="div-form">{{ form_label(petForm.name) }}
+				{{ form_widget(petForm.name) }}
+				<div class="div-errors">
+					{{ form_errors(petForm.name)}}
+				</div>
+			</div>
+			<div class="div-form">{{ form_label(petForm.owner) }}
+
+				{{ form_widget(petForm.owner) }}
+				<div class="div-errors">
+					{{ form_errors(petForm.owner)}}
+				</div>
+			</div>
+			<div class="div-form">{{ form_label(petForm.species) }}
+
+				{{ form_widget(petForm.species) }}
+				<div class="div-errors">
+					{{ form_errors(petForm.species)}}
+				</div>
+			</div>
+		</div>
+		<div>
+			<button class="valid-form">Modifier !</button>
+		</div>
+
+		{{ form_end(petForm) }}
+
+	</div>
+{% endblock %}

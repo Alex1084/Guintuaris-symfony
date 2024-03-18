@@ -34,11 +34,11 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route('/personnage', name: 'character_')]
 class CharacterController extends AbstractController
 {
-    #[Route('/list', name: 'list')]
     /**
      * affiche la liste des personnage qui appartienent au joueur connecter
      * chaque nom des personnage rammene ver leur fiche
      */
+    #[Route('/liste', name: 'list')]
     public function list(CharacterRepository $characterRepository): Response
     {
         $user = $this->getUser();
