@@ -53,7 +53,6 @@ class PetType extends AbstractType
                     ->orderBy('c.name', 'ASC');
                 },
                 'choice_attr' => ChoiceList::attr($this, function (?Creature $creature) {
-                    dump($creature);
                     return $creature ? ['data-infos' => \json_encode($creature->getInfos())] : [];
                 })
             ])
