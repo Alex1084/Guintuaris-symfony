@@ -142,7 +142,20 @@
 		<div>
 			<a title="Metre a jour les statistique de {{pet.name}}" href="{{path("pet_level_up", {"id" :pet.id, "slug" : pet.slug})}}">Changer mes statistiques</a>
 		</div>
-
+		<div class="row-around">
+			<div class="statistique">
+				<p class="label">Resistance physique:</p>
+				<div class="statistique-valeur">
+					<p>{{ pet.physicalAbsorption }}</p>
+				</div>
+			</div>
+			<div class="statistique">
+				<p class="label">Resistance magie:</p>
+				<div class="statistique-valeur">
+					<p>{{ pet.magicalAbsorption }}</p>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div>
 				<h2 class="sub-title-center">Talent</h2>

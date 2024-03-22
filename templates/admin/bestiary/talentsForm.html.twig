@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %} Mes talents | {{parent()}}{% endblock %}
+
+
+{% block body %}
+<form action="" id="new-talent-form-selector">
+    <select name="talents" id="talents-selector">
+        {% for talent in talents %}
+            {% if talent.id not in equipedTalentsIds %}
+                <option value="{{talent.id}}">{{talent.name}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <button>Ajouter ce talent</button>
+</form>
+<div class="container">
+    {% for message in app.flashes('error') %}
+        <div class="flash error">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <form action="" method="post" id="talent-updated">
+
+        <table class="tableau">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Niveau</th>
+                    <th>Autre bonus</th>
+                    <th>Visible</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="paginate-table-body" data-talent="{{equipedTalents}}">
+
+            </tbody>
+        </table>
+        {# <div id="pagination">
+            <button class="pagination-button">&lt</button>
+            <button class="pagination-button">1</button>
+            <button class="pagination-button">2</button>
+            <button class="pagination-button">3</button>
+            <button class="pagination-button">&gt</button>
+        </div> #}
+
+        <button class="valid-form">Valider !</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{{asset('script/talent-form.js')}}"></script>
+{% endblock %}

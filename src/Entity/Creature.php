@@ -19,6 +19,15 @@ class Creature extends Sheet
     #[ORM\JoinColumn(nullable: false)]
     private ?CreatureType $type = null;
 
+    #[ORM\Column]
+    private ?bool $tameable = null;
+
+    #[ORM\Column]
+    private ?int $physicalAbsorption = null;
+
+    #[ORM\Column]
+    private ?int $magicalAbsorption = null;
+
     public function getNote(): ?string { return $this->note; }
     public function setNote(?string $note): static
     {
@@ -40,8 +49,46 @@ class Creature extends Sheet
         return $this;
     }
 
-    public function __toString()
+    public function isTameable(): ?bool { return $this->tameable; }
+    public function setTameable(bool $tameable): static
     {
-        return $this->getName();
+        $this->tameable = $tameable;
+        return $this;
+    }
+
+    public function getPhysicalAbsorption(): ?int { return $this->physicalAbsorption; }
+    public function setPhysicalAbsorption(int $physicalAbsorption): static
+    {
+        $this->physicalAbsorption = $physicalAbsorption;
+        return $this;
+    }
+
+    public function getMagicalAbsorption(): ?int { return $this->magicalAbsorption; }
+    public function setMagicalAbsorption(int $magicalAbsorption): static
+    {
+        $this->magicalAbsorption = $magicalAbsorption;
+        return $this;
+    }
+
+    public function getInfos()
+    {
+        $infos = [
+            "pv" => $this->getPvMax(),
+            "pc" => $this->getPcMax(),
+            "pm" => $this->getPmMax(),
+            
+            "level" => $this->getLevel(),
+            // 'talent' => $this->getTalents(),
+            "physicalAbsorption" => $this->getPhysicalAbsorption(),
+            "magicalAbsorption" => $this->getMagicalAbsorption(),
+
+            "constitution" => $this->getConstitution(),
+            "strength" => $this->getStrength(),
+            "dexterity" => $this->getDexterity(),
+            "intelligence" => $this->getIntelligence(),
+            "charisma" => $this->getCharisma(),
+            "faith" => $this->getFaith(),
+        ];
+        return $infos;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PetRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PetRepository::class)]
 #[ORM\Table(name: '`pet`')]
@@ -16,6 +17,8 @@ class Pet extends Sheet
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[NotBlank(message: "veuillez choisir une creature")]
+    #[NotNull(message: "veuillez choisir une creature")]
     private ?Creature $species = null;
 
     #[ORM\ManyToOne]
@@ -24,6 +27,12 @@ class Pet extends Sheet
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $lore = null;
+
+    #[ORM\Column]
+    private ?int $physicalAbsorption = null;
+
+    #[ORM\Column]
+    private ?int $magicalAbsorption = null;
 
     public function getOwner(): ?Character
     {
@@ -69,6 +78,30 @@ class Pet extends Sheet
     public function setLore(?string $lore): static
     {
         $this->lore = $lore;
+
+        return $this;
+    }
+
+    public function getPhysicalAbsorption(): ?int
+    {
+        return $this->physicalAbsorption;
+    }
+
+    public function setPhysicalAbsorption(int $physicalAbsorption): static
+    {
+        $this->physicalAbsorption = $physicalAbsorption;
+
+        return $this;
+    }
+
+    public function getMagicalAbsorption(): ?int
+    {
+        return $this->magicalAbsorption;
+    }
+
+    public function setMagicalAbsorption(int $magicalAbsorption): static
+    {
+        $this->magicalAbsorption = $magicalAbsorption;
 
         return $this;
     }

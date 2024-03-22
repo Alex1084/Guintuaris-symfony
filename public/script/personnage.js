@@ -6,22 +6,28 @@ inputs.forEach(input => {
     input.addEventListener('change', ajax)
 });
 
-document.getElementById("po").addEventListener("keydown", e => {
-    keys = ["ArrowLeft", "ArrowRight", "Backspace", "End", "Home", "-", "Enter"]
-    re = new RegExp("[0-9]")
-    if (!re.test(e.key)) {
-        if (!keys.includes(e.key)) {
-            // console.log(e.key);
-            e.preventDefault();
+if ( document.getElementById("po") !== null)
+{    
+    document.getElementById("po").addEventListener("keydown", e => {
+        keys = ["ArrowLeft", "ArrowRight", "Backspace", "End", "Home", "-", "Enter"]
+        re = new RegExp("[0-9]")
+        if (!re.test(e.key)) {
+            if (!keys.includes(e.key)) {
+                // console.log(e.key);
+                e.preventDefault();
+            }
         }
-    }
-})
+    })
+}
 
 
 function ajax() {
     const formData = new FormData();
-    formData.append('inventaire', document.getElementById("inventaire").value);
-    formData.append('po', document.getElementById("po").value);
+    if ( document.getElementById("inventaire") !== null)
+        formData.append('inventaire', document.getElementById("inventaire").value);
+    if ( document.getElementById("po") !== null)
+        formData.append('po', document.getElementById("po").value);
+
     formData.append('pv', document.getElementById("pv").value);
     formData.append('pc', document.getElementById("pc").value);
     formData.append('pm', document.getElementById("pm").value);

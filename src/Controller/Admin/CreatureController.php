@@ -2,24 +2,24 @@
 
 namespace App\Controller\Admin;
 
+use DateTimeImmutable;
 use App\Entity\Creature;
+use App\Form\NameFormType;
 use App\Entity\CreatureType;
 use App\Form\CreatureFormType;
-use App\Form\NameFormType;
+use App\Repository\TalentRepository;
 use App\Repository\CreatureRepository;
-use App\Repository\CreatureTypeRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CreatureTypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/administration/bestiaire', name: 'admin_')]
 class CreatureController extends AbstractController
 {
      /**
-     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route('/ajouter-creature', name: 'add_creature')]
     public function addCreature(
@@ -45,7 +45,6 @@ class CreatureController extends AbstractController
         ]);
     }
     /**
-     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route('/liste', name: 'creature_list')]
     public function creatureList(CreatureRepository $CreatureRepository): Response
@@ -57,7 +56,6 @@ class CreatureController extends AbstractController
     }
 
     /**
-     * permet d'ajouter une nouvelle competence dans la base de donnée (table competence)
      */
     #[Route('/modifier-creature/{creatureId}', name: 'update_creature')]
     public function updateCreature(
@@ -146,5 +144,76 @@ class CreatureController extends AbstractController
             $this->addFlash("success", "Le type ".$oldname." a été renommé ".$newName.".");
         }
         return $this->redirectToRoute("admin_creature_type_list");
+    }
+
+    #[Route('/{creatureId}/talents', name: 'creature_update_talent')]
+    public function updateTalent(
+        // string $slug,
+        int $creatureId,
+        Request $request,
+        EntityManagerInterface $entityManagerInterface,
+        CreatureRepository $creatureRepository,
+        TalentRepository $talentRepository)
+    {
+        $creature = $creatureRepository->find($creatureId);
+        // $creature = $creatureRepository->findOneBy(["slug"=> $slug, "id" => $id]);
+
+        $creatureTalentsId = [];
+        $equipedTalents = json_encode($creature->getTalents());
+
+        if ($creature->getTalents() ==! null) {
+            foreach ($creature->getTalents() as $key => $talent) {
+                array_push($creatureTalentsId, $key);
+            }
+        }
+
+        $talents = $talentRepository->findAllNames();
+        if ($request->isMethod("post")) {
+            $errors = [];
+            $equipedTalents = json_decode($request->request->get("talents"), true);
+            foreach ($equipedTalents as $key => $talent) {
+
+                $indexOfTalent = array_search($key, array_column($talents, 'id'));
+                if ($indexOfTalent === false) {
+                    if (isset($talent['name']) === false) {
+                        $this->addFlash("error", "le talent " .$talent['name']. " n'a pas été trouvé ou n'existe plus");
+                    }
+                    else {
+                        unset($equipedTalents[$key]);
+                    }
+                }
+                else {
+                    $equipedTalents[$key]['name'] = $talents[$indexOfTalent]['name'];
+                    $equipedTalents[$key]['statistic'] = $talents[$indexOfTalent]['statistic_id'];
+                    if ($talent['level'] <0 || $talent['level']>3) {
+                        array_push($errors,'erreur le talent ' .$equipedTalents[$key]['name']. " a un niveau non conforme");
+                    }
+                    if ($talent['otherBonus'] <0) {
+                        array_push($errors,'erreur le talent ' .$equipedTalents[$key]['name']. " a un bonus non conforme");
+                    }
+                }
+            }
+            if (count($errors) === 0) {
+                $creature->setTalents($equipedTalents);
+                $entityManagerInterface->persist($creature);
+                $entityManagerInterface->flush();
+                return $this->redirectToRoute('admin_creature_list');
+            }
+            else {
+                foreach ($errors as $error) {
+                    $this->addFlash("error",$error);
+                }
+                $equipedTalents = json_encode($equipedTalents);
+            }
+        }
+
+ 
+        
+        return $this->render('admin/bestiary/talentsForm.html.twig', [
+            "character" => $creature,
+            "equipedTalentsIds" => $creatureTalentsId,
+            "equipedTalents" => $equipedTalents,
+            "talents" => $talents,
+        ]);
     }
 }

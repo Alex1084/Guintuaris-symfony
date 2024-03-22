@@ -51,6 +51,29 @@
 			</div>
 		</div>
 
+		        <div>
+			<h3 class="title-form">Resistance</h3>
+		</div>
+
+        <div class="row-around">
+            <div class="div-form">
+                {{ form_label(petForm.physicalAbsorption) }}
+
+                {{ form_widget(petForm.physicalAbsorption)}}
+                <div class="div-errors">
+                    {{ form_errors(petForm.physicalAbsorption)}}
+                </div>
+            </div>
+            <div class="div-form">
+                {{ form_label(petForm.magicalAbsorption) }}
+
+                {{ form_widget(petForm.magicalAbsorption)}}
+                <div class="div-errors">
+                    {{ form_errors(petForm.magicalAbsorption)}}
+                </div>
+            </div>
+        </div>
+
 		<div>
 			<h3 class="title-form">Statistiques</h3>
 		</div>

@@ -28,6 +28,14 @@
 				
 				{{ form_widget(creatureForm.type) }}
 			</div>
+
+			<div class="div-form">
+				{{ form_widget(creatureForm.tameable) }}
+				<label class="checkbox-label" for="{{creatureForm.tameable.vars.id }}">
+					{{creatureForm.tameable.vars.label }} <br>
+                    <span class="checkbox-button"></span>
+                </label>
+			</div>
 		</div>
 		<div>
 			<h3 class="title-form">Statut</h3>
@@ -55,6 +63,29 @@
 				</div>
 			</div>
 		</div>
+        <div>
+			<h3 class="title-form">Resistance</h3>
+		</div>
+
+        <div class="row-around">
+            <div class="div-form">
+                {{ form_label(creatureForm.physicalAbsorption) }}
+
+                {{ form_widget(creatureForm.physicalAbsorption)}}
+                <div class="div-errors">
+                    {{ form_errors(creatureForm.physicalAbsorption)}}
+                </div>
+            </div>
+            <div class="div-form">
+                {{ form_label(creatureForm.magicalAbsorption) }}
+
+                {{ form_widget(creatureForm.magicalAbsorption)}}
+                <div class="div-errors">
+                    {{ form_errors(creatureForm.magicalAbsorption)}}
+                </div>
+            </div>
+        </div>
+
 		<div>
 			<h3 class="title-form">Statistiques</h3>
 		</div>

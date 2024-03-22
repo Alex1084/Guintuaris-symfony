@@ -7,6 +7,7 @@ use App\Form\PetType;
 use DateTimeImmutable;
 use App\Repository\PetRepository;
 use App\Repository\TalentRepository;
+use App\Repository\CreatureRepository;
 use App\Repository\StatisticRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +37,7 @@ class PetController extends AbstractController
         Request $request,
         SluggerInterface $slugger,
         EntityManagerInterface $entityManager,
-
+        CreatureRepository $creatureRepository
     ): Response
     {
         $pet = new Pet();
@@ -44,17 +45,16 @@ class PetController extends AbstractController
         $petForm = $this->createForm(PetType::class, $pet);
 
         $petForm->handleRequest($request);
-        if ($petForm->isSubmitted()) {
+        if ($petForm->isSubmitted() && $petForm->isValid()) {
+
             // hydratation des champs
             $slug = $slugger->slug($pet->getName());
-            $species = $pet->getSpecies();
             $pet
             ->setPv($pet->getPvMax())
             ->setPm($pet->getPmMax())
             ->setPc($pet->getPcMax())
 
-            ->setTalents($species->getTalents())
-            ->setLevel($species->getLevel())
+            ->setTalents($pet->getSpecies()->getTalents())
 
             ->setUser($this->getUser())
             ->setSlug($slug)

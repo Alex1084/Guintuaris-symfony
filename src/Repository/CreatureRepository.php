@@ -42,4 +42,13 @@ class CreatureRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+
+    public function getAllTameable()
+    {
+        $query = $this->createQueryBuilder('c')
+        ->where("c.tameable = 1");
+        return $query->getQuery()->getResult();
+
+    }
 }

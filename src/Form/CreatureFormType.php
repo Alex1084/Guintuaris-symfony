@@ -4,14 +4,15 @@ namespace App\Form;
 
 use App\Entity\Creature;
 use App\Entity\CreatureType;
-use App\Repository\CreatureTypeRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Repository\CreatureTypeRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CreatureFormType extends AbstractType
 {
@@ -51,6 +52,22 @@ class CreatureFormType extends AbstractType
             ],
             'label' => 'Point de magie'
         ])
+
+        ->add('physicalAbsorption', IntegerType::class, [
+            "attr" => [
+                "min" => 0,
+                "class" => "input-form",
+            ],
+            'label' => 'Resistance physique'
+        ])
+        ->add('magicalAbsorption', IntegerType::class, [
+            "attr" => [
+                "min" => 0,
+                "class" => "input-form",
+            ],
+            'label' => 'Resistance magique'
+        ])
+        
         ->add('level', IntegerType::class, [
             "attr" => [
                 "min" => 1,
@@ -116,6 +133,11 @@ class CreatureFormType extends AbstractType
             'required' => false,
         ])
         ->add("description", TextareaType::class, [
+            'attr' => ['class' => 'area-form'],
+            'required' => false,
+        ])
+        ->add("tameable", CheckboxType::class, [
+            "label" => 'Domptable',
             'attr' => ['class' => 'area-form'],
             'required' => false,
         ]);

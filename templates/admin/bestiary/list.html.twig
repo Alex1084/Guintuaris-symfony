@@ -24,6 +24,7 @@
 					<th class="sortable text">Type</th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,6 +36,9 @@
 						<td> {{ creature.typeName }} </td>
 						<td>
 							<a title="Modifier la creature {{creature.name}}" href="{{ path("admin_update_creature", {'creatureId' : creature.id}) }}">Modifier</a>
+						</td>
+						<td>
+							<a title="Modifier les talent de la creature {{creature.name}}" href="{{ path("admin_creature_update_talent", {'creatureId' : creature.id}) }}">Modifier les talents</a>
 						</td>
 						<td>
 							<a title="supprimer la creature {{creature.name}}" class="ajax-delete-link alert" href="{{ path("admin_delete_creature", {'creatureId' : creature.id}) }}">Supprimer</a>
