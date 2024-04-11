@@ -40,7 +40,7 @@ class ArmorPieceRepository extends ServiceEntityRepository
     public function selectAllNamesValue()
     {
         return $this->createQueryBuilder('ap')
-            ->select('ap.id, ap.value, al.name AS locationName, at.name AS typeName')
+            ->select('ap.id, ap.physicalAbsorption, ap.magicalAbsorption, al.name AS locationName, at.name AS typeName')
             ->innerJoin(ArmorLocation::class, 'al', Join::WITH, 'al.id = ap.location')
             ->innerJoin(ArmorType::class, 'at', Join::WITH, 'at.id = ap.type')
             ->orderBy('at.name, al.name', 'ASC')

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Config\Dice;
 use App\Repository\WeaponCharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,6 +33,12 @@ class WeaponCharacter
     #[Assert\IsNull()]
     private ?string $effect;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $damage = null;
+
+    #[ORM\Column(length: 10, nullable: true, enumType: Dice::class)]
+    private ?Dice $dice = null;
+
     public function getId(): ?int { return $this->id; }
     public function setId($id): static
     {
@@ -57,6 +64,20 @@ class WeaponCharacter
     public function setEffect(?string $effect): static
     {
         $this->effect = $effect;
+        return $this;
+    }
+
+    public function getDamage(): ?int { return $this->damage; }
+    public function setDamage(?int $damage): static
+    {
+        $this->damage = $damage;
+        return $this;
+    }
+
+    public function getDice(): ?Dice { return $this->dice; }
+    public function setDice(?Dice $dice): static
+    {
+        $this->dice = $dice;
         return $this;
     }
 }

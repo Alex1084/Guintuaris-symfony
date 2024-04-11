@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
+use App\Config\Dice;
 use App\Entity\Weapon;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class WeaponFormType extends AbstractType
 {
@@ -22,9 +24,11 @@ class WeaponFormType extends AbstractType
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Dégats'
             ])
-            ->add('dice', TextType::class, [
+            ->add('dice', EnumType::class, [
                 'attr' => ['class' => 'input-form'],
-                'label' => 'Dè'
+                'label' => 'Dè',
+                'class' => Dice::class,
+                'choice_label' => 'value'
             ])
         ;
     }

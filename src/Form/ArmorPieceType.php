@@ -36,8 +36,11 @@ class ArmorPieceType extends AbstractType
             'choice_label' => 'name',
             "label" => "Type",
         ])
-        ->add('value', IntegerType::class, [
-            "label" => 'Valeur'
+        ->add('physicalAbsorption', IntegerType::class, [
+            "label" => 'Résistance physique'
+        ])
+        ->add('magicalAbsorption', IntegerType::class, [
+            "label" => 'Résistance magique'
         ])
         ;
     }

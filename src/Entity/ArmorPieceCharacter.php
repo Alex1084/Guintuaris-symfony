@@ -31,6 +31,12 @@ class ArmorPieceCharacter
     )]
     private ?string $effect;
 
+    #[ORM\Column(nullable:true)]
+    private ?int $physicalAbsorption = null;
+
+    #[ORM\Column(nullable:true)]
+    private ?int $magicalAbsorption = null;
+
     public function getId(): ?int { return $this->id; }
     public function setId($id): static
     {
@@ -56,6 +62,20 @@ class ArmorPieceCharacter
     public function setEffect(?string $effect): static
     {
         $this->effect = $effect;
+        return $this;
+    }
+
+    public function getPhysicalAbsorption(): ?int { return $this->physicalAbsorption; }
+    public function setPhysicalAbsorption(int $physicalAbsorption): static
+    { 
+        $this->physicalAbsorption = $physicalAbsorption;
+        return $this;
+    }
+
+    public function getMagicalAbsorption(): ?int { return $this->magicalAbsorption; }
+    public function setMagicalAbsorption(int $magicalAbsorption): static
+    {
+        $this->magicalAbsorption = $magicalAbsorption;
         return $this;
     }
 }

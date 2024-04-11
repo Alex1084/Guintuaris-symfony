@@ -199,13 +199,15 @@
 		<div class="row">
 			<div>
 				<h2 class="sub-title-center">Armure</h2>
-				{% set ca = 0 %}
+				{% set physicalAbsorption = 0 %}
+				{% set magicalAbsorption = 0 %}
 				<table class="tableau">
 					<thead>
 						<tr>
 							<th>Pièce</th>
 							<th>Type</th>
-							<th>CA</th>
+							<th>Résistance physique</th>
+							<th>Résistance magique</th>
 							<th>Effet</th>
 						</tr>
 					</thead>
@@ -213,11 +215,13 @@
 						<tbody>
 							{% for armorPiece in armor %}
 								
-								{% set ca = ca + armorPiece.value %}
+								{# {% set physicalAbsorption = physicalAbsorption + armorPiece.physicalAbsorption %} #}
+								{# {% set magicalAbsorption = magicalAbsorption + armorPiece.magicalAbsorption %} #}
 								<tr>
 									<td><i class="icons-{{armorPiece.locationVarName}}"></i>{{ armorPiece.locationName }}</td>
 									<td>{{ armorPiece.typeName }}</td>
-									<td>{{ armorPiece.value }}</td>
+									{# <td>{{ armorPiece.physicalAbsorption }}</td> #}
+									{# <td>{{ armorPiece.magicalAbsorption }}</td> #}
 									<td>{{ armorPiece.effect }}</td>
 								</tr>
 							{% endfor %}
@@ -227,7 +231,8 @@
 						<tr>
 							<th>Total :</th>
 							<td></td>
-							<td>{{ca}}</td>
+							<td>{{physicalAbsorption}}</td>
+							<td>{{magicalAbsorption}}</td>
 							<td></td>
 						</tr>
 					</tfoot>
@@ -250,7 +255,7 @@
 							<tr>
 								<td>{{ weapon.name }}</td>
 								<td>{{ weapon.damage }}</td>
-								<td>{{ weapon.dice }}</td>
+								<td>{{ weapon.dice.value }}</td>
 								<td>{{ weapon.effect }}</td>
 							</tr>
 						{% endfor %}

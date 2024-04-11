@@ -132,13 +132,24 @@ class ArmorController extends AbstractController
      * permet d'ajouter une nouvel Piece d'armure dans la BDD (table armor_piece)
      * permet aussi d'afficher toute les instance de cette table
      */
-    #[Route('/ajouter-piece', name: 'add_armor_piece')]
-    public function addArmorPiece(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        ArmorPieceRepository $armorPieceRepository): Response
+    #[Route('/pieces-d-armures', name: 'armor_pieces')]
+    public function addArmorPiece(ArmorPieceRepository $armorPieceRepository): Response
     {
         $piecesTab = $armorPieceRepository->selectAllNamesValue();
+        return $this->render('admin/armor/pieceList.html.twig', [
+            "piecesTab" => $piecesTab
+        ]);
+    }
+
+    /**
+     * 
+     */
+    #[Route('/ajouter-piece', name: 'add_armor_piece')]
+    public function FunctionName(
+        Request $request,
+        EntityManagerInterface $entityManager,
+    )
+    {
         $armorPiece = new ArmorPiece();
         $armorPieceForm = $this->createForm(ArmorPieceType::class, $armorPiece);
 
@@ -154,12 +165,11 @@ class ArmorController extends AbstractController
                 $this->addFlash("error", "Le formulaire n'a pas été rempli correctement, veuillez affichez le formulaire.");
             }
         }
+        $piecesTab = $armorPieceRepository->selectAllNamesValue();
         return $this->render('admin/armor/pieceList.html.twig', [
             "armorPieceForm" => $armorPieceForm->createView(),
-            "piecesTab" => $piecesTab
         ]);
     }
-
     #[Route('/modifier-piece/{pieceId}', name: 'update_armor_piece')]
     public function updateArmorPieceValue(
         int $pieceId, Request $request,

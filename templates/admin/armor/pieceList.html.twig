@@ -35,10 +35,16 @@
 				</div>
 				</div>
 				<div class="div-form">
-					{{ form_label(armorPieceForm.value)}}
-					{{form_widget(armorPieceForm.value)}}
+					{{ form_label(armorPieceForm.physicalAbsorption)}}
+					{{form_widget(armorPieceForm.physicalAbsorption)}}
 					<div class="div-errors">
-					{{ form_errors(armorPieceForm.value)}}
+					{{ form_errors(armorPieceForm.physicalAbsorption)}}
+				</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.magicalAbsorption)}}
+					{{form_widget(armorPieceForm.magicalAbsorption)}}
+					<div class="div-errors">
+					{{ form_errors(armorPieceForm.magicalAbsorption)}}
 				</div>
 				</div>
 			</div>
@@ -56,7 +62,8 @@
 					<th class="sortable number">Id</th>
 					<th class="sortable text">Emplacement</th>
 					<th class="sortable text">Type</th>
-					<th class="sortable number">Valeur</th>
+					<th class="sortable number">Resistance physique</th>
+					<th class="sortable number">Resistance magique</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -66,7 +73,8 @@
 						<td>{{piece.id}}</td>
 						<td>{{piece.locationName}}</td>
 						<td>{{piece.typeName}}</td>
-						<td>{{piece.value}}</td>
+						<td>{{piece.physicalAbsorption}}</td>
+						<td>{{piece.magicalAbsorption}}</td>
 						<td>
 							<a href="{{path("admin_update_armor_piece", {pieceId : piece.id})}}" class="update-link">modifier</a>
 						</td>

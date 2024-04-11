@@ -28,7 +28,15 @@ class ArmorPieceCharacterRepository extends ServiceEntityRepository
     public function findArmorPiecesCharacterByCharacter($characterId)
     {
         $query = $this->createQueryBuilder("apc")
-        ->select("apc.id, apc.effect, ap.value, al.name AS locationName, al.varName AS locationVarName, at.name AS typeName")
+        ->select("apc.id,
+                  apc.effect,
+                  ap.physicalAbsorption AS basePhysical,
+                  ap.magicalAbsorption AS baseMagical,
+                  apc.physicalAbsorption AS physicalResistance,
+                  apc.magicalAbsorption AS magicalResistance,
+                  al.name AS locationName,
+                  al.varName AS locationVarName,
+                  at.name AS typeName")
         ->join(ArmorPiece::class, "ap", JOIN::WITH, "ap.id = apc.piece")
         ->join(ArmorLocation::class, "al", JOIN::WITH, "al.id = ap.location")
         ->join(ArmorType::class, "at", JOIN::WITH, "at.id = ap.type")

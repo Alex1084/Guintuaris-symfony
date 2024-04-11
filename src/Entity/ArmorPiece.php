@@ -26,12 +26,10 @@ class ArmorPiece
     private ?ArmorType $type;
 
     #[ORM\Column]
-    #[Assert\Range(
-        min:0,
-        max:10, 
-        notInRangeMessage: "La valeur incorrecte, veuillez entrer un nombre compris en {{ min }} et {{ max }}."
-    )]
-    private ?int $value;
+    private ?int $physicalAbsorption = null;
+
+    #[ORM\Column]
+    private ?int $magicalAbsorption = null;
 
     public function getId(): ?int { return $this->id; }
 
@@ -49,10 +47,17 @@ class ArmorPiece
         return $this;
     }
 
-    public function getValue(): ?int { return $this->value; }
-    public function setValue(int $value): static
+    public function getPhysicalAbsorption(): ?int { return $this->physicalAbsorption; }
+    public function setPhysicalAbsorption(int $physicalAbsorption): static
     {
-        $this->value = $value;
+        $this->physicalAbsorption = $physicalAbsorption;
+        return $this;
+    }
+
+    public function getMagicalAbsorption(): ?int { return $this->magicalAbsorption; }
+    public function setMagicalAbsorption(int $magicalAbsorption): static
+    {
+        $this->magicalAbsorption = $magicalAbsorption;
         return $this;
     }
 }

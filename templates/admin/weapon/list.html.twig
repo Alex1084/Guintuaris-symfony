@@ -27,7 +27,7 @@
 						<td class="data-id"> {{weapon.id}} </td>
 						<td class="data-name"> {{ weapon.name }} </td>
 						<td> {{ weapon.damage }} </td>
-						<td> {{ weapon.dice }} </td>
+						<td> {{ weapon.dice.value }} </td>
 						<td>
 							<a title="Modifier l'arme {{weapon.name}}" href="{{ path("admin_update_weapon", {'weaponId' : weapon.id}) }}">Modifier</a>
 						</td>

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Config\Dice;
 use App\Repository\WeaponRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,13 +27,13 @@ class Weapon
     #[ORM\Column]
     private ?int $damage;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, enumType: Dice::class)]
     /* #[Assert\Regex(
         pattern: '/^[1-9]?[0-9]D(100|[0-9]?[0-9])$/',
         match: true,
         message: "Vous devez indiquer un nombre de dés suivis d'un \"D\" en majuscule et le dé à lancée. (10D8, 2D12, 1D6 ...)"
     )] */
-    private ?string $dice;
+    private ?Dice $dice;
 
     public function getId(): ?int { return $this->id; }
     
@@ -50,8 +51,8 @@ class Weapon
         return $this;
     }
 
-    public function getDice(): ?string { return $this->dice; }
-    public function setDice(string $dice): static
+    public function getDice(): ?Dice { return $this->dice; }
+    public function setDice(Dice $dice): static
     {
         $this->dice = $dice;
         return $this;
