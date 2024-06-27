@@ -12,44 +12,92 @@
 			<div class="row">
 				<div class="div-form">{{ form_label(weaponForm.n_1) }}
 					{{ form_widget(weaponForm.n_1) }}
-
-					{{ form_label(weaponForm.effet_1) }}
-					{{ form_widget(weaponForm.effet_1) }}
 					<div class="div-errors">
 						{{ form_errors(weaponForm.n_1)}}
 					</div>
-					<div class="div-errors">
-						{{ form_errors(weaponForm.effet_1)}}
+					<div class="other-info">
+						{{ form_label(weaponForm.effet_1) }}
+						{{ form_widget(weaponForm.effet_1) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.effet_1)}}
+						</div>
+
+						{{ form_label(weaponForm.damage_1) }}
+						{{ form_widget(weaponForm.damage_1) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.damage_1)}}
+						</div>
+
+						{{ form_label(weaponForm.dice_1) }}
+						{{ form_widget(weaponForm.dice_1) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.dice_1)}}
+						</div>
+
 					</div>
 				</div>
 
 				<div class="div-form">{{ form_label(weaponForm.n_2) }}
 					{{ form_widget(weaponForm.n_2) }}
-
-					{{ form_label(weaponForm.effet_2) }}
-					{{ form_widget(weaponForm.effet_2) }}
 					<div class="div-errors">
 						{{ form_errors(weaponForm.n_2)}}
 					</div>
-					<div class="div-errors">
-						{{ form_errors(weaponForm.effet_2)}}
+					<div class="other-info">
+						{{ form_label(weaponForm.effet_2) }}
+						{{ form_widget(weaponForm.effet_2) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.effet_2)}}
+						</div>
+
+						{{ form_label(weaponForm.damage_2) }}
+						{{ form_widget(weaponForm.damage_2) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.damage_2)}}
+						</div>
+
+						{{ form_label(weaponForm.dice_2) }}
+						{{ form_widget(weaponForm.dice_2) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.dice_2)}}
+						</div>
+
 					</div>
 				</div>
 
 				<div class="div-form">{{ form_label(weaponForm.n_3) }}
 					{{ form_widget(weaponForm.n_3) }}
-
-					{{ form_label(weaponForm.effet_3) }}
-					{{ form_widget(weaponForm.effet_3) }}
 					<div class="div-errors">
 						{{ form_errors(weaponForm.n_3)}}
 					</div>
-					<div class="div-errors">
-						{{ form_errors(weaponForm.effet_3)}}
+					<div class="other-info">
+						{{ form_label(weaponForm.effet_3) }}
+						{{ form_widget(weaponForm.effet_3) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.effet_3)}}
+						</div>
+
+						{{ form_label(weaponForm.damage_3) }}
+						{{ form_widget(weaponForm.damage_3) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.damage_3)}}
+						</div>
+
+						{{ form_label(weaponForm.dice_3) }}
+						{{ form_widget(weaponForm.dice_3) }}
+						<div class="div-errors">
+							{{ form_errors(weaponForm.dice_3)}}
+						</div>
+
 					</div>
 				</div>
+
 			</div>
 			<button class="valid-form">Modifier !</button>
 			{{ form_end(weaponForm)}}
 		</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{{asset("script/equipment-form.js")}}"></script>
+
 {% endblock %}

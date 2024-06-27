@@ -159,35 +159,33 @@ class ArmorController extends AbstractController
                 $entityManager->persist($armorPiece);
                 $entityManager->flush();
                 $this->addFlash("success", "La nouvelle pièce d'armure a été enregistrée.");
-                return $this->redirectToRoute('admin_add_armor_piece');
-            }
-            else {
-                $this->addFlash("error", "Le formulaire n'a pas été rempli correctement, veuillez affichez le formulaire.");
+                return $this->redirectToRoute('admin_armor_piece');
             }
         }
-        $piecesTab = $armorPieceRepository->selectAllNamesValue();
-        return $this->render('admin/armor/pieceList.html.twig', [
+        return $this->render('admin/armor/pieceForm.html.twig', [
             "armorPieceForm" => $armorPieceForm->createView(),
         ]);
     }
+
     #[Route('/modifier-piece/{pieceId}', name: 'update_armor_piece')]
     public function updateArmorPieceValue(
         int $pieceId, Request $request,
         EntityManagerInterface $entityManager,
         ArmorPieceRepository $armorPieceRepository)
     {
-        if ($request->isMethod('post')) {
-            $newValue = $request->request->get('value');
-            if (gettype($newValue) === "integer" && $newValue >= 0 && $newValue <= 10) {
-                $this->addFlash("error", "La valeur de classe d'armure n'est pas valide, veuillez entrer un nombre entier entre 1 et 10.");
+        $piece = $armorPieceRepository->find($pieceId);
+        $armorPieceForm = $this->createForm(ArmorPieceType::class, $piece);
+        $armorPieceForm->handleRequest($request);
+        if ($request->isMethod("post")) {
+            if ($armorPieceForm->isSubmitted() && $armorPieceForm->isValid()) {
+                $entityManager->persist($piece);
+                $entityManager->flush();
+                $this->addFlash("success", "La nouvelle pièce d'armure a été enregistrée.");
                 return $this->redirectToRoute('admin_add_armor_piece');
             }
-            $piece = $armorPieceRepository->find($pieceId);
-            $piece->setValue($newValue);
-            $entityManager->persist($piece);
-            $entityManager->flush();
-            $this->addFlash("success", "La pièce d'armure a été mise à jour.");
         }
-        return $this->redirectToRoute('admin_add_armor_piece');
+        return $this->render('admin/armor/pieceForm.html.twig', [
+            "armorPieceForm" => $armorPieceForm->createView(),
+        ]);
     }
 }

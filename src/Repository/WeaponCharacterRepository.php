@@ -25,7 +25,7 @@ class WeaponCharacterRepository extends ServiceEntityRepository
 
     public function findWeaponCharacterByCharacter($characterId){
         $query = $this->createQueryBuilder("wc")
-        ->select("wc.id, wc.effect, w.name, w.damage, w.dice")
+        ->select("wc.id, wc.effect, w.name, w.damage baseDamage, w.dice baseDice, wc.damage, wc.dice ")
         ->join(Weapon::class, 'w', Join::WITH, "w.id = wc.weapon")
         ->where("wc.charact = :character")
         ->setParameter("character",$characterId)

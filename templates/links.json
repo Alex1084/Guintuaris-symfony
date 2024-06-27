@@ -25,6 +25,12 @@
     },
     "armorPiece" : {
         "title" : "Liste des pieces d'armure",
+        "routeName" : "admin_armor_pieces",
+        "text" : "Liste des pieces d'armure",
+        "parameters" :  []
+    },
+    "addArmorPiece" : {
+        "title" : "Ajouter une piece d'armure",
         "routeName" : "admin_add_armor_piece",
         "text" : "Ajouter une pièce d'armure",
         "parameters" :  []

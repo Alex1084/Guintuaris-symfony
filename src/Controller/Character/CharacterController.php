@@ -2,6 +2,7 @@
 
 namespace App\Controller\Character;
 
+use App\Config\Dice;
 use App\Entity\ArmorPiece;
 use App\Entity\ArmorPieceCharacter;
 use App\Entity\Weapon;
@@ -21,7 +22,9 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -398,7 +401,9 @@ class CharacterController extends AbstractController
         //ajout des champs dans le formulmaire
         foreach ($locations as $location) {
             $name = $location->getVarName();
-            $str = 'effet_' . $name;
+            $effectName = 'effet_' . $name;
+            $physicalName = 'physical_absorption_' . $name;
+            $magicalName = 'magical_absorption_' . $name;
 
             //ajout d'un Select avec en option les piece d'armure apartenent a la localisation $i
             $armorForm->add($name, EntityType::class, [
@@ -415,7 +420,7 @@ class CharacterController extends AbstractController
                 'attr' => ['class' => 'input-form']
             ])
             //ajout d'un champs string pour metre l'effet de la piece d'armure
-            ->add($str, TextType::class, [
+            ->add($effectName, TextType::class, [
                 'required' => false,
                 'data' => $armor[$location->getId() - 1]->getEffect(),
                 'label' => 'Effet',
@@ -428,6 +433,20 @@ class CharacterController extends AbstractController
                         "minMessage" =>  "le nom doit faire 5 caractère minimum"
                     ]),
                 ]
+            ])
+            ->add($physicalName, IntegerType::class, [
+                'required' => false,
+                'data' => $armor[$location->getId() - 1]->getPhysicalAbsorption(),
+                'label' => 'Resistance physique',
+                'attr' => ['class' => 'input-form'],
+                // 'constraints'
+            ])
+            ->add($magicalName, IntegerType::class, [
+                'required' => false,
+                'data' => $armor[$location->getId() - 1]->getMagicalAbsorption(),
+                'label' => 'Resistance magique',
+                'attr' => ['class' => 'input-form'],
+                // 'constraints'
             ]);
         }
 
@@ -440,9 +459,14 @@ class CharacterController extends AbstractController
                 $name = $location->getVarName();
                 $piece = $armorForm->get($name)->getData();
                 $effect = $armorForm->get('effet_' . $name)->getData();
+                $physicalAbsorption = $armorForm->get('physical_absorption_' . $name)->getData();
+                $magicalAbsorption = $armorForm->get('magical_absorption_' . $name)->getData();
+                
                 $armor[$location->getId() - 1]->setPiece($piece);
                 $armor[$location->getId() - 1]->setEffect($effect);
-
+                $armor[$location->getId() - 1]->setPhysicalAbsorption($physicalAbsorption);
+                $armor[$location->getId() - 1]->setMagicalAbsorption($magicalAbsorption);
+                
                 $entityManager->persist($armor[$location->getId()  - 1]);
                 $entityManager->flush();
             }
@@ -495,7 +519,10 @@ class CharacterController extends AbstractController
         
         //ajout des champs dans le formulmaire
         for ($i = 1; $i <= 3; $i++) {
-            $str = 'effet_' . $i;
+            $effectName = 'effet_' . $i;
+            $damageName = 'damage_' . $i;
+            $diceName = 'dice_' . $i;
+
             //ajout d'un champs select ayant comme identifiant un numero allant de 1 a 3
             // et ayant comme option la liste de toute les armes
             $weaponForm->add('n_' . $i, EntityType::class, [
@@ -507,21 +534,36 @@ class CharacterController extends AbstractController
                 'attr' => ['class' => 'input-form'],
                 'label' => 'Arme N°' . $i
             ])
-                //ajout d'un champs String pour metre l'enchetement de l'arme 
-                ->add($str, TextType::class, [
-                    'required' => false,
-                    'data' => $weapons[$i - 1]->getEffect(),
-                    'label' => 'Effet',
-                    'attr' => ['class' => 'input-form'],
-                    'constraints' => [
-                        new Length([
-                            "min" => 5,
-                            "max" => 50,
-                            "maxMessage" =>  "le nom doit faire 50 caractère maximum",
-                            "minMessage" =>  "le nom doit faire 5 caractère minimum"
-                        ]),
-                    ]
-                ]);
+            //ajout d'un champs String pour metre l'enchetement de l'arme 
+            ->add($effectName, TextType::class, [
+                'required' => false,
+                'data' => $weapons[$i - 1]->getEffect(),
+                'label' => 'Effet',
+                'attr' => ['class' => 'input-form'],
+                'constraints' => [
+                    new Length([
+                        "min" => 5,
+                        "max" => 50,
+                        "maxMessage" =>  "le nom doit faire 50 caractère maximum",
+                        "minMessage" =>  "le nom doit faire 5 caractère minimum"
+                    ]),
+                ]
+            ])
+            ->add($damageName, IntegerType::class, [
+                'attr' => ['class' => 'input-form'],
+                'data' => $weapons[$i - 1]->getDamage(),
+                'label' => 'Dégats',
+                'required' => false
+            ])
+            ->add($diceName, EnumType::class, [
+                'attr' => ['class' => 'input-form'],
+                'data' => $weapons[$i - 1]->getDice(),
+                'label' => 'Dè',
+                'class' => Dice::class,
+                'choice_label' => 'value',
+                'required' => false,
+                'placeholder' => 'selectioner un dé'
+            ]);
         }
         $weaponForm = $weaponForm->getForm();
         $weaponForm->handleRequest($request);
@@ -531,8 +573,13 @@ class CharacterController extends AbstractController
             for ($i = 1; $i <= 3; $i++) {
                 $weapon = $weaponForm->get('n_' . $i)->getData();
                 $effect = $weaponForm->get('effet_' . $i)->getData();
+                $damage = $weaponForm->get('damage_' . $i)->getData();
+                $dice = $weaponForm->get('dice_' . $i)->getData();
+
                 $weapons[$i - 1]->setWeapon($weapon);
                 $weapons[$i - 1]->setEffect($effect);
+                $weapons[$i - 1]->setDamage($damage);
+                $weapons[$i - 1]->setDice($dice);
 
                 $entityManager->persist($weapons[$i - 1]);
                 $entityManager->flush();

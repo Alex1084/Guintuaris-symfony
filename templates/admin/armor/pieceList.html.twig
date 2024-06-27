@@ -15,44 +15,6 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-		<div class="div-form-hidden">
-			<a id="show-form">Pieces d'armure</a>
-			{{form_start(armorPieceForm, { "attr" : {"class" : "hidden"} }) }}
-			<div class="row">
-
-				<div class="div-form">
-					{{ form_label(armorPieceForm.location)}}
-					{{form_widget(armorPieceForm.location)}}
-					<div class="div-errors">
-					{{ form_errors(armorPieceForm.location)}}
-				</div>
-				</div>
-				<div class="div-form">
-					{{ form_label(armorPieceForm.type)}}
-					{{form_widget(armorPieceForm.type)}}
-					<div class="div-errors">
-					{{ form_errors(armorPieceForm.type)}}
-				</div>
-				</div>
-				<div class="div-form">
-					{{ form_label(armorPieceForm.physicalAbsorption)}}
-					{{form_widget(armorPieceForm.physicalAbsorption)}}
-					<div class="div-errors">
-					{{ form_errors(armorPieceForm.physicalAbsorption)}}
-				</div>
-				<div class="div-form">
-					{{ form_label(armorPieceForm.magicalAbsorption)}}
-					{{form_widget(armorPieceForm.magicalAbsorption)}}
-					<div class="div-errors">
-					{{ form_errors(armorPieceForm.magicalAbsorption)}}
-				</div>
-				</div>
-			</div>
-			<div>
-				<button class="valid-form">Créer !</button>
-			</div>
-			{{form_end(armorPieceForm)}}
-		</div>
 	</div>
 	<div class="container">
 		<button class="default-sort">Tri par defaut</button>
@@ -76,7 +38,7 @@
 						<td>{{piece.physicalAbsorption}}</td>
 						<td>{{piece.magicalAbsorption}}</td>
 						<td>
-							<a href="{{path("admin_update_armor_piece", {pieceId : piece.id})}}" class="update-link">modifier</a>
+							<a href="{{path("admin_update_armor_piece", {pieceId : piece.id})}}">modifier</a>
 						</td>
 					</tr>
 				{% endfor %}
@@ -89,6 +51,7 @@
 	{% set navsideDisplay = true %}
 	{% set navsideLinks = [
 			jsonLinks.returnAdmin,
+			jsonLinks.addArmorPiece,
 			jsonLinks.weapons,
 			jsonLinks.armorTypes,
 			jsonLinks.armorLocation,

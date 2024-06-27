@@ -214,14 +214,27 @@
 					{% if armor|length > 0 %}
 						<tbody>
 							{% for armorPiece in armor %}
+
+								{# set the default value #}
+								{% set piecePhysicalResistance = armorPiece.basePhysical %}
+								{% set pieceMagicalResistance = armorPiece.baseMagical %}
+
+								{# set the real value if it not null #}
+								{% if armorPiece.physicalResistance != null %}
+									{% set piecePhysicalResistance = armorPiece.physicalResistance %}
+								{% endif %}
+								{% if armorPiece.magicalResistance != null %}
+									{% set pieceMagicalResistance = armorPiece.magicalResistance %}
+								{% endif %}
 								
-								{# {% set physicalAbsorption = physicalAbsorption + armorPiece.physicalAbsorption %} #}
-								{# {% set magicalAbsorption = magicalAbsorption + armorPiece.magicalAbsorption %} #}
+								
+								{% set physicalAbsorption = physicalAbsorption + piecePhysicalResistance %}
+								{% set magicalAbsorption = magicalAbsorption + pieceMagicalResistance %}
 								<tr>
 									<td><i class="icons-{{armorPiece.locationVarName}}"></i>{{ armorPiece.locationName }}</td>
 									<td>{{ armorPiece.typeName }}</td>
-									{# <td>{{ armorPiece.physicalAbsorption }}</td> #}
-									{# <td>{{ armorPiece.magicalAbsorption }}</td> #}
+									<td>{{ piecePhysicalResistance }}</td>
+									<td>{{ pieceMagicalResistance }}</td>
 									<td>{{ armorPiece.effect }}</td>
 								</tr>
 							{% endfor %}
@@ -254,8 +267,8 @@
 						{% for weapon in weapons %}
 							<tr>
 								<td>{{ weapon.name }}</td>
-								<td>{{ weapon.damage }}</td>
-								<td>{{ weapon.dice.value }}</td>
+								<td>{{ weapon.damage is null ? weapon.baseDamage : weapon.damage }}</td>
+								<td>{{ weapon.dice is null ? weapon.baseDice.value :weapon.dice.value }}</td>
 								<td>{{ weapon.effect }}</td>
 							</tr>
 						{% endfor %}

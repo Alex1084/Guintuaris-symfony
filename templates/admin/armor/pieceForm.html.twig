@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pièces d'armure | {{parent()}}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="title">Pieces d'armures</h1>
+		{% for message in app.flashes('success') %}
+			<div class="flash success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="flash error">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{{form_start(armorPieceForm) }}
+			<div class="row">
+
+				<div class="div-form">
+					{{ form_label(armorPieceForm.location)}}
+					{{form_widget(armorPieceForm.location)}}
+					<div class="div-errors">
+						{{ form_errors(armorPieceForm.location)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.type)}}
+					{{form_widget(armorPieceForm.type)}}
+					<div class="div-errors">
+						{{ form_errors(armorPieceForm.type)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.physicalAbsorption)}}
+					{{form_widget(armorPieceForm.physicalAbsorption)}}
+					<div class="div-errors">
+						{{ form_errors(armorPieceForm.physicalAbsorption)}}
+					</div>
+				</div>
+				<div class="div-form">
+					{{ form_label(armorPieceForm.magicalAbsorption)}}
+					{{form_widget(armorPieceForm.magicalAbsorption)}}
+					<div class="div-errors">
+						{{ form_errors(armorPieceForm.magicalAbsorption)}}
+					</div>
+				</div>
+			</div>
+			<div>
+				<button class="valid-form">Créer !</button>
+			</div>
+		{{form_end(armorPieceForm)}}
+	</div>
+{% endblock %}
+{% block navside %}
+	{% set navsideDisplay = true %}
+	{% set navsideLinks = [
+			jsonLinks.returnAdmin,
+			jsonLinks.weapons,
+			jsonLinks.armorTypes,
+			jsonLinks.armorLocation,
+		]
+	%}
+	{{parent()}}
+{% endblock %}

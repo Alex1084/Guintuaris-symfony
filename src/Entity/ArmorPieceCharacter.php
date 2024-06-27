@@ -66,14 +66,14 @@ class ArmorPieceCharacter
     }
 
     public function getPhysicalAbsorption(): ?int { return $this->physicalAbsorption; }
-    public function setPhysicalAbsorption(int $physicalAbsorption): static
+    public function setPhysicalAbsorption(?int $physicalAbsorption): static
     { 
         $this->physicalAbsorption = $physicalAbsorption;
         return $this;
     }
 
     public function getMagicalAbsorption(): ?int { return $this->magicalAbsorption; }
-    public function setMagicalAbsorption(int $magicalAbsorption): static
+    public function setMagicalAbsorption(?int $magicalAbsorption): static
     {
         $this->magicalAbsorption = $magicalAbsorption;
         return $this;

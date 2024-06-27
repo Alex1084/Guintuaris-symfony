@@ -17,11 +17,27 @@
 					<div class="div-errors">
 						{{ form_errors(attribute(armorForm, location.varName))}}
 					</div>
-					{{ form_label(attribute(armorForm, "effet_" ~ location.varName)) }}
-					{{ form_widget(attribute(armorForm, "effet_" ~ location.varName)) }}
 
-					<div class="div-errors">
-						{{ form_errors(attribute(armorForm, "effet_" ~ location.varName))}}
+					<div class="other-info">
+						{# TODO : caché les champs si enlever est select #}
+						{{ form_label(attribute(armorForm, "effet_" ~ location.varName)) }}
+						{{ form_widget(attribute(armorForm, "effet_" ~ location.varName)) }}
+
+						<div class="div-errors">
+							{{ form_errors(attribute(armorForm, "effet_" ~ location.varName))}}
+						</div>
+						{{ form_label(attribute(armorForm, "physical_absorption_" ~ location.varName)) }}
+						{{ form_widget(attribute(armorForm, "physical_absorption_" ~ location.varName)) }}
+
+						<div class="div-errors">
+							{{ form_errors(attribute(armorForm, "physical_absorption_" ~ location.varName))}}
+						</div>
+						{{ form_label(attribute(armorForm, "magical_absorption_" ~ location.varName)) }}
+						{{ form_widget(attribute(armorForm, "magical_absorption_" ~ location.varName)) }}
+
+						<div class="div-errors">
+							{{ form_errors(attribute(armorForm, "magical_absorption_" ~ location.varName))}}
+						</div>
 					</div>
 				</div>
 			{% endfor %}
@@ -30,4 +46,9 @@
 		<button class="valid-form">Modifier !</button>
 		{{ form_end(armorForm)}}
 	</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{{asset("script/equipment-form.js")}}"></script>
+
 {% endblock %}
