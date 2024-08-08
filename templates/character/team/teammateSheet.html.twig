@@ -157,28 +157,43 @@
 				<div>
 					<h2 class="sub-title-center">Armure</h2>
 				</div>
-				{% set ca = 0 %}
+				{% set globalPhysicalAbsorption = 0 %}
+				{% set globalMagicalAbsorption = 0 %}
 				<table class="tableau">
 					<thead>
 						<tr>
 							<th>Pièce</th>
 							<th>Type</th>
-							<th>CA</th>
+							<th>Résistance physique</th>
+							<th>Résistance magique</th>
 							<th>Effet</th>
 						</tr>
 					</thead>
 					{% if armor is defined and armor|length > 0%}
 						<tbody>
 							{% for armorPiece in armor %}
-								{% set ca = ca + armorPiece.piece.value %}
+								{# set the default value #}
+								{% set localPhysicalAbsorption = armorPiece.basePhysical %}
+								{% set localMagicalAbsorption = armorPiece.baseMagical %}
+
+								{# set the real value if it not null #}
+								{% if armorPiece.physicalResistance != null %}
+									{% set localPhysicalAbsorption = armorPiece.physicalResistance %}
+								{% endif %}
+								{% if armorPiece.magicalResistance != null %}
+									{% set localMagicalAbsorption = armorPiece.magicalResistance %}
+								{% endif %}
+
+
+								{% set globalPhysicalAbsorption = globalPhysicalAbsorption + localPhysicalAbsorption %}
+								{% set globalMagicalAbsorption = globalMagicalAbsorption + localMagicalAbsorption %}
 								<tr>
-									<td><i class="icons-{{armorPiece.piece.location.varName}}"></i>{{ armorPiece.piece.location.name }}</td>
-									<td>{{ armorPiece.piece.type.name }}</td>
-									<td>{{ armorPiece.piece.value }}</td>
+									<td><i class="icons-{{armorPiece.locationVarName}}"></i>{{ armorPiece.locationName }}</td>
+									<td>{{ armorPiece.typeName }}</td>
+									<td>{{ localPhysicalAbsorption }}</td>
+									<td>{{ localMagicalAbsorption }}</td>
 									<td>{{ armorPiece.effect }}</td>
 								</tr>
-					
-					
 					
 							{% endfor %}
 						</tbody>
@@ -187,7 +202,9 @@
 						<tr>
 							<th>Total :</th>
 							<td></td>
-							<td>{{ca}}</td>
+							<td>{{globalPhysicalAbsorption}}</td>
+							<td>{{globalMagicalAbsorption}}</td>
+							<td></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -209,17 +226,10 @@
 						<tbody>
 							{% for weapon in weapons %}
 								<tr>
-								{% if weapon.weapon != null %}
-									<td>{{ weapon.weapon.name }}</td>
-									<td>{{ weapon.weapon.damage }}</td>
-									<td>{{ weapon.weapon.dice }}</td>
+									<td>{{ weapon.name }}</td>
+									<td>{{ weapon.damage is null ? weapon.baseDamage : weapon.damage }}</td>
+									<td>{{ weapon.dice is null ? weapon.baseDice.value :weapon.dice.value }}</td>
 									<td>{{ weapon.effect }}</td>
-								{% else %}
-									<td> Vide </td>
-									<td>0</td>
-									<td>0</td>
-									<td></td>
-								{% endif %}
 								</tr>
 							{% endfor %}
 						</tbody>

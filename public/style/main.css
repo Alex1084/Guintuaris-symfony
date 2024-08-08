@@ -469,8 +469,8 @@ form .show {
     margin: auto;
     width: 100%;
     background-color: rgba(238, 212, 177, 0.50);
-    margin-top: 2.5vw;
-    margin-bottom: 2.5vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
 table, tr,  th, td {
@@ -483,8 +483,8 @@ th.sortable {
 }
 
 .list {
-    margin-top: 2.5vw;
-    margin-bottom: 2.5vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 /**************footer**************/
 footer{

@@ -74,8 +74,8 @@ class TeamController extends AbstractController
         $skills = $skillRepository->findByLevel($character->getLevel(), $character->getClass()->getId());
 
         //requete pour les armes et armures
-        $armor = $armorPieceCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
-        $weapons = $weaponCharacterRepository->findBy(["charact" => $character->getId()], ["id" => "ASC"]);
+        $armor = $armorPieceCharacterRepository->findArmorPiecesCharacterByCharacter($character->getId());
+        $weapons = $weaponCharacterRepository->findWeaponCharacterByCharacter($character->getId());
 
         // creation d'un formulaire en readonly pour voir le statut
 

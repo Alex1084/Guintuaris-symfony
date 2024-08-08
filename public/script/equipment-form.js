@@ -20,7 +20,9 @@ for (let pieceForm of pieces) {
         for (let input of infosInputs) {
             input.value = ""            
         }
-        otherInfo.querySelector("select").selectedIndex = 0
+        if (otherInfo.querySelector("select") !== null) {
+            otherInfo.querySelector("select").selectedIndex = 0
+        }
     }
 
 }

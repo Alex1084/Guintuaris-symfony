@@ -199,8 +199,8 @@
 		<div class="row">
 			<div>
 				<h2 class="sub-title-center">Armure</h2>
-				{% set physicalAbsorption = 0 %}
-				{% set magicalAbsorption = 0 %}
+				{% set globalPhysicalAbsorption = 0 %}
+				{% set globalMagicalAbsorption = 0 %}
 				<table class="tableau">
 					<thead>
 						<tr>
@@ -216,25 +216,25 @@
 							{% for armorPiece in armor %}
 
 								{# set the default value #}
-								{% set piecePhysicalResistance = armorPiece.basePhysical %}
-								{% set pieceMagicalResistance = armorPiece.baseMagical %}
+								{% set localPhysicalAbsorption = armorPiece.basePhysical %}
+								{% set localMagicalAbsorption = armorPiece.baseMagical %}
 
 								{# set the real value if it not null #}
 								{% if armorPiece.physicalResistance != null %}
-									{% set piecePhysicalResistance = armorPiece.physicalResistance %}
+									{% set localPhysicalAbsorption = armorPiece.physicalResistance %}
 								{% endif %}
 								{% if armorPiece.magicalResistance != null %}
-									{% set pieceMagicalResistance = armorPiece.magicalResistance %}
+									{% set localMagicalAbsorption = armorPiece.magicalResistance %}
 								{% endif %}
-								
-								
-								{% set physicalAbsorption = physicalAbsorption + piecePhysicalResistance %}
-								{% set magicalAbsorption = magicalAbsorption + pieceMagicalResistance %}
+
+
+								{% set globalPhysicalAbsorption = globalPhysicalAbsorption + localPhysicalAbsorption %}
+								{% set globalMagicalAbsorption = globalMagicalAbsorption + localMagicalAbsorption %}
 								<tr>
 									<td><i class="icons-{{armorPiece.locationVarName}}"></i>{{ armorPiece.locationName }}</td>
 									<td>{{ armorPiece.typeName }}</td>
-									<td>{{ piecePhysicalResistance }}</td>
-									<td>{{ pieceMagicalResistance }}</td>
+									<td>{{ localPhysicalAbsorption }}</td>
+									<td>{{ localMagicalAbsorption }}</td>
 									<td>{{ armorPiece.effect }}</td>
 								</tr>
 							{% endfor %}
@@ -244,8 +244,8 @@
 						<tr>
 							<th>Total :</th>
 							<td></td>
-							<td>{{physicalAbsorption}}</td>
-							<td>{{magicalAbsorption}}</td>
+							<td>{{globalPhysicalAbsorption}}</td>
+							<td>{{globalMagicalAbsorption}}</td>
 							<td></td>
 						</tr>
 					</tfoot>
