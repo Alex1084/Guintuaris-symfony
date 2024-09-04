@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('board', './assets/board.js')
+    .addEntry('map', './assets/map.js')
     // .addEntry('ckeditor', '@ckeditor/ckeditor5-editor-classic',
                         // '@ckeditor/ckeditor5-special-characters'
             //  )
@@ -55,6 +56,11 @@ Encore
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
+    })
+
+    .addRule({
+        test: /\.geojson/,
+        type: 'json'
     })
 
 

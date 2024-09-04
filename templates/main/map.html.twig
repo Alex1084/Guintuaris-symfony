@@ -1,0 +1,28 @@
+ {% extends 'base.html.twig' %} 
+
+{% block title %} Accueil | {{parent()}}{% endblock %}
+
+{% block style %}
+		{{ encore_entry_link_tags('map') }}
+{% endblock %}
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="flash success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+        <h1 class="title">La carte du monde</h1>
+        <div class="content">
+            <h2 class="sub-title">Une carte du monde, Vraiment ?</h2>
+            <p>Oui ! La carte du monde de Guintuaris désormais disponible. Vous pourrez voir tous les détails de ce monde et en apprendre plus sur ces villes ces pays et sont univers !</p>
+            <p>Cepandant il faudra etre patient, cette carte est encore en cours de développement et de nouveaux détails seront ajouter au fur et a mesure.</p>
+        </div>
+        <div id="map" style=" margin-top:5vh; height:512px;border: 2px solid black;box-shadow: 10px 5px 5px rgba(91, 76, 57, 0.62);"></div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+	{{ encore_entry_script_tags('map') }}
+{% endblock %}

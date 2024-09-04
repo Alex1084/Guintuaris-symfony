@@ -1,6 +1,9 @@
 window.addEventListener("DOMContentLoaded", (event) => {
     const classList = document.getElementById("class-list");
     const raceList = document.getElementById("race-list");
+    if (classList === null || raceList === null)
+        return
+    
     fetch('/init-nav-bar')
     .then(response => response.json())
     .then(data => {

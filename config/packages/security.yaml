@@ -39,6 +39,7 @@ security:
         - { path: '^/profil', roles: ROLE_USER }
         - { path: '^/regles', roles: ROLE_PREMIUM }
         - { path: '^/le-bureau', roles: ROLE_PREMIUM }
+        - { path: '^/carte-du-monde', roles: ROLE_PREMIUM }
         - { path: '^/maitre-du-jeu', roles : ROLE_MASTER}
         - { path: '^/administration', roles: ROLE_ADMIN }
         - { path: '^/desactiver', roles : ROLE_DEACTIVATE}

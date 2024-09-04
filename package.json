@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^41.1.0",
-        "@ckeditor/ckeditor5-special-characters": "^41.2.0"
+        "@ckeditor/ckeditor5-special-characters": "^41.2.0",
+        "leaflet": "^1.9.4"
     }
 }

@@ -25,12 +25,6 @@ class MainController extends AbstractController
     //     return $this->render('main/office.html.twig');
     // }
 
-    #[Route('/la-carte', name: 'teaser_map')]
-    public function office(): Response
-    {
-        return $this->render('main/map.html.twig');
-    }
-
     #[Route('/init-nav-bar', name: 'init_nav_bar')]
     public function init(
         ClassesRepository $classesRepository,
@@ -57,6 +51,6 @@ class MainController extends AbstractController
 
     #[Route('/carte-du-monde', name: 'main_map')]
     function map() : Response {
-        return $this->render("main/map.html.twig");
+        return $this->render("main/map-full-screen.html.twig");
     }
 }

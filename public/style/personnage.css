@@ -166,11 +166,14 @@
 }
 
 .dices-div {
-    height: 20vh;
+    height: 25vh;
     border: 1px solid black;
     position: relative;
     margin: auto;
+    margin: 5vh 0;
+
 }
+
 .dices-div .simple-dices {
     margin-bottom: 15px;
     display: flex;
