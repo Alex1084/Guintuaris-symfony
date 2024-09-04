@@ -1,11 +1,14 @@
 import 'leaflet'
 
 import 'leaflet/dist/leaflet.css';
-import data from '../../guintuaris_full.json';
+import data from '../../guintuaris_cells.json';
+import notes from '../../notes.json';
 
 // doc for json
 // https://github.com/Azgaar/Fantasy-Map-Generator/wiki/Data-model
-let pack = data.pack
+// let pack = data.pack
+let pack = data.cells
+
 
 
 let levelData = { 
@@ -214,7 +217,7 @@ let reliefLayer = L.tileLayer('../img/map/relief/{z}/{x}/{y}.png', {
 
 // ****** Notes ****** \\
 let notesIndex = {};
-for (let note of data.notes) {
+for (let note of notes) {
         notesIndex[note.id] = note;
 }
 
